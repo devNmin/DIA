@@ -67,17 +67,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web
                 .ignoring()
                 .antMatchers(
-                        "/favicon.ico"
-//
+                        "/favicon.ico",
+                        "/v2/api-docs",
+                        "/configuration/ui",
+                        "/swagger-resources/**",
+                        "/configuration/security",
+                        "/swagger-ui.html",
+                        "/webjars/**"
                 );
     }
 
     // http 요청으로 들어온 정보 security
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable() // 사이트간 위조 방지
+        http.csrf().disable(); // 사이트간 위조 방지
 
+        http
                 .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
 
                 .exceptionHandling()
@@ -98,7 +103,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(
                         "/api/v1/login",
-                        "/api/v1/user"
+                        "/api/v1/signup"
+//                        "/api/v1/test"
                 ).permitAll()
 
                 .anyRequest().authenticated()

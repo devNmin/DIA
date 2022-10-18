@@ -1,3 +1,5 @@
+server:
+  port: 8081
 
 spring:
   # MySQL
@@ -28,6 +30,11 @@ spring:
     init:
       mode: always
       encoding: UTF-8
+
+  #swagger option
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
 # JWT
 jwt:

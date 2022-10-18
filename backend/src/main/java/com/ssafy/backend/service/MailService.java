@@ -29,7 +29,7 @@ public class MailService{
         MimeMessage message = emailsender.createMimeMessage();
 
         message.addRecipients(MimeMessage.RecipientType.TO, to);// 보내는 대상
-        message.setSubject("ttt 회원가입 이메일 인증");// 제목
+        message.setSubject("회원가입 이메일 인증");// 제목
 
         StringBuilder msgg = new StringBuilder();
         msgg.append("<div style='margin:100px;'>");
@@ -81,7 +81,6 @@ public class MailService{
 
         ePw = createKey(); // 랜덤 인증번호 생성
 
-        // TODO Auto-generated method stub
         MimeMessage message = createMessage(to); // 메일 발송
         try {// 예외처리
             emailsender.send(message);

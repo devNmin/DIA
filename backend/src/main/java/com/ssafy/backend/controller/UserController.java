@@ -36,4 +36,9 @@ public class UserController {
         }
     }
 
+//    @GetMapping("/test")
+//    public ResponseEntity<?> test(){
+//        return ResponseEntity.ok("tlqkf");
+//    }
+
 }

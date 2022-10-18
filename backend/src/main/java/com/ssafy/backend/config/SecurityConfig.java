@@ -103,8 +103,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(
                         "/api/v1/login",
-                        "/api/v1/signup"
-//                        "/api/v1/test"
+                        "/api/v1/signup",
+//                        "/api/v1/test",
+                        "/api/v1/mailsend"
                 ).permitAll()
 
                 .anyRequest().authenticated()

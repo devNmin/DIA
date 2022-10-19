@@ -36,8 +36,20 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
+#  # Mail
+#  mail:
+#    host: ${mail.host}
+#    port: ${mail.port}
+#    username: ${mail.username}
+#    password: ${mail.userpassword}
+#    properties:
+#      mail.stmp.auth : true
+#      mail.stmp.ssl.enable: true
+#      mail.smtp.ssl.trust: smtp.naver.com
 # JWT
 jwt:
   header: Authorization
   secret: ${env.jwt.secret}
   token-validity-in-seconds: 10000 #1?
+
+

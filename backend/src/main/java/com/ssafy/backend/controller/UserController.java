@@ -52,5 +52,10 @@ public class UserController {
         return ResponseEntity.ok(new ResponseDto(200,"이미 가입된 이메일입니다"));
     }
 
+    @GetMapping("/test")
+    public ResponseEntity<?> test(){
+        return ResponseEntity.ok(new ResponseDto(200,"이미 가입된 이메일입니다"));
+    }
+
 
 }

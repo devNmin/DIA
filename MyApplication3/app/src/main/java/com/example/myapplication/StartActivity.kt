@@ -5,11 +5,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import androidx.annotation.UiThread
+import kotlinx.android.synthetic.main.activity_start.*
 
 class StartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
+        splashAnimation()
 
         // 일정 시간 지연 이후 실행하기 위한 코드
         Handler(Looper.getMainLooper()).postDelayed({
@@ -22,6 +27,14 @@ class StartActivity : AppCompatActivity() {
             // 이동한 다음 사용안함으로 finish 처리
             finish()
 
-        }, 500) // 시간 0.5초 이후 실행
+        }, 3000)
+    }
+
+    @UiThread
+    private fun splashAnimation(){
+        val fade_out : Animation = AnimationUtils.loadAnimation(this, R.anim.fade_out)
+        textView.startAnimation(fade_out)
+        val fade_in : Animation = AnimationUtils.loadAnimation(this, R.anim.fade_in)
+        textView2.startAnimation(fade_in)
     }
 }

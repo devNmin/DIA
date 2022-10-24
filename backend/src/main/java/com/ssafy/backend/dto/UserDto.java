@@ -14,4 +14,18 @@ import javax.validation.constraints.Size;
 public class UserDto {
     private String userEmail;
     private String userPassword;
+    private String userPassword2;
+    private String userName;
+    private Integer userAge;
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "userEmail='" + userEmail + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", userPassword2='" + userPassword2 + '\'' +
+                ", userName='" + userName + '\'' +
+                ", userAge=" + userAge +
+                '}';
+    }
 }

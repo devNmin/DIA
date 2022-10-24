@@ -1,10 +1,10 @@
 package com.ssafy.backend.controller;
 
-import com.ssafy.backend.dto.ErrorDto;
+import com.ssafy.backend.dto.ResponseDto;
 import com.ssafy.backend.dto.UserDto;
-import com.ssafy.backend.entity.User;
 import com.ssafy.backend.repository.UserRepository;
 import com.ssafy.backend.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
@@ -28,17 +28,29 @@ public class UserController {
     public ResponseEntity<?> signup(
             @Valid @RequestBody UserDto userDto
     ){
-        User user = userService.signup(userDto);
-        if(user != null){
-            return ResponseEntity.ok(user);
+        String user = userService.signup(userDto);
+
+        if(user.equals("ok")){
+            return ResponseEntity.ok(new ResponseDto(200,"회원가입 성공"));
+        }else if(user.equals("email")){
+            return ResponseEntity.ok(new ResponseDto(200,"이미 가입된 이메일입니다"));
         }else{
-            return ResponseEntity.ok(new ErrorDto(200,"이미 가입된 이메일입니다."));
+            return ResponseEntity.ok(new ResponseDto(200,"비밀번호가 일치하지 않습니다."));
         }
     }
 
-//    @GetMapping("/test")
-//    public ResponseEntity<?> test(){
-//        return ResponseEntity.ok("tlqkf");
-//    }
+    @GetMapping("/email/check/{email}")
+    public ResponseEntity<?> emailCheck(
+            @PathVariable("email") String email
+    ){
+        boolean check = userService.emailCheck(email);
+
+        if(check){
+            return ResponseEntity.ok(new ResponseDto(200,"사용 가능한 이메일 입니다"));
+        }
+
+        return ResponseEntity.ok(new ResponseDto(200,"이미 가입된 이메일입니다"));
+    }
+
 
 }

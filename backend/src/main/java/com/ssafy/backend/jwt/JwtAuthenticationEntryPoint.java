@@ -1,14 +1,13 @@
 package com.ssafy.backend.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ssafy.backend.dto.ErrorDto;
+import com.ssafy.backend.dto.ResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +29,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         try (OutputStream os = response.getOutputStream()) {
             ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.writeValue(os, new ResponseEntity<ErrorDto>(new ErrorDto(401,"유효하지 않은 토큰입니다"),HttpStatus.UNAUTHORIZED));
+            objectMapper.writeValue(os, new ResponseEntity<ResponseDto>(new ResponseDto(401,"유효하지 않은 토큰입니다"),HttpStatus.UNAUTHORIZED));
             os.flush();
         }
     }

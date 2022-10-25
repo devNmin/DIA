@@ -29,21 +29,23 @@ axios.interceptors.request.use(async req => {
     // access 토큰이 만료되었을 경우 refresh 요청을 통해서 access 토큰을 바꿔줘야 한다. 
     // 가지고 있는 refresh  토큰으로 갱신 즉, 새로운 acceess 토큰을 요청한다.
     try {
-        const response = await Axios.post(baseURL + 'auths/token_refresh/',{
-            refresh: authTokens.refresh
+        console.log('access token 갱신 요청');
+        const response = await Axios.post(baseURL + 're-issue',{
+            headers : {
+                Authorization : `Bearer ${authTokens?.accessToken}`
+            }
         })
         // 요청 성공시 결과로부터 새로운 access 토큰을 받고 이를 set을 통해 갱신해준다. 
         let data = await response.data
        
-        localStorage.setItem('authTokens',JSON.stringify({ accessToken: data.access, refreshToken: authTokens.refresh }))
+        localStorage.setItem('authTokens',JSON.stringify({ accessToken: data.accessToken, refreshToken: authTokens.refreshToken }))
         // authTokens = localStorage.getItem('authTokens')? JSON.parse(localStorage.getItem('authTokens')): null
         req.headers.Authorization = `Bearer ${response.data.accessToken}`
         window.location.reload()
         return req        
     }
     // 실패시 refresh 토큰이 만료되었다는 의미기 때문에 자동으로 logout을 해주어야한다. AuthContext에 잇는 logout 그대로 구현해준다. 
-    catch (error) {
-        
+    catch (error) {        
         // localStorage.removeItem('userInfo');
         localStorage.removeItem('authTokens');
         window.location.replace("/")

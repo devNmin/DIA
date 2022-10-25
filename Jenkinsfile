@@ -90,14 +90,13 @@ pipeline {
 
         stage('Bulid & Run') {
             steps {
-                dir('BE'){
-                    sh 'echo " Image Bulid Start"'
-                    script {
+                sh 'echo " Image Bulid Start"'
+                script {
 
 //                         업데이트된 코드로 빌드 및 실행
-                        sh 'docker-compose up -d'
-                    }
+                    sh 'dockercompose up -d'
                 }
+                
             }
 
             post {

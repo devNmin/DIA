@@ -29,7 +29,7 @@ pipeline {
                 // sh 'chmod -R 777 /usr/local/bin'
                 // sh 'chmod +x /usr/local/bin/docker-compose'
 //              기존 백그라운드에 돌아가던 컨테이너 중지
-                sh 'docker-compose stop'
+                sh 'sudo docker-compose stop'
 
 
             }
@@ -47,10 +47,10 @@ pipeline {
 
                 //정지된 도커 컨테이너 찾아서 컨테이너 ID로 삭제함
                 sh '''
-                    result=$( docker container ls -a --filter "name=DIA*" -q )
+                    result=$(sudo docker container ls -a --filter "name=DIA*" -q )
                     if [ -n "$result" ]
                     then
-                        docker rm $(docker container ls -a --filter "name=DIA*" -q)
+                        sudo docker rm $(docker container ls -a --filter "name=DIA*" -q)
                     else
                         echo "No such containers"
                     fi
@@ -58,10 +58,10 @@ pipeline {
 
                 // DIA로 시작하는 이미지 찾아서 삭제함
                 sh '''
-                    result=$( docker images -f "reference=DIA*" -q )
+                    result=$(sudo docker images -f "reference=DIA*" -q )
                     if [ -n "$result" ]
                     then
-                        docker rmi -f $(docker images -f "reference=DIA*" -q)
+                        sudo docker rmi -f $(docker images -f "reference=DIA*" -q)
                     else
                         echo "No such container images"
                     fi
@@ -69,10 +69,10 @@ pipeline {
 
                 // 안쓰는이미지 -> <none> 태그 이미지 찾아서 삭제함
                 sh '''
-                    result=$(docker images -f "dangling=true" -q)
+                    result=$(sudo docker images -f "dangling=true" -q)
                     if [ -n "$result" ]
                     then
-                        docker rmi -f $(docker images -f "dangling=true" -q)
+                        sudo docker rmi -f $(docker images -f "dangling=true" -q)
                     else
                         echo "No such container images"
                     fi
@@ -89,7 +89,7 @@ pipeline {
         stage('Build Gradle'){
             steps{
                 dir('backend') {
-                    sh "chmod +x gradlew"
+                    sh "sudo chmod +x gradlew"
                     sh """
                     ./gradlew clean build --exclude-task test
                     """
@@ -107,7 +107,7 @@ pipeline {
                 script {
 
 //                         업데이트된 코드로 빌드 및 실행
-                    sh 'docker-compose up -d'
+                    sh 'sudo docker-compose up -d'
                 }
                 
             }

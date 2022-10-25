@@ -22,8 +22,8 @@ pipeline {
 
         stage('Docker stop'){
             steps {
-                sh 'echo "root ubuntu" | sudo -S ls'
-                sh 'ls'
+                // sh 'echo "root ubuntu" | sudo -S ls'
+                // sh 'ls'
                 sh 'chmod -R 777 /usr/local/bin'
                 sh 'chmod +x /usr/local/bin/docker-compose'
                 sh 'echo "Docker Container Stop"'

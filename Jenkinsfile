@@ -54,7 +54,7 @@ pipeline {
                     result=$(sudo  docker container ls -a --filter "name=DIA*" -q )
                     if [ -n "$result" ]
                     then
-                        sudo docker rm $(docker container ls -a --filter "name=DIA*" -q)
+                        sudo docker rm $(sudo docker container ls -a --filter "name=DIA*" -q)
                     else
                         echo "No such containers"
                     fi
@@ -65,7 +65,7 @@ pipeline {
                     result=$(sudo  docker images -f "reference=DIA*" -q )
                     if [ -n "$result" ]
                     then
-                        sudo docker rmi -f $(docker images -f "reference=DIA*" -q)
+                        sudo docker rmi -f $(sudo docker images -f "reference=DIA*" -q)
                     else
                         echo "No such container images"
                     fi
@@ -76,7 +76,7 @@ pipeline {
                     result=$(sudo docker images -f "dangling=true" -q)
                     if [ -n "$result" ]
                     then
-                        sudo docker rmi -f $(docker images -f "dangling=true" -q)
+                        sudo docker rmi -f $(sudo docker images -f "dangling=true" -q)
                     else
                         echo "No such container images"
                     fi

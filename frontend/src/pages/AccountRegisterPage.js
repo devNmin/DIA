@@ -19,6 +19,9 @@ export default function AccountRegisterPage() {
   const ageInput = useRef();  
   const history = useHistory();
   const [showAuth, setShowAuth] = useState(false)
+  const [authKey, setAuthKey] = useState(null)
+  const keyInput = useRef();
+  const [canSignup, setCanSignup] = useState(false)
 
   // let [formData, setformData] = useState({
   //   gender: ""
@@ -154,6 +157,32 @@ export default function AccountRegisterPage() {
     }
   }
 
+  const emailAuthChecker = async(event) => {
+    event.preventDefault();
+    await axios.post(BASE_URL + 'mailsend',{
+      "email" : emailInput.current.value
+    }).then(
+      res => {
+        console.log(res.data);
+        setAuthKey(res.data)        
+      }
+    )
+    setShowAuth(true)
+    alert('인증키를 이메일로 보내드렸습니다!')
+  }
+
+  const keyValidChecker = (e) => {
+    e.preventDefault()
+    if (keyInput.current.value === authKey) {
+      alert('인증완료!')  
+      setCanSignup(true)          
+    } else {
+      alert('인증실패!')
+    }
+  }
+
+
+
   return (
     <div>
       <section className={styles.auth}>
@@ -175,15 +204,15 @@ export default function AccountRegisterPage() {
                 </div>
                 <p className={styles.emailChecker} dangerouslySetInnerHTML={{__html: emailChecker}}></p>
                 {showAuth? 
-                <div className={styles.control}>
-                <h5> Key </h5>
-                <input type='text' maxLength='10' name='signup_name' ref={nameInput} />
+                <div >
+                    <h5> Key </h5>
+                    <div>
+                      <input type='text' maxLength='10' name='auth_key' ref={keyInput} />
+                      <button onClick={keyValidChecker}>인증하기</button>
+                    </div>
                 </div>
                 :
-                <button onClick={() => {
-                  setShowAuth(true)
-                  alert('인증키를 이메일로 보내드렸습니다!')
-                  }}>Authenticate</button>}
+                <button onClick={emailAuthChecker}>Authenticate</button>}
                 
               </div>
               {/* 비밀번호 */}
@@ -222,7 +251,11 @@ export default function AccountRegisterPage() {
               {/* 생년월일 */}
             </div>
           </div>
-          <button onClick={submitHandler} >Sign Up</button>
+          {canSignup? 
+            <button onClick={submitHandler} >Sign Up</button>
+            :
+            null
+          }
         </form>
 
         <Link className={styles.linkP} to='/'>

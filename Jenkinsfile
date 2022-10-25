@@ -23,6 +23,7 @@ pipeline {
         stage('Docker stop'){
             steps {
                 sh 'echo "root ubuntu" | sudo -S ls'
+                sh 'ls'
                 sh 'echo "Docker Container Stop"'
 //              도커 컴포즈 다운
                 // sh 'curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose'

@@ -24,15 +24,15 @@ export default AuthContext;
 
 export const AuthProvider = ({ children }) => {
   // 콜백을 쓰는 이유는 안 쓸 경우 페이지가 로드 될때마다 계속 작동하기 때문에
-  let [user, setUser] = useState(() =>
-    localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null    
-  );
+  // let [user, setUser] = useState(() =>
+  //   localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null    
+  // );
 
   let [authTokens, setAuthTokens] = useState(() =>
     localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')): null    
   );
 
-  let BASE_URL = 'https://j7b304.p.ssafy.io/api/v1/';
+  let BASE_URL = 'http://localhost:8081/api/v1/';
 //   let [loading, setLoading] = useState(true);
 
   const history = useHistory();
@@ -40,25 +40,28 @@ export const AuthProvider = ({ children }) => {
   let loginUser = async (e) => {
     e.preventDefault();
     
-    let response = await fetch(BASE_URL + 'auths/login/', {
+    let response = await fetch(BASE_URL + 'login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        user_email: e.target.useremail.value,
-        user_password: e.target.userpassword.value,
+        userEmail: e.target.useremail.value,
+        userPassword: e.target.userpassword.value,
       }),
     });
     let data = await response.json();
    
     if (response.status === 200) {
-      setAuthTokens(data.token);
-      setUser(data.user);      
-      localStorage.setItem('authTokens', JSON.stringify(data.token));
-      localStorage.setItem('userInfo', JSON.stringify(data.user));  
+      console.log("로그인 성공");
+      setAuthTokens(data);
+      // setUser(data.user);      
+      localStorage.setItem('authTokens', JSON.stringify(data));
+      // localStorage.setItem('userInfo', JSON.stringify(data.user));  
+      history.push('/main');
 
     } else {      
+      console.log("로그인 실패!");
       new swal(
         'Oops!',
         '<b style="color:red;">Login Error!</b> Write correct id and password :)',
@@ -69,8 +72,8 @@ export const AuthProvider = ({ children }) => {
 
   let logoutUser = () => {
     setAuthTokens(null);
-    setUser(null);
-    localStorage.removeItem('userInfo');
+    // setUser(null);
+    // localStorage.removeItem('userInfo');
     localStorage.removeItem('authTokens');
     history.push('/');
   };
@@ -103,7 +106,7 @@ export const AuthProvider = ({ children }) => {
 
   // 로그인 함수를 생성한 후 이를 contextData에 담아서 사용이 가능하게 한다.
   let contextData = {
-    user: user,
+    // user: user,
     loginUser: loginUser,
     logoutUser: logoutUser,
     BASE_URL: BASE_URL,

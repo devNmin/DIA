@@ -16,9 +16,9 @@ export default function AccountRegisterPage() {
   const passwordInput = useRef();
   const passwordCheckInput = useRef();
   const nameInput = useRef();
-  const ageInput = useRef();
-  const birthInput = useRef();
+  const ageInput = useRef();  
   const history = useHistory();
+  const [showAuth, setShowAuth] = useState(false)
 
   // let [formData, setformData] = useState({
   //   gender: ""
@@ -65,16 +65,16 @@ export default function AccountRegisterPage() {
     var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
     // 검증에 사용할 정규식 변수 regExp에 저장
   
-    
+  
     if(emailsubmit.length === 0){
       alert('Please enter your email.')
     }else if (emailsubmit.match(regExp) == null) {
       alert('Check your email.')
     }
     else{
-      await axios.get(BASE_URL + `accounts/check/email/${emailsubmit}/`
-      ).then(res => {
-        alert('you can use this email')
+      await axios.get(BASE_URL + `email/check/${emailsubmit}`
+      ).then(res => {        
+        alert(res.data.message)
       }).catch(err => {
         alert(err.response.data.error);
       }
@@ -90,34 +90,31 @@ export default function AccountRegisterPage() {
     const passwordsubmit = passwordInput.current.value;
     const passwordchecksubmit = passwordCheckInput.current.value;
     const namesubmit = nameInput.current.value;    
-    const brithsubmit = birthInput.current.value;
+    const agesubmit = ageInput.current.value;
     
 
-    await fetch(BASE_URL + 'auths/signup/', {
+    await fetch(BASE_URL + 'signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        "user_email": emailsubmit,
-        "password": passwordsubmit,
-        "password2": passwordchecksubmit,
-        "user_name": namesubmit,
-        
-        
-        "user_birth": brithsubmit
+        "userEmail": emailsubmit,
+        "userPassword": passwordsubmit,
+        "userPassword2": passwordchecksubmit,
+        "userName": namesubmit,            
+        "userAge": agesubmit
       })
 
     }).then(res => {
       if (res.ok) {
         new swal(
           'Register Success',
-          'Welcome to HomeSketcher!'
+          'Welcome to DIA!'
           , 'success'
 
         )
-        history.push('/login')
-
+        history.push('/')
       } else {
         new swal(
           'Oops!',
@@ -174,8 +171,20 @@ export default function AccountRegisterPage() {
                 <div className={styles.Email}>
                   <input type='email' maxLength='25' name='signup_email' ref={emailInput} onKeyUp={EmailCheckHandler} onBlur={emailCheckerHandler2}/>
                   <button className={styles.EmailCheck} onClick={emailcheckHandler}>check</button>
+                  
                 </div>
                 <p className={styles.emailChecker} dangerouslySetInnerHTML={{__html: emailChecker}}></p>
+                {showAuth? 
+                <div className={styles.control}>
+                <h5> Key </h5>
+                <input type='text' maxLength='10' name='signup_name' ref={nameInput} />
+                </div>
+                :
+                <button onClick={() => {
+                  setShowAuth(true)
+                  alert('인증키를 이메일로 보내드렸습니다!')
+                  }}>Authenticate</button>}
+                
               </div>
               {/* 비밀번호 */}
               <div className={styles.control}>
@@ -216,7 +225,7 @@ export default function AccountRegisterPage() {
           <button onClick={submitHandler} >Sign Up</button>
         </form>
 
-        <Link className={styles.linkP} to='/login'>
+        <Link className={styles.linkP} to='/'>
           <p>Already Have An Account</p>
         </Link>
       </section>

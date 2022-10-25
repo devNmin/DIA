@@ -51,21 +51,21 @@ pipeline {
 
                 //정지된 도커 컨테이너 찾아서 컨테이너 ID로 삭제함
                 sh '''
-                    result=$(sudo  docker container ls -a --filter "name=DIA*" -q )
+                    result=$(sudo  docker container ls -a --filter "name=dia*" -q )
                     if [ -n "$result" ]
                     then
-                        sudo docker rm $(sudo docker container ls -a --filter "name=DIA*" -q)
+                        sudo docker rm $(sudo docker container ls -a --filter "name=dia*" -q)
                     else
                         echo "No such containers"
                     fi
                 '''
 
-                // DIA로 시작하는 이미지 찾아서 삭제함
+                // dia로 시작하는 이미지 찾아서 삭제함
                 sh '''
-                    result=$(sudo  docker images -f "reference=DIA*" -q )
+                    result=$(sudo  docker images -f "reference=dia*" -q )
                     if [ -n "$result" ]
                     then
-                        sudo docker rmi -f $(sudo docker images -f "reference=DIA*" -q)
+                        sudo docker rmi -f $(sudo docker images -f "reference=dia*" -q)
                     else
                         echo "No such container images"
                     fi

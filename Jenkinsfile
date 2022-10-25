@@ -86,7 +86,7 @@ pipeline {
             }
         }
 
-        stage('Bulid & Run') {
+        stage('Build Gradle'){
             steps{
                 dir('backend') {
                     sh "chmod +x gradlew"
@@ -95,6 +95,13 @@ pipeline {
                     """
                 }
             }
+            post{
+                failure{
+                    sh 'echo "Build Gradle Fail"'
+                }
+            }
+        }
+        stage('Bulid & Run') {
             steps {
                 sh 'echo " Image Bulid Start"'
                 script {

@@ -1,8 +1,9 @@
 .body {
   height: 100vh;
-  background: linear-gradient(#141e30, #243b55);
+  /* background: linear-gradient(#141e30, #243b55); */
   user-select: none;
-  /* background-image: url('https://cdn.britannica.com/10/233910-131-1B89F1CC/Antoine-Griezmam-of-France-kicks-ball-FIFA-2018-World-Cup-finals.jpg'); */
+  background-image: url('../assets/background.jpg');
+  background-size: cover;
 }
 
 .login_box {

@@ -10,7 +10,7 @@ function LoginPage() {
   return (
     <div className={styles.body}>
       <section className={styles.login_box}>
-        <h2>로그인</h2>
+        <h2>DIA</h2>
         <form onSubmit={loginUser}>
           {/* <img src={logo} alt="" /> */}
           <div className={styles.user_box}>

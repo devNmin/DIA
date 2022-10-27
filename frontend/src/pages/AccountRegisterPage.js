@@ -22,6 +22,8 @@ export default function AccountRegisterPage() {
   const [authKey, setAuthKey] = useState(null)
   const keyInput = useRef();
   const [canSignup, setCanSignup] = useState(false)
+  const [isChecked, setIsChecked] = useState(false)
+  const [emailDisable, setEmailDisable] = useState(false)
 
   // let [formData, setformData] = useState({
   //   gender: ""
@@ -78,9 +80,14 @@ export default function AccountRegisterPage() {
     }
     else{
       await axios.get(BASE_URL + `email/check/${emailsubmit}`
-      ).then(res => {        
+      ).then(res => {     
+        if (res.data.statusCode === 200) {
+          setIsChecked(true)  
+          setEmailDisable(true)        
+        } 
         alert(res.data.message)
         window.ReactAlert.showToast(res.data.message)
+        
       }).catch(err => {
         alert(err.response.data.error);
         window.ReactAlert.showToast(err.response.data.error)
@@ -179,12 +186,14 @@ export default function AccountRegisterPage() {
     
   }
 
-  const keyValidChecker = (e) => {
+  const keyValidChecker = async (e) => {
     e.preventDefault()
     if (keyInput.current.value === authKey) {
       alert('인증완료!') 
+      setCanSignup(true)
+      setShowAuth(false)
+      setIsChecked(false)        
       window.ReactAlert.showToast('인증완료!')     
-      setCanSignup(true)          
     } else {
       alert('인증실패!')
       window.ReactAlert.showToast('인증실패!')        
@@ -194,7 +203,7 @@ export default function AccountRegisterPage() {
 
 
   return (
-    <div>
+    <div className= {styles.background}>
       <section className={styles.auth}>
         <div style={{ display: 'flex', justifyContent: "center" }}>
           {/* <img src={logo} alt="" /> */}
@@ -208,7 +217,12 @@ export default function AccountRegisterPage() {
               <div className={styles.control}>
                 <h5> E-mail </h5>
                 <div className={styles.Email}>
-                  <input type='email' maxLength='25' name='signup_email' ref={emailInput} onKeyUp={EmailCheckHandler} onBlur={emailCheckerHandler2}/>
+                  {emailDisable? 
+                  <input disabled style={{ color : 'gray'}}  type='email' maxLength='25' name='signup_email' ref={emailInput} onKeyUp={EmailCheckHandler} onBlur={emailCheckerHandler2}/>
+                  :
+                  <input  type='email' maxLength='25' name='signup_email' ref={emailInput} onKeyUp={EmailCheckHandler} onBlur={emailCheckerHandler2}/>
+                  
+                  }
                   <button className={styles.EmailCheck} onClick={emailcheckHandler}>check</button>
                   
                 </div>
@@ -221,8 +235,15 @@ export default function AccountRegisterPage() {
                       <button onClick={keyValidChecker}>인증하기</button>
                     </div>
                 </div>
-                :
-                <button onClick={emailAuthChecker}>Authenticate</button>}
+                : 
+                <div>
+                  {isChecked?
+                  <button className={styles.authChecker} onClick={emailAuthChecker}>Authenticate</button> :null
+                  }
+                </div>               
+                
+                
+                }
                 
               </div>
               {/* 비밀번호 */}
@@ -262,7 +283,14 @@ export default function AccountRegisterPage() {
             </div>
           </div>
           {canSignup? 
-            <button onClick={submitHandler} >Sign Up</button>
+            
+          <div className={styles.actions}>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <input onClick={submitHandler} type="submit" value="Sign Up" />
+          </div>
             :
             null
           }

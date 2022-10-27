@@ -70,6 +70,7 @@ export default function AccountRegisterPage() {
   
   
     if(emailsubmit.length === 0){
+      window.ReactAlert.showToast('Please enter your email.')
       alert('Please enter your email.')
     }else if (emailsubmit.match(regExp) == null) {
       alert('Check your email.')

@@ -8,30 +8,39 @@ function LoginPage() {
   let { loginUser } = useContext(AuthContext);
 
   return (
-    <section className={styles.auth}>
-      <form onSubmit={loginUser}>
-        {/* <img src={logo} alt="" /> */}
-        <div className={styles.control}>
-          <label>Email address</label>
-          <input type="email" name="useremail" placeholder="Enter your email"/>          
-        </div>
-        <div className={styles.control}>
-          <label>Password</label>
-          <input
-            type="password"
-            name="userpassword"
-            placeholder="Enter your email"
-          />
-        </div>
-        
-        <div className={styles.actions}>
-          <input type="submit" value="Login" />
-        </div>
-      </form>
-      <Link to="/register" className={styles.actions2}>
-        <p>Create account</p>
-      </Link>
-    </section>
+    <div className={styles.body}>
+      <section className={styles.login_box}>
+        <h2>로그인</h2>
+        <form onSubmit={loginUser}>
+          {/* <img src={logo} alt="" /> */}
+          <div className={styles.user_box}>
+            <input
+              type="text"
+              name="useremail"
+              required
+              autoComplete="off"
+              autoFocus
+            />
+            <label>이메일</label>
+          </div>
+          <div className={styles.user_box}>
+            <input type="password" name="userpassword" required />
+            <label>비밀번호</label>
+          </div>
+
+          <div className={styles.actions}>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <input type="submit" value="로그인" />
+          </div>
+        </form>
+        <Link to="/register" className={styles.signup_link}>
+          <p>처음이신가요?</p>
+        </Link>
+      </section>
+    </div>
   );
 }
 

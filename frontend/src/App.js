@@ -10,6 +10,7 @@ import LoginPage from './pages/LoginPage';
 import ScrollToTop from './hooks/ScrollToTop';
 import MainPage from './pages/MainPage';
 import TestTemp from './pages/TestTemp';
+// import CanvasTestPage from './pages/CanvasTestPage';
 
 function App() {
   return (
@@ -35,7 +36,7 @@ function App() {
                 exact
                 path="/main"
               ></PrivateRoute>
-              <NonPrivateRoute component={TestTemp} exact path="/testtemp" />
+              <NonPrivateRoute component={TestTemp} exact path="/canvasTest" />
             </Switch>
           </ScrollToTop>
         </AuthProvider>

@@ -203,7 +203,7 @@ export default function AccountRegisterPage() {
 
 
   return (
-    <div>
+    <div className= {styles.background}>
       <section className={styles.auth}>
         <div style={{ display: 'flex', justifyContent: "center" }}>
           {/* <img src={logo} alt="" /> */}

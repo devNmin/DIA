@@ -11,6 +11,11 @@
   font-weight: 400;
   font-style: normal;
 }
+.background {
+  height: 120vh;
+  background-image: url('../assets/background.jpg');
+  background-size: cover;
+}
 
 .auth {
   font-family: 'TmoneyRoundWindExtraBold';

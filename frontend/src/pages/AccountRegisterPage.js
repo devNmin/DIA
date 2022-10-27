@@ -128,8 +128,8 @@ export default function AccountRegisterPage() {
         //   , 'success'
 
         // )
-        window.ReactAlert.showToast('Welcome to DIA!')
         history.push('/')
+        window.ReactAlert.showToast('Welcome to DIA!')
       } else {
         // new swal(
         //   'Oops!',

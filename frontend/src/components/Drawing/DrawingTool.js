@@ -15,22 +15,26 @@ function DrawingTool() {
     setIsDrawing(true);
   };
   const finishDrawing = () => {
+    console.log('왜!!!');
     setIsDrawing(false);
   };
 
   const drawing = ({ nativeEvent }) => {
-    const { offsetX, offsetY } = nativeEvent;
+    console.log('event', nativeEvent);
+    // console.log('changed', nativeEvent.changedTouches);
+    const { clientX, clientY } = nativeEvent.changedTouches[0];
     if (ctx) {
+      console.log(isDrawing);
       if (!isDrawing) {
         ctx.beginPath();
-        ctx.moveTo(offsetX, offsetY);
+        ctx.moveTo(clientX, clientY);
       } else {
-        ctx.lineTo(offsetX, offsetY);
+        ctx.lineTo(clientX, clientY);
         ctx.strokeStyle = brushColor;
         ctx.stroke();
+        console.log('stroke');
       }
     }
-    console.log('here', ctx);
   };
 
   //
@@ -40,7 +44,7 @@ function DrawingTool() {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    canvas.width = window.innerWidth * 0.5;
+    canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     const context = canvas.getContext('2d');
 
@@ -61,13 +65,17 @@ function DrawingTool() {
       />
       <canvas
         ref={canvasRef}
-        onMouseDown={startDrawing}
-        onMouseUp={finishDrawing}
-        onMouseMove={drawing}
-        onMouseLeave={finishDrawing}
-        // onTouchStart={startDrawing}
-        // onTouchEnd={finishDrawing}
-        // onTouchMove={drawing}
+        // onMouseDown={startDrawing}
+        // onMouseUp={finishDrawing}
+        // onMouseMove={drawing}
+        // onMouseLeave={finishDrawing}
+        onTouchStart={(e) => {
+          startDrawing();
+          drawing(e);
+        }}
+        onTouchEnd={finishDrawing}
+        onTouchMove={drawing}
+        onTouchCancel={finishDrawing}
       ></canvas>
     </div>
   );

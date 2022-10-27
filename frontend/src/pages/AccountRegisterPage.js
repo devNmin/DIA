@@ -22,6 +22,8 @@ export default function AccountRegisterPage() {
   const [authKey, setAuthKey] = useState(null)
   const keyInput = useRef();
   const [canSignup, setCanSignup] = useState(false)
+  const [isChecked, setIsChecked] = useState(false)
+  const [emailDisable, setEmailDisable] = useState(false)
 
   // let [formData, setformData] = useState({
   //   gender: ""
@@ -80,7 +82,9 @@ export default function AccountRegisterPage() {
       await axios.get(BASE_URL + `email/check/${emailsubmit}`
       ).then(res => {        
         alert(res.data.message)
+        setIsChecked(true)
         window.ReactAlert.showToast(res.data.message)
+        
       }).catch(err => {
         alert(err.response.data.error);
         window.ReactAlert.showToast(err.response.data.error)
@@ -179,12 +183,14 @@ export default function AccountRegisterPage() {
     
   }
 
-  const keyValidChecker = (e) => {
+  const keyValidChecker = async (e) => {
     e.preventDefault()
     if (keyInput.current.value === authKey) {
       alert('인증완료!') 
+      setCanSignup(true)
+      setShowAuth(false)
+      setIsChecked(false)        
       window.ReactAlert.showToast('인증완료!')     
-      setCanSignup(true)          
     } else {
       alert('인증실패!')
       window.ReactAlert.showToast('인증실패!')        
@@ -221,8 +227,15 @@ export default function AccountRegisterPage() {
                       <button onClick={keyValidChecker}>인증하기</button>
                     </div>
                 </div>
-                :
-                <button onClick={emailAuthChecker}>Authenticate</button>}
+                : 
+                <div>
+                  {isChecked?
+                  <button className={styles.authChecker} onClick={emailAuthChecker}>Authenticate</button> :null
+                  }
+                </div>               
+                
+                
+                }
                 
               </div>
               {/* 비밀번호 */}

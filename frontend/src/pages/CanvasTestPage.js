@@ -10,7 +10,7 @@ export default function CanvasTestPage() {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    canvas.width = window.innerWidth;
+    canvas.width = window.innerWidth * 0.5;
     canvas.height = window.innerHeight;
 
     const context = canvas.getContext('2d');

@@ -61,13 +61,13 @@ function DrawingTool() {
       />
       <canvas
         ref={canvasRef}
-        // onMouseDown={startDrawing}
-        // onMouseUp={finishDrawing}
-        // onMouseMove={drawing}
-        // onMouseLeave={finishDrawing}
-        onTouchStart={startDrawing}
-        onTouchEnd={finishDrawing}
-        onTouchMove={drawing}
+        onMouseDown={startDrawing}
+        onMouseUp={finishDrawing}
+        onMouseMove={drawing}
+        onMouseLeave={finishDrawing}
+        // onTouchStart={startDrawing}
+        // onTouchEnd={finishDrawing}
+        // onTouchMove={drawing}
       ></canvas>
     </div>
   );

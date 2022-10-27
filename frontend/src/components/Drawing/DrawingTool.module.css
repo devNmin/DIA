@@ -3,3 +3,7 @@
   user-select: none;
   overflow: hidden;
 }
+
+.toolbox {
+  position: absolute;
+}

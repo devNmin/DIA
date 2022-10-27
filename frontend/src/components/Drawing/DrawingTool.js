@@ -10,12 +10,12 @@ function DrawingTool() {
   const [isDrawing, setIsDrawing] = useState(false);
   const [drawingResult, setDrawingResult] = useState([]);
   const [brushColor, setBrushColor] = useState('black');
+  const [brushSize, setBrushSize] = useState('1');
 
   const startDrawing = () => {
     setIsDrawing(true);
   };
   const finishDrawing = () => {
-    console.log('왜!!!');
     setIsDrawing(false);
   };
 
@@ -31,6 +31,7 @@ function DrawingTool() {
       } else {
         ctx.lineTo(clientX, clientY);
         ctx.strokeStyle = brushColor;
+        ctx.lineWidth = brushSize;
         ctx.stroke();
         console.log('stroke');
       }
@@ -41,6 +42,10 @@ function DrawingTool() {
   function brushColorHandler(e) {
     setBrushColor(e.target.value);
   }
+  function brushSizeHandler(e) {
+    console.log(e.target.value);
+    setBrushSize(e.target.value);
+  }
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -48,21 +53,32 @@ function DrawingTool() {
     canvas.height = window.innerHeight;
     const context = canvas.getContext('2d');
 
-    context.lineWidth = 2.5;
     contextRef.current = context;
-
     setCtx(contextRef.current);
   }, []);
 
   return (
     <div className={styles.size}>
-      <input
-        type="color"
-        id="brushColor"
-        onChange={(e) => {
-          brushColorHandler(e);
-        }}
-      />
+      <div className={styles.toolbox}>
+        <input
+          type="color"
+          id="brushColor"
+          onChange={(e) => {
+            brushColorHandler(e);
+          }}
+        />
+        <input
+          type="range"
+          min="1"
+          max="21"
+          step="4"
+          value={brushSize}
+          id="brushSize"
+          onChange={(e) => {
+            brushSizeHandler(e);
+          }}
+        />
+      </div>
       <canvas
         ref={canvasRef}
         // onMouseDown={startDrawing}

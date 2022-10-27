@@ -9,6 +9,8 @@ import AccountRegisterPage from './pages/AccountRegisterPage';
 import LoginPage from './pages/LoginPage';
 import ScrollToTop from './hooks/ScrollToTop';
 import MainPage from './pages/MainPage'
+import NonLoginMainPage from './pages/NonLoginMainPage';
+import Explainpage from './pages/Explainpage';
 
 function App() {
   return (
@@ -25,7 +27,9 @@ function App() {
             <Switch className="App">
               <NonPrivateRoute component={LoginPage} exact path="/"/>      
               <NonPrivateRoute component={AccountRegisterPage} exact path="/register"/>
-              <PrivateRoute component={MainPage} exact path = '/main'></PrivateRoute>          
+              <PrivateRoute component={MainPage} exact path = '/main'></PrivateRoute>   
+              <NonPrivateRoute component={NonLoginMainPage} exact path="/non"/>    
+              <NonPrivateRoute component={Explainpage} exact path="/ex"/>      
             </Switch>       
           </ScrollToTop>
         </AuthProvider>

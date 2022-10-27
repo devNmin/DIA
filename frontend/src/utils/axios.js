@@ -2,7 +2,7 @@ import Axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import dayjs from 'dayjs'
 
-const baseURL = 'http://localhost:8081/api/v1/';
+const baseURL = 'https://k7b307.p.ssafy.io/api/v1/';
 
 let authTokens = localStorage.getItem('authTokens')? JSON.parse(localStorage.getItem('authTokens')): null
 

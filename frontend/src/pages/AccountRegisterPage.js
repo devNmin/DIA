@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 // import logo from '../assets/Logo.png'
-import swal from "sweetalert2";
+// import swal from "sweetalert2";
 
 
 export default function AccountRegisterPage() {
@@ -115,19 +115,21 @@ export default function AccountRegisterPage() {
 
     }).then(res => {
       if (res.ok) {
-        new swal(
-          'Register Success',
-          'Welcome to DIA!'
-          , 'success'
+        // new swal(
+        //   'Register Success',
+        //   'Welcome to DIA!'
+        //   , 'success'
 
-        )
+        // )
+        window.ReactAlert.showToast('Welcome to DIA!')
         history.push('/')
       } else {
-        new swal(
-          'Oops!',
-          'Something went wrong please check again',
-          'error'
-        )
+        // new swal(
+        //   'Oops!',
+        //   'Something went wrong please check again',
+        //   'error'
+        // )
+        window.ReactAlert.showToast('Something went wrong please check again..')
       }
     })
 

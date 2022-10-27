@@ -106,7 +106,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/v1/signup",
 //                        "/api/v1/test",
                         "/api/v1/mailsend",
-                        "/api/v1/email/check/*"
+                        "/api/v1/email/check/*",
+                        "/api/v1/check/code/*"
                 ).permitAll()
 
                 .anyRequest().authenticated()

@@ -15,7 +15,7 @@ public class MailController {
     @Autowired
     private MailService mailService;
 
-    @GetMapping("/mailsend")
+    @PostMapping("/mailsend")
     public ResponseEntity<?> signup(
             @Valid @RequestBody MailDto mailDto
     ) throws Exception {

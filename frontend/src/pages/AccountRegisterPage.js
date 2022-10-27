@@ -80,9 +80,12 @@ export default function AccountRegisterPage() {
     }
     else{
       await axios.get(BASE_URL + `email/check/${emailsubmit}`
-      ).then(res => {        
+      ).then(res => {     
+        if (res.data.statusCode === 200) {
+          setIsChecked(true)  
+          setEmailDisable(true)        
+        } 
         alert(res.data.message)
-        setIsChecked(true)
         window.ReactAlert.showToast(res.data.message)
         
       }).catch(err => {
@@ -214,7 +217,12 @@ export default function AccountRegisterPage() {
               <div className={styles.control}>
                 <h5> E-mail </h5>
                 <div className={styles.Email}>
-                  <input type='email' maxLength='25' name='signup_email' ref={emailInput} onKeyUp={EmailCheckHandler} onBlur={emailCheckerHandler2}/>
+                  {emailDisable? 
+                  <input disabled style={{ color : 'gray'}}  type='email' maxLength='25' name='signup_email' ref={emailInput} onKeyUp={EmailCheckHandler} onBlur={emailCheckerHandler2}/>
+                  :
+                  <input  type='email' maxLength='25' name='signup_email' ref={emailInput} onKeyUp={EmailCheckHandler} onBlur={emailCheckerHandler2}/>
+                  
+                  }
                   <button className={styles.EmailCheck} onClick={emailcheckHandler}>check</button>
                   
                 </div>
@@ -275,7 +283,14 @@ export default function AccountRegisterPage() {
             </div>
           </div>
           {canSignup? 
-            <button onClick={submitHandler} >Sign Up</button>
+            
+          <div className={styles.actions}>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <input onClick={submitHandler} type="submit" value="Sign Up" />
+          </div>
             :
             null
           }

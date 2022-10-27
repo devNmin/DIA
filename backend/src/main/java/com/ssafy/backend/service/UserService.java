@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.Collections;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -54,5 +55,15 @@ public class UserService {
             return false;
         }
         return true;
+    }
+
+    public User findById(long pk){
+        User user = userRepository.findUserByUserId(pk);
+
+        if(user != null){
+            return user;
+        }else{
+            return null;
+        }
     }
 }

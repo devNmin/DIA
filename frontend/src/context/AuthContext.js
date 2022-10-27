@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')): null    
   );
 
-  let BASE_URL = 'http://localhost:8081/api/v1/';
+  let BASE_URL = 'https://k7b307.p.ssafy.io/api/v1/';
 //   let [loading, setLoading] = useState(true);
 
   const history = useHistory();

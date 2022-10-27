@@ -35,9 +35,9 @@ public class UserController {
         if(user.equals("ok")){
             return ResponseEntity.ok(new ResponseDto(200,"회원가입 성공"));
         }else if(user.equals("email")){
-            return ResponseEntity.ok(new ResponseDto(200,"이미 가입된 이메일입니다"));
+            return ResponseEntity.ok(new ResponseDto(409,"이미 가입된 이메일입니다"));
         }else{
-            return ResponseEntity.ok(new ResponseDto(200,"비밀번호가 일치하지 않습니다."));
+            return ResponseEntity.ok(new ResponseDto(403,"비밀번호가 일치하지 않습니다."));
         }
     }
 
@@ -51,12 +51,12 @@ public class UserController {
             return ResponseEntity.ok(new ResponseDto(200,"사용 가능한 이메일 입니다"));
         }
 
-        return ResponseEntity.ok(new ResponseDto(200,"이미 가입된 이메일입니다"));
+        return ResponseEntity.ok(new ResponseDto(409,"이미 가입된 이메일입니다"));
     }
 
     @GetMapping("/test")
     public ResponseEntity<?> test(){
-        return ResponseEntity.ok(new ResponseDto(200,"이미 가입된 이메일입니다"));
+        return ResponseEntity.ok(new ResponseDto(409,"이미 가입된 이메일입니다"));
     }
 
     @GetMapping("/check/code/{code}")

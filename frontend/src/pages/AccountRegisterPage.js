@@ -70,17 +70,20 @@ export default function AccountRegisterPage() {
   
   
     if(emailsubmit.length === 0){
-      window.ReactAlert.showToast('Please enter your email.')
       alert('Please enter your email.')
+      window.ReactAlert.showToast('Please enter your email.')
     }else if (emailsubmit.match(regExp) == null) {
       alert('Check your email.')
+      window.ReactAlert.showToast('Check your email.')
     }
     else{
       await axios.get(BASE_URL + `email/check/${emailsubmit}`
       ).then(res => {        
         alert(res.data.message)
+        window.ReactAlert.showToast(res.data.message)
       }).catch(err => {
         alert(err.response.data.error);
+        window.ReactAlert.showToast(err.response.data.error)
       }
       )
     }
@@ -170,15 +173,19 @@ export default function AccountRegisterPage() {
     )
     setShowAuth(true)
     alert('인증키를 이메일로 보내드렸습니다!')
+    window.ReactAlert.showToast('인증키를 이메일로 보내드렸습니다!')
+    
   }
 
   const keyValidChecker = (e) => {
     e.preventDefault()
     if (keyInput.current.value === authKey) {
-      alert('인증완료!')  
+      alert('인증완료!') 
+      window.ReactAlert.showToast('인증완료!')     
       setCanSignup(true)          
     } else {
       alert('인증실패!')
+      window.ReactAlert.showToast('인증실패!')        
     }
   }
 

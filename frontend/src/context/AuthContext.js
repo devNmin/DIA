@@ -67,6 +67,7 @@ export const AuthProvider = ({ children }) => {
       //   '<b style="color:red;">Login Error!</b> Write correct id and password :)',
       //   'error'
       // )
+      alert('Login Error! Write correct id and password')
       window.ReactAlert.showToast('Login Error! Write correct id and password')
     }
   };

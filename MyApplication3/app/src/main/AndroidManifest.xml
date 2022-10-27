@@ -36,6 +36,7 @@
                 android:value="" />
         </activity>
         <activity
+            android:hardwareAccelerated="true"
             android:name=".MainActivity"
             android:exported="false">
             <meta-data

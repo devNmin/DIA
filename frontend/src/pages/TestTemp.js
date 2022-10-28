@@ -21,12 +21,13 @@ function TestTemp() {
 
   const drawing = ({ nativeEvent }) => {
     const { clientX, clientY } = nativeEvent.changedTouches[0];
-    const timestamp = nativeEvent.timestamp;
+    const timestamp = nativeEvent.timeStamp;
+
     if (prevData) {
       if (
-        prevData[0] - nativeEvent.timestamp < 20 &&
-        (Math.abs(prevData[1] - clientX) > 40 ||
-          Math.abs(prevData[2] - clientY) > 40)
+        Math.abs(timestamp - prevData[0]) < 5 &&
+        (Math.abs(prevData[1] - clientX) > 50 ||
+          Math.abs(prevData[2] - clientY) > 50)
       ) {
         return;
       }

@@ -30,15 +30,16 @@ function TestTemp() {
         Math.abs(prevData[2] - clientY)
       );
       if (
-        Math.abs(timestamp - prevData[0]) < 15 &&
-        (Math.abs(prevData[1] - clientX) > 20 ||
-          Math.abs(prevData[2] - clientY) > 20)
+        Math.abs(timestamp - prevData[0]) < 5 &&
+        (Math.abs(prevData[1] - clientX) > 1 ||
+          Math.abs(prevData[2] - clientY) > 1)
       ) {
         return;
       }
     }
 
     if (ctx) {
+      setPrevData([timestamp, clientX, clientY]);
       if (!isDrawing) {
         ctx.beginPath();
         ctx.moveTo(clientX, clientY);
@@ -46,7 +47,6 @@ function TestTemp() {
         ctx.lineTo(clientX, clientY);
         ctx.strokeStyle = brushColor;
         ctx.lineWidth = brushSize;
-        setPrevData([timestamp, clientX, clientY]);
         ctx.stroke();
       }
     }

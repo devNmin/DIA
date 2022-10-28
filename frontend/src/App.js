@@ -1,4 +1,4 @@
-import { Switch, BrowserRouter as Router} from 'react-router-dom';
+import { Switch, BrowserRouter as Router } from 'react-router-dom';
 // import logo from './logo.svg';
 import './App.css';
 import { AuthProvider } from './context/AuthContext';
@@ -11,6 +11,7 @@ import ScrollToTop from './hooks/ScrollToTop';
 import MainPage from './pages/MainPage'
 import NonLoginMainPage from './pages/NonLoginMainPage';
 import Explainpage from './pages/Explainpage';
+import TestTemp from './pages/TestTemp';
 
 function App() {
   return (
@@ -23,14 +24,15 @@ function App() {
             함수 안 let {authTokens} = useContext(AuthContext) => token 가져오기 authTokens.access 
             let {userInfo} = useContext(AuthContext) => 현재 유저정보 가져오기 
           */}
-          <ScrollToTop>        
+          <ScrollToTop>
             <Switch className="App">
               <NonPrivateRoute component={LoginPage} exact path="/"/>      
               <NonPrivateRoute component={AccountRegisterPage} exact path="/register"/>
               <PrivateRoute component={MainPage} exact path = '/main'></PrivateRoute>   
               <NonPrivateRoute component={NonLoginMainPage} exact path="/non"/>    
-              <NonPrivateRoute component={Explainpage} exact path="/ex"/>      
-            </Switch>       
+              <NonPrivateRoute component={Explainpage} exact path="/ex"/>        
+              <NonPrivateRoute component={TestTemp} exact path="/canvasTest" />
+            </Switch>
           </ScrollToTop>
         </AuthProvider>
       </Router>

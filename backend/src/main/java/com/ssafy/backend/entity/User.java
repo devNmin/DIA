@@ -1,5 +1,6 @@
 package com.ssafy.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -26,6 +27,7 @@ public class User {
     private String userEmail;
 
     @Column(name = "user_password")
+    @JsonIgnore
     private String userPassword;
 
     @Column(name = "user_name",nullable = true)

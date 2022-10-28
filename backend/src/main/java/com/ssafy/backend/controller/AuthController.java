@@ -73,13 +73,13 @@ public class AuthController {
         // 사용자 정보가 토큰에 없는 경우
         System.out.println(userEmail);
         if (userEmail.equals("null")) {
-            return ResponseEntity.ok(new ResponseDto(200,"존재하지 않는 사용자입니다."));
+            return ResponseEntity.ok(new ResponseDto(404,"존재하지 않는 사용자입니다."));
         }
 
         //사용자가 있지만 해당 사용자의 refresh 토큰이 유효하지 않다면 로그아웃 처리
         if(!tokenService.checkRefreshToken(userEmail)){
             redisService.deleteValues(userEmail); //refresh 토큰 삭제
-            return ResponseEntity.ok(new ResponseDto(200,"토큰이 만료되어 로그아웃 되었습니다"));
+            return ResponseEntity.ok(new ResponseDto(401,"토큰이 만료되어 로그아웃 되었습니다"));
         }
 
         // 403이 발생한 경우 -> true 리턴. 발생한 경우에만 토큰 발급함
@@ -90,7 +90,7 @@ public class AuthController {
             // accessToken을 블랙 리스트로 등록 -> 해당 토큰이 유효기간이 남았으니 이걸로 뭔가를 못하도록 막음
             tokenService.setBlackList(request);
             redisService.deleteValues(userEmail);
-            return ResponseEntity.ok(new ResponseDto(200,"잘못된 접근방식으로 로그아웃 합니다"));
+            return ResponseEntity.ok(new ResponseDto(403,"잘못된 접근방식으로 로그아웃 합니다"));
         }
 
 

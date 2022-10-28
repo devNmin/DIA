@@ -16,7 +16,7 @@ import { createContext, useState } from 'react';
 //   }
 
 import { useHistory } from 'react-router-dom';
-import swal from "sweetalert2";
+// import swal from "sweetalert2";
 
 const AuthContext = createContext();
 
@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')): null    
   );
 
-  let BASE_URL = 'http://localhost:8081/api/v1/';
+  let BASE_URL = 'https://k7b307.p.ssafy.io/api/v1/';
 //   let [loading, setLoading] = useState(true);
 
   const history = useHistory();
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        userEmail: e.target.useremail.value,
+        userEmail: e.target.useremail.value.trim(),
         userPassword: e.target.userpassword.value,
       }),
     });
@@ -62,11 +62,13 @@ export const AuthProvider = ({ children }) => {
 
     } else {      
       console.log("로그인 실패!");
-      new swal(
-        'Oops!',
-        '<b style="color:red;">Login Error!</b> Write correct id and password :)',
-        'error'
-      )
+      // new swal(
+      //   'Oops!',
+      //   '<b style="color:red;">Login Error!</b> Write correct id and password :)',
+      //   'error'
+      // )
+      alert('Login Error! Write correct id and password')
+      window.ReactAlert.showToast('Login Error! Write correct id and password')
     }
   };
 

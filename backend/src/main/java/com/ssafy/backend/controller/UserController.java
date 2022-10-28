@@ -2,6 +2,8 @@ package com.ssafy.backend.controller;
 
 import com.ssafy.backend.dto.ResponseDto;
 import com.ssafy.backend.dto.UserDto;
+import com.ssafy.backend.dto.UserWearDto;
+import com.ssafy.backend.entity.User;
 import com.ssafy.backend.repository.UserRepository;
 import com.ssafy.backend.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -33,9 +35,9 @@ public class UserController {
         if(user.equals("ok")){
             return ResponseEntity.ok(new ResponseDto(200,"회원가입 성공"));
         }else if(user.equals("email")){
-            return ResponseEntity.ok(new ResponseDto(200,"이미 가입된 이메일입니다"));
+            return ResponseEntity.ok(new ResponseDto(409,"이미 가입된 이메일입니다"));
         }else{
-            return ResponseEntity.ok(new ResponseDto(200,"비밀번호가 일치하지 않습니다."));
+            return ResponseEntity.ok(new ResponseDto(403,"비밀번호가 일치하지 않습니다."));
         }
     }
 
@@ -49,13 +51,27 @@ public class UserController {
             return ResponseEntity.ok(new ResponseDto(200,"사용 가능한 이메일 입니다"));
         }
 
-        return ResponseEntity.ok(new ResponseDto(200,"이미 가입된 이메일입니다"));
+        return ResponseEntity.ok(new ResponseDto(409,"이미 가입된 이메일입니다"));
     }
 
     @GetMapping("/test")
     public ResponseEntity<?> test(){
-        return ResponseEntity.ok(new ResponseDto(200,"이미 가입된 이메일입니다"));
+        return ResponseEntity.ok(new ResponseDto(409,"이미 가입된 이메일입니다"));
     }
 
+    @GetMapping("/check/code/{code}")
+    public ResponseEntity<?> codeCheck(
+            @PathVariable("code") String code
+    ){
+        long numCode = Long.parseLong(code);
+        User user = userService.findById(numCode);
+        System.out.println(user);
+        if(user != null){
+            UserWearDto userWearDto = UserWearDto.builder().userEmail(user.getUserEmail()).userName(user.getUserName()).build();
+            return new ResponseEntity<UserWearDto>(userWearDto,HttpStatus.OK);
+        }else{
+            return new ResponseEntity<ResponseDto>(new ResponseDto(404,"존재하지 않는 사용자입니다"),HttpStatus.NOT_FOUND);
+        }
+    }
 
 }

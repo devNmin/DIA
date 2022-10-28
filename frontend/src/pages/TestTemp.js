@@ -22,21 +22,14 @@ function TestTemp() {
   const drawing = ({ nativeEvent }) => {
     const { clientX, clientY } = nativeEvent.changedTouches[0];
     const timestamp = nativeEvent.timeStamp;
-    console.log(nativeEvent);
+
     setPrevData((prev) => [prev[0], prev[1], prev[2], nativeEvent.type]);
     if (prevData) {
-      console.log(
-        Math.abs(timestamp - prevData[0]),
-        Math.abs(prevData[1] - clientX),
-        Math.abs(prevData[2] - clientY)
-      );
-
       if (
         Math.abs(timestamp - prevData[0]) < 15 &&
         (Math.abs(prevData[1] - clientX) > 10 ||
           Math.abs(prevData[2] - clientY) > 10)
       ) {
-        console.log('2');
         return;
       }
 
@@ -47,7 +40,6 @@ function TestTemp() {
           Math.abs(prevData[1] - clientX) > 1 ||
           Math.abs(prevData[2] - clientY) > 1)
       ) {
-        console.log('3');
         return;
       }
     }
@@ -58,7 +50,6 @@ function TestTemp() {
       if (!isDrawing) {
         ctx.beginPath();
         ctx.moveTo(clientX, clientY);
-        console.log('beginPath');
       } else {
         ctx.lineTo(clientX, clientY);
         ctx.strokeStyle = brushColor;
@@ -67,10 +58,8 @@ function TestTemp() {
           nativeEvent.targetTouches.length > 1 ||
           (nativeEvent.type === 'touchstart' && prevData[3] === 'touchstart')
         ) {
-          console.log('1');
           return;
         }
-        console.log('선');
         ctx.stroke();
       }
     }

@@ -11,7 +11,6 @@ function DrawingTool() {
   const [drawingResult, setDrawingResult] = useState([]);
   const [brushColor, setBrushColor] = useState('black');
   const [brushSize, setBrushSize] = useState('1');
-  const [mode, setMode] = useState('brush');
 
   const startDrawing = () => {
     setIsDrawing(true);
@@ -23,25 +22,14 @@ function DrawingTool() {
   const drawing = ({ nativeEvent }) => {
     const { clientX, clientY } = nativeEvent.changedTouches[0];
     if (ctx) {
-      if (mode === 'erase') {
-        if (isDrawing) {
-          ctx.clearRect(
-            clientX - brushSize / 2,
-            clientY - brushSize / 2,
-            brushSize * 2,
-            brushSize * 2
-          );
-        }
+      if (!isDrawing) {
+        ctx.beginPath();
+        ctx.moveTo(clientX, clientY);
       } else {
-        if (!isDrawing) {
-          ctx.beginPath();
-          ctx.moveTo(clientX, clientY);
-        } else {
-          ctx.lineTo(clientX, clientY);
-          ctx.strokeStyle = brushColor;
-          ctx.lineWidth = brushSize;
-          ctx.stroke();
-        }
+        ctx.lineTo(clientX, clientY);
+        ctx.strokeStyle = brushColor;
+        ctx.lineWidth = brushSize;
+        ctx.stroke();
       }
     }
   };
@@ -53,7 +41,9 @@ function DrawingTool() {
   function brushSizeHandler(e) {
     setBrushSize(e.target.value);
   }
-
+  function canvasClear() {
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+  }
   useEffect(() => {
     const canvas = canvasRef.current;
     canvas.width = window.innerWidth;
@@ -85,20 +75,7 @@ function DrawingTool() {
             brushSizeHandler(e);
           }}
         />
-        <button
-          onClick={() => {
-            setMode('brush');
-          }}
-        >
-          그리기
-        </button>
-        <button
-          onClick={() => {
-            setMode('erase');
-          }}
-        >
-          지우개
-        </button>
+        <button onClick={canvasClear}>전체지우기</button>
       </div>
       <canvas
         ref={canvasRef}

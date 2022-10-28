@@ -11,6 +11,7 @@ function DrawingTool() {
   const [drawingResult, setDrawingResult] = useState([]);
   const [brushColor, setBrushColor] = useState('black');
   const [brushSize, setBrushSize] = useState('1');
+  const [mode, setMode] = useState('brush');
 
   const startDrawing = () => {
     setIsDrawing(true);
@@ -20,20 +21,27 @@ function DrawingTool() {
   };
 
   const drawing = ({ nativeEvent }) => {
-    console.log('event', nativeEvent);
-    // console.log('changed', nativeEvent.changedTouches);
     const { clientX, clientY } = nativeEvent.changedTouches[0];
     if (ctx) {
-      console.log(isDrawing);
-      if (!isDrawing) {
-        ctx.beginPath();
-        ctx.moveTo(clientX, clientY);
+      if (mode === 'erase') {
+        if (isDrawing) {
+          ctx.clearRect(
+            clientX - brushSize / 2,
+            clientY - brushSize / 2,
+            brushSize * 2,
+            brushSize * 2
+          );
+        }
       } else {
-        ctx.lineTo(clientX, clientY);
-        ctx.strokeStyle = brushColor;
-        ctx.lineWidth = brushSize;
-        ctx.stroke();
-        console.log('stroke');
+        if (!isDrawing) {
+          ctx.beginPath();
+          ctx.moveTo(clientX, clientY);
+        } else {
+          ctx.lineTo(clientX, clientY);
+          ctx.strokeStyle = brushColor;
+          ctx.lineWidth = brushSize;
+          ctx.stroke();
+        }
       }
     }
   };
@@ -43,7 +51,6 @@ function DrawingTool() {
     setBrushColor(e.target.value);
   }
   function brushSizeHandler(e) {
-    console.log(e.target.value);
     setBrushSize(e.target.value);
   }
 
@@ -78,13 +85,23 @@ function DrawingTool() {
             brushSizeHandler(e);
           }}
         />
+        <button
+          onClick={() => {
+            setMode('brush');
+          }}
+        >
+          그리기
+        </button>
+        <button
+          onClick={() => {
+            setMode('erase');
+          }}
+        >
+          지우개
+        </button>
       </div>
       <canvas
         ref={canvasRef}
-        // onMouseDown={startDrawing}
-        // onMouseUp={finishDrawing}
-        // onMouseMove={drawing}
-        // onMouseLeave={finishDrawing}
         onTouchStart={(e) => {
           startDrawing();
           drawing(e);

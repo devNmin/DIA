@@ -10,7 +10,7 @@ function TestTemp() {
   const [isDrawing, setIsDrawing] = useState(false);
   const [brushColor, setBrushColor] = useState('black');
   const [brushSize, setBrushSize] = useState('1');
-  const [prevData, setPrevData] = useState();
+  const [prevData, setPrevData] = useState([0, 0, 0, '']);
 
   const startDrawing = () => {
     setIsDrawing(true);
@@ -23,15 +23,21 @@ function TestTemp() {
     const { clientX, clientY } = nativeEvent.changedTouches[0];
     const timestamp = nativeEvent.timeStamp;
 
+    setPrevData((prev) => [prev[0], prev[1], prev[2], nativeEvent.type]);
     if (prevData) {
-      console.log(
-        Math.abs(timestamp - prevData[0]),
-        Math.abs(prevData[1] - clientX),
-        Math.abs(prevData[2] - clientY)
-      );
       if (
-        Math.abs(timestamp - prevData[0]) < 5 &&
-        (Math.abs(prevData[1] - clientX) > 1 ||
+        Math.abs(timestamp - prevData[0]) < 15 &&
+        (Math.abs(prevData[1] - clientX) > 10 ||
+          Math.abs(prevData[2] - clientY) > 10)
+      ) {
+        return;
+      }
+
+      if (
+        prevData[3] === 'touchstart' &&
+        nativeEvent.type === 'touchmove' &&
+        (Math.abs(timestamp - prevData[0]) > 10 ||
+          Math.abs(prevData[1] - clientX) > 1 ||
           Math.abs(prevData[2] - clientY) > 1)
       ) {
         return;
@@ -39,7 +45,8 @@ function TestTemp() {
     }
 
     if (ctx) {
-      setPrevData([timestamp, clientX, clientY]);
+      setPrevData((prev) => [timestamp, clientX, clientY, prev[3]]);
+
       if (!isDrawing) {
         ctx.beginPath();
         ctx.moveTo(clientX, clientY);
@@ -47,6 +54,12 @@ function TestTemp() {
         ctx.lineTo(clientX, clientY);
         ctx.strokeStyle = brushColor;
         ctx.lineWidth = brushSize;
+        if (
+          nativeEvent.targetTouches.length > 1 ||
+          (nativeEvent.type === 'touchstart' && prevData[3] === 'touchstart')
+        ) {
+          return;
+        }
         ctx.stroke();
       }
     }

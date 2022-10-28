@@ -1,0 +1,49 @@
+.mainPage {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #000F24;
+}
+
+.Modal {
+    display: flex;
+    flex-direction: column;
+}
+
+.modalText {
+    margin: 1rem;
+}
+
+.modalX {
+    position: absolute;
+    top: 1%;
+    left: 99%;
+    transform: translate(-99%, -1%);
+}
+
+.modalButton{
+    display: flex;
+    justify-content: center;
+}
+
+.modalClose {
+    width: 15rem;
+    height: 3rem;
+    border: #739106 solid;
+    border-radius: 30px;
+    color: aliceblue;
+    background-color: #739106;
+}
+
+.mainButtons {
+    margin: 1rem;
+    width: 15rem;
+    height: 3rem;
+    border: #739106 solid;
+    border-radius: 30px;
+    color: aliceblue;
+    background-color: #739106;
+}
+

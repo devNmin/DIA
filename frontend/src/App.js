@@ -8,9 +8,10 @@ import PrivateRoute from './utils/PrivateRoute';
 import AccountRegisterPage from './pages/AccountRegisterPage';
 import LoginPage from './pages/LoginPage';
 import ScrollToTop from './hooks/ScrollToTop';
-import MainPage from './pages/MainPage';
+import MainPage from './pages/MainPage'
+import NonLoginMainPage from './pages/NonLoginMainPage';
+import Explainpage from './pages/Explainpage';
 import TestTemp from './pages/TestTemp';
-// import CanvasTestPage from './pages/CanvasTestPage';
 
 function App() {
   return (
@@ -25,17 +26,11 @@ function App() {
           */}
           <ScrollToTop>
             <Switch className="App">
-              <NonPrivateRoute component={LoginPage} exact path="/" />
-              <NonPrivateRoute
-                component={AccountRegisterPage}
-                exact
-                path="/register"
-              />
-              <PrivateRoute
-                component={MainPage}
-                exact
-                path="/main"
-              ></PrivateRoute>
+              <NonPrivateRoute component={LoginPage} exact path="/"/>      
+              <NonPrivateRoute component={AccountRegisterPage} exact path="/register"/>
+              <PrivateRoute component={MainPage} exact path = '/main'></PrivateRoute>   
+              <NonPrivateRoute component={NonLoginMainPage} exact path="/non"/>    
+              <NonPrivateRoute component={Explainpage} exact path="/ex"/>        
               <NonPrivateRoute component={TestTemp} exact path="/canvasTest" />
             </Switch>
           </ScrollToTop>

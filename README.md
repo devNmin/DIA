@@ -46,13 +46,11 @@ git commit -m "[FEAT] create new feature
 
 **develop**
 
-**develop_FE**
 
-**develop_BE**
 
-feature-back/blabla
+feature/back-blabla
 
-feature-front/blabla
+feature/front-blabla
 
 ------
 

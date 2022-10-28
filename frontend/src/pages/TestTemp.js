@@ -24,10 +24,15 @@ function TestTemp() {
     const timestamp = nativeEvent.timeStamp;
 
     if (prevData) {
+      console.log(
+        Math.abs(timestamp - prevData[0]),
+        Math.abs(prevData[1] - clientX),
+        Math.abs(prevData[2] - clientY)
+      );
       if (
-        Math.abs(timestamp - prevData[0]) < 5 &&
-        (Math.abs(prevData[1] - clientX) > 50 ||
-          Math.abs(prevData[2] - clientY) > 50)
+        Math.abs(timestamp - prevData[0]) < 10 &&
+        (Math.abs(prevData[1] - clientX) > 20 ||
+          Math.abs(prevData[2] - clientY) > 20)
       ) {
         return;
       }

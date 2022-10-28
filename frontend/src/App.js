@@ -12,6 +12,7 @@ import MainPage from './pages/MainPage'
 import NonLoginMainPage from './pages/NonLoginMainPage';
 import Explainpage from './pages/Explainpage';
 import TestTemp from './pages/TestTemp';
+import MyPage from './pages/MyPage';
 
 function App() {
   return (
@@ -26,12 +27,13 @@ function App() {
           */}
           <ScrollToTop>
             <Switch className="App">
-              <NonPrivateRoute component={LoginPage} exact path="/"/>      
+              <NonPrivateRoute component={LoginPage} exact path="/login"/>      
               <NonPrivateRoute component={AccountRegisterPage} exact path="/register"/>
               <PrivateRoute component={MainPage} exact path = '/main'></PrivateRoute>   
-              <NonPrivateRoute component={NonLoginMainPage} exact path="/non"/>    
-              <NonPrivateRoute component={Explainpage} exact path="/ex"/>        
+              <NonPrivateRoute component={NonLoginMainPage} exact path="/"/>    
+              <NonPrivateRoute component={Explainpage} exact path="/explain"/>        
               <NonPrivateRoute component={TestTemp} exact path="/canvasTest" />
+              <PrivateRoute component={MyPage} exact path = '/mypage'></PrivateRoute>  
             </Switch>
           </ScrollToTop>
         </AuthProvider>

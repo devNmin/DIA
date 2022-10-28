@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Modal from 'react-modal'
 import styles from './MainPage.module.css'
+import { Link } from 'react-router-dom'
 
 export default function MainPage() {
   const [modalIsOpen, setModalIsOpen] = useState(true)
@@ -17,12 +18,16 @@ export default function MainPage() {
           <button className={styles.modalClose} onClick={() => setModalIsOpen(false)}>Modal close</button>
         </div>
       </Modal>
+      <Link to='/main'>
         <button className={styles.mainButtons}>
           전술보드 들어가기
         </button>
+      </Link>
+      <Link to='/mypage'>
         <button className={styles.mainButtons}>
           마이페이지
         </button>
+      </Link>
     </div>
   )
 }

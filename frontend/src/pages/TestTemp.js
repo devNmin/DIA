@@ -10,6 +10,7 @@ function TestTemp() {
   const [isDrawing, setIsDrawing] = useState(false);
   const [brushColor, setBrushColor] = useState('black');
   const [brushSize, setBrushSize] = useState('1');
+  const [prevData, setPrevData] = useState();
 
   const startDrawing = () => {
     setIsDrawing(true);
@@ -20,6 +21,17 @@ function TestTemp() {
 
   const drawing = ({ nativeEvent }) => {
     const { clientX, clientY } = nativeEvent.changedTouches[0];
+    const timestamp = nativeEvent.timestamp;
+    if (prevData) {
+      if (
+        prevData[0] - nativeEvent.timestamp < 20 &&
+        (Math.abs(prevData[1] - clientX) > 40 ||
+          Math.abs(prevData[2] - clientY) > 40)
+      ) {
+        return;
+      }
+    }
+
     if (ctx) {
       if (!isDrawing) {
         ctx.beginPath();
@@ -28,6 +40,7 @@ function TestTemp() {
         ctx.lineTo(clientX, clientY);
         ctx.strokeStyle = brushColor;
         ctx.lineWidth = brushSize;
+        setPrevData([timestamp, clientX, clientY]);
         ctx.stroke();
       }
     }

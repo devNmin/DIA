@@ -7,3 +7,11 @@
 .toolbox {
   position: absolute;
 }
+
+.canvas_box {
+  position: relative;
+}
+
+.field_canvas {
+  position: absolute;
+}

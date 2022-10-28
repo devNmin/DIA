@@ -1,12 +1,14 @@
 //https://velog.io/@mokyoungg/React-React%EC%97%90%EC%84%9C-Canvas-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0%EB%A7%88%EC%9A%B0%EC%8A%A4-%EA%B7%B8%EB%A6%AC%EA%B8%B0
-
 import React, { useEffect, useRef, useState } from 'react';
-import styles from './DrawingTool.module.css';
+import styles from './TestTemp.module.css';
 function TestTemp() {
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
+  const fieldCanvasRef = useRef(null);
+  const fieldContextRef = useRef(null);
 
   const [ctx, setCtx] = useState();
+  const [fieldCtx, setFieldCtx] = useState();
   const [isDrawing, setIsDrawing] = useState(false);
   const [brushColor, setBrushColor] = useState('black');
   const [brushSize, setBrushSize] = useState('1');
@@ -64,8 +66,22 @@ function TestTemp() {
       }
     }
   };
-
-  //
+  //////////////////
+  const dumpData = [
+    [10, 10],
+    [11, 10],
+    [12, 11],
+    [13, 12],
+    [12, 11],
+    [12, 10],
+  ];
+  const field_set = (data) => {
+    const { x, y } = data;
+    fieldCtx.beginPath();
+    fieldCtx.arc(x, y, 0, Math.PI * 2);
+    fieldCtx.stroke();
+  };
+  ///////////////////
   function brushColorHandler(e) {
     setBrushColor(e.target.value);
   }
@@ -80,9 +96,14 @@ function TestTemp() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     const context = canvas.getContext('2d');
-
     contextRef.current = context;
     setCtx(contextRef.current);
+    const fieldCanvas = fieldCanvasRef.current;
+    fieldCanvas.width = window.innerWidth;
+    fieldCanvas.height = window.innerHeight;
+    const fieldContext = fieldCanvas.getContext('2d');
+    fieldCanvasRef.current = fieldContext;
+    setFieldCtx(fieldContextRef.current);
   }, []);
 
   return (
@@ -108,16 +129,19 @@ function TestTemp() {
         />
         <button onClick={canvasClear}>전체지우기</button>
       </div>
-      <canvas
-        ref={canvasRef}
-        onTouchStart={(e) => {
-          startDrawing();
-          drawing(e);
-        }}
-        onTouchEnd={finishDrawing}
-        onTouchMove={drawing}
-        onTouchCancel={finishDrawing}
-      ></canvas>
+      <div className={styles.canvas_box}>
+        <canvas
+          ref={canvasRef}
+          onTouchStart={(e) => {
+            startDrawing();
+            drawing(e);
+          }}
+          onTouchEnd={finishDrawing}
+          onTouchMove={drawing}
+          onTouchCancel={finishDrawing}
+        />
+        <canvas className={styles.field_canvas} ref={fieldCanvasRef} />
+      </div>
     </div>
   );
 }

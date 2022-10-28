@@ -122,7 +122,7 @@ input[type=password] {
   text-decoration: none;
 }
 
-.actions input[type=text], button {
+/* .actions input[type=text], button {
   cursor: pointer;
   font: inherit;
   color: white;
@@ -141,7 +141,7 @@ input[type=password] {
   background-color: #b3dc45;
   border-color: #b3dc45;
   text-decoration: none;
-}
+} */
 
 .actions h5 {
   text-align: left;

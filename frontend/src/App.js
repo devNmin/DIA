@@ -11,6 +11,7 @@ import ScrollToTop from './hooks/ScrollToTop';
 import MainPage from './pages/MainPage';
 import TestTemp from './pages/TestTemp';
 // import CanvasTestPage from './pages/CanvasTestPage';
+import IpInsertPage from './pages/IpInsertPage';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
                 path="/main"
               ></PrivateRoute>
               <NonPrivateRoute component={TestTemp} exact path="/canvasTest" />
+              <PrivateRoute component={IpInsertPage} exact path="/ipInsert"/>
             </Switch>
           </ScrollToTop>
         </AuthProvider>

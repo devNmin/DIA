@@ -1,17 +1,22 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
+import styles from './NonLoginMainPage.module.css'
+import logo from '../assets/freelogo.png'
 
 function NonLoginMainPage(props) {
     return (
-        <div>
-            <Link to='/ex'>
-                <button type="button">
-                    다이아 시작하기
-                </button>
-            </Link>
-            <div>
-                이미 회원이신가요?
-                <Link to='/'>로그인하기</Link>
+        <div className={styles.body}>
+            <img className={styles.logo} src={logo} alt='/' />
+            <div className={styles.buttonBody}>
+                <Link to='/ex' className={styles.Link}>
+                    <button type="button">
+                        다이아 시작하기
+                    </button>
+                </Link>
+            <div className={styles.logintext}>
+                이미 다이아 회원이라면? &nbsp;
+                <Link to='/' className={styles.login}>로그인</Link>
+            </div>
             </div>
         </div>
     );

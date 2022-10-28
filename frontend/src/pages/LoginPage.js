@@ -28,7 +28,7 @@ function LoginPage() {
           <input type="submit" value="Login" />
         </div>
       </form>
-      <Link to="/register" className={styles.actions2}>
+      <Link to="/ex" className={styles.actions2}>
         <p>Create account</p>
       </Link>
     </section>

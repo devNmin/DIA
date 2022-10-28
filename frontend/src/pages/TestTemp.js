@@ -30,7 +30,7 @@ function TestTemp() {
         Math.abs(prevData[2] - clientY)
       );
       if (
-        Math.abs(timestamp - prevData[0]) < 10 &&
+        Math.abs(timestamp - prevData[0]) < 15 &&
         (Math.abs(prevData[1] - clientX) > 20 ||
           Math.abs(prevData[2] - clientY) > 20)
       ) {

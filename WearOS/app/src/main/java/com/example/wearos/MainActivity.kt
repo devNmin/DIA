@@ -53,9 +53,6 @@ class MainActivity : AppCompatActivity() {
 
     fun userCheck(editText:EditText, intent: Intent){
         val user_code =editText.text.toString()
-        if(user_code == "1"){
-            Toast.makeText(this,"hello",Toast.LENGTH_SHORT).show()
-        }
 
         val retrofit = Retrofit.Builder().baseUrl("https://k7b307.p.ssafy.io/api/v1/")
             .addConverterFactory(GsonConverterFactory.create()).build();

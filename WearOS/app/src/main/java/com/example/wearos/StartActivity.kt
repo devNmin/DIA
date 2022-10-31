@@ -39,6 +39,9 @@ class StartActivity : AppCompatActivity() {
         val intent = Intent(this,SensorActivity::class.java);
 
         checkBtn.setOnClickListener(){
+            intent.putExtra("userEmail",userEmail);
+            intent.putExtra("userName",userName);
+            intent.putExtra("userCode",userCode);
             startActivity(intent);
         }
 

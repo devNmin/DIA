@@ -15,14 +15,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/search")
 public class UserSearchController {
-
-    private final UserService userService;
     private final UserRepository userRepository;
 
-    private JavaMailSender mailSender;
-
-    public UserSearchController(UserService userService, UserRepository userRepository){
-        this.userService=userService;
+    public UserSearchController(UserRepository userRepository){
         this.userRepository = userRepository;
     }
 

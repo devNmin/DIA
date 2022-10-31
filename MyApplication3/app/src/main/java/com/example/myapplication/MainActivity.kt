@@ -1,8 +1,10 @@
 package com.example.myapplication
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.AsyncTask
 import android.os.Build
@@ -12,6 +14,7 @@ import android.provider.MediaStore
 import android.webkit.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.startActivityForResult
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
@@ -22,11 +25,21 @@ import java.util.*
 class MainActivity : AppCompatActivity(){
     var cameraPath = ""
     var mWebViewImageUpload: ValueCallback<Array<Uri>>? = null
-
+    var PERMISSIONS = arrayOf(
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.CAMERA
+    )
+    private val REQUEST_CODE = 1112
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val b: Boolean = checkPermission()
+            if (b == false) {
+                ActivityCompat.requestPermissions(this, PERMISSIONS, REQUEST_CODE)
+            }
+        }
         webviewSetting()
 
         webview.webChromeClient = object : WebChromeClient(){
@@ -73,6 +86,14 @@ class MainActivity : AppCompatActivity(){
 //            val intent= Intent( this, CamActivity::class.java)
 //            startActivity(intent)
 //        }
+    }
+
+    private fun checkPermission(): Boolean {
+        for (i in PERMISSIONS.indices) {
+            val result = ActivityCompat.checkSelfPermission(applicationContext, PERMISSIONS[i])
+            if (result != PackageManager.PERMISSION_GRANTED) return false
+        }
+        return true
     }
 
     fun webviewSetting(){

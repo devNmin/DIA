@@ -1,0 +1,89 @@
+.pitch {
+  background-color: #238729;
+  width: 590px;
+  height: 380px;
+  position: fixed;
+  z-index: -1;
+}
+.pitch:after {
+  content: '';
+  border-left: 1px solid white;
+  position: absolute;
+  top: 20px;
+  left: 295px;
+  display: block;
+  height: 340px;
+}
+
+.pitch:before {
+  content: '';
+  border: 1px solid white;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: block;
+  width: 550px;
+  height: 340px;
+}
+
+.center_circle {
+  position: absolute;
+  top: 145px;
+  left: 250px;
+  width: 90px;
+  height: 90px;
+  border: 1px solid white;
+  border-radius: 50%;
+}
+.center_circle:after {
+  position: absolute;
+  top: 43px;
+  left: 43px;
+  width: 1px;
+  height: 1px;
+  background-color: white;
+  content: '';
+  border: 1px solid white;
+}
+
+.penalty_area {
+  position: absolute;
+  height: 140px;
+  width: 80px;
+  top: 120px;
+  border: 1px solid white;
+}
+
+.left .penalty_area {
+  left: 20px;
+  border-left: 0;
+}
+
+.right .penalty_area {
+  right: 19px;
+  border-right: 0;
+}
+
+.penalty_area:before {
+  position: absolute;
+  height: 70px;
+  width: 35px;
+  top: 35px;
+  border: 1px solid white;
+  content: '';
+}
+.left .penalty_area:before {
+  left: 0px;
+  border-left: 0;
+}
+.right .penalty_area:before {
+  right: 0px;
+  border-right: 0;
+}
+
+.left .penalty_area:after {
+  right: 15px;
+}
+.right .penalty_area:after {
+  left: 15px;
+}

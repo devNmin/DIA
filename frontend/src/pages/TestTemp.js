@@ -1,6 +1,8 @@
 //https://velog.io/@mokyoungg/React-React%EC%97%90%EC%84%9C-Canvas-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0%EB%A7%88%EC%9A%B0%EC%8A%A4-%EA%B7%B8%EB%A6%AC%EA%B8%B0
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './TestTemp.module.css';
+import SoccerField from '../components/FieldPage/SoccerField';
+
 function TestTemp() {
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
@@ -104,7 +106,7 @@ function TestTemp() {
     if (i >= dumpData[1].length - 1) {
       return;
     } else if (ctx2) {
-      ctx2.clearRect(0, 0, canvasWidth, canvasHeigth);
+      ctx2.clearRect(0, 0, window.innerWidth, window.innerHeight);
       i += 1;
       const [x, y] = dumpData[1][i];
       ctx2.beginPath();
@@ -144,7 +146,7 @@ function TestTemp() {
     setBrushSize(e.target.value);
   }
   function canvasClear() {
-    ctx.clearRect(0, 0, canvasWidth, canvasHeigth);
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
   }
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -187,7 +189,9 @@ function TestTemp() {
         <button onClick={canvasClear}>전체지우기</button>
       </div>
       <div className={styles.canvas_box}>
+        <SoccerField />
         <canvas
+          className={styles.canvas}
           ref={canvasRef}
           onTouchStart={(e) => {
             startDrawing();

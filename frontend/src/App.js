@@ -15,6 +15,7 @@ import TestTemp from './pages/TestTemp';
 // import CanvasTestPage from './pages/CanvasTestPage';
 import IpInsertPage from './pages/IpInsertPage';
 import {UserProvider} from './context/UserContext'
+import TeamMakePage from './pages/TeamMakePage';
 
 function App() {
   return (
@@ -35,7 +36,8 @@ function App() {
                 <PrivateRoute component={MainPage} exact path = '/main'></PrivateRoute>   
                 <NonPrivateRoute component={NonLoginMainPage} exact path="/non"/>    
                 <NonPrivateRoute component={Explainpage} exact path="/ex"/>        
-                <NonPrivateRoute component={TestTemp} exact path="/canvasTest" />
+                <NonPrivateRoute component={TestTemp} exact path="/canvasTest"/>
+                <PrivateRoute component = {TeamMakePage} exact path = '/teammake'/>
                 <PrivateRoute component={IpInsertPage} exact path="/ipInsert"/>
               </Switch>
             </ScrollToTop>

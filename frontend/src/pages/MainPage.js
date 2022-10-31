@@ -1,9 +1,14 @@
 import React, { useState } from 'react'
 import Modal from 'react-modal'
 import styles from './MainPage.module.css'
+import { useHistory } from 'react-router-dom';
 
 export default function MainPage() {
+  const history = useHistory()
   const [modalIsOpen, setModalIsOpen] = useState(true)
+  const clickCanvasButton =  () => {
+    history.push('/teammake')
+  }
   return (
     <div className={styles.mainPage}>
       <Modal className={styles.Modal} isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
@@ -17,8 +22,8 @@ export default function MainPage() {
           <button className={styles.modalClose} onClick={() => setModalIsOpen(false)}>Modal close</button>
         </div>
       </Modal>
-        <button className={styles.mainButtons}>
-          전술보드 들어가기
+        <button className={styles.mainButtons} onClick={() => clickCanvasButton()}>
+          전술보드 들어가기 
         </button>
         <button className={styles.mainButtons}>
           마이페이지

@@ -1,9 +1,0 @@
-.size {
-  position: fixed;
-  user-select: none;
-  overflow: hidden;
-}
-
-.toolbox {
-  position: absolute;
-}

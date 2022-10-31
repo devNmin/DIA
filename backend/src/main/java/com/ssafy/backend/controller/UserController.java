@@ -67,7 +67,7 @@ public class UserController {
         User user = userService.findById(numCode);
         System.out.println(user);
         if(user != null){
-            UserWearDto userWearDto = UserWearDto.builder().userEmail(user.getUserEmail()).userName(user.getUserName()).build();
+            UserWearDto userWearDto = UserWearDto.builder().userCode(user.getUserId()).userEmail(user.getUserEmail()).userName(user.getUserName()).build();
             return new ResponseEntity<UserWearDto>(userWearDto,HttpStatus.OK);
         }else{
             return new ResponseEntity<ResponseDto>(new ResponseDto(404,"존재하지 않는 사용자입니다"),HttpStatus.NOT_FOUND);

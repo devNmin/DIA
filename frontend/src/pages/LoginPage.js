@@ -10,6 +10,7 @@ function LoginPage() {
   return (
     <div className={styles.body}>
       <section className={styles.login_box}>
+        <input type="file" />
         <h2>DIA</h2>
         <form onSubmit={loginUser}>
           {/* <img src={logo} alt="" /> */}

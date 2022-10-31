@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.AsyncTask
@@ -33,9 +34,12 @@ class MainActivity : AppCompatActivity(){
     var urlPath = "https://k7b307.p.ssafy.io"
 //    var urlPath = "http://192.168.0.35:3000/mypage"
     private val REQUEST_CODE = 1112
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE    );
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val b: Boolean = checkPermission()
             if (b == false) {

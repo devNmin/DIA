@@ -1,5 +1,6 @@
 //https://velog.io/@mokyoungg/React-React%EC%97%90%EC%84%9C-Canvas-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0%EB%A7%88%EC%9A%B0%EC%8A%A4-%EA%B7%B8%EB%A6%AC%EA%B8%B0
-import React, { useEffect, useRef, useState } from 'react';
+import UserContext from '../context/UserContext';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import styles from './TestTemp.module.css';
 import SoccerField from '../components/FieldPage/SoccerField';
 
@@ -8,7 +9,7 @@ function TestTemp() {
   const contextRef = useRef(null);
   const canvasRef2 = useRef(null);
   const contextRef2 = useRef(null);
-
+  const {ipV4, portinput } = useContext(UserContext)
   const [ctx, setCtx] = useState();
   const [ctx2, setCtx2] = useState();
 
@@ -165,6 +166,43 @@ function TestTemp() {
     setInterval(field_set, 200);
   }, [ctx2]);
 
+  // 소켓
+  const host = ipV4
+    const port = portinput
+    let ws = undefined
+
+    const socketStart = () => {
+        console.log("connecting....")
+        if(ws === undefined){
+            ws = new WebSocket("ws://"+host+":"+port+"/ws");
+            ws.onopen = () => {
+              console.log("connected!!");
+            };
+            ws.onmessage = (message) => { //server to client
+              console.log("message", message.data);
+            };
+            ws.onclose = function(){
+                ws = undefined
+                console.log("Server Disconnect..")
+            };
+            ws.onerror = function(message){
+                console.log("error..")
+            };
+        }
+    }
+
+    const socketStop = () => {
+        if(ws !== undefined){
+            ws.close();
+        }
+    }
+    
+    const socketSend = () => { 
+        if(ws !== undefined){
+            ws.send("hello this is client Message"); //client to server
+        }
+    }
+
   return (
     <div className={styles.size}>
       <div className={styles.toolbox}>
@@ -188,6 +226,13 @@ function TestTemp() {
         />
         <button onClick={canvasClear}>전체지우기</button>
       </div>
+      <div> IP : { ipV4 } </div>
+      <div> PORT : {portinput} </div>
+      <div>
+            <button onClick={socketStart}>소켓 시작</button>
+            <button onClick={socketStop}>소켓 종료</button>
+            <button onClick={socketSend}>소켓 전송</button>
+        </div>
       <div className={styles.canvas_box}>
         <SoccerField />
         <canvas

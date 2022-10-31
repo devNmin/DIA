@@ -30,8 +30,8 @@ class MainActivity : AppCompatActivity(){
         Manifest.permission.WRITE_EXTERNAL_STORAGE,
         Manifest.permission.CAMERA
     )
-//    var urlPath = "https://k7b307.p.ssafy.io"
-    var urlPath = "http://192.168.0.35:3000/mypage"
+    var urlPath = "https://k7b307.p.ssafy.io"
+//    var urlPath = "http://192.168.0.35:3000/mypage"
     private val REQUEST_CODE = 1112
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

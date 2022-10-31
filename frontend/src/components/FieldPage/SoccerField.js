@@ -1,0 +1,16 @@
+import styles from './SoccerField.module.css';
+
+function SoccerField() {
+  return (
+    <section className={styles.pitch}>
+      <div className={`${styles.field} ${styles.left}`}>
+        <div className={styles.penalty_area}></div>
+      </div>
+      <div className={`${styles.field} ${styles.right}`}>
+        <div className={styles.penalty_area}></div>
+      </div>
+      <div className={styles.center_circle}></div>
+    </section>
+  );
+}
+export default SoccerField;

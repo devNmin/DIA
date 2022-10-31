@@ -30,6 +30,8 @@ class MainActivity : AppCompatActivity(){
         Manifest.permission.WRITE_EXTERNAL_STORAGE,
         Manifest.permission.CAMERA
     )
+//    var urlPath = "https://k7b307.p.ssafy.io"
+    var urlPath = "http://192.168.0.35:3000/mypage"
     private val REQUEST_CODE = 1112
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,7 +81,7 @@ class MainActivity : AppCompatActivity(){
             }
         }
 
-        webview.loadUrl("https://k7b307.p.ssafy.io")
+        webview.loadUrl(urlPath)
 //        webview.loadUrl("http://192.168.31.85:3000 ")
         //플로팅 버튼
 //        fab.setOnClickListener{

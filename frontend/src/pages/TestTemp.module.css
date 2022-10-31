@@ -5,6 +5,7 @@
 }
 
 .toolbox {
+  z-index: 1;
   position: absolute;
 }
 
@@ -12,6 +13,9 @@
   position: relative;
 }
 
-.field_canvas {
-  position: absolute;
+.canvas2 {
+  z-index: -1;
+  position: fixed;
+  top: 0;
+  left: 0;
 }

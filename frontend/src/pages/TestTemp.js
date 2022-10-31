@@ -4,15 +4,19 @@ import styles from './TestTemp.module.css';
 function TestTemp() {
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
-  const fieldCanvasRef = useRef(null);
-  const fieldContextRef = useRef(null);
+  const canvasRef2 = useRef(null);
+  const contextRef2 = useRef(null);
 
   const [ctx, setCtx] = useState();
-  const [fieldCtx, setFieldCtx] = useState();
+  const [ctx2, setCtx2] = useState();
+
   const [isDrawing, setIsDrawing] = useState(false);
   const [brushColor, setBrushColor] = useState('black');
   const [brushSize, setBrushSize] = useState('1');
   const [prevData, setPrevData] = useState([0, 0, 0, '']);
+
+  const canvasWidth = window.innerWidth;
+  const canvasHeigth = window.innerHeight;
 
   const startDrawing = () => {
     setIsDrawing(true);
@@ -67,20 +71,71 @@ function TestTemp() {
     }
   };
   //////////////////
-  const dumpData = [
-    [10, 10],
-    [11, 10],
-    [12, 11],
-    [13, 12],
-    [12, 11],
-    [12, 10],
-  ];
-  const field_set = (data) => {
-    const { x, y } = data;
-    fieldCtx.beginPath();
-    fieldCtx.arc(x, y, 0, Math.PI * 2);
-    fieldCtx.stroke();
+  const dumpData = {
+    1: [
+      [10, 10],
+      [11, 10],
+      [12, 11],
+      [13, 12],
+      [12, 11],
+      [12, 10],
+      [13, 11],
+      [14, 12],
+      [15, 13],
+      [16, 14],
+      [16, 15],
+    ],
+    2: [
+      [40, 40],
+      [42, 42],
+      [43, 43],
+      [45, 45],
+      [47, 47],
+      [47, 49],
+      [47, 50],
+      [45, 50],
+      [43, 50],
+      [42, 49],
+      [41, 48],
+    ],
   };
+  let i = 0;
+  const field_set = () => {
+    if (i >= dumpData[1].length - 1) {
+      return;
+    } else if (ctx2) {
+      ctx2.clearRect(0, 0, canvasWidth, canvasHeigth);
+      i += 1;
+      const [x, y] = dumpData[1][i];
+      ctx2.beginPath();
+      ctx2.arc(
+        dumpData[1][i][0] * 10,
+        dumpData[1][i][1] * 10,
+        20,
+        0,
+        Math.PI * 2,
+        true
+      );
+      ctx2.fillStyle = 'orange';
+      ctx2.fill();
+      ctx2.stroke();
+      ///
+      ctx2.moveTo(dumpData[2][i][0] * 10, dumpData[2][i][1] * 10);
+      ctx2.beginPath();
+      ctx2.arc(
+        dumpData[2][i][0] * 10,
+        dumpData[2][i][1] * 10,
+        20,
+        0,
+        Math.PI * 2,
+        true
+      );
+      ctx2.fillStyle = 'blue';
+      ctx2.fill();
+      ctx2.stroke();
+    }
+  };
+
   ///////////////////
   function brushColorHandler(e) {
     setBrushColor(e.target.value);
@@ -89,22 +144,24 @@ function TestTemp() {
     setBrushSize(e.target.value);
   }
   function canvasClear() {
-    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    ctx.clearRect(0, 0, canvasWidth, canvasHeigth);
   }
   useEffect(() => {
     const canvas = canvasRef.current;
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeigth;
     const context = canvas.getContext('2d');
     contextRef.current = context;
     setCtx(contextRef.current);
-    const fieldCanvas = fieldCanvasRef.current;
-    fieldCanvas.width = window.innerWidth;
-    fieldCanvas.height = window.innerHeight;
-    const fieldContext = fieldCanvas.getContext('2d');
-    fieldCanvasRef.current = fieldContext;
-    setFieldCtx(fieldContextRef.current);
-  }, []);
+
+    const canvas2 = canvasRef2.current;
+    canvas2.width = canvasWidth;
+    canvas2.height = canvasHeigth;
+    const context2 = canvas2.getContext('2d');
+    setCtx2(context2);
+
+    setInterval(field_set, 200);
+  }, [ctx2]);
 
   return (
     <div className={styles.size}>
@@ -140,7 +197,7 @@ function TestTemp() {
           onTouchMove={drawing}
           onTouchCancel={finishDrawing}
         />
-        <canvas className={styles.field_canvas} ref={fieldCanvasRef} />
+        <canvas className={styles.canvas2} ref={canvasRef2} />
       </div>
     </div>
   );

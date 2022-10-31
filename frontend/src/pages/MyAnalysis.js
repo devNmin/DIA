@@ -1,9 +1,9 @@
 import React from 'react';
-import MyCard from '../components/MyPage/MyCard';
 import Sidebar from '../components/MyPage/SideBar';
+import MyCard from '../components/MyPage/MyCard';
 import styles from './MyPage.module.css'
 
-function MyPage(props) {
+function MyAnalysis(props) {
     return (
         <div className={styles.body}>
             <Sidebar />
@@ -12,4 +12,4 @@ function MyPage(props) {
     );
 }
 
-export default MyPage;
+export default MyAnalysis;

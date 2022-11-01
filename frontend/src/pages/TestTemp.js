@@ -8,8 +8,8 @@ function TestTemp() {
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
   const canvasRef2 = useRef(null);
-  const contextRef2 = useRef(null);
-  const {ipV4, portinput } = useContext(UserContext)
+  // const contextRef2 = useRef(null);
+  const { ipV4, portinput } = useContext(UserContext);
   const [ctx, setCtx] = useState();
   const [ctx2, setCtx2] = useState();
 
@@ -18,8 +18,11 @@ function TestTemp() {
   const [brushSize, setBrushSize] = useState('1');
   const [prevData, setPrevData] = useState([0, 0, 0, '']);
 
+  const [coord, setCoord] = useState(null);
+  const [coordList, setCoordList] = useState(null);
+
   const canvasWidth = window.innerWidth;
-  const canvasHeigth = window.innerHeight;
+  const canvasHeigth = window.innerHeight * 0.8;
 
   const startDrawing = () => {
     setIsDrawing(true);
@@ -29,6 +32,7 @@ function TestTemp() {
   };
 
   const drawing = ({ nativeEvent }) => {
+    console.log('드로잉이벤트', nativeEvent);
     const { clientX, clientY } = nativeEvent.changedTouches[0];
     const timestamp = nativeEvent.timeStamp;
 
@@ -55,7 +59,6 @@ function TestTemp() {
 
     if (ctx) {
       setPrevData((prev) => [timestamp, clientX, clientY, prev[3]]);
-
       if (!isDrawing) {
         ctx.beginPath();
         ctx.moveTo(clientX, clientY);
@@ -73,69 +76,30 @@ function TestTemp() {
       }
     }
   };
-  //////////////////
-  const dumpData = {
-    1: [
-      [10, 10],
-      [11, 10],
-      [12, 11],
-      [13, 12],
-      [12, 11],
-      [12, 10],
-      [13, 11],
-      [14, 12],
-      [15, 13],
-      [16, 14],
-      [16, 15],
-    ],
-    2: [
-      [40, 40],
-      [42, 42],
-      [43, 43],
-      [45, 45],
-      [47, 47],
-      [47, 49],
-      [47, 50],
-      [45, 50],
-      [43, 50],
-      [42, 49],
-      [41, 48],
-    ],
-  };
-  let i = 0;
+
   const field_set = () => {
-    if (i >= dumpData[1].length - 1) {
-      return;
-    } else if (ctx2) {
+    if (ctx2) {
+      setCoordList((prev) => [prev + coord]);
+      console.log('좌표리스트', coordList);
+
       ctx2.clearRect(0, 0, window.innerWidth, window.innerHeight);
-      i += 1;
-      const [x, y] = dumpData[1][i];
-      ctx2.beginPath();
-      ctx2.arc(
-        dumpData[1][i][0] * 10,
-        dumpData[1][i][1] * 10,
-        20,
-        0,
-        Math.PI * 2,
-        true
-      );
-      ctx2.fillStyle = 'orange';
-      ctx2.fill();
-      ctx2.stroke();
-      ///
-      ctx2.moveTo(dumpData[2][i][0] * 10, dumpData[2][i][1] * 10);
-      ctx2.beginPath();
-      ctx2.arc(
-        dumpData[2][i][0] * 10,
-        dumpData[2][i][1] * 10,
-        20,
-        0,
-        Math.PI * 2,
-        true
-      );
-      ctx2.fillStyle = 'blue';
-      ctx2.fill();
-      ctx2.stroke();
+      for (let i = 0; i < 6; i++) {
+        if (i in coord) {
+          ctx2.moveTo(coord[i][0] * canvasWidth, coord[i][1] * canvasHeigth);
+          ctx2.beginPath();
+          ctx2.arc(
+            coord[i][0] * canvasWidth,
+            coord[i][1] * canvasHeigth,
+            20,
+            0,
+            Math.PI * 2,
+            true
+          );
+          ctx2.fillStyle = 'orange';
+          ctx2.fill();
+          ctx2.stroke();
+        }
+      }
     }
   };
 
@@ -162,46 +126,47 @@ function TestTemp() {
     canvas2.height = canvasHeigth;
     const context2 = canvas2.getContext('2d');
     setCtx2(context2);
-
-    setInterval(field_set, 200);
-  }, [ctx2]);
+    field_set();
+  }, [coord]);
 
   // 소켓
-  const host = ipV4
-    const port = portinput
-    let ws = undefined
+  const host = ipV4;
+  const port = portinput;
+  let ws = undefined;
 
-    const socketStart = () => {
-        console.log("connecting....")
-        if(ws === undefined){
-            ws = new WebSocket("ws://"+host+":"+port+"/ws");
-            ws.onopen = () => {
-              console.log("connected!!");
-            };
-            ws.onmessage = (message) => { //server to client
-              console.log("message", message.data);
-            };
-            ws.onclose = function(){
-                ws = undefined
-                console.log("Server Disconnect..")
-            };
-            ws.onerror = function(message){
-                console.log("error..")
-            };
-        }
+  const socketStart = () => {
+    console.log('connecting....');
+    if (ws === undefined) {
+      ws = new WebSocket('ws://' + host + ':' + port + '/ws');
+      ws.onopen = () => {
+        console.log('connected!!');
+      };
+      ws.onmessage = (message) => {
+        //server to client
+        console.log('message', message.data);
+        setCoord(JSON.parse(message.data));
+      };
+      ws.onclose = function () {
+        ws = undefined;
+        console.log('Server Disconnect..');
+      };
+      ws.onerror = function (message) {
+        console.log('error..');
+      };
     }
+  };
 
-    const socketStop = () => {
-        if(ws !== undefined){
-            ws.close();
-        }
+  const socketStop = () => {
+    if (ws !== undefined) {
+      ws.close();
     }
-    
-    const socketSend = () => { 
-        if(ws !== undefined){
-            ws.send("hello this is client Message"); //client to server
-        }
+  };
+
+  const socketSend = () => {
+    if (ws !== undefined) {
+      ws.send('hello this is client Message'); //client to server
     }
+  };
 
   return (
     <div className={styles.size}>
@@ -225,14 +190,17 @@ function TestTemp() {
           }}
         />
         <button onClick={canvasClear}>전체지우기</button>
-      </div>
-      <div> IP : { ipV4 } </div>
-      <div> PORT : {portinput} </div>
-      <div>
+        <div className={styles.socketGroup}>
+          <div> IP : {ipV4} </div>
+          <div> PORT : {portinput} </div>
+          <div>
             <button onClick={socketStart}>소켓 시작</button>
             <button onClick={socketStop}>소켓 종료</button>
             <button onClick={socketSend}>소켓 전송</button>
+          </div>
         </div>
+      </div>
+
       <div className={styles.canvas_box}>
         <SoccerField />
         <canvas

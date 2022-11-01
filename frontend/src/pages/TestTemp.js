@@ -20,12 +20,12 @@ function TestTemp() {
 
   const [coord, setCoord] = useState(null);
   const [coords, setCoords] = useState({
+    0: [],
     1: [],
     2: [],
     3: [],
     4: [],
     5: [],
-    6: [],
   });
 
   const canvasWidth = window.innerWidth;
@@ -86,21 +86,36 @@ function TestTemp() {
   const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
   const field_set = () => {
     if (ctx2 && coord) {
+      console.log('리스트?', coords);
       ctx2.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      console.log('원좌표', coord);
       for (let i = 0; i < 6; i++) {
         if (i in coord) {
-          const x = coord[i][0] * canvasWidth;
-          const y = coord[i][1] * canvasHeigth;
+          console.log('여기', coords[i]);
+          const x = coord[i][0] * canvasWidth + canvasWidth / 2;
+          const y = coord[i][1] * canvasHeigth - canvasHeigth / 2;
           coords[i].push([x, y]);
 
           ctx2.moveTo(x, y);
           ctx2.beginPath();
-          ctx2.arc(x, y, 20, 0, Math.PI * 2, true);
+          ctx2.arc(x, y, 15, 0, Math.PI * 2, true);
           ctx2.fillStyle = colors[i];
           ctx2.fill();
           ctx2.stroke();
         } else {
-          coords[i].push([0, 0]);
+          if (coords.length > 0) {
+            console.log('이거 왜 안댐?', coords[i].at(-1));
+            const x = coords[i].at(-1)[0] * canvasWidth;
+            const y = coords[i].at(-1)[1] * canvasHeigth;
+            coords[i].push([x, y]);
+
+            ctx2.moveTo(x, y);
+            ctx2.beginPath();
+            ctx2.arc(x, y, 15, 0, Math.PI * 2, true);
+            ctx2.fillStyle = colors[i];
+            ctx2.fill();
+            ctx2.stroke();
+          }
         }
       }
       console.log('좌표리스트', coords);

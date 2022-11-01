@@ -160,16 +160,16 @@ class SensorActivity : AppCompatActivity() ,SensorEventListener{
         if (event.sensor.type == Sensor.TYPE_HEART_RATE) {
             userHeartRate = event.values[0]
         }
-//        if(event.sensor.type ==Sensor.TYPE_STEP_COUNTER){
-//            if(startStep != -1.0f){ //처음 시작한 경우가 아닌 경우
-//                endStep = event.values[0]
-//                Log.d("second","STEPS: "+endStep)
-//            }
-//            else if(startStep == -1.0f){//처음 시작한 경우
-//                startStep = event.values[0] //초기값 세팅
-//                Log.d("First","STEPS: "+startStep)
-//            }
-//        }
+        if(event.sensor.type ==Sensor.TYPE_STEP_COUNTER){
+            if(startStep != -1.0f){ //처음 시작한 경우가 아닌 경우
+                endStep = event.values[0]
+                Log.d("second","STEPS: "+endStep)
+            }
+            else if(startStep == -1.0f){//처음 시작한 경우
+                startStep = event.values[0] //초기값 세팅
+                Log.d("First","STEPS: "+startStep)
+            }
+        }
     }
 
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {

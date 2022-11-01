@@ -8,7 +8,7 @@ function TestTemp() {
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
   const canvasRef2 = useRef(null);
-  const contextRef2 = useRef(null);
+  // const contextRef2 = useRef(null);
   const { ipV4, portinput } = useContext(UserContext);
   const [ctx, setCtx] = useState();
   const [ctx2, setCtx2] = useState();
@@ -19,6 +19,7 @@ function TestTemp() {
   const [prevData, setPrevData] = useState([0, 0, 0, '']);
 
   const [coord, setCoord] = useState(null);
+  const [coordList, setCoordList] = useState(null);
 
   const canvasWidth = window.innerWidth;
   const canvasHeigth = window.innerHeight * 0.8;
@@ -31,6 +32,7 @@ function TestTemp() {
   };
 
   const drawing = ({ nativeEvent }) => {
+    console.log('드로잉이벤트', nativeEvent);
     const { clientX, clientY } = nativeEvent.changedTouches[0];
     const timestamp = nativeEvent.timeStamp;
 
@@ -57,7 +59,6 @@ function TestTemp() {
 
     if (ctx) {
       setPrevData((prev) => [timestamp, clientX, clientY, prev[3]]);
-
       if (!isDrawing) {
         ctx.beginPath();
         ctx.moveTo(clientX, clientY);
@@ -75,38 +76,12 @@ function TestTemp() {
       }
     }
   };
-  //////////////////
-  const dumpData = {
-    1: [
-      [10, 10],
-      [11, 10],
-      [12, 11],
-      [13, 12],
-      [12, 11],
-      [12, 10],
-      [13, 11],
-      [14, 12],
-      [15, 13],
-      [16, 14],
-      [16, 15],
-    ],
-    2: [
-      [40, 40],
-      [42, 42],
-      [43, 43],
-      [45, 45],
-      [47, 47],
-      [47, 49],
-      [47, 50],
-      [45, 50],
-      [43, 50],
-      [42, 49],
-      [41, 48],
-    ],
-  };
 
   const field_set = () => {
     if (ctx2) {
+      setCoordList((prev) => [prev + coord]);
+      console.log('좌표리스트', coordList);
+
       ctx2.clearRect(0, 0, window.innerWidth, window.innerHeight);
       for (let i = 0; i < 6; i++) {
         if (i in coord) {
@@ -125,21 +100,6 @@ function TestTemp() {
           ctx2.stroke();
         }
       }
-
-      /*
-      ctx2.beginPath();
-      ctx2.arc(coord[0][0], coord[0][1], 20, 0, Math.PI * 2, true);
-      ctx2.fillStyle = 'orange';
-      ctx2.fill();
-      ctx2.stroke();
-      ///
-      ctx2.moveTo(coord[1][0], coord[1][1]);
-      ctx2.beginPath();
-      ctx2.arc(coord[1][0], coord[1][1], 20, 0, Math.PI * 2, true);
-      ctx2.fillStyle = 'blue';
-      ctx2.fill();
-      ctx2.stroke();
-      */
     }
   };
 
@@ -242,6 +202,7 @@ function TestTemp() {
       </div>
 
       <div className={styles.canvas_box}>
+        <SoccerField />
         <canvas
           className={styles.canvas}
           ref={canvasRef}

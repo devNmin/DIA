@@ -1,4 +1,102 @@
-.img_size {
+section {
+  width: 100vw;
+  height: 100vh;
   position: absolute;
   z-index: -2;
+}
+.pitch {
+  background-color: #238729;
+  width: 100%;
+  height: 80%;
+  position: relative;
+}
+.pitch:after {
+  content: '';
+  border-left: 1px solid white;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  display: block;
+  height: 80%;
+}
+
+.pitch:before {
+  content: '';
+  border: 1px solid white;
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  display: block;
+  width: 80%;
+  height: 80%;
+}
+
+.center_circle {
+  position: absolute;
+  top: 42%;
+  left: 45.5%;
+  width: 6rem;
+  height: 6rem;
+  border: 1px solid white;
+  border-radius: 50%;
+}
+.center_circle:after {
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  width: 1px;
+  height: 1px;
+  background-color: white;
+  content: '';
+  border: 1px solid white;
+}
+
+.penalty_area {
+  position: absolute;
+  height: 9rem;
+  width: 5rem;
+  top: 37%;
+  border: 1px solid white;
+}
+
+.left .penalty_area {
+  left: 10%;
+  border-left: 0;
+}
+
+.right .penalty_area {
+  right: 10%;
+  border-right: 0;
+}
+
+.penalty_area:before {
+  position: absolute;
+  height: 4.5rem;
+  width: 2rem;
+  top: 24%;
+  border: 1px solid white;
+  content: '';
+}
+.left .penalty_area:before {
+  left: 0px;
+  border-left: 0;
+}
+.right .penalty_area:before {
+  right: 0px;
+  border-right: 0;
+}
+
+.penalty_area:after {
+  position: absolute;
+  height: 2px;
+  width: 2px;
+  top: 70px;
+  background-color: white;
+  content: '';
+}
+.left .penalty_area:after {
+  right: 15px;
+}
+.right .penalty_area:after {
+  left: 15px;
 }

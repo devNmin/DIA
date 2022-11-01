@@ -1,12 +1,12 @@
 package com.example.wearos
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.R
 import com.example.myapplication.databinding.ActivityMainBinding
@@ -17,6 +17,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
+    //사용자 정보 저장
+    private var prefs:SharedPreferences ?=null
+
 
     private lateinit var binding: ActivityMainBinding
 
@@ -29,22 +32,28 @@ class MainActivity : AppCompatActivity() {
 
         val editText = findViewById<EditText>(R.id.user_code)
         val check_btn = findViewById<Button>(R.id.check_btn)
-        var intentCheck = false;
+
         val intent = Intent(this,StartActivity::class.java);
+
+        prefs = this.getSharedPreferences("user_prefs",0)
+
+        if(prefs!!.getString("user_code","")!=""){
+            Log.d("Check","GET USER CODE : "+ prefs!!.getString("user_code",""))
+            startActivity(intent);
+        }
+
 
         editText.setOnEditorActionListener{textView,action,event->
             var handled = true
             if(action == EditorInfo.IME_ACTION_DONE){
                 userCheck(editText,intent)
                 handled = false
-                intentCheck = true;
             }
             handled
         }
 
         check_btn.setOnClickListener(){
             userCheck(editText,intent)
-            intentCheck = true;
         }
 
 
@@ -66,9 +75,11 @@ class MainActivity : AppCompatActivity() {
                     var result: User? = response.body()
                     Log.d("Check","응답 성공: "+ result?.toString());
 
-                    intent.putExtra("userEmail",result?.userEmail);
-                    intent.putExtra("userName",result?.userName);
-                    intent.putExtra("userCode",user_code);
+                    Log.d("Check","GET USER CODE : "+result?.userCode)
+
+                    prefs!!.edit().putString("user_email",result?.userEmail).apply()
+                    prefs!!.edit().putString("user_name",result?.userName).apply()
+                    prefs!!.edit().putString("user_code",result?.userCode).apply()
                     startActivity(intent);
                 }else{
                     Log.d("Check", "존재하지 않는 사용자: ")

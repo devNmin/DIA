@@ -1,6 +1,7 @@
 package com.example.wearos
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -28,6 +29,8 @@ class SensorActivity : AppCompatActivity() ,SensorEventListener{
     var userName:String?=null
     var userCode:Int?=null
 
+    private var prefs: SharedPreferences?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sensor)
@@ -36,16 +39,19 @@ class SensorActivity : AppCompatActivity() ,SensorEventListener{
         mHeartRateSensor = mSensorManager!!.getDefaultSensor(Sensor.TYPE_HEART_RATE);
 
         //retrofit 객체 생성
-        retrofit = Retrofit.Builder().baseUrl("http://k7b307.p.ssafy.io/api/v1/")
+        retrofit = Retrofit.Builder().baseUrl("https://k7b307.p.ssafy.io/api/v1/")
             .addConverterFactory(GsonConverterFactory.create()).build();
 
         //직접적으로 요청보낼 service 객체 생성
         service = retrofit!!.create(APIS::class.java);
 
-        //intent로 받아온 데이터
-        userEmail = intent.getStringExtra("userEmail");
-        userName = intent.getStringExtra("userName");
-        userCode = intent.getStringExtra("userCode")?.toInt();
+        //저장된 정보 가져오는 객체
+        prefs = this.getSharedPreferences("user_prefs",0)
+        //저장된 정보 불러오기
+        prefs!!.getString("user_email","")
+        userEmail = prefs!!.getString("user_email","");
+        userName = prefs!!.getString("user_name","");
+        userCode = prefs!!.getString("user_code","")?.toInt();
 
         val checkBtn = findViewById<Button>(R.id.check_btn); //측정시작 버튼
         val intent = Intent(this,StartActivity::class.java);
@@ -53,6 +59,8 @@ class SensorActivity : AppCompatActivity() ,SensorEventListener{
             mSensorManager!!.unregisterListener(this);
             startActivity(intent);
         }
+
+
 
 
     }

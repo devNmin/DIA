@@ -8,6 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserWearDto {
+    private Long userCode;
     private String userEmail;
     private String userName;
 }

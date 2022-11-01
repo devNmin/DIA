@@ -13,13 +13,22 @@
         app:layout_boxedEdges="all">
 
 
+        <Button
+            android:id="@+id/main_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/reset"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="85dp"
+            android:text="코드 재설정" />
 
         <Button
             android:id="@+id/check_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
             android:background="@drawable/rounded_corner"
+            android:layout_marginTop="25dp"
             android:text="측정 시작"
             android:textColor="@color/black"
 

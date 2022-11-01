@@ -39,7 +39,8 @@ function TestTemp() {
   };
 
   const drawing = ({ nativeEvent }) => {
-    console.log('드로잉이벤트', nativeEvent);
+    // test(nativeEvent);
+    // console.log('드로잉이벤트', nativeEvent);
     const { clientX, clientY } = nativeEvent.changedTouches[0];
     const timestamp = nativeEvent.timeStamp;
 
@@ -186,6 +187,29 @@ function TestTemp() {
       ws.send('hello this is client Message'); //client to server
     }
   };
+  const test = ({ nativeEvent }) => {
+    console.log('안댐?', coord[0][0], nativeEvent.targetTouches[0].clientX);
+    const x = nativeEvent.targetTouches[0].clientX;
+    const y = nativeEvent.targetTouches[0].clientY;
+    let nowI = -1;
+    for (let i = 0; i < 6; i++) {
+      const circleX = coord[i][0] * canvasWidth + canvasWidth / 2;
+      const circleY = coord[i][1] * canvasHeigth - canvasHeigth / 2;
+      // r = sqrt((x-x)^2 +)
+      const distance = Math.sqrt((circleX - x) ** 2 + (circleY - y) ** 2);
+      console.log('dis', distance);
+
+      if (distance < 15) {
+        nowI = i;
+        console.log('찍음');
+        break;
+      }
+    }
+    if (nowI === -1) {
+      return;
+    }
+    console.log('nowI', nowI);
+  };
 
   return (
     <div className={styles.size}>
@@ -228,6 +252,7 @@ function TestTemp() {
           onTouchStart={(e) => {
             startDrawing();
             drawing(e);
+            test(e);
           }}
           onTouchEnd={finishDrawing}
           onTouchMove={drawing}

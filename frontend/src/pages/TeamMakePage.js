@@ -10,7 +10,7 @@ export default function TeamMakePage() {
   return (
     <div>
       <UserSearch></UserSearch>
-      <button onClick={() => {goIpInsert()}}>CONNECT SERVER</button>
+      <button onClick={() => {goIpInsert()}}>등록 완료</button>
     </div>
   )
 }

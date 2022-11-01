@@ -19,7 +19,14 @@ function TestTemp() {
   const [prevData, setPrevData] = useState([0, 0, 0, '']);
 
   const [coord, setCoord] = useState(null);
-  const [coordList, setCoordList] = useState(null);
+  const [coords, setCoords] = useState({
+    1: [],
+    2: [],
+    3: [],
+    4: [],
+    5: [],
+    6: [],
+  });
 
   const canvasWidth = window.innerWidth;
   const canvasHeigth = window.innerHeight * 0.8;
@@ -76,30 +83,27 @@ function TestTemp() {
       }
     }
   };
-
+  const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
   const field_set = () => {
-    if (ctx2) {
-      setCoordList((prev) => [prev + coord]);
-      console.log('좌표리스트', coordList);
-
+    if (ctx2 && coord) {
       ctx2.clearRect(0, 0, window.innerWidth, window.innerHeight);
       for (let i = 0; i < 6; i++) {
         if (i in coord) {
-          ctx2.moveTo(coord[i][0] * canvasWidth, coord[i][1] * canvasHeigth);
+          const x = coord[i][0] * canvasWidth;
+          const y = coord[i][1] * canvasHeigth;
+          coords[i].push([x, y]);
+
+          ctx2.moveTo(x, y);
           ctx2.beginPath();
-          ctx2.arc(
-            coord[i][0] * canvasWidth,
-            coord[i][1] * canvasHeigth,
-            20,
-            0,
-            Math.PI * 2,
-            true
-          );
-          ctx2.fillStyle = 'orange';
+          ctx2.arc(x, y, 20, 0, Math.PI * 2, true);
+          ctx2.fillStyle = colors[i];
           ctx2.fill();
           ctx2.stroke();
+        } else {
+          coords[i].push([0, 0]);
         }
       }
+      console.log('좌표리스트', coords);
     }
   };
 

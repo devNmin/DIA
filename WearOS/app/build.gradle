@@ -47,6 +47,8 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "androidx.appcompat:appcompat-resources:$appcompat_version"
     implementation 'com.google.android.material:material:1.4.+'
+    //위치 데이터 받아오기 위함
+    implementation "com.google.android.gms:play-services-location:21.0.0"
 
 
 }

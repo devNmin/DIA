@@ -14,6 +14,7 @@ import Explainpage from './pages/Explainpage';
 import TestTemp from './pages/TestTemp';
 import MyPage from './pages/MyPage';
 import MyAnalysis from './pages/MyAnalysis';
+import MyPageDetailGraph from './pages/MyPageDetailGraph';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
               <NonPrivateRoute component={TestTemp} exact path="/canvasTest" />
               <PrivateRoute component={MyPage} exact path = '/mypage'></PrivateRoute>  
               <PrivateRoute component={MyAnalysis} exact path = '/analysis'></PrivateRoute>  
+              <PrivateRoute component={MyPageDetailGraph} exact path = '/detail'></PrivateRoute>  
             </Switch>
           </ScrollToTop>
         </AuthProvider>

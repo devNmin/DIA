@@ -1,8 +1,22 @@
 .body {
     height: 100vh;
-    /* display: flex;
-    flex-direction: column;
+    display: flex;
     justify-content: center;
-    align-items: center; */
-    background: #000F24;
+    background-color: #000F24;
+}
+
+.graphbutton {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+}
+
+.detailButton {
+    margin: 1rem;
+    width: 15rem;
+    height: 3rem;
+    border: #739106 solid;
+    border-radius: 30px;
+    color: aliceblue;
+    background-color: #739106;
 }

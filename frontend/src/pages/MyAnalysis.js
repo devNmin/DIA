@@ -1,15 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar from '../components/MyPage/SideBar';
-import MyCard from '../components/MyPage/MyCard';
-import styles from './MyPage.module.css'
+import styles from './MyAnalysis.module.css'
+import Record from '../components/MyPage/Record';
 
 function MyAnalysis(props) {
-    return (
-        <div className={styles.body}>
-            <Sidebar />
-            <MyCard />
-        </div>
-    );
+	const [movies, setMovies] = useState([])
+	const getMovies = async () => {
+		const json = await (
+			await fetch(
+				`https://yts.mx/api/v2/list_movies.json?minimum_rating=8.8&sort_by=year`
+			)
+		).json();
+		setMovies(json.data.movies);
+	};
+	useEffect(() => {
+		getMovies()
+	}, [])
+
+	return (
+		<div className={styles.container}>
+			<Sidebar />
+			<div className={styles.records}>
+				{movies.map((movie) => (
+					<Record
+						key={movie.id}
+						id={movie.id}
+						coverImg={movie.medium_cover_image}
+						title={movie.title}
+					/>
+				))}
+			</div>
+		</div>
+	);
 }
 
 export default MyAnalysis;

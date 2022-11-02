@@ -66,24 +66,28 @@ function MyCard(props) {
 						{/* 선수 스탯 */}
 						<div className={styles.player_features}>
 							<div className={styles.player_features_col}>
-								<br></br>
 								<span>
 									<div className={styles.player_feature_value}>10</div>
 									<div className={styles.player_feature_title}>STA</div>
 								</span>
-								<br></br>
 								<span>
-									<div className={styles.player_feature_value}>2</div>
-									<div className={styles.player_feature_title}>PAS</div>
+									<div className={styles.player_feature_value}>40</div>
+									<div className={styles.player_feature_title}>ATT</div>
+								</span>
+								<span>
+									<div className={styles.player_feature_value}>30</div>
+									<div className={styles.player_feature_title}>DEF</div>
 								</span>
 							</div>
 							<div className={styles.player_features_col}>
-								<br></br>
 								<span>
 									<div className={styles.player_feature_value}>30</div>
 									<div className={styles.player_feature_title}>SPE</div>
 								</span>
-								<br></br>
+								<span>
+									<div className={styles.player_feature_value}>30</div>
+									<div className={styles.player_feature_title}>DIS</div>
+								</span>
 								<span>
 									<div className={styles.player_feature_value}>20</div>
 									<div className={styles.player_feature_title}>PHY</div>

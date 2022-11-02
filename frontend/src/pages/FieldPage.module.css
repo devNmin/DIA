@@ -23,3 +23,11 @@
   /* background-image: url(../assets/soccer_field.jpg);
   background-size: 100% 100%; */
 }
+.canvas3 {
+  z-index: -2;
+  position: fixed;
+  top: 0;
+  left: 0;
+  /* background-image: url(../assets/soccer_field.jpg);
+  background-size: 100% 100%; */
+}

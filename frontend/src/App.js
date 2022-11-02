@@ -1,4 +1,4 @@
-import { Switch, BrowserRouter as Router } from 'react-router-dom';
+import { Switch, BrowserRouter as Router} from 'react-router-dom';
 // import logo from './logo.svg';
 import './App.css';
 import { AuthProvider } from './context/AuthContext';
@@ -13,11 +13,12 @@ import NonLoginMainPage from './pages/NonLoginMainPage';
 import Explainpage from './pages/Explainpage';
 import TestTemp from './pages/TestTemp';
 // import CanvasTestPage from './pages/CanvasTestPage';
-import IpInsertPage from './pages/IpInsertPage';
+// import IpInsertPage from './pages/IpInsertPage';
 import {UserProvider} from './context/UserContext'
-import TeamMakePage from './pages/TeamMakePage';
+// import TeamMakePage from './pages/TeamMakePage';
+import Transition from './components/test/Transition';
 
-function App() {
+function App() {  
   return (
     <div className="App">
       <Router>
@@ -36,14 +37,18 @@ function App() {
                 <PrivateRoute component={MainPage} exact path = '/main'></PrivateRoute>   
                 <NonPrivateRoute component={NonLoginMainPage} exact path="/non"/>    
                 <NonPrivateRoute component={Explainpage} exact path="/ex"/>        
-                <NonPrivateRoute component={TestTemp} exact path="/canvasTest"/>
-                <PrivateRoute component = {TeamMakePage} exact path = '/teammake'/>
-                <PrivateRoute component={IpInsertPage} exact path="/ipInsert"/>
-              </Switch>
+                <NonPrivateRoute component={TestTemp} exact path="/canvasTest"/>                
+              </Switch>          
             </ScrollToTop>
           </UserProvider>
-        </AuthProvider>
-      </Router>
+        </AuthProvider>   
+        <AuthProvider>
+          <UserProvider>
+            <Transition/>
+          </UserProvider>
+        </AuthProvider>    
+      </Router>         
+
     </div>
   );
 }

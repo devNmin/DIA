@@ -1,11 +1,12 @@
-import React , {useState, useEffect} from 'react'
+import React , {useState, useEffect, useContext} from 'react'
 import './FootballNavbar.css'
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
+import UserContext from '../../context/UserContext';
 
 export default function FootballNavbar(props) {
+    const {currentTeam, ipV4, portinput} = useContext(UserContext)
     const history = useHistory();
-    const currentpage2 = props.currentpage
-    console.log(currentpage2);
+    const currentpage2 = props.currentpage 
     let [currentCheck, setCurrentCheck] = useState(0)
     useEffect(() => {
         if (currentpage2 === "usersearch") {
@@ -17,7 +18,13 @@ export default function FootballNavbar(props) {
         }
     })
     const goIpInsert = () => {
-        history.push('/ipInsert')
+        if (currentTeam.length) {          
+         
+            history.push('/ipInsert')
+        }else {
+            alert('팀을 등록해주세요')
+            window.ReactAlert.showToast('팀을 등록해주세요')
+        }
     }
     const goTeammake = () => {
         history.push('/teammake')
@@ -27,8 +34,17 @@ export default function FootballNavbar(props) {
     <div>
       <nav className="container-fluid">
             <ul>
-              <li className="main left" onClick={() => goTeammake()} ><span style={{ 'color' : (currentCheck === 1)? 'red': null}}>유저 등록하기</span></li>              
-              <li className="main" onClick={() => goIpInsert()} ><span style={{ 'color' : (currentCheck === 2)? 'red': null}}>IP 연결</span></li>
+              <li className="main left" > 
+                <Link to= "/teammake" style={{ 'textDecoration' : 'none'}}>
+                    <span style={{ 'color' : (currentCheck === 1)? 'red': null}}>유저 등록하기</span>
+                </Link> 
+            </li>           
+             
+            <li className="main" > 
+                <Link to= "/ipInsert" onClick={() => {goIpInsert()}} style={{ 'textDecoration' : 'none'}}> 
+                    <span style={{ 'color' : (currentCheck === 2)? 'red': null}}>IP 연결</span>
+                </Link> 
+            </li>
               <li className="main"><span>팀 구성하기</span></li>               
             </ul>
         </nav>

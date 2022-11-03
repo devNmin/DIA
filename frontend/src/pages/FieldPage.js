@@ -21,7 +21,10 @@ function FieldPage() {
   const [prevData, setPrevData] = useState([0, 0, 0, '']);
   const [isMoving, setIsMoving] = useState(false);
 
-  /// 테스트를 위해 첫 좌표 더미 넣어둠!!!!!!!!
+  ////1. 일시정지(재생), 3. 뒤로가기, 4.앞으로 가기
+  const [isPause, setIsPause] = useState(false);
+  ////
+
   const [coord, setCoord] = useState(null);
   const [coords, setCoords] = useState({
     0: [],
@@ -51,12 +54,25 @@ function FieldPage() {
   };
 
   const startMoving = () => {
-    console.log('startMoving');
     setIsMoving(true);
   };
   const finishMoving = () => {
-    console.log('finishmoving');
     setIsMoving(false);
+  };
+
+  const HandlePause = () => {
+    if (isPause) {
+      setIsPause(false);
+      ctx3.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      setDuplication({
+        0: [-1, -1],
+        1: [-1, -1],
+        2: [-1, -1],
+        3: [-1, -1],
+        4: [-1, -1],
+        5: [-1, -1],
+      });
+    }
   };
 
   const drawing = ({ nativeEvent }) => {
@@ -109,7 +125,7 @@ function FieldPage() {
   const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
 
   const field_set = () => {
-    /// for더미
+    // for더미!!!!!!!!
     if (!coord) {
       setCoord({
         0: [-0.23, 0.8],
@@ -121,10 +137,6 @@ function FieldPage() {
       });
     }
 
-    if (isMoving) {
-      return;
-    }
-
     if (ctx2 && coord) {
       ctx2.clearRect(0, 0, window.innerWidth, window.innerHeight);
       for (let i = 0; i < 6; i++) {
@@ -132,6 +144,12 @@ function FieldPage() {
           const x = coord[i][0] * canvasWidth + canvasWidth / 2;
           const y = coord[i][1] * canvasHeigth - canvasHeigth / 2;
           coords[i].push([x, y]);
+          //// 좌표 움직이고 있으면 들어오는 좌표는 기억하고 그려주지는 않기
+          // 1. todo : 일시정지 넣기
+          if (isPause) {
+            return;
+          }
+          ////
 
           ctx2.moveTo(x, y);
           ctx2.beginPath();
@@ -196,6 +214,7 @@ function FieldPage() {
         duplication[i][0] = coord[i][0] * canvasWidth + canvasWidth / 2;
         duplication[i][0] = coord[i][1] * canvasHeigth - canvasHeigth / 2;
         startMoving();
+        setIsPause(true);
         break;
       }
     }
@@ -225,9 +244,9 @@ function FieldPage() {
 
           ctx3.arc(x, y, 15, 0, Math.PI * 2, true);
           ctx3.font = '25px Arial';
-          ctx3.fillText(i, clientX - 7.5, clientY - 7.5);
+          ctx3.fillText(i, x - 7.5, y - 6);
           ctx3.fillStyle = colors[i];
-          ctx3.globalAlpha = 0.8;
+          ctx3.globalAlpha = 0.6;
           ctx3.fill();
           ctx3.stroke();
         } else if (i === nowD) {
@@ -243,7 +262,7 @@ function FieldPage() {
 
           ctx3.arc(x, y, 15, 0, Math.PI * 2, true);
           ctx3.font = '25px Arial';
-          ctx3.fillText(i, clientX - 7.5, clientY - 7.5);
+          ctx3.fillText(i, x - 7.5, y - 7.5);
           ctx3.fillStyle = colors[i];
           ctx3.globalAlpha = 0.8;
           ctx3.fill();
@@ -355,6 +374,7 @@ function FieldPage() {
             <button onClick={socketSend}>소켓 전송</button>
           </div>
         </div>
+        <button onClick={HandlePause}>시작</button>
       </div>
 
       <div className={styles.canvas_box}>

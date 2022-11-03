@@ -16,27 +16,22 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@ToString(exclude = "userinfo")
 public class User {
     @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userId;
 
+    @JsonIgnore
+    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private UserInfo userinfo;
+
     @Column(name = "user_email", unique = true)
     private String userEmail;
-
     @Column(name = "user_password")
     @JsonIgnore
     private String userPassword;
-
-    @Column(name = "user_name",nullable = true)
-    private String userName;
-
-    @Column(name = "user_age")
-    @ColumnDefault("0")
-    private Integer userAge;
-
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(

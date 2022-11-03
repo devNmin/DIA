@@ -38,7 +38,7 @@ function App() {
                 <PrivateRoute component={MainPage} exact path = '/main'></PrivateRoute>   
                 <NonPrivateRoute component={NonLoginMainPage} exact path="/non"/>    
                 <NonPrivateRoute component={Explainpage} exact path="/ex"/>        
-                <NonPrivateRoute component={TestTemp} exact path="/canvasTest"/>
+                <NonPrivateRoute component={FieldPage} exact path="/canvasTest"/>
                 <PrivateRoute component={TestHeightPage} exact path = "/testheight"/>                
               </Switch>          
             </ScrollToTop>

@@ -52,6 +52,11 @@ dependencies {
 // spring mail
 // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail
     implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.1'
+
+    // websocket
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-websocket
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: '2.7.0'
+
 }
 
 tasks.named('test') {

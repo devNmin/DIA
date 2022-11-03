@@ -8,10 +8,10 @@ import PrivateRoute from './utils/PrivateRoute';
 import AccountRegisterPage from './pages/AccountRegisterPage';
 import LoginPage from './pages/LoginPage';
 import ScrollToTop from './hooks/ScrollToTop';
-import MainPage from './pages/MainPage'
+import MainPage from './pages/MainPage';
 import NonLoginMainPage from './pages/NonLoginMainPage';
 import Explainpage from './pages/Explainpage';
-import TestTemp from './pages/TestTemp';
+import FieldPage from './pages/FieldPage';
 // import CanvasTestPage from './pages/CanvasTestPage';
 // import IpInsertPage from './pages/IpInsertPage';
 import {UserProvider} from './context/UserContext'

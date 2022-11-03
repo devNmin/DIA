@@ -57,20 +57,7 @@ public class ImageController {
 
     }
 
-//    @GetMapping("/profile/{fileName}")
-//    @ResponseBody
-//    public ResponseEntity<?> downloadProfile() throws MalformedURLException {
-////        return new UrlResource("file:"+"images/20221102/13903916594536001111.jpg");
-//        String contentDisposition = "attachment; filename=\""+"images/20221102/13903916594536001111.jpg"+"\"";
-//        UrlResource resource = new UrlResource("file:"+"images/20221102/13903916594536001111.jpg");
-//
-//
-//
-//        // 파일 다운로드 형식
-//        return ResponseEntity.ok()
-//                .header(HttpHeaders.CONTENT_DISPOSITION,contentDisposition)
-//                .body(resource);
-//    }
+
 
     @GetMapping("/profile/link")
     public ResponseEntity<?> getProfileLink(HttpServletRequest request) {

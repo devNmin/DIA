@@ -6,12 +6,10 @@ import com.ssafy.backend.repository.UserInfoRepository;
 import com.ssafy.backend.repository.UserRepository;
 import org.json.simple.JSONObject;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -23,12 +21,13 @@ public class UserSearchController {
         this.userInfoRepository = userInfoRepository;
     }
 
-    @GetMapping("/{name}")
+    // todo pathVariable -> requestbody로 변경 하기
+    @PostMapping("/user")
     public ResponseEntity<?> UserList(
-            @PathVariable("name") String name
+            @RequestBody HashMap<String, String> name
     ){
 //        List<UserInfo> userList = userInfoRepository.ttt(name);
-        List<UserInfo> userList = userInfoRepository.findUserInfoByUserNameContains(name);
+        List<UserInfo> userList = userInfoRepository.findUserInfoByUserNameContains(name.get("name"));
 
         List<JSONObject> result = new ArrayList<>();
         if (userList == null){

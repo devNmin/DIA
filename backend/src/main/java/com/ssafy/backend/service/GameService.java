@@ -5,6 +5,8 @@ import com.ssafy.backend.entity.Game;
 import com.ssafy.backend.repository.GameRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+
 @Service
 public class GameService {
     private final GameRepository gameRepository;
@@ -13,18 +15,20 @@ public class GameService {
         this.gameRepository = gameRepository;
     }
 
-    public boolean newGame(GameDto gameDto){
+    public boolean newGame(HashMap<String, Object> param){
         try {
             Game game = Game.builder()
-                    .gameYear(gameDto.getGameYear())
-                    .gameMonth(gameDto.getGameMonth())
-                    .gameDay(gameDto.getGameDay())
-                    .gameTime(gameDto.getGameTime())
-                    .gameVideo(gameDto.getGameVideo())
+                    .gameYear((int)param.get("gameYear"))
+                    .gameMonth((int)param.get("gameMonth"))
+                    .gameDay((int)param.get("gameDay"))
+                    .gameTime((int)param.get("gameTime"))
+                    .gameVideo((String)param.get("gameVideo"))
+                    .gameXY(param.get("gameXY").toString())
                     .build();
-            gameRepository.save(game);
+            System.out.println(gameRepository.save(game).getGameId());
             return true;
         }catch (Exception e){
+            System.out.println(e);
             return false;
         }
     }

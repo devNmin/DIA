@@ -51,6 +51,10 @@ public class UserService {
         UserInfo userInfo = UserInfo.builder()
                 .userName(userLoginDto.getUserName())
                 .userAge(userLoginDto.getUserAge())
+                .userHeight(userLoginDto.getUserHeight())
+                .userWeight(userLoginDto.getUserWeight())
+                .userPosition(userLoginDto.getUserPosition())
+                .user(user)
                 .build();
 
         userInfoRepository.save(userInfo);

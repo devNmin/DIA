@@ -7,21 +7,14 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class UserLoginDto {
     private String userEmail;
     private String userPassword;
     private String userPassword2;
     private String userName;
     private Integer userAge;
-
-    @Override
-    public String toString() {
-        return "UserDto{" +
-                "userEmail='" + userEmail + '\'' +
-                ", userPassword='" + userPassword + '\'' +
-                ", userPassword2='" + userPassword2 + '\'' +
-                ", userName='" + userName + '\'' +
-                ", userAge=" + userAge +
-                '}';
-    }
+    private Float userHeight;
+    private Float userWeight;
+    private String userPosition;
 }

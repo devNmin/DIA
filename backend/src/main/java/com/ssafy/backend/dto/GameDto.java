@@ -15,5 +15,4 @@ public class GameDto {
     private int gameDay;
     private int gameTime;
     private String gameVideo;
-    private String gameXY;
 }

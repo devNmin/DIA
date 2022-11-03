@@ -13,7 +13,7 @@ public class UserInfoService {
     }
 
     public UserInfo findByUserId(long pk){
-        UserInfo userInfo = userInfoRepository.findUserInfoByUser(pk);
+        UserInfo userInfo = userInfoRepository.findUserInfoByUser_UserId(pk);
         if(userInfo != null){
             return userInfo;
         }else {

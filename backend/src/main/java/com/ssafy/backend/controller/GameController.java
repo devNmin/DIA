@@ -38,9 +38,6 @@ public class GameController {
     public ResponseEntity<?> coordinate(
         @RequestBody HashMap<String, Object> param
     ){
-        System.out.println("=========== RESULT ============");
-        System.out.println(param.toString());
-        System.out.println("=============================");
         Game game = Game.builder()
                 .gameXY(param.toString())
                 .build();

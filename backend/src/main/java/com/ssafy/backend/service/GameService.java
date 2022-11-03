@@ -20,7 +20,6 @@ public class GameService {
                     .gameMonth(gameDto.getGameMonth())
                     .gameDay(gameDto.getGameDay())
                     .gameTime(gameDto.getGameTime())
-                    .gameXY(gameDto.getGameXY())
                     .gameVideo(gameDto.getGameVideo())
                     .build();
             gameRepository.save(game);

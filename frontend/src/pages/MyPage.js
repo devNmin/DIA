@@ -4,10 +4,12 @@ import Sidebar from '../components/MyPage/SideBar';
 import styles from './MyPage.module.css'
 import DataGraph from '../components/MyPage/DataGraph';
 import { Link } from 'react-router-dom';
+import BotNavbar from '../components/Navbar/BotNavbar';
 
 function MyPage(props) {
 
 	return (
+		<>
 		<div className={styles.body}>
 			<Sidebar />
 			<MyCard />
@@ -20,6 +22,8 @@ function MyPage(props) {
 				</Link>
 			</div>
 		</div>
+		<BotNavbar />
+		</>
 	);
 }
 

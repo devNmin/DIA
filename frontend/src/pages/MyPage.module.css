@@ -1,5 +1,5 @@
 .body {
-    height: 100vh;
+    height: 95vh;
     display: flex;
     justify-content: center;
     background-color: #000F24;
@@ -8,7 +8,7 @@
 .graphbutton {
     display: flex;
     position: fixed;
-    bottom: 0;
+    bottom: 3rem;
 }
 
 .detailButton {

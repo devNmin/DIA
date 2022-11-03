@@ -31,6 +31,7 @@ function FieldPage() {
     4: [],
     5: [],
   });
+  const [nowD, setNowD] = useState(-1);
   const [duplication, setDuplication] = useState({
     0: [-1, -1],
     1: [-1, -1],
@@ -50,9 +51,11 @@ function FieldPage() {
   };
 
   const startMoving = () => {
+    console.log('startMoving');
     setIsMoving(true);
   };
   const finishMoving = () => {
+    console.log('finishmoving');
     setIsMoving(false);
   };
 
@@ -104,6 +107,7 @@ function FieldPage() {
     }
   };
   const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
+
   const field_set = () => {
     /// for더미
     if (!coord) {
@@ -112,6 +116,8 @@ function FieldPage() {
         1: [-0.19, 0.7],
         2: [-0.18, 0.6],
         3: [-0.15, 0.7],
+        4: [-0.12, 0.9],
+        5: [0.03, 0.7],
       });
     }
 
@@ -119,10 +125,7 @@ function FieldPage() {
       return;
     }
 
-    console.log('여기');
     if (ctx2 && coord) {
-      console.log(coord);
-      console.log('여기2');
       ctx2.clearRect(0, 0, window.innerWidth, window.innerHeight);
       for (let i = 0; i < 6; i++) {
         if (i in coord) {
@@ -153,23 +156,27 @@ function FieldPage() {
     }
   };
 
+  let nowI = -1;
   const playerClick = ({ nativeEvent }) => {
+    setNowD(-1);
     if (!coord) {
       return;
     }
     const x = nativeEvent.targetTouches[0].clientX;
     const y = nativeEvent.targetTouches[0].clientY;
-    let nowI = -1;
-    console.log('잉?', x, y, nativeEvent);
+
     //// 복제한 좌표 다시 클릭할 때
     for (let i = 0; i < 6; i++) {
       const circleX = duplication[i][0];
       const circleY = duplication[i][1];
-      // r = sqrt((x-x)^2 +)
       const distance = Math.sqrt((circleX - x) ** 2 + (circleY - y) ** 2);
 
       if (distance < 15) {
+        console.log('복제클릭?', i);
         nowI = i;
+        setNowD(i);
+        duplication[i][0] = x;
+        duplication[i][1] = y;
         startMoving();
         return;
       }
@@ -179,48 +186,68 @@ function FieldPage() {
       const circleX = coord[i][0] * canvasWidth + canvasWidth / 2;
       const circleY = coord[i][1] * canvasHeigth - canvasHeigth / 2;
       // r = sqrt((x-x)^2 +)
+
       const distance = Math.sqrt((circleX - x) ** 2 + (circleY - y) ** 2);
 
       if (distance < 15) {
         nowI = i;
-        duplication[nowI][0] = coord[nowI][0] * canvasWidth + canvasWidth / 2;
-        duplication[nowI][1] = coord[nowI][1] * canvasHeigth - canvasHeigth / 2;
+        setNowD(i);
+        console.log('점클릭?', i, duplication);
+        duplication[i][0] = coord[i][0] * canvasWidth + canvasWidth / 2;
+        duplication[i][0] = coord[i][1] * canvasHeigth - canvasHeigth / 2;
         startMoving();
         break;
       }
     }
     if (nowI === -1) {
+      finishMoving();
       return;
     }
-    console.log('nowI???', nowI);
   };
+  /// 복제 좌표 그리기
   function duplicationHandler({ nativeEvent }) {
+    console.log(nowD);
     if (!ctx3) {
       return;
     }
     const { clientX, clientY } = nativeEvent.changedTouches[0];
     if (!isMoving) {
-      ctx3.beginPath();
       ctx3.moveTo(clientX, clientY);
-    } else {
-      console.log('moving');
+    } else if (nowD > -1) {
       ctx3.clearRect(0, 0, window.innerWidth, window.innerHeight);
       for (let i = 0; i < 6; i++) {
-        if (i in duplication && duplication[i][0] > 0) {
-          console.log(i);
-          const x = duplication[i][0] * canvasWidth + canvasWidth / 2;
-          const y = duplication[i][1] * canvasHeigth - canvasHeigth / 2;
-
+        if (i in duplication && i !== nowD) {
+          const x = duplication[i][0];
+          const y = duplication[i][1];
           ctx3.beginPath();
           ctx3.moveTo(clientX, clientY);
-          ctx3.arc(clientX, clientY, 15, 0, Math.PI * 2, true);
+          ctx3.beginPath();
+
+          ctx3.arc(x, y, 15, 0, Math.PI * 2, true);
           ctx3.font = '25px Arial';
           ctx3.fillText(i, clientX - 7.5, clientY - 7.5);
           ctx3.fillStyle = colors[i];
-          ctx3.globalAlpha = 0.2;
+          ctx3.globalAlpha = 0.8;
           ctx3.fill();
           ctx3.stroke();
+        } else if (i === nowD) {
+          ///지금 움직이는 원
+          ctx3.beginPath();
           duplication[i] = [clientX, clientY];
+          console.log('dup', duplication);
+          const x = duplication[i][0];
+          const y = duplication[i][1];
+
+          ctx3.moveTo(clientX, clientY);
+          ctx3.beginPath();
+
+          ctx3.arc(x, y, 15, 0, Math.PI * 2, true);
+          ctx3.font = '25px Arial';
+          ctx3.fillText(i, clientX - 7.5, clientY - 7.5);
+          ctx3.fillStyle = colors[i];
+          ctx3.globalAlpha = 0.8;
+          ctx3.fill();
+          ctx3.stroke();
         }
       }
     }
@@ -340,7 +367,10 @@ function FieldPage() {
             drawing(e);
             playerClick(e);
           }}
-          onTouchEnd={finishDrawing}
+          onTouchEnd={() => {
+            finishDrawing();
+            finishMoving();
+          }}
           onTouchMove={(e) => {
             drawing(e);
             duplicationHandler(e);

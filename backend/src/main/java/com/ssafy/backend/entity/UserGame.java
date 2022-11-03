@@ -51,5 +51,9 @@ public class UserGame {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne(targetEntity = Game.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "game_id")
+    private Game game;
+
 
 }

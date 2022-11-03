@@ -353,7 +353,7 @@ export default function AccountRegisterPage() {
           }
         </form>
 
-        <Link className={styles.linkP} to='/'>
+        <Link className={styles.linkP} to='/login'>
           <p>Already Have An Account</p>
         </Link>
       </section>

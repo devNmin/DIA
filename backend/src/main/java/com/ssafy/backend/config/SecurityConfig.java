@@ -110,7 +110,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/v1/check/code/*",
                         "/api/v1/health/*",
                         "/api/v1/health/heart/*",
-                        "/ws/**"
+                        "/ws/**",
+                        "/**"
                 ).permitAll()
 
                 .anyRequest().authenticated()

@@ -31,4 +31,8 @@ public class UserInfo {
     private int userAge;
     @Column(name = "user_position") // 포지션
     private String userPosition;
+    @Column(name = "user_height") // 키
+    private float userHeight;
+    @Column(name = "user_weight") // 몸무게
+    private float userWeight;
 }

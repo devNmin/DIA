@@ -28,10 +28,14 @@ public class GameController {
 
     @PutMapping("/newGame")
     public ResponseEntity<?> newGame(
-            @RequestBody GameDto gameDto
+            @RequestBody HashMap<String, Object> param
     ){
-        gameService.newGame(gameDto);
-        return ResponseEntity.ok(new ResponseDto(200,"저장 성공"));
+        if(gameService.newGame(param)){
+            return ResponseEntity.ok(new ResponseDto(200,"저장 성공"));
+        }else{
+            return ResponseEntity.ok(new ResponseDto(500,"저장 실패"));
+
+        }
     }
 
     @PostMapping("/coordinate")

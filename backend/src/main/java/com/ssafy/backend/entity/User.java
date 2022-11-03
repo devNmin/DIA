@@ -23,10 +23,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userId;
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private UserInfo userinfo;
-
     @Column(name = "user_email", unique = true)
     private String userEmail;
     @Column(name = "user_password")
@@ -40,4 +36,7 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "authority_name")})
     private Set<Authority> authorities;
 
+    @JsonIgnore
+    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private UserInfo userinfo;
 }

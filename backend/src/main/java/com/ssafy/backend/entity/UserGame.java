@@ -47,5 +47,9 @@ public class UserGame {
     @Column(name = "user_position") // 해당 경기 포지션
     private String userPosition;
 
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
 
 }

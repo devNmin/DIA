@@ -1,8 +1,15 @@
 .ipInput {
     text-align: center;
-    font-size: 50px;
+    font-size: 40px;
+}
+
+.Port {
+    margin-top: 10px;
+    font-size: 30px;
+    text-align: center;
+    width: 120px;
 }
 
 .ipButton {
-    margin-top: 10px;
+    margin-top: 40px;
 }

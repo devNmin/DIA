@@ -2,10 +2,23 @@
     font-size: medium;
     position: relative;
     overflow: hidden;
-    animation: fadein 1s ease-in-out;
-  
-  
-  }
+    animation: fadein 1s ease-in-out; 
+}
+.fadeout{
+	overflow: hidden;
+    animation: fadeout 1s ease-in-out; 
+}
+
+  @keyframes fadeout{
+	0%{
+	  opacity: 1;
+      transform: none;
+	}
+	100%{
+		opacity: 0;
+		transform: translateY(100px);		
+	}
+  }	
   
   
   @keyframes fadein{

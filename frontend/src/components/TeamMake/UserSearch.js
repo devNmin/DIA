@@ -44,9 +44,13 @@ export default function UserSearch() {
   ])
   const submitHandler = (e) => {
     e.preventDefault()
+    
     console.log(username);
     setUsername('')
   }
+
+  
+
   return (
     <div>
       <FootballNavbar currentpage = {currentpage2}></FootballNavbar>
@@ -58,10 +62,14 @@ export default function UserSearch() {
         <input onChange={(e) => setUsername(e.target.value)} type="search" placeholder='Search your teammate' value={username} />    
         </form>             
       </div>
-      {searchedUserList.map((userInfo) => {
-        <SearchedUser key= {userInfo.userId} user = {userInfo}></SearchedUser>
-      })
+      {searchedUserList.map((userInfo) => (
+        <div key={userInfo.userId}>
+          <SearchedUser key= {userInfo.userId} user = {userInfo}></SearchedUser>
+          <h1>{userInfo.userEmail}</h1>
+        </div>
+      ))
       }
+     
          
     </div>
 

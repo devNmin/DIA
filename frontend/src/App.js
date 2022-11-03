@@ -17,6 +17,7 @@ import TestTemp from './pages/TestTemp';
 import {UserProvider} from './context/UserContext'
 // import TeamMakePage from './pages/TeamMakePage';
 import Transition from './components/test/Transition';
+import TestHeightPage from './pages/TestHeightPage';
 
 function App() {  
   return (
@@ -37,7 +38,8 @@ function App() {
                 <PrivateRoute component={MainPage} exact path = '/main'></PrivateRoute>   
                 <NonPrivateRoute component={NonLoginMainPage} exact path="/non"/>    
                 <NonPrivateRoute component={Explainpage} exact path="/ex"/>        
-                <NonPrivateRoute component={TestTemp} exact path="/canvasTest"/>                
+                <NonPrivateRoute component={TestTemp} exact path="/canvasTest"/>
+                <PrivateRoute component={TestHeightPage} exact path = "/testheight"/>                
               </Switch>          
             </ScrollToTop>
           </UserProvider>

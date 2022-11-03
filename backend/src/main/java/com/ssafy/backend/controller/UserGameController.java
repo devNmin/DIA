@@ -35,15 +35,4 @@ public class UserGameController {
         return ResponseEntity.ok(new ResponseDto(200,"저장 완료"));
     }
 
-    @PostMapping("/setUserDistance")
-    public ResponseEntity<?> setUserDistance(@RequestBody HashMap<String, Object> data){
-        float userDistance = Float.parseFloat( (String)data.get("userDistance") );
-        System.out.println(userDistance);
-        UserGame userGame = UserGame.builder()
-                .userDistance(userDistance)
-                .build();
-        userGameRepository.save(userGame);
-        return ResponseEntity.ok(new ResponseDto(200,"저장 완료"));
-    }
-
 }

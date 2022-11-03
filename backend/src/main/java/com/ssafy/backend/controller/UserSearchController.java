@@ -23,6 +23,7 @@ public class UserSearchController {
         this.userInfoRepository = userInfoRepository;
     }
 
+    // todo pathVariable -> requestbody로 변경 하기
     @GetMapping("/{name}")
     public ResponseEntity<?> UserList(
             @PathVariable("name") String name

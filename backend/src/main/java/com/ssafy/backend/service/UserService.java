@@ -53,6 +53,8 @@ public class UserService {
                 .userAge(userLoginDto.getUserAge())
                 .userHeight(userLoginDto.getUserHeight())
                 .userWeight(userLoginDto.getUserWeight())
+                .userPosition(userLoginDto.getUserPosition())
+                .user(user)
                 .build();
 
         userInfoRepository.save(userInfo);

@@ -16,4 +16,5 @@ public class UserLoginDto {
     private Integer userAge;
     private Float userHeight;
     private Float userWeight;
+    private String userPosition;
 }

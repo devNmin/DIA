@@ -1,0 +1,21 @@
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.records {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(200px, 30%));
+  grid-gap: 5rem;
+  padding: 2rem;
+  width: 80%;
+  padding-top: 70px;
+}
+
+@media screen and (max-width: 1090px) {
+  .records {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+}

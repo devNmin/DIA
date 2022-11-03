@@ -1,4 +1,4 @@
-import { Switch, BrowserRouter as Router} from 'react-router-dom';
+import { Switch, BrowserRouter as Router } from 'react-router-dom';
 // import logo from './logo.svg';
 import './App.css';
 import { AuthProvider } from './context/AuthContext';
@@ -14,12 +14,15 @@ import Explainpage from './pages/Explainpage';
 import FieldPage from './pages/FieldPage';
 // import CanvasTestPage from './pages/CanvasTestPage';
 // import IpInsertPage from './pages/IpInsertPage';
-import {UserProvider} from './context/UserContext'
+import { UserProvider } from './context/UserContext'
 // import TeamMakePage from './pages/TeamMakePage';
 import Transition from './components/test/Transition';
 import TestHeightPage from './pages/TestHeightPage';
+import MyPage from './pages/MyPage';
+import MyAnalysis from './pages/MyAnalysis';
+import MyPageDetailGraph from './pages/MyPageDetailGraph';
 
-function App() {  
+function App() {
   return (
     <div className="App">
       <Router>
@@ -33,24 +36,26 @@ function App() {
           <UserProvider>
             <ScrollToTop>
               <Switch className="App">
-                <NonPrivateRoute component={LoginPage} exact path="/"/>      
-                <NonPrivateRoute component={AccountRegisterPage} exact path="/register"/>
-                <PrivateRoute component={MainPage} exact path = '/main'></PrivateRoute>   
-                <NonPrivateRoute component={NonLoginMainPage} exact path="/non"/>    
-                <NonPrivateRoute component={Explainpage} exact path="/ex"/>        
-                <NonPrivateRoute component={FieldPage} exact path="/canvasTest"/>
-                <PrivateRoute component={TestHeightPage} exact path = "/testheight"/>                
-              </Switch>          
+                <NonPrivateRoute component={LoginPage} exact path="/login" />
+                <NonPrivateRoute component={AccountRegisterPage} exact path="/register" />
+                <PrivateRoute component={MainPage} exact path='/main'></PrivateRoute>
+                <NonPrivateRoute component={NonLoginMainPage} exact path="/" />
+                <NonPrivateRoute component={Explainpage} exact path="/explain" />
+                <PrivateRoute component={MyPage} exact path='/mypage'></PrivateRoute>
+                <PrivateRoute component={MyAnalysis} exact path='/analysis'></PrivateRoute>
+                <PrivateRoute component={MyPageDetailGraph} exact path='/detail'></PrivateRoute>
+                <NonPrivateRoute component={FieldPage} exact path="/canvasTest" />
+                <PrivateRoute component={TestHeightPage} exact path="/testheight" />
+              </Switch>
             </ScrollToTop>
           </UserProvider>
-        </AuthProvider>   
+        </AuthProvider>
         <AuthProvider>
           <UserProvider>
-            <Transition/>
+            <Transition />
           </UserProvider>
-        </AuthProvider>    
-      </Router>         
-
+        </AuthProvider>
+      </Router>
     </div>
   );
 }

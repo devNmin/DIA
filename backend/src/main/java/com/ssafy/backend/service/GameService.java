@@ -25,10 +25,7 @@ public class GameService {
                     .gameVideo((String)param.get("gameVideo"))
                     .gameXY(param.get("gameXY").toString())
                     .build();
-            System.out.println("================");
-            System.out.println(game);
-            System.out.println("================");
-            gameRepository.save(game);
+            System.out.println(gameRepository.save(game).getGameId());
             return true;
         }catch (Exception e){
             System.out.println(e);

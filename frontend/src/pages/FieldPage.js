@@ -21,6 +21,10 @@ function FieldPage() {
   const [prevData, setPrevData] = useState([0, 0, 0, '']);
   const [isMoving, setIsMoving] = useState(false);
 
+  const [isCtx, setIsCtx] = useState(false);
+  // 재생할 인덱스
+  // const [playI, setPlayI] = useState(-1);
+
   ////1. 일시정지(재생), 3. 뒤로가기, 4.앞으로 가기
   const [isPause, setIsPause] = useState(false);
   ////
@@ -45,7 +49,7 @@ function FieldPage() {
   });
   const canvasWidth = window.innerWidth;
   const canvasHeigth = window.innerHeight * 0.8;
-
+  let playI = -1;
   const startDrawing = () => {
     setIsDrawing(true);
   };
@@ -124,52 +128,43 @@ function FieldPage() {
   };
   const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
 
-  const field_set = () => {
+  const fieldSet = () => {
+    const canvas2 = canvasRef2.current;
+    canvas2.width = canvasWidth;
+    canvas2.height = canvasHeigth;
+    const context2 = canvas2.getContext('2d');
+
+    console.log('실행3');
     // for더미!!!!!!!!
-    if (!coord) {
-      setCoord({
-        0: [-0.23, 0.8],
-        1: [-0.19, 0.7],
-        2: [-0.18, 0.6],
-        3: [-0.15, 0.7],
-        4: [-0.12, 0.9],
-        5: [0.03, 0.7],
-      });
-    }
-
-    if (ctx2 && coord) {
-      ctx2.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    // if (!coord) {
+    //   setCoord({
+    //     0: [-0.23, 0.8],
+    //     1: [-0.19, 0.7],
+    //     2: [-0.18, 0.6],
+    //     3: [-0.15, 0.7],
+    //     4: [-0.12, 0.9],
+    //     5: [0.03, 0.7],
+    //   });
+    // }
+    console.log('playI', playI);
+    console.log('coords', coords);
+    console.log('context2', context2);
+    if (context2 && coords) {
+      console.log('이곳!');
+      context2.clearRect(0, 0, window.innerWidth, window.innerHeight);
       for (let i = 0; i < 6; i++) {
-        if (i in coord) {
-          const x = coord[i][0] * canvasWidth + canvasWidth / 2;
-          const y = coord[i][1] * canvasHeigth - canvasHeigth / 2;
-          coords[i].push([x, y]);
-          //// 좌표 움직이고 있으면 들어오는 좌표는 기억하고 그려주지는 않기
-          // 1. todo : 일시정지 넣기
-          if (isPause) {
-            return;
-          }
-          ////
+        console.log('here!!', i);
 
-          ctx2.moveTo(x, y);
-          ctx2.beginPath();
-          ctx2.arc(x, y, 15, 0, Math.PI * 2, true);
-          ctx2.fillStyle = colors[i];
-          ctx2.fill();
-          ctx2.stroke();
-        } else if (coords.length > 0) {
-          console.log('이게 동작하기는 하나?');
-          const x = coords[i].at(-1)[0] * canvasWidth;
-          const y = coords[i].at(-1)[1] * canvasHeigth;
-          coords[i].push([x, y]);
+        const x = coords[i][playI][0];
+        const y = coords[i][playI][1];
+        console.log('여기', x, y, playI);
 
-          ctx2.moveTo(x, y);
-          ctx2.beginPath();
-          ctx2.arc(x, y, 15, 0, Math.PI * 2, true);
-          ctx2.fillStyle = colors[i];
-          ctx2.fill();
-          ctx2.stroke();
-        }
+        context2.moveTo(x, y);
+        context2.beginPath();
+        context2.arc(x, y, 15, 0, Math.PI * 2, true);
+        context2.fillStyle = colors[i];
+        context2.fill();
+        context2.stroke();
       }
     }
   };
@@ -223,6 +218,17 @@ function FieldPage() {
       return;
     }
   };
+
+  const IntervalContinue = () => {
+    if (!isPause && coords[0].length > 0) {
+      console.log('실행2', playI);
+      // let z = playI + 1;
+      playI += 1;
+      console.log('실행2후', playI);
+      fieldSet();
+    }
+  };
+  console.log(playI, '초기값?');
   /// 복제 좌표 그리기
   function duplicationHandler({ nativeEvent }) {
     console.log(nowD);
@@ -281,6 +287,8 @@ function FieldPage() {
   function canvasClear() {
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
   }
+  let a = 0;
+
   useEffect(() => {
     const canvas = canvasRef.current;
     canvas.width = canvasWidth;
@@ -289,11 +297,11 @@ function FieldPage() {
     contextRef.current = context;
     setCtx(contextRef.current);
 
-    const canvas2 = canvasRef2.current;
-    canvas2.width = canvasWidth;
-    canvas2.height = canvasHeigth;
-    const context2 = canvas2.getContext('2d');
-    setCtx2(context2);
+    // const canvas2 = canvasRef2.current;
+    // canvas2.width = canvasWidth;
+    // canvas2.height = canvasHeigth;
+    // const context2 = canvas2.getContext('2d');
+    // setCtx2(context2);
 
     const canvas3 = canvasRef3.current;
     canvas3.width = canvasWidth;
@@ -301,8 +309,8 @@ function FieldPage() {
     const context3 = canvas3.getContext('2d');
     setCtx3(context3);
 
-    field_set();
-  }, [coord]);
+    setInterval(IntervalContinue, 100);
+  }, []);
 
   // 소켓
   const host = ipV4;
@@ -318,8 +326,24 @@ function FieldPage() {
       };
       ws.onmessage = (message) => {
         //server to client
+        const coordData = JSON.parse(message.data);
         console.log('message', message.data);
         setCoord(JSON.parse(message.data));
+        for (let i = 0; i < 6; i++) {
+          if (i in coordData) {
+            const x = parseFloat(
+              coordData[i][0] * canvasWidth + canvasWidth / 2
+            );
+            const y = parseFloat(
+              coordData[i][1] * canvasHeigth - canvasHeigth / 2
+            );
+            coords[i].push([x, y]);
+          } else if (coords[i].length > 1) {
+            coords[i].push([coords[i].at(-1)[0], coords[i].at(-1)[1]]);
+          } else {
+            coords[i].push([0, 0]);
+          }
+        }
       };
       ws.onclose = function () {
         ws = undefined;

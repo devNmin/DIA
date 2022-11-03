@@ -1,4 +1,4 @@
-import { Switch, BrowserRouter as Router } from 'react-router-dom';
+import { Switch, BrowserRouter as Router} from 'react-router-dom';
 // import logo from './logo.svg';
 import './App.css';
 import { AuthProvider } from './context/AuthContext';
@@ -13,10 +13,13 @@ import NonLoginMainPage from './pages/NonLoginMainPage';
 import Explainpage from './pages/Explainpage';
 import FieldPage from './pages/FieldPage';
 // import CanvasTestPage from './pages/CanvasTestPage';
-import IpInsertPage from './pages/IpInsertPage';
-import { UserProvider } from './context/UserContext';
+// import IpInsertPage from './pages/IpInsertPage';
+import {UserProvider} from './context/UserContext'
+// import TeamMakePage from './pages/TeamMakePage';
+import Transition from './components/test/Transition';
+import TestHeightPage from './pages/TestHeightPage';
 
-function App() {
+function App() {  
   return (
     <div className="App">
       <Router>
@@ -30,34 +33,24 @@ function App() {
           <UserProvider>
             <ScrollToTop>
               <Switch className="App">
-                <NonPrivateRoute component={LoginPage} exact path="/" />
-                <NonPrivateRoute
-                  component={AccountRegisterPage}
-                  exact
-                  path="/register"
-                />
-                <PrivateRoute
-                  component={MainPage}
-                  exact
-                  path="/main"
-                ></PrivateRoute>
-                <NonPrivateRoute
-                  component={NonLoginMainPage}
-                  exact
-                  path="/non"
-                />
-                <NonPrivateRoute component={Explainpage} exact path="/ex" />
-                <NonPrivateRoute
-                  component={FieldPage}
-                  exact
-                  path="/canvasTest"
-                />
-                <PrivateRoute component={IpInsertPage} exact path="/ipInsert" />
-              </Switch>
+                <NonPrivateRoute component={LoginPage} exact path="/"/>      
+                <NonPrivateRoute component={AccountRegisterPage} exact path="/register"/>
+                <PrivateRoute component={MainPage} exact path = '/main'></PrivateRoute>   
+                <NonPrivateRoute component={NonLoginMainPage} exact path="/non"/>    
+                <NonPrivateRoute component={Explainpage} exact path="/ex"/>        
+                <NonPrivateRoute component={TestTemp} exact path="/canvasTest"/>
+                <PrivateRoute component={TestHeightPage} exact path = "/testheight"/>                
+              </Switch>          
             </ScrollToTop>
           </UserProvider>
-        </AuthProvider>
-      </Router>
+        </AuthProvider>   
+        <AuthProvider>
+          <UserProvider>
+            <Transition/>
+          </UserProvider>
+        </AuthProvider>    
+      </Router>         
+
     </div>
   );
 }

@@ -30,6 +30,8 @@ public class UserController {
     ){
         String user = userService.signup(userLoginDto);
 
+        //todo 데이터 입력 예외처리 코드 추가
+
         if(user.equals("ok")){
             return ResponseEntity.ok(new ResponseDto(200,"회원가입 성공"));
         }else if(user.equals("email")){
@@ -77,5 +79,4 @@ public class UserController {
             return new ResponseEntity<ResponseDto>(new ResponseDto(404,"존재하지 않는 사용자입니다"),HttpStatus.NOT_FOUND);
         }
     }
-
 }

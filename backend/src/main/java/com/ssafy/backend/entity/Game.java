@@ -29,7 +29,6 @@ public class Game {
     @Column(name = "game_video") // 경기 영상 파일 위치
     private String gameVideo;
     @Column(name = "game_xy") // 경기 트래킹 좌표 파일 위치
+    @Lob
     private String gameXY;
-
-
 }

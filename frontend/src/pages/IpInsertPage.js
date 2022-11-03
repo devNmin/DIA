@@ -3,6 +3,7 @@ import './IpInsertPage.css'
 import InputMask from "react-input-mask";
 import UserContext from '../context/UserContext';
 import { useHistory } from 'react-router-dom';
+import FootballNavbar from '../components/Navbar/FootballNavbar';
 
 
 
@@ -22,8 +23,10 @@ export default function IpInsertPage() {
   }    
   return (
     <div>
+      <FootballNavbar currentpage = 'ipinsert'></FootballNavbar>
       <h1>노트북 ip와 포트를 입력해주세요</h1>  
         <div>    
+          <label> IP </label>
             <InputMask
             className= 'ipInput'
             mask="999.999.999.999"
@@ -33,6 +36,7 @@ export default function IpInsertPage() {
             />      
         </div>
         <div>
+        <label> PORT </label>
           <InputMask
               className= 'Port'
               mask="9999"
@@ -41,8 +45,7 @@ export default function IpInsertPage() {
               ref={port}          
               /> 
         </div>
-
-       <button className='ipButton' onClick={ipChecker}>입력</button>
+       <button className='ipButton' onClick={ipChecker}>완료</button>
     </div>
   )
 }

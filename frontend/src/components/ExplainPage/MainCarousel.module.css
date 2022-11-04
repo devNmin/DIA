@@ -54,7 +54,6 @@
 }
 
 .signup {
-    margin-top: 1rem;
     margin-right: 2rem;
     display: flex;
     justify-content: flex-end;
@@ -63,7 +62,7 @@
 
 .signup button {
     width: 15rem;
-    height: 3rem;
+    height: 2.5rem;
     border: #739106 solid;
     border-radius: 30px;
     color: aliceblue;

@@ -18,4 +18,5 @@ public interface UserInfoRepository extends JpaRepository<UserInfo, String> {
     @Modifying
     @Query("UPDATE UserInfo userinfo SET userinfo.userPfofileImage = :imageUrl where userinfo.user.userId = :id")
     int updateUserProfile( @Param(value="id") Long id,@Param(value="imageUrl") String imageUrl);
+
 }

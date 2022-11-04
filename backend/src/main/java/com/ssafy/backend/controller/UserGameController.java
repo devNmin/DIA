@@ -41,16 +41,12 @@ public class UserGameController {
             @PathVariable("userId") String userId
     ){
         List<UserGame> userGameList = (userGameRepository.getMyRecentFiveGame(PageRequest.of(0,5), Long.parseLong(userId)));
-        System.out.println("111111");
         double avgDistance = 0;
         double avgAttack = 0;
         double avgDefence = 0;
         double avgStamina = 0;
         double avgSpeed = 0;
         double avgPhysical = userInfoRepository.findUserInfoByUser_UserId(Long.parseLong(userId)).getUserPhysical();
-        System.out.println("2222222");
-        System.out.println(avgPhysical);
-
 
         for (int index = 0; index < userGameList.size(); index++){
             if (userGameList.get(index).getUserAttack() != 0){
@@ -77,6 +73,14 @@ public class UserGameController {
         tmp.put("avgStamina", avgStamina);
         tmp.put("avgSpeed", avgSpeed);
         tmp.put("avgPhysical", avgPhysical);
+        //todo 실제 측정값 추가 필요
+        tmp.put("realDistance", avgDistance);
+        tmp.put("realAttack", avgAttack);
+        tmp.put("realDefence", avgDefence);
+        tmp.put("realStamina", avgStamina);
+        tmp.put("realSpeed", avgSpeed);
+        tmp.put("realPhysical", avgPhysical);
+
 
         return ResponseEntity.ok(tmp);
     }

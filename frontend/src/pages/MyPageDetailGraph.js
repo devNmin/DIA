@@ -1,4 +1,5 @@
 import DataGraphDetail from '../components/MyPage/DataGraphDetail';
+import BotNavbar from '../components/Navbar/BotNavbar';
 
 function MyPageDetailGraph(props) {
   const data = [
@@ -120,6 +121,7 @@ function MyPageDetailGraph(props) {
   return (
     <div>
       <DataGraphDetail data={data} />
+      <BotNavbar />
     </div>
   );
 }

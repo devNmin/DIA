@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -43,8 +44,14 @@ public class GameService {
             List<HashMap<String, Object>> userData = (List<HashMap<String, Object>>) param.get("userData");
 
 
+
+
             for (int index = 0; index < userData.size(); index++){
                 String userId = (String) userData.get(index).get("userID");
+                System.out.println(userId);
+                if(userId == null){
+                    return false;
+                }
                 User user = userRepository.findUserByUserId(Long.parseLong(userId));
                 //todo 해당 유저의 정보들 추가적으로 계산하는 로직 필요
 
@@ -52,8 +59,8 @@ public class GameService {
                         .game(game)
                         .user(user)
                         // todo 유저 정보 추가적으로 입력 필요
-                        .userMaxSpeed((float)(userV.get(userId).get(0)))
-                        .userSpeed((float)(userV.get(userId).get(1)))
+                        .userMaxSpeed(Float.parseFloat(((Double)userV.get(userId).get(0)).toString()))
+                        .userSpeed(Float.parseFloat(((Double)userV.get(userId).get(1)).toString()))
                         .userDistance(Float.parseFloat((String) userData.get(index).get("userDistance")))
                         .build();
                 userGameRepository.save(userGame);
@@ -119,8 +126,8 @@ public class GameService {
 
             }
             maxV = maxV/1000*360;
-            System.out.println("MaxV: "+maxV);
-            System.out.println("avg: "+totalV/totalCnt);
+//            System.out.println("MaxV: "+maxV);
+//            System.out.println("avg: "+totalV/totalCnt);
             ArrayList<Double> vData = new ArrayList<>();
             vData.add(maxV); //최대 속도가 0
             vData.add(totalV/totalCnt); //평균 속도가 1

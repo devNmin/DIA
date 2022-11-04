@@ -12,7 +12,7 @@ function FieldPage() {
 
   const { ipV4, portinput } = useContext(UserContext);
   const [ctx, setCtx] = useState();
-  const [ctx2, setCtx2] = useState();
+  // const [ctx2, setCtx2] = useState();
   const [ctx3, setCtx3] = useState();
 
   const [isDrawing, setIsDrawing] = useState(false);
@@ -24,7 +24,7 @@ function FieldPage() {
   const [timeRange, setTimeRange] = useState(0);
   // 재생할 인덱스
   // const [playI, setPlayI] = useState(-1);
-
+  const [playIndex, setPlayIndex] = useState(-1);
   ////1. 일시정지(재생), 3. 뒤로가기, 4.앞으로 가기
   const [isPause, setIsPause] = useState(false);
   ////
@@ -65,8 +65,12 @@ function FieldPage() {
   };
 
   const HandlePause = () => {
+    console.log('여기');
     if (isPause) {
-      setIsPause(false);
+      console.log('정지상태 => 다시재생');
+      setIsPause((prev) => {
+        return false;
+      });
       ctx3.clearRect(0, 0, window.innerWidth, window.innerHeight);
       setDuplication({
         0: [-1, -1],
@@ -75,6 +79,11 @@ function FieldPage() {
         3: [-1, -1],
         4: [-1, -1],
         5: [-1, -1],
+      });
+    } else {
+      console.log('재생중 => 정지');
+      setIsPause((prev) => {
+        return true;
       });
     }
   };
@@ -134,21 +143,19 @@ function FieldPage() {
     canvas2.height = canvasHeigth;
     const context2 = canvas2.getContext('2d');
 
-    console.log('playI', playI);
-    console.log('coords1', coords);
-    console.log('coords2', coords[0]);
-    console.log('coords3', coords[0][0]);
-    console.log('coords4', coords[0][0][0]);
-
     if (context2 && coords) {
+      setPlayIndex((prev) => {
+        return prev + 1;
+      });
+      console.log('playIndex', playIndex);
       playI += 1;
       context2.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      console.log('coords[0]', coords[0]);
+      console.log('coords[0][0]', coords[0][playI]);
+      console.log('coords[0][0][0]', coords[0][playI][0]);
       for (let i = 0; i < 6; i++) {
-        console.log('here!!', i);
-
         const x = coords[i][playI][0];
         const y = coords[i][playI][1];
-        console.log('여기', x, y, playI);
 
         context2.moveTo(x, y);
         context2.beginPath();
@@ -176,7 +183,6 @@ function FieldPage() {
       const distance = Math.sqrt((circleX - x) ** 2 + (circleY - y) ** 2);
 
       if (distance < 15) {
-        console.log('복제클릭?', i);
         nowI = i;
         setNowD(i);
         duplication[i][0] = x;
@@ -188,20 +194,17 @@ function FieldPage() {
 
     ////
     for (let i = 0; i < 6; i++) {
-      const circleX = coords[i][playI + 1][0];
-      const circleY = coords[i][playI + 1][1];
+      const circleX = coords[i][playI][0];
+      const circleY = coords[i][playI][1];
       // r = sqrt((x-x)^2 +)
 
       const distance = Math.sqrt((circleX - x) ** 2 + (circleY - y) ** 2);
 
       if (distance < 15) {
-        setIsPause(true);
-        console.log('ispause???', isPause);
         nowI = i;
         setNowD(i);
-        console.log('점클릭?', i, duplication);
-        duplication[i][0] = coords[i][playI + 1][0];
-        duplication[i][0] = coords[i][playI + 1][1];
+        duplication[i][0] = coords[i][playI][0];
+        duplication[i][0] = coords[i][playI][1];
         startMoving();
         break;
       }
@@ -213,15 +216,18 @@ function FieldPage() {
   };
 
   const IntervalContinue = () => {
-    console.log('isPause', isPause);
     if (!isPause && coords[0].length > 0) {
+      // console.log('IntervalContinue, 재생중');
       fieldSet();
+    } else {
+      // console.log('IntervalContinue 일시정지');
+      return;
     }
   };
-  console.log(playI, '초기값?');
+
   /// 복제 좌표 그리기
   function duplicationHandler({ nativeEvent }) {
-    console.log(nowD);
+    console.log('nowD', nowD);
     if (!ctx3) {
       return;
     }
@@ -231,6 +237,7 @@ function FieldPage() {
     } else if (nowD > -1) {
       ctx3.clearRect(0, 0, window.innerWidth, window.innerHeight);
       for (let i = 0; i < 6; i++) {
+        // 이전에 만든 복제 원
         if (i in duplication && i !== nowD) {
           const x = duplication[i][0];
           const y = duplication[i][1];
@@ -295,13 +302,23 @@ function FieldPage() {
     const context3 = canvas3.getContext('2d');
     setCtx3(context3);
 
-    setInterval(IntervalContinue, 200);
+    setInterval(IntervalContinue, 100);
   }, []);
 
   // 소켓
   const host = ipV4;
   const port = portinput;
   let ws = undefined;
+
+  let disX = 0;
+  let disY = 0; //x,y의 거리 값
+  let fixelX = 40 / 1180; // 실제 거리 변환을 위한 값 -> 미터 단위
+  let fixelY = 20 / 656;
+  let nowDistance = 0;
+  let totalDistance = Array.from({ length: 6 }, () => 0);
+  let fpsTime = 0.005; //프레임 컴퓨터에서 계산하는 속도? 5ms -> 나중엔 받아서 변경
+  let userXInfo = Array.from({ length: 6 }, () => 0);
+  let userYInfo = Array.from({ length: 6 }, () => 0); //이전 유저의 x,y 좌표값
 
   const socketStart = () => {
     console.log('connecting....');
@@ -313,10 +330,10 @@ function FieldPage() {
       ws.onmessage = (message) => {
         //server to client
         const coordData = JSON.parse(message.data);
-        console.log('message', message.data);
         setCoord(JSON.parse(message.data));
         for (let i = 0; i < 6; i++) {
           if (i in coordData) {
+            //user x,y
             const x = parseFloat(
               coordData[i][0] * canvasWidth + canvasWidth / 2
             );
@@ -324,6 +341,20 @@ function FieldPage() {
               coordData[i][1] * canvasHeigth - canvasHeigth / 2
             );
             coords[i].push([x, y]);
+
+            //이전 값이 있다면 거리 계산
+            if (userXInfo[i] != null && userYInfo[i] != null) {
+              disX = Math.abs(x * fixelX - userXInfo[i]);
+              disY = Math.abs(y * fixelY - userYInfo[i]);
+              nowDistance = Math.sqrt(disX * disX + disY * disY);
+              if (((nowDistance / fpsTime) * 360) / 1000 < 44) {
+                //속도가 정상 속도면 거리 합 진행
+                totalDistance[i] += Math.sqrt(disX * disX + disY * disY);
+                console.log('현재 거리 합' + i + ' : ' + totalDistance[i]);
+              }
+            }
+            userXInfo[i] = x * fixelX;
+            userYInfo[i] = y * fixelY;
           } else if (coords[i].length > 1) {
             coords[i].push([coords[i].at(-1)[0], coords[i].at(-1)[1]]);
           } else {
@@ -384,7 +415,7 @@ function FieldPage() {
             <button onClick={socketSend}>소켓 전송</button>
           </div>
         </div>
-        <button onClick={HandlePause}>시작</button>
+        <button onClick={HandlePause}>{isPause ? '시작' : '일시정지'}</button>
       </div>
 
       <div className={styles.canvas_box}>

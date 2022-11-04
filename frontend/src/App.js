@@ -52,7 +52,11 @@ function App() {
                   exact
                   path="/canvasTest"
                 />
-                <PrivateRoute component={IpInsertPage} exact path="/ipInsert" />
+                <NonPrivateRoute
+                  component={IpInsertPage}
+                  exact
+                  path="/ipInsert"
+                />
               </Switch>
             </ScrollToTop>
           </UserProvider>

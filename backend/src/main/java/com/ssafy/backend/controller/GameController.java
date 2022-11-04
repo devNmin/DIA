@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping("/api/v1/game")
@@ -26,7 +27,7 @@ public class GameController {
         this.gameRepository = gameRepository;
     }
 
-    @PutMapping("/newGame")
+    @PostMapping("/newGame")
     public ResponseEntity<?> newGame(
             @RequestBody HashMap<String, Object> param
     ){
@@ -38,14 +39,5 @@ public class GameController {
         }
     }
 
-    @PostMapping("/coordinate")
-    public ResponseEntity<?> coordinate(
-        @RequestBody HashMap<String, Object> param
-    ){
-        Game game = Game.builder()
-                .gameXY(param.toString())
-                .build();
-        gameRepository.save(game);
-        return ResponseEntity.ok(new ResponseDto(200,"저장 완료"));
-    }
+
 }

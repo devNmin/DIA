@@ -47,12 +47,20 @@ public class UserService {
                 .build();
         userRepository.save(user);
 
+        //        # 키 -0.01699 * x^2 + 6.305 * x - 565.1   x에다가 키나 몸무게 넣음녀 됨
+//        # 몸무게 0.004596 * x^2 - 0.157 * x + 60.08   -> 이거 두개 더한게 최종 피지컬 스코어
+        float userHeight = userLoginDto.getUserHeight();
+        float userWeight = userLoginDto.getUserWeight();
+        double heightScore = -0.01699 * userHeight*userHeight + 6.305*userHeight -565.1;
+        double weightScore = 0.004596*userWeight*userWeight -0.157*userWeight +60.08;
+
         //user Info 저장
         UserInfo userInfo = UserInfo.builder()
                 .userName(userLoginDto.getUserName())
                 .userAge(userLoginDto.getUserAge())
-                .userHeight(userLoginDto.getUserHeight())
-                .userWeight(userLoginDto.getUserWeight())
+                .userHeight(userHeight)
+                .userWeight(userWeight)
+                .userPhysical((int)Math.floor(heightScore+weightScore))
                 .userPosition(userLoginDto.getUserPosition())
                 .user(user)
                 .build();

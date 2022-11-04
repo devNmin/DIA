@@ -1,30 +1,30 @@
 package com.ssafy.backend.controller;
 
 import com.ssafy.backend.dto.ResponseDto;
-import com.ssafy.backend.entity.User;
 import com.ssafy.backend.entity.UserGame;
 import com.ssafy.backend.repository.UserGameRepository;
-import com.ssafy.backend.repository.UserRepository;
+import com.ssafy.backend.repository.UserInfoRepository;
 import com.ssafy.backend.service.UserGameService;
+import org.json.simple.JSONObject;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import springfox.documentation.spring.web.json.Json;
 
-import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping("/api/v1/usergame")
 public class UserGameController {
     private final UserGameService userGameService;
     private final UserGameRepository userGameRepository;
+    private final UserInfoRepository userInfoRepository;
 
-    public UserGameController(UserGameService userGameService, UserGameRepository userGameRepository) {
+    public UserGameController(UserGameService userGameService, UserGameRepository userGameRepository, UserInfoRepository userInfoRepository) {
         this.userGameService = userGameService;
         this.userGameRepository = userGameRepository;
+        this.userInfoRepository = userInfoRepository;
     }
 
     @PostMapping("/myRecentGameInfo/{userId}")
@@ -35,4 +35,49 @@ public class UserGameController {
         return ResponseEntity.ok(new ResponseDto(200,"저장 완료"));
     }
 
+    // todo  5경기 평균 점수 구하기 - 백분율 점수 변경 필요
+    @GetMapping("/test/{userId}")
+    public ResponseEntity<?> test(
+            @PathVariable("userId") String userId
+    ){
+        List<UserGame> userGameList = (userGameRepository.getMyRecentFiveGame(PageRequest.of(0,5), Long.parseLong(userId)));
+        System.out.println("111111");
+        double avgDistance = 0;
+        double avgAttack = 0;
+        double avgDefence = 0;
+        double avgStamina = 0;
+        double avgSpeed = 0;
+        double avgPhysical = userInfoRepository.findUserInfoByUser_UserId(Long.parseLong(userId)).getUserPhysical();
+        System.out.println("2222222");
+        System.out.println(avgPhysical);
+
+
+        for (int index = 0; index < userGameList.size(); index++){
+            if (userGameList.get(index).getUserAttack() != 0){
+                avgAttack = ((double) (avgAttack + userGameList.get(index).getUserAttack())) /2;
+            }
+            if (userGameList.get(index).getUserDistance() != 0){
+                avgDistance = ((double) (avgDistance + userGameList.get(index).getUserDistance())) /2;
+            }
+            if (userGameList.get(index).getUserDefence() != 0){
+                avgDefence = ((double) (avgDefence + userGameList.get(index).getUserDefence())) /2;
+            }
+            if (userGameList.get(index).getUserStamina() != 0){
+                avgStamina = ((double) (avgStamina + userGameList.get(index).getUserStamina())) /2;
+            }
+            if (userGameList.get(index).getUserSpeed() != 0){
+                avgSpeed = ((double) (avgSpeed + userGameList.get(index).getUserSpeed())) /2;
+            }
+        }
+
+        JSONObject tmp = new JSONObject();
+        tmp.put("avgDistance", avgDistance);
+        tmp.put("avgAttack", avgAttack);
+        tmp.put("avgDefence", avgDefence);
+        tmp.put("avgStamina", avgStamina);
+        tmp.put("avgSpeed", avgSpeed);
+        tmp.put("avgPhysical", avgPhysical);
+
+        return ResponseEntity.ok(tmp);
+    }
 }

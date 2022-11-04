@@ -1,4 +1,36 @@
 .body {
     height: 100vh;
     background: #000F24;
+    display: flex;
+    justify-content: center;
+}
+
+.explainCarousel {
+    max-width: 95%;
+    max-height: 90%;
+    margin-top: 2rem;
+}
+
+.explain {
+    max-height: 90vh;
+    color: aliceblue;
+}
+
+.explain p {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.notebookimage {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: space-between;
+    height: 30%;
+}
+
+.wearosimage {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: space-between;
+    height: 50%;
 }

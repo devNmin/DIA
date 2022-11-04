@@ -42,7 +42,9 @@ public class GameService {
             for (int index = 0; index < userData.size(); index++){
                 User user = userRepository.findUserByUserId(Long.parseLong((String) userData.get(index).get("userID")));
                 //todo 해당 유저의 정보들 추가적으로 계산하는 로직 필요
-
+                System.out.println("user" + user);
+                System.out.println("game" + game);
+                System.out.println("udostance" + Float.parseFloat((String) userData.get(index).get("userDistance")));
                 UserGame userGame = UserGame.builder()
                         .game(game)
                         .user(user)

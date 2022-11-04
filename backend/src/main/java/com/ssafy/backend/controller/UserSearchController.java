@@ -43,6 +43,8 @@ public class UserSearchController {
             tmp.put("userAge", userList.get(index).getUserAge());
             tmp.put("userName", userList.get(index).getUserName());
             tmp.put("userEmail", userList.get(index).getUser().getUserEmail());
+            tmp.put("userHeight", userList.get(index).getUserHeight());
+            tmp.put("userWeight", userList.get(index).getUserWeight());
             result.add(tmp);
         }
         return ResponseEntity.ok(result);

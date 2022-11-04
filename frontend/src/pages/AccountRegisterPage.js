@@ -11,12 +11,12 @@ import { Link } from 'react-router-dom';
 export default function AccountRegisterPage() {
   const { BASE_URL } = useContext(AuthContext)
   const [emailChecker, setEmailChecker] = useState('');
-  const [ageChecker, setAgeChecker] = useState(null);
+  // const [ageChecker, setAgeChecker] = useState(null);
   const emailInput = useRef();
   const passwordInput = useRef();
   const passwordCheckInput = useRef();
   const nameInput = useRef();
-  const ageInput = useRef();  
+  // const ageInput = useRef();  
   const history = useHistory();
   const [showAuth, setShowAuth] = useState(false)
   const [authKey, setAuthKey] = useState(null)
@@ -38,10 +38,10 @@ export default function AccountRegisterPage() {
       setAge(e.target.value)
     }
 
-    const positionHandler = (value) => {
-      value.preventDefault()
-      setPosition(value)
-    }
+    // const positionHandler = (value) => {
+    //   value.preventDefault()
+    //   setPosition(value)
+    // }
 
   // let [formData, setformData] = useState({
   //   gender: ""
@@ -169,15 +169,15 @@ export default function AccountRegisterPage() {
       setEmailChecker("")
     }
   }
-  const AgeCheckHandler = (e) => {
-    if (isNaN(e.target.value)) {
-      setAgeChecker("This is not a number please check again!!")      
-    }else if(Number(e.target.value) >= 100) {
-      setAgeChecker("Your age is too old..please check again")
-    }else {
-      setAgeChecker("")
-    }
-  }
+  // const AgeCheckHandler = (e) => {
+  //   if (isNaN(e.target.value)) {
+  //     setAgeChecker("This is not a number please check again!!")      
+  //   }else if(Number(e.target.value) >= 100) {
+  //     setAgeChecker("Your age is too old..please check again")
+  //   }else {
+  //     setAgeChecker("")
+  //   }
+  // }
   
   const emailCheckerHandler2 = (e) => {
     var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -319,20 +319,22 @@ export default function AccountRegisterPage() {
                   <button className={styles.EmailCheck} onClick = {(e) => {
                     e.preventDefault()
                     setPosition('FW')
-                  }} style ={{ 'backgroundColor' : position == 'FW'? '#b3dc45' : null }}>FW</button>
+                  }} style ={{ 'backgroundColor' : position === 'FW'? '#b3dc45' : null }}>
+                  FW</button>
+
                   <button className={styles.EmailCheck}
                   onClick = {(e) => {
                     e.preventDefault()
                     setPosition('MF')
                   }}
-                  style ={{ 'backgroundColor' : position == 'MF'? '#b3dc45' : null }}
+                  style ={{ 'backgroundColor' : position === 'MF'? '#b3dc45' : null }}
                   >MF</button>
                   <button className={styles.EmailCheck}
                   onClick = {(e) => {
                     e.preventDefault()
                     setPosition('DF')
                   }}
-                  style ={{ 'backgroundColor' : position == 'DF'? '#b3dc45' : null }}>DF</button>
+                  style ={{ 'backgroundColor' : position === 'DF'? '#b3dc45' : null }}>DF</button>
                 </div>
               </div>             
              </div>

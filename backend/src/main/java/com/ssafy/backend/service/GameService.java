@@ -3,14 +3,14 @@ package com.ssafy.backend.service;
 import com.ssafy.backend.entity.Game;
 import com.ssafy.backend.entity.User;
 import com.ssafy.backend.entity.UserGame;
+import com.ssafy.backend.entity.UserInfo;
 import com.ssafy.backend.repository.GameRepository;
 import com.ssafy.backend.repository.UserGameRepository;
+import com.ssafy.backend.repository.UserInfoRepository;
 import com.ssafy.backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,10 +20,13 @@ public class GameService {
     private final UserGameRepository userGameRepository;
     private final UserRepository userRepository;
 
-    public GameService(GameRepository gameRepository, UserGameRepository userGameRepository, UserRepository userRepository) {
+    private final UserInfoRepository userInfoRepository;
+
+    public GameService(GameRepository gameRepository, UserGameRepository userGameRepository, UserRepository userRepository, UserInfoRepository userInfoRepository) {
         this.gameRepository = gameRepository;
         this.userGameRepository = userGameRepository;
         this.userRepository = userRepository;
+        this.userInfoRepository = userInfoRepository;
     }
 
 //    @Transactional
@@ -39,7 +42,7 @@ public class GameService {
                     .build();
             gameRepository.save(game);
 
-            HashMap<String,List> userV = getUserV((HashMap<String, List>) param.get("gameXY"));
+            HashMap<String,List> userV = getUserStat((HashMap<String, List>) param.get("gameXY"));
 
             List<HashMap<String, Object>> userData = (List<HashMap<String, Object>>) param.get("userData");
 
@@ -52,7 +55,9 @@ public class GameService {
                 if(userId == null){
                     return false;
                 }
+
                 User user = userRepository.findUserByUserId(Long.parseLong(userId));
+
                 //todo 해당 유저의 정보들 추가적으로 계산하는 로직 필요
 
                 UserGame userGame = UserGame.builder()
@@ -74,13 +79,21 @@ public class GameService {
         }
     }
 
-    public HashMap<String,List> getUserV(HashMap<String,List> param){
+    public HashMap<String,List> getUserStat(HashMap<String,List> param){
         HashMap<String,List> returnData = new HashMap<>();
+
+
 
         double lastX = 0.0f;
         double lastY = 0.0f;
         double nowX = 0.0f;
         double nowY = 0.0f;
+
+        int defCnt = 0;
+        int attCnt = 0;
+        boolean isLeft = false;
+        boolean isRight = false;
+
 
         for(String userKey : param.keySet()){ //각 선수 만큼 반복
             double dx = 0;
@@ -105,6 +118,13 @@ public class GameService {
                 continue;
             }
 
+            //왼쪽에 있는 경우 왼쪽이 우리진영
+            if(lastX < 1180/2*fixelX){
+                isLeft = true;
+            }else{
+                isRight = true;
+            }
+
             for(Object nowInfo : userXYInfo){ //각 선수들의 좌표값 만큼 반복
                 List nowXY = (List)nowInfo;
                 nowX = (double)nowXY.get(0)*fixelX;
@@ -117,6 +137,24 @@ public class GameService {
                 if(nowV>=44){
                     continue;
                 }
+
+                //속력이 5km/h 보다 낮으면 걷는 속도. 걷는 속도보다 빨라야 무언가를 했다고 판단
+                if(nowV/1000*360 > 5){
+                    if(isLeft){ //왼쪽이 우리진영일때
+                        if(nowX<1180/2*fixelX){
+                            defCnt++;
+                        }else{
+                            attCnt++;
+                        }
+                    }else if(isRight){ //오른쪽이 우리진영일때
+                        if(nowX<1180/2*fixelX){
+                            attCnt++;
+                        }else{
+                            defCnt++;
+                        }
+                    }
+                }
+
                 maxV = Math.max(nowV,maxV);
                 totalV += nowV;
                 totalCnt++;
@@ -128,6 +166,7 @@ public class GameService {
             maxV = maxV/1000*360;
 //            System.out.println("MaxV: "+maxV);
 //            System.out.println("avg: "+totalV/totalCnt);
+            System.out.println("defCnt: "+defCnt+ ", attCnt: "+attCnt);
             ArrayList<Double> vData = new ArrayList<>();
             vData.add(maxV); //최대 속도가 0
             vData.add(totalV/totalCnt); //평균 속도가 1

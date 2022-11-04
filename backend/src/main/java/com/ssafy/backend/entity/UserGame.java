@@ -24,8 +24,7 @@ public class UserGame {
     private float userDistance;
     @Column(name = "user_attack") // 공격력 점수
     private int userAttack;
-    @Column(name = "user_physical") // 피지컬 점수
-    private int userPhysical;
+
     @Column(name = "user_defence") // 수비력 점수
     private int userDefence;
     @Column(name = "user_speed") // 평균 속도

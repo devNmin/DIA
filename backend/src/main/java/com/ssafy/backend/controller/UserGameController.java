@@ -67,6 +67,7 @@ public class UserGameController {
         }
 
         JSONObject tmp = new JSONObject();
+        //todo 점수화 필요
         tmp.put("avgDistance", avgDistance);
         tmp.put("avgAttack", avgAttack);
         tmp.put("avgDefence", avgDefence);

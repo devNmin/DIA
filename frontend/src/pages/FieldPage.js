@@ -21,7 +21,7 @@ function FieldPage() {
   const [prevData, setPrevData] = useState([0, 0, 0, '']);
   const [isMoving, setIsMoving] = useState(false);
 
-  const [isCtx, setIsCtx] = useState(false);
+  const [timeRange, setTimeRange] = useState(0);
   // 재생할 인덱스
   // const [playI, setPlayI] = useState(-1);
 
@@ -134,23 +134,14 @@ function FieldPage() {
     canvas2.height = canvasHeigth;
     const context2 = canvas2.getContext('2d');
 
-    console.log('실행3');
-    // for더미!!!!!!!!
-    // if (!coord) {
-    //   setCoord({
-    //     0: [-0.23, 0.8],
-    //     1: [-0.19, 0.7],
-    //     2: [-0.18, 0.6],
-    //     3: [-0.15, 0.7],
-    //     4: [-0.12, 0.9],
-    //     5: [0.03, 0.7],
-    //   });
-    // }
     console.log('playI', playI);
-    console.log('coords', coords);
-    console.log('context2', context2);
+    console.log('coords1', coords);
+    console.log('coords2', coords[0]);
+    console.log('coords3', coords[0][0]);
+    console.log('coords4', coords[0][0][0]);
+
     if (context2 && coords) {
-      console.log('이곳!');
+      playI += 1;
       context2.clearRect(0, 0, window.innerWidth, window.innerHeight);
       for (let i = 0; i < 6; i++) {
         console.log('here!!', i);
@@ -194,22 +185,24 @@ function FieldPage() {
         return;
       }
     }
+
     ////
     for (let i = 0; i < 6; i++) {
-      const circleX = coord[i][0] * canvasWidth + canvasWidth / 2;
-      const circleY = coord[i][1] * canvasHeigth - canvasHeigth / 2;
+      const circleX = coords[i][playI + 1][0];
+      const circleY = coords[i][playI + 1][1];
       // r = sqrt((x-x)^2 +)
 
       const distance = Math.sqrt((circleX - x) ** 2 + (circleY - y) ** 2);
 
       if (distance < 15) {
+        setIsPause(true);
+        console.log('ispause???', isPause);
         nowI = i;
         setNowD(i);
         console.log('점클릭?', i, duplication);
-        duplication[i][0] = coord[i][0] * canvasWidth + canvasWidth / 2;
-        duplication[i][0] = coord[i][1] * canvasHeigth - canvasHeigth / 2;
+        duplication[i][0] = coords[i][playI + 1][0];
+        duplication[i][0] = coords[i][playI + 1][1];
         startMoving();
-        setIsPause(true);
         break;
       }
     }
@@ -220,11 +213,8 @@ function FieldPage() {
   };
 
   const IntervalContinue = () => {
+    console.log('isPause', isPause);
     if (!isPause && coords[0].length > 0) {
-      console.log('실행2', playI);
-      // let z = playI + 1;
-      playI += 1;
-      console.log('실행2후', playI);
       fieldSet();
     }
   };
@@ -252,14 +242,13 @@ function FieldPage() {
           ctx3.font = '25px Arial';
           ctx3.fillText(i, x - 7.5, y - 6);
           ctx3.fillStyle = colors[i];
-          ctx3.globalAlpha = 0.6;
+          ctx3.globalAlpha = 0.5;
           ctx3.fill();
           ctx3.stroke();
         } else if (i === nowD) {
           ///지금 움직이는 원
           ctx3.beginPath();
           duplication[i] = [clientX, clientY];
-          console.log('dup', duplication);
           const x = duplication[i][0];
           const y = duplication[i][1];
 
@@ -287,7 +276,10 @@ function FieldPage() {
   function canvasClear() {
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
   }
-  let a = 0;
+
+  const timeRangeHandler = (e) => {
+    setTimeRange(e.target.value);
+  };
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -297,19 +289,13 @@ function FieldPage() {
     contextRef.current = context;
     setCtx(contextRef.current);
 
-    // const canvas2 = canvasRef2.current;
-    // canvas2.width = canvasWidth;
-    // canvas2.height = canvasHeigth;
-    // const context2 = canvas2.getContext('2d');
-    // setCtx2(context2);
-
     const canvas3 = canvasRef3.current;
     canvas3.width = canvasWidth;
     canvas3.height = canvasHeigth;
     const context3 = canvas3.getContext('2d');
     setCtx3(context3);
 
-    setInterval(IntervalContinue, 100);
+    setInterval(IntervalContinue, 200);
   }, []);
 
   // 소켓
@@ -427,6 +413,18 @@ function FieldPage() {
         <canvas className={styles.canvas3} ref={canvasRef3} />
         <canvas className={styles.canvas2} ref={canvasRef2} />
       </div>
+      <input
+        type="range"
+        id="timeRange"
+        name="timeRange"
+        className={styles.time_range}
+        min="0"
+        // max="100"
+        max={coords[0].length}
+        value={timeRange}
+        onChange={(e) => timeRangeHandler(e)}
+        step="5"
+      />
     </div>
   );
 }

@@ -38,7 +38,7 @@ public class UserSearchController {
             JSONObject tmp = new JSONObject();
             tmp.put("userinfoId", userList.get(index).getUserinfoId());
             tmp.put("userId", userList.get(index).getUser().getUserId());
-            tmp.put("userPfofileImage ", userList.get(index).getUserPfofileImage());
+            tmp.put("userProfileImage", userList.get(index).getUserPfofileImage());
             tmp.put("userPosition", userList.get(index).getUserPosition());
             tmp.put("userAge", userList.get(index).getUserAge());
             tmp.put("userName", userList.get(index).getUserName());

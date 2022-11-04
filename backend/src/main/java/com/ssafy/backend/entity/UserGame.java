@@ -24,12 +24,11 @@ public class UserGame {
     private float userDistance;
     @Column(name = "user_attack") // 공격력 점수
     private int userAttack;
-    @Column(name = "user_physical") // 피지컬 점수
-    private int userPhysical;
+
     @Column(name = "user_defence") // 수비력 점수
     private int userDefence;
-    @Column(name = "user_speed") // 스피드 점수
-    private int userSpeed;
+    @Column(name = "user_speed") // 평균 속도
+    private float userSpeed;
     @Column(name = "user_stamina") // 체력 점수
     private int userStamina;
     @Column(name = "user_sprint") // 해당 경기 스프린트 횟수
@@ -43,7 +42,7 @@ public class UserGame {
     @Column(name = "user_heart") // 평균 심박수
     private float userHeart;
     @Column(name = "user_pass") // 패스 성공률
-    private String userPass;
+    private float userPass;
     @Column(name = "user_position") // 해당 경기 포지션
     private String userPosition;
 

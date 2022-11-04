@@ -35,4 +35,6 @@ public class UserInfo {
     private float userHeight;
     @Column(name = "user_weight") // 몸무게
     private float userWeight;
+    @Column(name = "user_physical") // 피지컬 점수
+    private int userPhysical;
 }

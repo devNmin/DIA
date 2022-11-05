@@ -1,16 +1,11 @@
 import React from 'react'
 import UserSearch from '../components/TeamMake/UserSearch'
-import { useHistory } from 'react-router-dom'
 
-export default function TeamMakePage() {
-    const history = useHistory();
-    const goIpInsert = () => {
-        history.push('/ipInsert')
-    }
+export default function TeamMakePage() {   
+    
   return (
     <div>
-      <UserSearch></UserSearch>
-      <button onClick={() => {goIpInsert()}}>등록 완료</button>
+      <UserSearch></UserSearch>      
     </div>
   )
 }

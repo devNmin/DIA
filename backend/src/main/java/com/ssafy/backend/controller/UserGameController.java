@@ -1,6 +1,7 @@
 package com.ssafy.backend.controller;
 
 import com.ssafy.backend.dto.ResponseDto;
+import com.ssafy.backend.dto.UserGameDto;
 import com.ssafy.backend.entity.UserGame;
 import com.ssafy.backend.repository.UserGameRepository;
 import com.ssafy.backend.repository.UserInfoRepository;
@@ -84,5 +85,20 @@ public class UserGameController {
 
 
         return ResponseEntity.ok(tmp);
+    }
+
+    @GetMapping("/info/{userId}/{gameId}")
+    public ResponseEntity<?> getUserGameInfo(
+            @PathVariable("userId") Long userId, @PathVariable("gameId") Long gameId
+    ){
+        UserGameDto userGameDto = userGameService.getUserGame(userId,gameId);
+        System.out.println(userGameDto.toString());
+
+        if(userGameDto != null){
+            return ResponseEntity.ok(userGameDto);
+//            return ResponseEntity.ok(new ResponseDto(200,"adfs"));
+        }else{
+            return ResponseEntity.ok(new ResponseDto(404,"없는 경기입니다"));
+        }
     }
 }

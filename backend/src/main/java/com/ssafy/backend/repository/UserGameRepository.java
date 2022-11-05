@@ -7,13 +7,24 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Set;
 
-public interface UserGameRepository extends JpaRepository<UserGame, String> {
+public interface UserGameRepository extends JpaRepository<UserGame, String>,UserGameCustomRepository {
     @Query(value = "SELECT distinct userGame from UserGame userGame " +
             "left join userGame.game " +
             "where userGame.user.userId = :id " +
             "order by userGame.game.gameYear desc, userGame.game.gameMonth desc, userGame.game.gameDay desc ")
     List<UserGame> getMyRecentFiveGame(Pageable pageable, @Param(value="id") Long id);
+
+
+//    @Query(value = "SELECT  * FROM  usergame " +
+//            "left join fetch user"+
+//            "left join fetch game"+
+//            " where user_id = :uId and game_id = :gId"
+//            ,nativeQuery = true
+//    )
+//    UserGame getUserGameInfo(@Param(value="uId") Long uId, @Param(value = "gId") Long gId);
+
 
 
 }

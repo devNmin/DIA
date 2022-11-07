@@ -1,5 +1,5 @@
 .heatmap_canvas{
-    width:1920px; 
+    width: inherit; 
     height: 1080px;
     position:absolute;
     top:0;

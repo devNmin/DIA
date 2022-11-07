@@ -4,8 +4,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,7 +35,7 @@ public class FileUtil {
         String current_date = simpleDateFormat.format(new Date());
 
         //프로젝트 폴더에 저장하기 위한 절대경로 설정
-        String absolutePath = new File("").getAbsolutePath() +"\\";
+        String absolutePath = new File("").getAbsolutePath() +File.separator;
 
         //경로를 지정하고 해당 경로에 저장. 년월일별로 나누어서 저장
         String path = null;
@@ -42,12 +44,21 @@ public class FileUtil {
         }else if(flag == 1){//1인 경우 히트맵 이미지 경로로 저장
             path = "images/" + current_date;
         }
-        File file = new File(path);
+        File file = new File(absolutePath+path);
+
+
 
         //해당 디렉토리 없으면 생성해 줌
         if(!file.exists()){
-            file.mkdirs();
+//            file.mkdirs();
+            System.out.println(absolutePath+path);
+            System.out.println("파일 없음+++++++++++++++++++++++++++++++++++++++");
+            Files.createDirectory(Paths.get(absolutePath+path));
+        }else{
+            System.out.println(absolutePath+path);
+            System.out.println("파일 있음+++++++++++++++++++++++++++++++++++++++++++++");
         }
+
 
         //이미지 핸들링 시작
         for(MultipartFile multipartFile : multipartFiles){
@@ -81,7 +92,7 @@ public class FileUtil {
                 }else if(flag == 1){
                     new_file_name= Long.toString(System.nanoTime()) + userEmail+originalFileExtension;
                 }
-                String totalPath = absolutePath+path+"/"+new_file_name;
+                String totalPath = filePathBlackList(absolutePath+path+"/"+new_file_name);
                 fileList.add(totalPath);
                 //로컬에 저장
                 //db연결하면 db에 전체 경로를 저장해서 넘겨주면 됨
@@ -89,9 +100,50 @@ public class FileUtil {
                 if(file.exists()){ //이미 파일이 있다면 제거하고 다시 생성
                     file.delete();
                 }
-                multipartFile.transferTo(file);
+
+                InputStream inputStream = null;
+                OutputStream fileOutputStream = null;
+                try{
+                    inputStream = multipartFile.getInputStream();
+                    fileOutputStream = new FileOutputStream(totalPath);
+                    int byteRead = 0;
+                    byte[] buffer = new byte[2048];
+
+                    while((byteRead = inputStream.read(buffer,0,2048)) != -1){
+                        fileOutputStream.write(buffer,0,byteRead);
+                    }
+                }finally {
+                    close(fileOutputStream,inputStream);
+                }
+
+//                multipartFile.transferTo(file);
             }
         }
         return fileList;
+    }
+
+    public static String filePathBlackList(String value) {
+        String returnValue = value;
+        if (returnValue == null || returnValue.trim().equals("")) {
+            return "";
+        }
+
+        returnValue = returnValue.replaceAll("\\.\\.", "");
+
+        return returnValue;
+    }
+
+    public static void close(Closeable... resources) {
+        for (Closeable resource : resources) {
+            if (resource != null) {
+                try {
+                    resource.close();
+                } catch (IOException e) {
+                    System.out.println(e);
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+            }
+        }
     }
 }

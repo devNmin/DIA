@@ -32,7 +32,7 @@ public class FileUtil {
         String current_date = simpleDateFormat.format(new Date());
 
         //프로젝트 폴더에 저장하기 위한 절대경로 설정
-        String absolutePath = new File("").getAbsolutePath() +"\\";
+        String absolutePath = new File("").getAbsolutePath() +File.separator;
 
         //경로를 지정하고 해당 경로에 저장. 년월일별로 나누어서 저장
         String path = null;
@@ -42,6 +42,9 @@ public class FileUtil {
             path = "images/" + current_date;
         }
         File file = new File(path);
+
+
+
 
         //해당 디렉토리 없으면 생성해 줌
         if(!file.exists()){

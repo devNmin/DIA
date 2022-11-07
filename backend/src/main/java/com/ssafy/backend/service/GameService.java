@@ -3,9 +3,8 @@ package com.ssafy.backend.service;
 import com.ssafy.backend.entity.Game;
 import com.ssafy.backend.entity.User;
 import com.ssafy.backend.entity.UserGame;
-import com.ssafy.backend.entity.UserInfo;
 import com.ssafy.backend.repository.GameRepository;
-import com.ssafy.backend.repository.UserGameRepository;
+import com.ssafy.backend.repository.UserGameInfo;
 import com.ssafy.backend.repository.UserInfoRepository;
 import com.ssafy.backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -17,14 +16,14 @@ import java.util.List;
 @Service
 public class GameService {
     private final GameRepository gameRepository;
-    private final UserGameRepository userGameRepository;
+    private final UserGameInfo UserGameInfo;
     private final UserRepository userRepository;
 
     private final UserInfoRepository userInfoRepository;
 
-    public GameService(GameRepository gameRepository, UserGameRepository userGameRepository, UserRepository userRepository, UserInfoRepository userInfoRepository) {
+    public GameService(GameRepository gameRepository, UserGameInfo UserGameInfo, UserRepository userRepository, UserInfoRepository userInfoRepository) {
         this.gameRepository = gameRepository;
-        this.userGameRepository = userGameRepository;
+        this.UserGameInfo = UserGameInfo;
         this.userRepository = userRepository;
         this.userInfoRepository = userInfoRepository;
     }
@@ -70,7 +69,7 @@ public class GameService {
                         .userSpeed(Float.parseFloat(((Double)userV.get(userId).get(1)).toString()))
                         .userDistance(Float.parseFloat((String) userData.get(index).get("userDistance")))
                         .build();
-                userGameRepository.save(userGame);
+                UserGameInfo.save(userGame);
             }
 
             return true;

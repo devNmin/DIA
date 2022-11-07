@@ -1,53 +1,70 @@
 package com.ssafy.backend.controller;
 
+import com.ssafy.backend.dto.PagenationDto;
 import com.ssafy.backend.dto.ResponseDto;
 import com.ssafy.backend.dto.UserGameDto;
+import com.ssafy.backend.entity.User;
 import com.ssafy.backend.entity.UserGame;
-import com.ssafy.backend.repository.UserGameRepository;
+import com.ssafy.backend.mapper.GameMapper;
+import com.ssafy.backend.repository.UserGameInfo;
 import com.ssafy.backend.repository.UserInfoRepository;
+import com.ssafy.backend.repository.UserRepository;
+import com.ssafy.backend.service.TokenService;
 import com.ssafy.backend.service.UserGameService;
 import org.json.simple.JSONObject;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.spring.web.json.Json;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
 @RequestMapping("/api/v1/usergame")
 public class UserGameController {
     private final UserGameService userGameService;
-    private final UserGameRepository userGameRepository;
+    private final UserRepository userRepository;
+    private final UserGameInfo UserGameInfo;
     private final UserInfoRepository userInfoRepository;
+    private final TokenService tokenService;
 
-    public UserGameController(UserGameService userGameService, UserGameRepository userGameRepository, UserInfoRepository userInfoRepository) {
+    public UserGameController(UserGameService userGameService, UserRepository userRepository, UserGameInfo UserGameInfo, UserInfoRepository userInfoRepository, TokenService tokenService) {
         this.userGameService = userGameService;
-        this.userGameRepository = userGameRepository;
+        this.userRepository = userRepository;
+        this.UserGameInfo = UserGameInfo;
         this.userInfoRepository = userInfoRepository;
+        this.tokenService = tokenService;
     }
 
-    @PostMapping("/myRecentGameInfo/{userId}")
+    // 원하는 페이지 내의 자신이 참여한 게임 정보를 받아오는 api
+    @PostMapping("/myRecentGameInfo")
     public ResponseEntity<?> myRecentGameInfo(
-            @PathVariable("userId") String userId
+            HttpServletRequest request,
+            @RequestBody PagenationDto pagenationDto
     ){
-        System.out.println(userGameRepository.getMyRecentFiveGame(PageRequest.of(0,5), Long.parseLong(userId)));
-        return ResponseEntity.ok(new ResponseDto(200,"저장 완료"));
+        String userEmail = tokenService.getUserEmailFromToken(request);
+        List<GameMapper> gameMapper = userGameService.myGameInfo(pagenationDto.getStart(),pagenationDto.getEnd(),userEmail);
+
+        return ResponseEntity.ok(gameMapper);
     }
+
 
     // todo  5경기 평균 점수 구하기 - 백분율 점수 변경 필요
-    @GetMapping("/test/{userId}")
+    @PostMapping("/test")
     public ResponseEntity<?> test(
-            @PathVariable("userId") String userId
+            HttpServletRequest request,
+            @RequestBody PagenationDto pagenationDto
     ){
-        List<UserGame> userGameList = (userGameRepository.getMyRecentFiveGame(PageRequest.of(0,5), Long.parseLong(userId)));
+        String userEmail = tokenService.getUserEmailFromToken(request);
+        User user = userRepository.findUserByUserEmail(userEmail);
+        List<UserGame> userGameList = (UserGameInfo.getMyGameInfo(PageRequest.of(pagenationDto.getStart(),pagenationDto.getEnd()), user.getUserId()));
         double avgDistance = 0;
         double avgAttack = 0;
         double avgDefence = 0;
         double avgStamina = 0;
         double avgSpeed = 0;
-        double avgPhysical = userInfoRepository.findUserInfoByUser_UserId(Long.parseLong(userId)).getUserPhysical();
+        double avgPhysical = userInfoRepository.findUserInfoByUser_UserId(user.getUserId()).getUserPhysical();
 
         for (int index = 0; index < userGameList.size(); index++){
             if (userGameList.get(index).getUserAttack() != 0){
@@ -82,7 +99,6 @@ public class UserGameController {
         tmp.put("realStamina", avgStamina);
         tmp.put("realSpeed", avgSpeed);
         tmp.put("realPhysical", avgPhysical);
-
 
         return ResponseEntity.ok(tmp);
     }

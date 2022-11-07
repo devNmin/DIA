@@ -62,3 +62,9 @@ hr {
     border-style: inset;
     border-width: 1px;
 }
+
+.dropdownmenu {
+    width: 60%;
+    /* display: flex; */
+    justify-content: center;
+}

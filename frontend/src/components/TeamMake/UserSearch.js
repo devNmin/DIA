@@ -7,6 +7,9 @@ import { Scrollbars } from 'react-custom-scrollbars-2';
 import UserContext from '../../context/UserContext'
 import CurrentTeamComp from './CurrentTeamComp'
 import CurrentFieldComp from './CurrentFieldComp'
+import styles from '../../pages/AccountRegisterPage.module.css'
+
+
 
 export default function UserSearch() {
   const {currentTeam, setCurrentTeam} = useContext(UserContext)
@@ -14,6 +17,7 @@ export default function UserSearch() {
   const [username, setUsername] = useState('')
   const [searchedUserList, setSearchedUserList] = useState([])
   const [noResult, setNoResult] = useState(false)
+  const [foramation, setFormation] = useState('basic')
   const submitHandler = async (e) => {
     e.preventDefault()
     await axios.post('search/user', {
@@ -86,19 +90,42 @@ export default function UserSearch() {
             {noResult? 
               <h2>There aren't any users</h2>:
               null
-            }                
+            }
+                            
           </div> 
             <div className='usersquad fadein'>
               <div className='squadtitle'>YOUR SQUAD</div>
               <hr />
               <div className='fieldContainer'>
-                <CurrentFieldComp></CurrentFieldComp>
+                <CurrentFieldComp curform = {foramation}></CurrentFieldComp> 
+                <div style={{ 'width' : '50%'  }}>
+                  <div style={{ 'display' : 'flex',  'height' : '20%'}}>
+                      <button className= {styles.EmailCheck} onClick = {()=> setFormation('122')} style ={{ 'marginLeft' : '20px', 'width' : '33%'}}>1-2-2</button>
+                      <button className= {styles.EmailCheck} onClick = {()=> setFormation('1121')} style ={{ 'marginLeft' : '20px', 'width' : '33%'}}>1-1-2-1</button>
+                      <button className= {styles.EmailCheck} onClick = {()=> setFormation('1112')} style ={{ 'marginLeft' : '20px', 'width' : '33%', 'marginRight': '15px'}}>1-1-1-2</button>
+                  </div> 
+                  <div>
+                    Pivot
+                  </div> 
+                  <div>
+                    Ala
+                  </div> 
+                  <div>
+                    Fixo
+                  </div>
+                  <div>
+                    Goalkeeper
+                  </div>  
+                </div>   
+                                    
               </div>
+                
+                          
               <hr />
               <div className='squadBench' style={{ 'display' : 'flex', 'overflowX' : 'auto'}}>              
                 {currentTeam.length?  currentTeam.map((playerInfo) => (
                   <div key = {playerInfo.userId}>
-                    <CurrentTeamComp player = {playerInfo}></CurrentTeamComp>
+                    <CurrentTeamComp player = {playerInfo}></CurrentTeamComp>                    
                   </div>
                 )                
                 ) : null

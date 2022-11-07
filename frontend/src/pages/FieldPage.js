@@ -4,51 +4,54 @@ import filedContext from '../context/FieldContext';
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import styles from './FieldPage.module.css';
 import SoccerField from '../components/FieldPage/SoccerField';
+import CoordsSet from '../components/FieldPage/CoordsSet';
+import DuplicationPlayer from '../components/FieldPage/DuplicationPlayer';
 
 function FieldPage() {
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
-  const canvasRef2 = useRef(null);
-  const canvasRef3 = useRef(null);
+  // const canvasRef2 = useRef(null);
+  // const canvasRef3 = useRef(null);
 
   const { ipV4, portinput } = useContext(UserContext);
   const fieldCtx = useContext(filedContext);
+
   const [ctx, setCtx] = useState();
-  const [ctx3, setCtx3] = useState();
+  // const [ctx3, setCtx3] = useState();
 
   const [isDrawing, setIsDrawing] = useState(false);
   const [brushColor, setBrushColor] = useState('black');
   const [brushSize, setBrushSize] = useState('1');
-  const [prevData, setPrevData] = useState([0, 0, 0, '']);
-  const [isMoving, setIsMoving] = useState(false);
-  const [maxIndex, setMaxIndex] = useState(-1);
+  // const [prevData, setPrevData] = useState([0, 0, 0, '']);
+  // const [isMoving, setIsMoving] = useState(false);
+  // const [maxIndex, setMaxIndex] = useState(-1);
 
   const [timeRange, setTimeRange] = useState(0);
   // 재생할 인덱스
   // const [playI, setPlayI] = useState(-1);
 
   ////1. 일시정지(재생), 3. 뒤로가기, 4.앞으로 가기
-  const [isPause, setIsPause] = useState(false);
+  // const [isPause, setIsPause] = useState(false);
   ////
 
-  const [coord, setCoord] = useState(null);
-  const [coords, setCoords] = useState({
-    0: [],
-    1: [],
-    2: [],
-    3: [],
-    4: [],
-    5: [],
-  });
-  const [nowD, setNowD] = useState(-1);
-  const [duplication, setDuplication] = useState({
-    0: [-1, -1],
-    1: [-1, -1],
-    2: [-1, -1],
-    3: [-1, -1],
-    4: [-1, -1],
-    5: [-1, -1],
-  });
+  // const [coord, setCoord] = useState(null);
+  // const [coords, setCoords] = useState({
+  //   0: [],
+  //   1: [],
+  //   2: [],
+  //   3: [],
+  //   4: [],
+  //   5: [],
+  // });
+  // const [nowD, setNowD] = useState(-1);
+  // const [duplication, setDuplication] = useState({
+  //   0: [-1, -1],
+  //   1: [-1, -1],
+  //   2: [-1, -1],
+  //   3: [-1, -1],
+  //   4: [-1, -1],
+  //   5: [-1, -1],
+  // });
   const canvasWidth = window.innerWidth;
   const canvasHeigth = window.innerHeight * 0.8;
   let playI = 0;
@@ -60,66 +63,71 @@ function FieldPage() {
     setIsDrawing(false);
   };
 
-  const startMoving = () => {
-    setIsMoving(true);
-  };
-  const finishMoving = () => {
-    setIsMoving(false);
-  };
+  // const startMoving = () => {
+  //   setIsMoving(true);
+  // };
+  // const finishMoving = () => {
+  //   setIsMoving(false);
+  // };
 
-  const HandlePause = () => {
-    console.log('여기');
-    if (isPause) {
-      console.log('정지상태 => 다시재생');
-      setIsPause((prev) => {
-        return false;
-      });
-      ctx3.clearRect(0, 0, window.innerWidth, window.innerHeight);
-      setDuplication({
-        0: [-1, -1],
-        1: [-1, -1],
-        2: [-1, -1],
-        3: [-1, -1],
-        4: [-1, -1],
-        5: [-1, -1],
-      });
-    } else {
-      console.log('재생중 => 정지');
-      setIsPause((prev) => {
-        return true;
-      });
-    }
-  };
+  // const HandlePause = () => {
+  //   console.log('여기');
+  //   if (isPause) {
+  //     console.log('정지상태 => 다시재생');
+  //     setIsPause((prev) => {
+  //       return false;
+  //     });
+  //     ctx3.clearRect(0, 0, window.innerWidth, window.innerHeight);
+  //     setDuplication({
+  //       0: [-1, -1],
+  //       1: [-1, -1],
+  //       2: [-1, -1],
+  //       3: [-1, -1],
+  //       4: [-1, -1],
+  //       5: [-1, -1],
+  //     });
+  //   } else {
+  //     console.log('재생중 => 정지');
+  //     setIsPause((prev) => {
+  //       return true;
+  //     });
+  //   }
+  // };
 
   const drawing = ({ nativeEvent }) => {
-    if (isMoving) {
+    if (!nativeEvent || fieldCtx.isMoving) {
       return;
     }
     const { clientX, clientY } = nativeEvent.changedTouches[0];
     const timestamp = nativeEvent.timeStamp;
-    setPrevData((prev) => [prev[0], prev[1], prev[2], nativeEvent.type]);
-    if (prevData) {
+    fieldCtx.setPrevData((prev) => [
+      prev[0],
+      prev[1],
+      prev[2],
+      nativeEvent.type,
+    ]);
+    if (fieldCtx.prevData) {
       if (
-        Math.abs(timestamp - prevData[0]) < 15 &&
-        (Math.abs(prevData[1] - clientX) > 10 ||
-          Math.abs(prevData[2] - clientY) > 10)
+        Math.abs(timestamp - fieldCtx.prevData[0]) < 15 &&
+        (Math.abs(fieldCtx.prevData[1] - clientX) > 10 ||
+          Math.abs(fieldCtx.prevData[2] - clientY) > 10)
       ) {
         return;
       }
 
       if (
-        prevData[3] === 'touchstart' &&
+        fieldCtx.prevData[3] === 'touchstart' &&
         nativeEvent.type === 'touchmove' &&
-        (Math.abs(timestamp - prevData[0]) > 10 ||
-          Math.abs(prevData[1] - clientX) > 1 ||
-          Math.abs(prevData[2] - clientY) > 1)
+        (Math.abs(timestamp - fieldCtx.prevData[0]) > 10 ||
+          Math.abs(fieldCtx.prevData[1] - clientX) > 1 ||
+          Math.abs(fieldCtx.prevData[2] - clientY) > 1)
       ) {
         return;
       }
     }
 
     if (ctx) {
-      setPrevData((prev) => [timestamp, clientX, clientY, prev[3]]);
+      fieldCtx.setPrevData((prev) => [timestamp, clientX, clientY, prev[3]]);
       if (!isDrawing) {
         ctx.beginPath();
         ctx.moveTo(clientX, clientY);
@@ -129,7 +137,8 @@ function FieldPage() {
         ctx.lineWidth = brushSize;
         if (
           nativeEvent.targetTouches.length > 1 ||
-          (nativeEvent.type === 'touchstart' && prevData[3] === 'touchstart')
+          (nativeEvent.type === 'touchstart' &&
+            fieldCtx.prevData[3] === 'touchstart')
         ) {
           return;
         }
@@ -137,51 +146,52 @@ function FieldPage() {
       }
     }
   };
-  const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
+  // const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
 
-  const fieldSet = () => {
-    console.log('playI', playI);
+  // const fieldSet = () => {
+  //   console.log('playI', playI);
 
-    const canvas2 = canvasRef2.current;
-    canvas2.width = canvasWidth;
-    canvas2.height = canvasHeigth;
-    const context2 = canvas2.getContext('2d');
+  //   const canvas2 = canvasRef2.current;
+  //   canvas2.width = canvasWidth;
+  //   canvas2.height = canvasHeigth;
+  //   const context2 = canvas2.getContext('2d');
 
-    if (context2 && coords) {
-      // setPlayIndex((prev) => {
-      //   return prev + 1;
-      // });
-      // console.log('playIndex', playIndex);
+  //   if (context2 && coords) {
+  //     // setPlayIndex((prev) => {
+  //     //   return prev + 1;
+  //     // });
+  //     // console.log('playIndex', playIndex);
 
-      context2.clearRect(0, 0, window.innerWidth, window.innerHeight);
-      // console.log('coords[0]', coords[0]);
-      // console.log('coords[0][0]', playI, coords[0][playI]);
-      // console.log('coords[0][0][0]', coords[0][playI][0]);
-      for (let i = 0; i < 6; i++) {
-        const x = coords[i][playI][0];
-        const y = coords[i][playI][1];
+  //     context2.clearRect(0, 0, window.innerWidth, window.innerHeight);
+  //     // console.log('coords[0]', coords[0]);
+  //     // console.log('coords[0][0]', playI, coords[0][playI]);
+  //     // console.log('coords[0][0][0]', coords[0][playI][0]);
+  //     for (let i = 0; i < 6; i++) {
+  //       const x = coords[i][playI][0];
+  //       const y = coords[i][playI][1];
 
-        context2.moveTo(x, y);
-        context2.beginPath();
-        context2.arc(x, y, 15, 0, Math.PI * 2, true);
-        context2.fillStyle = colors[i];
-        context2.fill();
-        context2.stroke();
-      }
-      playI += 1;
+  //       context2.moveTo(x, y);
+  //       context2.beginPath();
+  //       context2.arc(x, y, 15, 0, Math.PI * 2, true);
+  //       context2.fillStyle = colors[i];
+  //       context2.fill();
+  //       context2.stroke();
+  //     }
+  //     playI += 1;
 
-      /// context test
-      fieldCtx.setPlayIndex((prev) => {
-        console.log('prev', prev + 1);
-        return prev + 1;
-      });
-    }
-  };
+  //     /// context test
+  //     fieldCtx.setPlayIndex((prev) => {
+  //       console.log('prev', prev + 1);
+  //       return prev + 1;
+  //     });
+  //   }
+  // };
 
+  // 플레이어 클릭했는지 확인
   let nowI = -1;
   const playerClick = ({ nativeEvent }) => {
-    setNowD(-1);
-    if (!coord) {
+    fieldCtx.setNowD(-1);
+    if (!fieldCtx.coord) {
       return;
     }
     const x = nativeEvent.targetTouches[0].clientX;
@@ -189,102 +199,102 @@ function FieldPage() {
 
     //// 복제한 좌표 다시 클릭할 때
     for (let i = 0; i < 6; i++) {
-      const circleX = duplication[i][0];
-      const circleY = duplication[i][1];
+      const circleX = fieldCtx.duplication[i][0];
+      const circleY = fieldCtx.duplication[i][1];
       const distance = Math.sqrt((circleX - x) ** 2 + (circleY - y) ** 2);
 
       if (distance < 15) {
         nowI = i;
-        setNowD(i);
-        duplication[i][0] = x;
-        duplication[i][1] = y;
-        startMoving();
+        fieldCtx.setNowD(i);
+        fieldCtx.duplication[i][0] = x;
+        fieldCtx.duplication[i][1] = y;
+        fieldCtx.startMoving();
         return;
       }
     }
 
     ////
     for (let i = 0; i < 6; i++) {
-      const circleX = coords[i][playI][0];
-      const circleY = coords[i][playI][1];
+      const circleX = fieldCtx.coords[i][playI][0];
+      const circleY = fieldCtx.coords[i][playI][1];
 
       const distance = Math.sqrt((circleX - x) ** 2 + (circleY - y) ** 2);
 
       if (distance < 15) {
         nowI = i;
-        setNowD(i);
-        duplication[i][0] = coords[i][playI][0];
-        duplication[i][0] = coords[i][playI][1];
-        startMoving();
+        fieldCtx.setNowD(i);
+        fieldCtx.duplication[i][0] = fieldCtx.coords[i][playI][0];
+        fieldCtx.duplication[i][0] = fieldCtx.coords[i][playI][1];
+        fieldCtx.startMoving();
         break;
       }
     }
     if (nowI === -1) {
-      finishMoving();
+      fieldCtx.finishMoving();
       return;
     }
   };
 
-  const IntervalContinue = () => {
-    if (!isPause && coords[0].length > 0) {
-      // console.log('IntervalContinue, 재생중');
-      fieldSet();
-    } else {
-      // console.log('IntervalContinue 일시정지');
-      return;
-    }
-  };
+  // const IntervalContinue = () => {
+  //   if (!isPause && coords[0].length > 0) {
+  //     // console.log('IntervalContinue, 재생중');
+  //     fieldSet();
+  //   } else {
+  //     // console.log('IntervalContinue 일시정지');
+  //     return;
+  //   }
+  // };
 
   /// 복제 좌표 그리기
-  function duplicationHandler({ nativeEvent }) {
-    const canvas3 = canvasRef3.current;
-    canvas3.width = canvasWidth;
-    canvas3.height = canvasHeigth;
-    const context3 = canvas3.getContext('2d');
-    setCtx3(context3);
+  // function duplicationHandler({ nativeEvent }) {
+  //   const canvas3 = canvasRef3.current;
+  //   canvas3.width = canvasWidth;
+  //   canvas3.height = canvasHeigth;
+  //   const context3 = canvas3.getContext('2d');
+  //   setCtx3(context3);
 
-    const { clientX, clientY } = nativeEvent.changedTouches[0];
-    if (!isMoving) {
-      context3.moveTo(clientX, clientY);
-    } else if (nowD > -1) {
-      context3.clearRect(0, 0, window.innerWidth, window.innerHeight);
-      for (let i = 0; i < 6; i++) {
-        // 이전에 만든 복제 원
-        if (i in duplication && i !== nowD) {
-          const x = duplication[i][0];
-          const y = duplication[i][1];
-          context3.beginPath();
-          context3.moveTo(clientX, clientY);
-          context3.beginPath();
+  //   const { clientX, clientY } = nativeEvent.changedTouches[0];
+  //   if (!isMoving) {
+  //     context3.moveTo(clientX, clientY);
+  //   } else if (nowD > -1) {
+  //     context3.clearRect(0, 0, window.innerWidth, window.innerHeight);
+  //     for (let i = 0; i < 6; i++) {
+  //       // 이전에 만든 복제 원
+  //       if (i in duplication && i !== nowD) {
+  //         const x = duplication[i][0];
+  //         const y = duplication[i][1];
+  //         context3.beginPath();
+  //         context3.moveTo(clientX, clientY);
+  //         context3.beginPath();
 
-          context3.arc(x, y, 15, 0, Math.PI * 2, true);
-          context3.font = '25px Arial';
-          context3.fillText(i, x - 7.5, y - 6);
-          context3.fillStyle = colors[i];
-          context3.globalAlpha = 0.5;
-          context3.fill();
-          context3.stroke();
-        } else if (i === nowD) {
-          ///지금 움직이는 원
-          context3.beginPath();
-          duplication[i] = [clientX, clientY];
-          const x = duplication[i][0];
-          const y = duplication[i][1];
+  //         context3.arc(x, y, 15, 0, Math.PI * 2, true);
+  //         context3.font = '25px Arial';
+  //         context3.fillText(i, x - 7.5, y - 6);
+  //         context3.fillStyle = colors[i];
+  //         context3.globalAlpha = 0.5;
+  //         context3.fill();
+  //         context3.stroke();
+  //       } else if (i === nowD) {
+  //         ///지금 움직이는 원
+  //         context3.beginPath();
+  //         duplication[i] = [clientX, clientY];
+  //         const x = duplication[i][0];
+  //         const y = duplication[i][1];
 
-          context3.moveTo(clientX, clientY);
-          context3.beginPath();
+  //         context3.moveTo(clientX, clientY);
+  //         context3.beginPath();
 
-          context3.arc(x, y, 15, 0, Math.PI * 2, true);
-          context3.font = '25px Arial';
-          context3.fillText(i, x - 7.5, y - 7.5);
-          context3.fillStyle = colors[i];
-          context3.globalAlpha = 0.8;
-          context3.fill();
-          context3.stroke();
-        }
-      }
-    }
-  }
+  //         context3.arc(x, y, 15, 0, Math.PI * 2, true);
+  //         context3.font = '25px Arial';
+  //         context3.fillText(i, x - 7.5, y - 7.5);
+  //         context3.fillStyle = colors[i];
+  //         context3.globalAlpha = 0.8;
+  //         context3.fill();
+  //         context3.stroke();
+  //       }
+  //     }
+  //   }
+  // }
   ///////////////////
   function brushColorHandler(e) {
     setBrushColor(e.target.value);
@@ -308,8 +318,8 @@ function FieldPage() {
     contextRef.current = context;
     setCtx(contextRef.current);
 
-    setInterval(IntervalContinue, 100);
-  }, [isPause]);
+    // setInterval(IntervalContinue, 100);
+  }, []);
 
   // 소켓
   const host = ipV4;
@@ -334,14 +344,14 @@ function FieldPage() {
         console.log('connected!!');
       };
       ws.onmessage = (message) => {
+        fieldCtx.setIsSocket(true);
         //server to client
         const coordData = JSON.parse(message.data);
-        setCoord(JSON.parse(message.data));
-        // console.log('데이터들어옴');
-        setMaxIndex((prev) => {
+        fieldCtx.setCoord(JSON.parse(message.data));
+        fieldCtx.setMaxIndex((prev) => {
           return prev + 1;
         });
-        console.log(maxIndex);
+        let pp = fieldCtx.coords;
         for (let i = 0; i < 6; i++) {
           if (i in coordData) {
             //user x,y
@@ -351,7 +361,8 @@ function FieldPage() {
             const y = parseFloat(
               coordData[i][1] * canvasHeigth - canvasHeigth / 2
             );
-            coords[i].push([x, y]);
+            // fieldCtx.coords[i].push([x, y]);
+            pp[i].push([x, y]);
 
             //이전 값이 있다면 거리 계산
             if (userXInfo[i] != null && userYInfo[i] != null) {
@@ -363,14 +374,19 @@ function FieldPage() {
                 totalDistance[i] += Math.sqrt(disX * disX + disY * disY);
               }
             }
+
             userXInfo[i] = x * fixelX;
             userYInfo[i] = y * fixelY;
-          } else if (coords[i].length > 1) {
-            coords[i].push([coords[i].at(-1)[0], coords[i].at(-1)[1]]);
+          } else if (fieldCtx.coords[i].length > 1) {
+            pp[i].push([
+              fieldCtx.coords[i].at(-1)[0],
+              fieldCtx.coords[i].at(-1)[1],
+            ]);
           } else {
-            coords[i].push([0, 0]);
+            pp[i].push([0, 0]);
           }
         }
+        fieldCtx.setCoords(pp);
       };
       ws.onclose = function () {
         ws = undefined;
@@ -425,7 +441,9 @@ function FieldPage() {
             <button onClick={socketSend}>소켓 전송</button>
           </div>
         </div>
-        <button onClick={HandlePause}>{isPause ? '시작' : '일시정지'}</button>
+        <button onClick={fieldCtx.HandlePause}>
+          {fieldCtx.isPause ? '시작' : '일시정지'}
+        </button>
       </div>
 
       <div className={styles.canvas_box}>
@@ -440,17 +458,19 @@ function FieldPage() {
           }}
           onTouchEnd={() => {
             finishDrawing();
-            finishMoving();
+            fieldCtx.finishMoving();
           }}
           onTouchMove={(e) => {
             drawing(e);
-            duplicationHandler(e);
+            fieldCtx.setDuplicationEvent(e);
           }}
           onTouchCancel={() => {
             finishDrawing();
-            finishMoving();
+            fieldCtx.finishMoving();
           }}
         />
+        <DuplicationPlayer />
+        <CoordsSet />
         {/* <canvas className={styles.canvas3} ref={canvasRef3} />
         <canvas className={styles.canvas2} ref={canvasRef2} /> */}
       </div>
@@ -461,7 +481,7 @@ function FieldPage() {
         className={styles.time_range}
         min="0"
         // max="100"
-        max={coords[0].length}
+        max={fieldCtx.coords[0].length}
         value={timeRange}
         onChange={(e) => timeRangeHandler(e)}
         step="5"

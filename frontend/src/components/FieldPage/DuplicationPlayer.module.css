@@ -1,9 +1,5 @@
-.canvas_box {
-  position: relative;
-}
-
-.canvas2 {
-  z-index: -1;
+.canvas3 {
+  z-index: -2;
   position: fixed;
   top: 0;
   left: 0;

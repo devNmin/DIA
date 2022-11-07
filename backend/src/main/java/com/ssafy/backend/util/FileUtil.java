@@ -48,20 +48,17 @@ public class FileUtil {
 
 
 
-
         //해당 디렉토리 없으면 생성해 줌
         if(!file.exists()){
 //            file.mkdirs();
-            Files.createDirectory(Paths.get(absolutePath+path));
-        }
-
-        if(file.exists()){
             System.out.println(absolutePath+path);
-            System.out.println("파일 있음+++++++++++++++++++++++++++++++++++++++");
+            System.out.println("파일 없음+++++++++++++++++++++++++++++++++++++++");
+            Files.createDirectory(Paths.get(absolutePath+path));
         }else{
             System.out.println(absolutePath+path);
-            System.out.println("파일 없음+++++++++++++++++++++++++++++++++++++++++++++");
+            System.out.println("파일 있음+++++++++++++++++++++++++++++++++++++++++++++");
         }
+
 
         //이미지 핸들링 시작
         for(MultipartFile multipartFile : multipartFiles){

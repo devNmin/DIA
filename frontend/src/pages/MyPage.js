@@ -5,6 +5,7 @@ import styles from './MyPage.module.css'
 import DataGraph from '../components/MyPage/DataGraph';
 import { Link } from 'react-router-dom';
 import BotNavbar from '../components/Navbar/BotNavbar';
+import HeatMap from '../components/MyPage/HeatMap';
 
 function MyPage(props) {
 
@@ -23,6 +24,7 @@ function MyPage(props) {
 			</div>
 		</div>
 		<BotNavbar />
+		<HeatMap />
 		</>
 	);
 }

@@ -5,6 +5,9 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,14 +44,15 @@ public class FileUtil {
         }else if(flag == 1){//1인 경우 히트맵 이미지 경로로 저장
             path = "images/" + current_date;
         }
-        File file = new File(path);
+        File file = new File(absolutePath+path);
 
 
 
 
         //해당 디렉토리 없으면 생성해 줌
         if(!file.exists()){
-            file.mkdirs();
+//            file.mkdirs();
+            Files.createDirectory(Paths.get(path));
         }
 
         if(file.exists()){

@@ -1,6 +1,6 @@
 import styles from './MainCarousel.module.css'
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 
 function MainCarousel(props) {
 	const { children } = props
@@ -82,14 +82,14 @@ function MainCarousel(props) {
 					}
 				</div>
 			</div >
-			{
+			{/* {
 				currentIndex === (length - 1) &&
 				<Link to='/register' className={styles.signup}>
 					<button type="button">
 						회원가입 하러 가기
 					</button>
 				</Link>
-			}
+			} */}
 		</div>
 	);
 };

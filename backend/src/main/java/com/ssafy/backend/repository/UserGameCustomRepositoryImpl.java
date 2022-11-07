@@ -33,6 +33,5 @@ public class UserGameCustomRepositoryImpl implements UserGameCustomRepository{
                         qUserGame.userStamina))
                 .from(qUserGame)
                 .where(qUserGame.user.userId.eq(userId).and(qUserGame.game.gameId.eq(gameId))).fetchOne();
-
     }
 }

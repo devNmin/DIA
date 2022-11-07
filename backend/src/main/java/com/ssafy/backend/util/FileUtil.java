@@ -4,8 +4,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -81,7 +80,7 @@ public class FileUtil {
                 }else if(flag == 1){
                     new_file_name= Long.toString(System.nanoTime()) + userEmail+originalFileExtension;
                 }
-                String totalPath = absolutePath+path+"/"+new_file_name;
+                String totalPath = filePathBlackList(absolutePath+path+"/"+new_file_name);
                 fileList.add(totalPath);
                 //로컬에 저장
                 //db연결하면 db에 전체 경로를 저장해서 넘겨주면 됨
@@ -89,9 +88,50 @@ public class FileUtil {
                 if(file.exists()){ //이미 파일이 있다면 제거하고 다시 생성
                     file.delete();
                 }
-                multipartFile.transferTo(file);
+
+                InputStream inputStream = null;
+                OutputStream fileOutputStream = null;
+                try{
+                    inputStream = multipartFile.getInputStream();
+                    fileOutputStream = new FileOutputStream(totalPath);
+                    int byteRead = 0;
+                    byte[] buffer = new byte[2048];
+
+                    while((byteRead = inputStream.read(buffer,0,2048)) != -1){
+                        fileOutputStream.write(buffer,0,byteRead);
+                    }
+                }finally {
+                    close(fileOutputStream,inputStream);
+                }
+
+//                multipartFile.transferTo(file);
             }
         }
         return fileList;
+    }
+
+    public static String filePathBlackList(String value) {
+        String returnValue = value;
+        if (returnValue == null || returnValue.trim().equals("")) {
+            return "";
+        }
+
+        returnValue = returnValue.replaceAll("\\.\\.", "");
+
+        return returnValue;
+    }
+
+    public static void close(Closeable... resources) {
+        for (Closeable resource : resources) {
+            if (resource != null) {
+                try {
+                    resource.close();
+                } catch (IOException e) {
+                    System.out.println(e);
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+            }
+        }
     }
 }

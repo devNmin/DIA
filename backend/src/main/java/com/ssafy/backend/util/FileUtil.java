@@ -93,10 +93,7 @@ public class FileUtil {
                     new_file_name= Long.toString(System.nanoTime()) + userEmail+originalFileExtension;
                 }
                 String totalPath = filePathBlackList(absolutePath+path+"/"+new_file_name);
-                if((absolutePath+path).equals("//profile")){
-                    totalPath = "https://k7b307.p.ssafy.io/profile/"+new_file_name;
-                }
-                fileList.add(totalPath);
+
                 //로컬에 저장
                 //db연결하면 db에 전체 경로를 저장해서 넘겨주면 됨
                 file = new File(totalPath);
@@ -118,6 +115,11 @@ public class FileUtil {
                 }finally {
                     close(fileOutputStream,inputStream);
                 }
+
+                if((absolutePath+path).equals("//profile")){
+                    totalPath = "https://k7b307.p.ssafy.io/profile/"+new_file_name;
+                }
+                fileList.add(totalPath);
 
 //                multipartFile.transferTo(file);
             }

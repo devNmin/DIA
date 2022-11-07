@@ -3,7 +3,7 @@ import Modal from '../components/MainPage/Modal'
 import styles from './MainPage.module.css'
 import { Link } from 'react-router-dom'
 
-export default function MainPage() {
+export default function MainPage(props) {
   const [modalIsOpen, setModalIsOpen] = useState(true)
   const closeModal = () => {
     setModalIsOpen(false)
@@ -13,7 +13,7 @@ export default function MainPage() {
   return (
     <div className={styles.mainPage}>
       {modalIsOpen && (
-        <Modal visible={modalIsOpen} closable={true} maskClosable={true} onClose={closeModal} />
+        <Modal $visible={modalIsOpen} closable={true} maskClosable={true} onClose={closeModal} />
       )}
       <Link to='/main'>
         <button className={styles.mainButtons}>

@@ -54,7 +54,7 @@ function Modal({ onClose, maskClosable, closable, visible }) {
       >
         <div className={styles.modal_inner}>
           <div>
-            <p>ㅋㅋㅋㅋ</p>
+            <p>실시간 분석을 사용하기 위해서는 반드시 노트북에 있는 IP주소를 입력해야 합니다!!!</p>
           </div>
           <div className={styles.modal_inner2}>
             {closable && (

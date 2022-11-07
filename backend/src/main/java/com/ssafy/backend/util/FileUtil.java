@@ -52,7 +52,7 @@ public class FileUtil {
         //해당 디렉토리 없으면 생성해 줌
         if(!file.exists()){
 //            file.mkdirs();
-            Files.createDirectory(Paths.get(path));
+            Files.createDirectory(Paths.get(absolutePath+path));
         }
 
         if(file.exists()){

@@ -56,8 +56,10 @@ public class FileUtil {
         }
 
         if(file.exists()){
+            System.out.println(absolutePath+path);
             System.out.println("파일 있음+++++++++++++++++++++++++++++++++++++++");
         }else{
+            System.out.println(absolutePath+path);
             System.out.println("파일 없음+++++++++++++++++++++++++++++++++++++++++++++");
         }
 

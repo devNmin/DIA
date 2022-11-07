@@ -72,7 +72,10 @@ export default function UserSearch() {
             }                
           </div> 
           <div className='usersquad fadein'>
-            <div className='squadtitle'>YOUR SQUAD</div>  
+            <div className='squadtitle'>YOUR SQUAD</div>
+            <div>
+              <h1>CURRENT TEAM</h1>
+            </div>  
           </div>  
         
         </div>  

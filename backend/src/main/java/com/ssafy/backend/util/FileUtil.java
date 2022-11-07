@@ -51,6 +51,12 @@ public class FileUtil {
             file.mkdirs();
         }
 
+        if(file.exists()){
+            System.out.println("파일 있음+++++++++++++++++++++++++++++++++++++++");
+        }else{
+            System.out.println("파일 없음+++++++++++++++++++++++++++++++++++++++++++++");
+        }
+
         //이미지 핸들링 시작
         for(MultipartFile multipartFile : multipartFiles){
             //파일이 있을때만 작업 실행

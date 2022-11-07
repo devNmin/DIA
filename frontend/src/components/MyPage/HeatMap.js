@@ -18,12 +18,12 @@ export default function HeatMapPage() {
         container: document.getElementById("heatmap-canvas"),
     });
     
-    // await axios.get(BASE_URL + `usergame/heatmapPoints/11`)
-    await axios.get(`http://localhost:8081/api/v1/usergame/heatmapPoints/11/2`)
+    await axios.get(BASE_URL + `usergame/heatmapPoints/11`)
+    // await axios.get(`http://localhost:8081/api/v1/usergame/heatmapPoints/11/2`)
     .then(res => {     
       if (res.status === 200) {
         let points = []
-        let max = 40;
+        let max = 60;
         let heatmapData = res.data['points']
         let dataLen = heatmapData.length;
         let idx = 0;

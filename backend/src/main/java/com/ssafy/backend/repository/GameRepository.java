@@ -18,4 +18,6 @@ public interface GameRepository extends JpaRepository<Game, String> {
             "where u.userEmail = :userEmail")
     List<GameMapper> getUserGames(Pageable pageable, @Param(value="userEmail") String userEmail);
 
+    @Query(value = "select g.gameXY from Game g where g.gameId = :gameId")
+    String getGame_gameXYByGameId(long gameId);
 }

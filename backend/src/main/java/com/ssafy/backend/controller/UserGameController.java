@@ -9,6 +9,7 @@ import com.ssafy.backend.mapper.GameMapper;
 import com.ssafy.backend.repository.UserGameInfo;
 import com.ssafy.backend.repository.UserInfoRepository;
 import com.ssafy.backend.repository.UserRepository;
+import com.ssafy.backend.service.GameService;
 import com.ssafy.backend.service.TokenService;
 import com.ssafy.backend.service.UserGameService;
 import org.json.simple.JSONObject;
@@ -24,13 +25,15 @@ import java.util.List;
 @RequestMapping("/api/v1/usergame")
 public class UserGameController {
     private final UserGameService userGameService;
+    private final GameService gameService;
     private final UserRepository userRepository;
     private final UserGameInfo UserGameInfo;
     private final UserInfoRepository userInfoRepository;
     private final TokenService tokenService;
 
-    public UserGameController(UserGameService userGameService, UserRepository userRepository, UserGameInfo UserGameInfo, UserInfoRepository userInfoRepository, TokenService tokenService) {
+    public UserGameController(UserGameService userGameService, GameService gameService, UserRepository userRepository, UserGameInfo UserGameInfo, UserInfoRepository userInfoRepository, TokenService tokenService) {
         this.userGameService = userGameService;
+        this.gameService = gameService;
         this.userRepository = userRepository;
         this.UserGameInfo = UserGameInfo;
         this.userInfoRepository = userInfoRepository;
@@ -48,7 +51,6 @@ public class UserGameController {
 
         return ResponseEntity.ok(gameMapper);
     }
-
 
     // todo  5경기 평균 점수 구하기 - 백분율 점수 변경 필요
     @PostMapping("/test")
@@ -103,18 +105,34 @@ public class UserGameController {
         return ResponseEntity.ok(tmp);
     }
 
-    @GetMapping("/info/{userId}/{gameId}")
+    @GetMapping("/info/{gameId}")
     public ResponseEntity<?> getUserGameInfo(
-            @PathVariable("userId") Long userId, @PathVariable("gameId") Long gameId
+            HttpServletRequest request,
+            @PathVariable("gameId") Long gameId
     ){
-        UserGameDto userGameDto = userGameService.getUserGame(userId,gameId);
+        String userEmail = tokenService.getUserEmailFromToken(request);
+        User user = userRepository.findUserByUserEmail(userEmail);
+
+        UserGameDto userGameDto = userGameService.getUserGame(user.getUserId(),gameId);
         System.out.println(userGameDto.toString());
 
         if(userGameDto != null){
             return ResponseEntity.ok(userGameDto);
 //            return ResponseEntity.ok(new ResponseDto(200,"adfs"));
         }else{
-            return ResponseEntity.ok(new ResponseDto(404,"없는 경기입니다"));
+            return ResponseEntity.ok(new ResponseDto         (404,"없는 경기입니다"));
         }
     }
+
+    // 해당 게임의 자신의 좌표 정보
+    @GetMapping("/heatmapPoints/{gameId}")
+    public ResponseEntity<?> heatmapPoints(
+            HttpServletRequest request,
+            @PathVariable("gameId") Long gameId
+    ){
+        String userEmail = tokenService.getUserEmailFromToken(request);
+        User user = userRepository.findUserByUserEmail(userEmail);
+        return ResponseEntity.ok(gameService.getGame_gameXYByGameId(user.getUserId(), gameId));
+    }
+
 }

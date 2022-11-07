@@ -15,6 +15,7 @@ import FieldPage from './pages/FieldPage';
 // import CanvasTestPage from './pages/CanvasTestPage';
 import IpInsertPage from './pages/IpInsertPage';
 import { UserProvider } from './context/UserContext';
+import { FieldProvider } from './context/FieldContext';
 
 function App() {
   return (
@@ -28,37 +29,39 @@ function App() {
             let {userInfo} = useContext(AuthContext) => 현재 유저정보 가져오기 
           */}
           <UserProvider>
-            <ScrollToTop>
-              <Switch className="App">
-                <NonPrivateRoute component={LoginPage} exact path="/" />
-                <NonPrivateRoute
-                  component={AccountRegisterPage}
-                  exact
-                  path="/register"
-                />
-                <PrivateRoute
-                  component={MainPage}
-                  exact
-                  path="/main"
-                ></PrivateRoute>
-                <NonPrivateRoute
-                  component={NonLoginMainPage}
-                  exact
-                  path="/non"
-                />
-                <NonPrivateRoute component={Explainpage} exact path="/ex" />
-                <NonPrivateRoute
-                  component={FieldPage}
-                  exact
-                  path="/canvasTest"
-                />
-                <NonPrivateRoute
-                  component={IpInsertPage}
-                  exact
-                  path="/ipInsert"
-                />
-              </Switch>
-            </ScrollToTop>
+            <FieldProvider>
+              <ScrollToTop>
+                <Switch className="App">
+                  <NonPrivateRoute component={LoginPage} exact path="/" />
+                  <NonPrivateRoute
+                    component={AccountRegisterPage}
+                    exact
+                    path="/register"
+                  />
+                  <PrivateRoute
+                    component={MainPage}
+                    exact
+                    path="/main"
+                  ></PrivateRoute>
+                  <NonPrivateRoute
+                    component={NonLoginMainPage}
+                    exact
+                    path="/non"
+                  />
+                  <NonPrivateRoute component={Explainpage} exact path="/ex" />
+                  <NonPrivateRoute
+                    component={FieldPage}
+                    exact
+                    path="/canvasTest"
+                  />
+                  <NonPrivateRoute
+                    component={IpInsertPage}
+                    exact
+                    path="/ipInsert"
+                  />
+                </Switch>
+              </ScrollToTop>
+            </FieldProvider>
           </UserProvider>
         </AuthProvider>
       </Router>

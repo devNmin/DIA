@@ -12,6 +12,7 @@ export default function IpInsertPage() {
   const ipChecker = () => {
     const ipsubmit = ipAddress.current.value.replace(/ /g, '');
     const portsubmit = port.current.value;
+
     console.log(ipsubmit);
     setIpV4(ipsubmit);
     console.log(portsubmit);

@@ -1,5 +1,6 @@
 //https://velog.io/@mokyoungg/React-React%EC%97%90%EC%84%9C-Canvas-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0%EB%A7%88%EC%9A%B0%EC%8A%A4-%EA%B7%B8%EB%A6%AC%EA%B8%B0
 import UserContext from '../context/UserContext';
+import filedContext from '../context/FieldContext';
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import styles from './FieldPage.module.css';
 import SoccerField from '../components/FieldPage/SoccerField';
@@ -11,8 +12,8 @@ function FieldPage() {
   const canvasRef3 = useRef(null);
 
   const { ipV4, portinput } = useContext(UserContext);
+  const fieldCtx = useContext(filedContext);
   const [ctx, setCtx] = useState();
-  // const [ctx2, setCtx2] = useState();
   const [ctx3, setCtx3] = useState();
 
   const [isDrawing, setIsDrawing] = useState(false);
@@ -20,11 +21,12 @@ function FieldPage() {
   const [brushSize, setBrushSize] = useState('1');
   const [prevData, setPrevData] = useState([0, 0, 0, '']);
   const [isMoving, setIsMoving] = useState(false);
+  const [maxIndex, setMaxIndex] = useState(-1);
 
   const [timeRange, setTimeRange] = useState(0);
   // 재생할 인덱스
   // const [playI, setPlayI] = useState(-1);
-  const [playIndex, setPlayIndex] = useState(-1);
+
   ////1. 일시정지(재생), 3. 뒤로가기, 4.앞으로 가기
   const [isPause, setIsPause] = useState(false);
   ////
@@ -49,7 +51,8 @@ function FieldPage() {
   });
   const canvasWidth = window.innerWidth;
   const canvasHeigth = window.innerHeight * 0.8;
-  let playI = -1;
+  let playI = 0;
+
   const startDrawing = () => {
     setIsDrawing(true);
   };
@@ -94,7 +97,6 @@ function FieldPage() {
     }
     const { clientX, clientY } = nativeEvent.changedTouches[0];
     const timestamp = nativeEvent.timeStamp;
-
     setPrevData((prev) => [prev[0], prev[1], prev[2], nativeEvent.type]);
     if (prevData) {
       if (
@@ -138,21 +140,23 @@ function FieldPage() {
   const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
 
   const fieldSet = () => {
+    console.log('playI', playI);
+
     const canvas2 = canvasRef2.current;
     canvas2.width = canvasWidth;
     canvas2.height = canvasHeigth;
     const context2 = canvas2.getContext('2d');
 
     if (context2 && coords) {
-      setPlayIndex((prev) => {
-        return prev + 1;
-      });
-      console.log('playIndex', playIndex);
-      playI += 1;
+      // setPlayIndex((prev) => {
+      //   return prev + 1;
+      // });
+      // console.log('playIndex', playIndex);
+
       context2.clearRect(0, 0, window.innerWidth, window.innerHeight);
-      console.log('coords[0]', coords[0]);
-      console.log('coords[0][0]', coords[0][playI]);
-      console.log('coords[0][0][0]', coords[0][playI][0]);
+      // console.log('coords[0]', coords[0]);
+      // console.log('coords[0][0]', playI, coords[0][playI]);
+      // console.log('coords[0][0][0]', coords[0][playI][0]);
       for (let i = 0; i < 6; i++) {
         const x = coords[i][playI][0];
         const y = coords[i][playI][1];
@@ -164,6 +168,13 @@ function FieldPage() {
         context2.fill();
         context2.stroke();
       }
+      playI += 1;
+
+      /// context test
+      fieldCtx.setPlayIndex((prev) => {
+        console.log('prev', prev + 1);
+        return prev + 1;
+      });
     }
   };
 
@@ -196,7 +207,6 @@ function FieldPage() {
     for (let i = 0; i < 6; i++) {
       const circleX = coords[i][playI][0];
       const circleY = coords[i][playI][1];
-      // r = sqrt((x-x)^2 +)
 
       const distance = Math.sqrt((circleX - x) ** 2 + (circleY - y) ** 2);
 
@@ -227,48 +237,50 @@ function FieldPage() {
 
   /// 복제 좌표 그리기
   function duplicationHandler({ nativeEvent }) {
-    console.log('nowD', nowD);
-    if (!ctx3) {
-      return;
-    }
+    const canvas3 = canvasRef3.current;
+    canvas3.width = canvasWidth;
+    canvas3.height = canvasHeigth;
+    const context3 = canvas3.getContext('2d');
+    setCtx3(context3);
+
     const { clientX, clientY } = nativeEvent.changedTouches[0];
     if (!isMoving) {
-      ctx3.moveTo(clientX, clientY);
+      context3.moveTo(clientX, clientY);
     } else if (nowD > -1) {
-      ctx3.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      context3.clearRect(0, 0, window.innerWidth, window.innerHeight);
       for (let i = 0; i < 6; i++) {
         // 이전에 만든 복제 원
         if (i in duplication && i !== nowD) {
           const x = duplication[i][0];
           const y = duplication[i][1];
-          ctx3.beginPath();
-          ctx3.moveTo(clientX, clientY);
-          ctx3.beginPath();
+          context3.beginPath();
+          context3.moveTo(clientX, clientY);
+          context3.beginPath();
 
-          ctx3.arc(x, y, 15, 0, Math.PI * 2, true);
-          ctx3.font = '25px Arial';
-          ctx3.fillText(i, x - 7.5, y - 6);
-          ctx3.fillStyle = colors[i];
-          ctx3.globalAlpha = 0.5;
-          ctx3.fill();
-          ctx3.stroke();
+          context3.arc(x, y, 15, 0, Math.PI * 2, true);
+          context3.font = '25px Arial';
+          context3.fillText(i, x - 7.5, y - 6);
+          context3.fillStyle = colors[i];
+          context3.globalAlpha = 0.5;
+          context3.fill();
+          context3.stroke();
         } else if (i === nowD) {
           ///지금 움직이는 원
-          ctx3.beginPath();
+          context3.beginPath();
           duplication[i] = [clientX, clientY];
           const x = duplication[i][0];
           const y = duplication[i][1];
 
-          ctx3.moveTo(clientX, clientY);
-          ctx3.beginPath();
+          context3.moveTo(clientX, clientY);
+          context3.beginPath();
 
-          ctx3.arc(x, y, 15, 0, Math.PI * 2, true);
-          ctx3.font = '25px Arial';
-          ctx3.fillText(i, x - 7.5, y - 7.5);
-          ctx3.fillStyle = colors[i];
-          ctx3.globalAlpha = 0.8;
-          ctx3.fill();
-          ctx3.stroke();
+          context3.arc(x, y, 15, 0, Math.PI * 2, true);
+          context3.font = '25px Arial';
+          context3.fillText(i, x - 7.5, y - 7.5);
+          context3.fillStyle = colors[i];
+          context3.globalAlpha = 0.8;
+          context3.fill();
+          context3.stroke();
         }
       }
     }
@@ -296,14 +308,8 @@ function FieldPage() {
     contextRef.current = context;
     setCtx(contextRef.current);
 
-    const canvas3 = canvasRef3.current;
-    canvas3.width = canvasWidth;
-    canvas3.height = canvasHeigth;
-    const context3 = canvas3.getContext('2d');
-    setCtx3(context3);
-
     setInterval(IntervalContinue, 100);
-  }, []);
+  }, [isPause]);
 
   // 소켓
   const host = ipV4;
@@ -331,6 +337,11 @@ function FieldPage() {
         //server to client
         const coordData = JSON.parse(message.data);
         setCoord(JSON.parse(message.data));
+        // console.log('데이터들어옴');
+        setMaxIndex((prev) => {
+          return prev + 1;
+        });
+        console.log(maxIndex);
         for (let i = 0; i < 6; i++) {
           if (i in coordData) {
             //user x,y
@@ -350,7 +361,6 @@ function FieldPage() {
               if (((nowDistance / fpsTime) * 360) / 1000 < 44) {
                 //속도가 정상 속도면 거리 합 진행
                 totalDistance[i] += Math.sqrt(disX * disX + disY * disY);
-                console.log('현재 거리 합' + i + ' : ' + totalDistance[i]);
               }
             }
             userXInfo[i] = x * fixelX;
@@ -441,8 +451,8 @@ function FieldPage() {
             finishMoving();
           }}
         />
-        <canvas className={styles.canvas3} ref={canvasRef3} />
-        <canvas className={styles.canvas2} ref={canvasRef2} />
+        {/* <canvas className={styles.canvas3} ref={canvasRef3} />
+        <canvas className={styles.canvas2} ref={canvasRef2} /> */}
       </div>
       <input
         type="range"
@@ -460,3 +470,11 @@ function FieldPage() {
   );
 }
 export default FieldPage;
+
+/* useState...
+useState를 써서 index를 1씩 늘리려 해도 변경된 값을 불러올 수 없다.
+변경된 값을 불러오는 방법은 useEffect({}, ['#여기']) 안에 받아오고 싶은 변수를 넣으면 되는데
+이렇게 하면 canvas에 문제가 생겨서 drawing을 할 수 없게 된다.
+
+====> 그러면 canvas 컴포넌트들을 나눈다면?????????
+*/

@@ -7,14 +7,12 @@ const FieldContext = createContext({
   setPlayIndex: () => {},
   coord: [],
   setCoord: () => {},
-  coords: {},
-  setCoords: () => {},
+  allCoords: {},
+  setAllCoords: () => {},
   prevData: [],
   setPrevData: () => {},
   nowD: 0,
   setNowD: () => {},
-  maxIndex: 0,
-  setMaxIndex: () => {},
   isPause: false,
   isMoving: false,
   startMoving: () => {},
@@ -24,9 +22,10 @@ const FieldContext = createContext({
   setDuplication: () => {},
   duplicationEvent: {},
   setDuplicationEvent: () => {},
-  playI: 0,
-  setPlayI: () => {},
-  HandleplayI: () => {},
+  accumulate: 0,
+  setAccumulate: () => {},
+  isBuffered: false,
+  setIsBuffered: () => {},
 });
 
 export default FieldContext;
@@ -35,13 +34,19 @@ export const FieldProvider = ({ children }) => {
   const [isSocket, setIsSocket] = useState(false);
   const [playIndex, setPlayIndex] = useState(0);
   const [coord, setCoord] = useState(null);
-  const [coords, setCoords] = useState({
+  const [allCoords, setAllCoords] = useState({
     0: [],
     1: [],
     2: [],
     3: [],
     4: [],
     5: [],
+    6: [],
+    7: [],
+    8: [],
+    9: [],
+    10: [],
+    11: [],
   });
   const [prevData, setPrevData] = useState([0, 0, 0, '']);
   const [duplication, setDuplication] = useState({
@@ -53,14 +58,11 @@ export const FieldProvider = ({ children }) => {
     5: [-1, -1],
   });
   const [nowD, setNowD] = useState(-1);
-  const [maxIndex, setMaxIndex] = useState(-1);
   const [isPause, setIsPause] = useState(false);
+  const [isBuffered, setIsBuffered] = useState(false);
   const [isMoving, setIsMoving] = useState(false);
   const [duplicationEvent, setDuplicationEvent] = useState(null);
-  const [playI, setPlayI] = useState(-1);
-  const HandleplayI = (II) => {
-    setPlayI(II);
-  };
+  const [accumulate, setAccumulate] = useState(0);
 
   const startMoving = () => {
     setIsMoving(true);
@@ -90,14 +92,12 @@ export const FieldProvider = ({ children }) => {
     setPlayIndex: setPlayIndex,
     coord: coord,
     setCoord: setCoord,
-    coords: coords,
-    setCoords: setCoords,
+    allCoords: allCoords,
+    setAllCoords: setAllCoords,
     prevData: prevData,
     setPrevData: setPrevData,
     nowD: nowD,
     setNowD: setNowD,
-    maxIndex: maxIndex,
-    setMaxIndex: setMaxIndex,
     isPause: isPause,
     isMoving: isMoving,
     startMoving: startMoving,
@@ -107,9 +107,10 @@ export const FieldProvider = ({ children }) => {
     setDuplication: setDuplication,
     duplicationEvent: duplicationEvent,
     setDuplicationEvent: setDuplicationEvent,
-    playI: playI,
-    setPlayI: setPlayI,
-    HandleplayI: HandleplayI,
+    accumulate: accumulate,
+    setAccumulate: setAccumulate,
+    isBuffered: isBuffered,
+    setIsBuffered: setIsBuffered,
   };
   return (
     <FieldContext.Provider value={contextData}>

@@ -20,11 +20,28 @@ function FieldPage() {
   // const [ctx3, setCtx3] = useState();
 
   const [isDrawing, setIsDrawing] = useState(false);
-  const [brushColor, setBrushColor] = useState('black');
+  const [brushColor, setBrushColor] = useState('#F5DF4D');
   const [brushSize, setBrushSize] = useState('1');
   // const [prevData, setPrevData] = useState([0, 0, 0, '']);
   // const [isMoving, setIsMoving] = useState(false);
-  // const [maxIndex, setMaxIndex] = useState(-1);
+
+  ///
+  let CoordsTwo = {
+    0: [],
+    1: [],
+    2: [],
+    3: [],
+    4: [],
+    5: [],
+    6: [],
+    7: [],
+    8: [],
+    9: [],
+    10: [],
+    11: [],
+  };
+
+  ///
 
   const [timeRange, setTimeRange] = useState(0);
   // 재생할 인덱스
@@ -215,16 +232,16 @@ function FieldPage() {
 
     ////
     for (let i = 0; i < 6; i++) {
-      const circleX = fieldCtx.coords[i][playI][0];
-      const circleY = fieldCtx.coords[i][playI][1];
+      const circleX = fieldCtx.allCoords[i][playI][0];
+      const circleY = fieldCtx.allCoords[i][playI][1];
 
       const distance = Math.sqrt((circleX - x) ** 2 + (circleY - y) ** 2);
 
       if (distance < 15) {
         nowI = i;
         fieldCtx.setNowD(i);
-        fieldCtx.duplication[i][0] = fieldCtx.coords[i][playI][0];
-        fieldCtx.duplication[i][0] = fieldCtx.coords[i][playI][1];
+        fieldCtx.duplication[i][0] = fieldCtx.allCoords[i][playI][0];
+        fieldCtx.duplication[i][0] = fieldCtx.allCoords[i][playI][1];
         fieldCtx.startMoving();
         break;
       }
@@ -345,24 +362,21 @@ function FieldPage() {
       };
       ws.onmessage = (message) => {
         fieldCtx.setIsSocket(true);
-        //server to client
         const coordData = JSON.parse(message.data);
-        fieldCtx.setCoord(JSON.parse(message.data));
-        fieldCtx.setMaxIndex((prev) => {
-          return prev + 1;
-        });
-        let pp = fieldCtx.coords;
-        for (let i = 0; i < 6; i++) {
+        // console.log('coordData', coordData);
+        console.log('받는거임!!!!!!!!!', coordData);
+        console.log('데이터 받아옴');
+        // let pp = {};
+        let testCoord = {};
+        for (let i = 0; i < 12; i++) {
           if (i in coordData) {
             //user x,y
-            const x = parseFloat(
-              coordData[i][0] * canvasWidth + canvasWidth / 2
-            );
-            const y = parseFloat(
-              coordData[i][1] * canvasHeigth - canvasHeigth / 2
-            );
-            // fieldCtx.coords[i].push([x, y]);
-            pp[i].push([x, y]);
+            const x = parseFloat(coordData[i][0] * canvasWidth);
+            const y = parseFloat(coordData[i][1] * canvasHeigth);
+            testCoord[i] = [x, y];
+            // pp[i] = [x, y];
+            fieldCtx.allCoords[i].push([x, y]);
+            // CoordsTwo.push([x, y]);
 
             //이전 값이 있다면 거리 계산
             if (userXInfo[i] != null && userYInfo[i] != null) {
@@ -374,19 +388,32 @@ function FieldPage() {
                 totalDistance[i] += Math.sqrt(disX * disX + disY * disY);
               }
             }
-
             userXInfo[i] = x * fixelX;
             userYInfo[i] = y * fixelY;
-          } else if (fieldCtx.coords[i].length > 1) {
-            pp[i].push([
-              fieldCtx.coords[i].at(-1)[0],
-              fieldCtx.coords[i].at(-1)[1],
+          } else if (fieldCtx.allCoords[i].length > 0) {
+            // pp[i] = [
+            //   fieldCtx.allCoords[i].at(-1)[0],
+            //   fieldCtx.allCoords[i].at(-1)[1],
+            // ];
+            fieldCtx.allCoords[i].push([
+              fieldCtx.allCoords[i].at(-1)[0],
+              fieldCtx.allCoords[i].at(-1)[1],
             ]);
+            // CoordsTwo.push([
+            //   fieldCtx.allCoords[i].at(-1)[0],
+            //   fieldCtx.allCoords[i].at(-1)[1],
+            // ]);
           } else {
-            pp[i].push([0, 0]);
+            // pp[i] = [0, 0];
+            fieldCtx.allCoords[i].push([0, 0]);
+            // CoordsTwo.push([0, 0]);
           }
         }
-        fieldCtx.setCoords(pp);
+        fieldCtx.setAccumulate((prev) => prev + 1);
+        // console.log('fieldCtx.accumulate', fieldCtx.accumulate);
+        // if (fieldCtx.accumulate > 50) {
+        //   fieldCtx.setIsBuffered(true);
+        // }
       };
       ws.onclose = function () {
         ws = undefined;
@@ -397,7 +424,9 @@ function FieldPage() {
       };
     }
   };
-
+  if (fieldCtx.accumulate > 50) {
+    fieldCtx.setIsBuffered(true);
+  }
   const socketStop = () => {
     if (ws !== undefined) {
       ws.close();
@@ -416,6 +445,7 @@ function FieldPage() {
         <input
           type="color"
           id="brushColor"
+          value={brushColor}
           onChange={(e) => {
             brushColorHandler(e);
           }}
@@ -470,7 +500,7 @@ function FieldPage() {
           }}
         />
         <DuplicationPlayer />
-        <CoordsSet />
+        <CoordsSet CoordsTwo={CoordsTwo} />
         {/* <canvas className={styles.canvas3} ref={canvasRef3} />
         <canvas className={styles.canvas2} ref={canvasRef2} /> */}
       </div>
@@ -481,7 +511,7 @@ function FieldPage() {
         className={styles.time_range}
         min="0"
         // max="100"
-        max={fieldCtx.coords[0].length}
+        max={fieldCtx.allCoords[0].length}
         value={timeRange}
         onChange={(e) => timeRangeHandler(e)}
         step="5"

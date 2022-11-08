@@ -5,10 +5,11 @@ import axios from '../../utils/axios'
 import AuthContext from '../../context/AuthContext'
 
 
-export default function HeatMapPage() {
+export default function HeatMapPage({data}) {
   const { BASE_URL } = useContext(AuthContext)
 
   useEffect(() => {
+    // console.log("data", data)
     HeatMapHandler();
   });
     
@@ -18,8 +19,8 @@ export default function HeatMapPage() {
         container: document.getElementById("heatmap-canvas"),
     });
     
-    // await axios.get(BASE_URL + `usergame/heatmapPoints/11`)
-    await axios.get(`http://localhost:8081/api/v1/usergame/heatmapPoints/11/2`)
+    await axios.get(BASE_URL + `usergame/heatmapPoints/${data}`)
+    // await axios.get(`http://localhost:8081/api/v1/usergame/heatmapPoints/11/2`)
     .then(res => {     
       if (res.status === 200) {
         let points = []

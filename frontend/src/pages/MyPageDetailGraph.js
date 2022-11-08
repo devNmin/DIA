@@ -1,10 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import DataGraphDetail from '../components/MyPage/DataGraphDetail';
 import BotNavbar from '../components/Navbar/BotNavbar';
 import axios from '../utils/axios'
 import HeatMap from '../components/MyPage/HeatMap';
+import AuthContext from '../context/AuthContext'
 
 function MyPageDetailGraph(props) {
+  const { BASE_URL } = useContext(AuthContext)
   const gameId  = props.match.params.id;
 
   const [userGameData, setUserGameData] = useState({
@@ -31,8 +33,8 @@ function MyPageDetailGraph(props) {
   
   // const data = []
   const MyGameDataHandler = async (e) => {
-    // await axios.get(BASE_URL + `usergame/heatmapPoints/11`)
-    await axios.get(`http://localhost:8081/api/v1/usergame/info/${gameId}/2`)
+    await axios.get(BASE_URL + `usergame/info/${gameId}`)
+    // await axios.get(`http://localhost:8081/api/v1/usergame/info/${gameId}/2`)
     .then(res => {     
         console.log(res.data)
         setUserGameData(res.data)
@@ -85,7 +87,7 @@ function MyPageDetailGraph(props) {
   return (
     <>
       <DataGraphDetail data={data} />
-      <HeatMap />
+      <HeatMap data={gameId}/>
       <BotNavbar />
     </>
   );

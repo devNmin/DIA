@@ -46,9 +46,9 @@ public class UserGameController {
             HttpServletRequest request,
             @RequestBody PagenationDto pagenationDto
     ){
-        String userEmail = tokenService.getUserEmailFromToken(request);
-        List<GameMapper> gameMapper = userGameService.myGameInfo(pagenationDto.getStart(),pagenationDto.getEnd(),userEmail);
-
+//        String userEmail = tokenService.getUserEmailFromToken(request);
+//        List<GameMapper> gameMapper = userGameService.myGameInfo(pagenationDto.getStart(),pagenationDto.getEnd(),userEmail);
+        List<GameMapper> gameMapper = userGameService.myGameInfo(pagenationDto.getStart(),pagenationDto.getEnd(), pagenationDto.getUserEmail());
         return ResponseEntity.ok(gameMapper);
     }
 
@@ -105,34 +105,42 @@ public class UserGameController {
         return ResponseEntity.ok(tmp);
     }
 
-    @GetMapping("/info/{gameId}")
+    @GetMapping("/info/{gameId}/{userId}")
     public ResponseEntity<?> getUserGameInfo(
             HttpServletRequest request,
-            @PathVariable("gameId") Long gameId
+            @PathVariable("gameId") Long gameId,
+            @PathVariable("userId") Long userId
     ){
         String userEmail = tokenService.getUserEmailFromToken(request);
         User user = userRepository.findUserByUserEmail(userEmail);
 
-        UserGameDto userGameDto = userGameService.getUserGame(user.getUserId(),gameId);
+//        UserGameDto userGameDto = userGameService.getUserGame(user.getUserId(),gameId);
+        UserGameDto userGameDto = userGameService.getUserGame(userId,gameId);
         System.out.println(userGameDto.toString());
 
         if(userGameDto != null){
             return ResponseEntity.ok(userGameDto);
 //            return ResponseEntity.ok(new ResponseDto(200,"adfs"));
         }else{
-            return ResponseEntity.ok(new ResponseDto         (404,"없는 경기입니다"));
+            return ResponseEntity.ok(new ResponseDto(404,"없는 경기입니다"));
         }
     }
 
     // 해당 게임의 자신의 좌표 정보
-    @GetMapping("/heatmapPoints/{gameId}")
+    @GetMapping("/heatmapPoints/{gameId}/{userId}")
     public ResponseEntity<?> heatmapPoints(
             HttpServletRequest request,
-            @PathVariable("gameId") Long gameId
+            @PathVariable("gameId") Long gameId,
+            @PathVariable("userId") Long userId
     ){
-        String userEmail = tokenService.getUserEmailFromToken(request);
-        User user = userRepository.findUserByUserEmail(userEmail);
-        return ResponseEntity.ok(gameService.getGame_gameXYByGameId(user.getUserId(), gameId));
+        try{
+            String userEmail = tokenService.getUserEmailFromToken(request);
+//        User user = userRepository.findUserByUserEmail(userEmail);
+//        System.out.println(gameService.getGame_gameXYByGameId(user.getUserId(), gameId));
+            return ResponseEntity.ok(gameService.getGame_gameXYByGameId(userId, gameId));
+        }catch (Exception e){
+            return ResponseEntity.ok(new ResponseDto(500, e.getMessage()));
+        }
     }
 
 }

@@ -5,4 +5,6 @@ import com.ssafy.backend.entity.UserGame;
 
 public interface UserGameCustomRepository {
     UserGameDto getUserGameInfo(Long userId, Long gameId);
+
+
 }

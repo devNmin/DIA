@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState , useContext} from 'react'
 import './UserSearch.css'
 import FootballNavbar from '../Navbar/FootballNavbar'
 import axios from '../../utils/axios'
 import SearchedUser from './SearchedUser'
 import { Scrollbars } from 'react-custom-scrollbars-2';
+import UserContext from '../../context/UserContext'
+import CurrentTeamComp from './CurrentTeamComp'
+import CurrentFieldComp from './CurrentFieldComp'
 
 export default function UserSearch() {
- 
+  const {currentTeam, setCurrentTeam} = useContext(UserContext)
   const currentpage2 = "usersearch"
   const [username, setUsername] = useState('')
   const [searchedUserList, setSearchedUserList] = useState([])
@@ -32,6 +35,20 @@ export default function UserSearch() {
     console.log(username);
     setUsername('')
   } 
+
+  const addPlayerToTeam = async (v) => {
+    if (currentTeam.length) {
+      await setCurrentTeam([...currentTeam, v])      
+    }
+    else {
+      await setCurrentTeam([v])
+    }
+    setSearchedUserList((current) => 
+      current.filter((searched) => searched.userId !== v.userId )
+    )       
+  }
+
+
   
 
   return (
@@ -56,8 +73,8 @@ export default function UserSearch() {
               autoHideDuration={200}>
               <div className='searchresults'>
                 {searchedUserList.map((userInfo) => (
-                <div key={userInfo.userId}>
-                  <SearchedUser className='searchresult' key= {userInfo.userId} user = {userInfo}></SearchedUser>
+                <div key={userInfo.userId} onClick = {() => addPlayerToTeam(userInfo)}>
+                  <SearchedUser  className='searchresult' user = {userInfo}></SearchedUser>
                   <br />              
                 </div>        
                 ))
@@ -71,15 +88,25 @@ export default function UserSearch() {
               null
             }                
           </div> 
-          <div className='usersquad fadein'>
-            <div className='squadtitle'>YOUR SQUAD</div>
-            <div>
-              <h1>CURRENT TEAM</h1>
+            <div className='usersquad fadein'>
+              <div className='squadtitle'>YOUR SQUAD</div>
+              <hr />
+              <div className='fieldContainer'>
+                <CurrentFieldComp></CurrentFieldComp>
+              </div>
+              <hr />
+              <div className='squadBench' style={{ 'display' : 'flex', 'overflowX' : 'auto'}}>              
+                {currentTeam.length?  currentTeam.map((playerInfo) => (
+                  <div key = {playerInfo.userId}>
+                    <CurrentTeamComp player = {playerInfo}></CurrentTeamComp>
+                  </div>
+                )                
+                ) : null
+                }              
+              </div>  
             </div>  
-          </div>  
         
-        </div>  
-         
+        </div>         
                    
          
          

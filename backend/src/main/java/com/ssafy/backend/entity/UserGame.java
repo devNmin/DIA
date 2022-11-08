@@ -45,6 +45,8 @@ public class UserGame {
     private float userPass;
     @Column(name = "user_position") // 해당 경기 포지션
     private String userPosition;
+    @Column(name = "user_physical") // 피지컬 점수
+    private int userPhysical;
 
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

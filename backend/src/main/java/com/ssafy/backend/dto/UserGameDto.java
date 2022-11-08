@@ -29,5 +29,6 @@ public class UserGameDto {
     private float userSpeed;
     private int userSprint;
     private int userStamina;
+    private int userPhysical;
 
 }

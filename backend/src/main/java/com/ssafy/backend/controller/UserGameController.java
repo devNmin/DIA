@@ -46,9 +46,9 @@ public class UserGameController {
             HttpServletRequest request,
             @RequestBody PagenationDto pagenationDto
     ){
-        String userEmail = tokenService.getUserEmailFromToken(request);
-        List<GameMapper> gameMapper = userGameService.myGameInfo(pagenationDto.getStart(),pagenationDto.getEnd(),userEmail);
-
+//        String userEmail = tokenService.getUserEmailFromToken(request);
+//        List<GameMapper> gameMapper = userGameService.myGameInfo(pagenationDto.getStart(),pagenationDto.getEnd(),userEmail);
+        List<GameMapper> gameMapper = userGameService.myGameInfo(pagenationDto.getStart(),pagenationDto.getEnd(), pagenationDto.getUserEmail());
         return ResponseEntity.ok(gameMapper);
     }
 
@@ -114,13 +114,14 @@ public class UserGameController {
         User user = userRepository.findUserByUserEmail(userEmail);
 
         UserGameDto userGameDto = userGameService.getUserGame(user.getUserId(),gameId);
+//        UserGameDto userGameDto = userGameService.getUserGame(userId,gameId);
         System.out.println(userGameDto.toString());
 
         if(userGameDto != null){
             return ResponseEntity.ok(userGameDto);
 //            return ResponseEntity.ok(new ResponseDto(200,"adfs"));
         }else{
-            return ResponseEntity.ok(new ResponseDto         (404,"없는 경기입니다"));
+            return ResponseEntity.ok(new ResponseDto(404,"없는 경기입니다"));
         }
     }
 
@@ -130,9 +131,14 @@ public class UserGameController {
             HttpServletRequest request,
             @PathVariable("gameId") Long gameId
     ){
-        String userEmail = tokenService.getUserEmailFromToken(request);
-        User user = userRepository.findUserByUserEmail(userEmail);
-        return ResponseEntity.ok(gameService.getGame_gameXYByGameId(user.getUserId(), gameId));
+        try{
+            String userEmail = tokenService.getUserEmailFromToken(request);
+            User user = userRepository.findUserByUserEmail(userEmail);
+//        System.out.println(gameService.getGame_gameXYByGameId(user.getUserId(), gameId));
+            return ResponseEntity.ok(gameService.getGame_gameXYByGameId(user.getUserId(), gameId));
+        }catch (Exception e){
+            return ResponseEntity.ok(new ResponseDto(500, e.getMessage()));
+        }
     }
 
 }

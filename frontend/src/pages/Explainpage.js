@@ -2,6 +2,7 @@ import React from 'react';
 import MainCarousel from '../components/ExplainPage/MainCarousel';
 import styles from './ExplainPage.module.css'
 import { Link } from 'react-router-dom';
+import logo from '../assets/freelogo.png'
 
 function Explainpage(props) {
 	return (
@@ -11,6 +12,7 @@ function Explainpage(props) {
 					<div className={styles.explain}>
 						<h1>DIA 완벽 가이드</h1>
 						<p>Directing Assistant를 사용하기 위해 필요한 작업들</p>
+						<img className={styles.logoimage} src={logo} alt="#" />
 					</div>
 					{/* 카메라 세팅 */}
 					<div className={styles.explain}>
@@ -18,15 +20,13 @@ function Explainpage(props) {
 						<div className={styles.explainptag}>
 							<h3 style={{color: 'yellowgreen'}}>프로그램을 사용하려면 PC와 스마트폰이 같은 와이파이로 연결된 상태여야 합니다.</h3>
 							<br></br>
-							<p>1. PC와 스마트폰에 각각 DroidCam 프로그램(앱)을 설치합니다.</p>
-							<p>2. https://www.dev47apps.com/droidcam/windows/에 들어가 PC용 DroidCam을 설치합니다.</p>
-							<p>3. 기본 값을 모두 유지하여 설치를 진행합니다.</p>
-							<p>4. 구글에 DroidCam을 검색 후 설치합니다.</p>
-							<p>5. 드로이드캠 앱 설치 후 처음 실행하면 도움이 뜨는데, 하단에 [알겠습니다] 메뉴가 뜰 때까지 진행합니다.</p>
+							<p>1. 스마트폰에 DroidCam 프로그램(앱)을 설치합니다.</p>
+							<p>2. 구글에 DroidCam을 검색 후 설치합니다.</p>
+							<p>3. 드로이드캠 앱 설치 후 처음 실행하면 도움이 뜨는데, 하단에 [알겠습니다] 메뉴가 뜰 때까지 진행합니다.</p>
 						</div>
 						<div className={styles.droidimage}>
-							<img src="https://k.kakaocdn.net/dn/cp2eiJ/btqZjv07wXA/Ne3KPrhgsqXyePHb8W6Tqk/img.jpg" alt="#" />
 							<img src="https://k.kakaocdn.net/dn/bcfQAY/btqZkpGk8Hy/wD6krioKGIdktlhVVaapg0/img.jpg" alt="#" />
+							<img src="https://k.kakaocdn.net/dn/bdNfRq/btqZdkGvyyR/MVFnLYYniJg0A0N0gMcoBK/img.jpg" alt="#" />
 
 						</div>
 						<br></br>

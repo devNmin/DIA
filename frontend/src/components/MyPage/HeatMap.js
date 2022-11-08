@@ -11,6 +11,7 @@ export default function HeatMapPage() {
   useEffect(() => {
     HeatMapHandler();
   });
+    
   
   const HeatMapHandler = async (e) => {
     var heatmapInstance = h337.create({
@@ -18,11 +19,11 @@ export default function HeatMapPage() {
     });
     
     // await axios.get(BASE_URL + `usergame/heatmapPoints/11`)
-    await axios.get(`http://localhost:8081/api/v1/usergame/heatmapPoints/11/3`)
+    await axios.get(`http://localhost:8081/api/v1/usergame/heatmapPoints/11/2`)
     .then(res => {     
       if (res.status === 200) {
         let points = []
-        let max = 40;
+        let max = 70;
         let heatmapData = res.data['points']
         let dataLen = heatmapData.length;
         let idx = 0;
@@ -31,8 +32,8 @@ export default function HeatMapPage() {
             var val = 1;
             // max = Math.max(max, val);
             var point = {
-                x: Math.floor(heatmapData[idx][0]),
-                y: Math.floor(heatmapData[idx][1]),
+                x: Math.floor(heatmapData[idx][0]  * 0.5),
+                y: Math.floor(heatmapData[idx][1]  * 0.5),
                 value: val
             };
             points.push(point);
@@ -47,20 +48,15 @@ export default function HeatMapPage() {
         console.log('조졌다.')
       }           
     }).catch(err => {
-      alert(err.data);
+      console.log("heatmap err", err)
     })
   }
 
   return (
-    <div>
-      <section>
-      <div>
-
-      </div>
+    <>
       <div id="heatmap-canvas" className={styles.heatmap_canvas}>
       </div>
-      </section>
-    </div>
+    </>
   )
 }
 

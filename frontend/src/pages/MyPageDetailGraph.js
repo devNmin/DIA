@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import DataGraphDetail from '../components/MyPage/DataGraphDetail';
 import BotNavbar from '../components/Navbar/BotNavbar';
 import axios from '../utils/axios'
+import HeatMap from '../components/MyPage/HeatMap';
 
 function MyPageDetailGraph(props) {
   const gameId  = props.match.params.id;
@@ -82,10 +83,11 @@ function MyPageDetailGraph(props) {
     },
   ]
   return (
-    <div>
+    <>
       <DataGraphDetail data={data} />
+      <HeatMap />
       <BotNavbar />
-    </div>
+    </>
   );
 }
 

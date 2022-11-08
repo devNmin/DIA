@@ -18,7 +18,7 @@ export default function HeatMapPage() {
     });
     
     // await axios.get(BASE_URL + `usergame/heatmapPoints/11`)
-    await axios.get(`http://localhost:8081/api/v1/usergame/heatmapPoints/11/2`)
+    await axios.get(`http://localhost:8081/api/v1/usergame/heatmapPoints/11/3`)
     .then(res => {     
       if (res.status === 200) {
         let points = []

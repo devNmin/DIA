@@ -8,7 +8,7 @@ import axios from '../utils/axios'
 function MyAnalysis(props) {
 	// const [movies, setMovies] = useState([])
 	const [games, setGames] = useState([])
-
+	
 	const getGames = async () => {
 		await axios.post(`http://localhost:8081/api/v1/usergame/myRecentGameInfo`, {
 			"start" : 0,

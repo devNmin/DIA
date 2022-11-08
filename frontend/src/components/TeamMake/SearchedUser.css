@@ -16,6 +16,9 @@
 .searchfirst {
     display: block;
 }
+.searchsecond {
+    font-size: 13.5px;
+}
 
 .searchExplanation {
     color: white;

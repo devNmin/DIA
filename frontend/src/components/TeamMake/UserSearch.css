@@ -2,7 +2,7 @@
     background-color: rgba(49, 50, 56, 0.6);
     width: 40%;
     border-radius: 1.5rem;
-    height: 600px;
+    height: 650px;
     
 }
 .playersearchbar {
@@ -29,7 +29,7 @@
     background-color: rgba(49, 50, 56, 0.6);
     width: 55%;
     border-radius: 1.5rem;
-    height: 600px;
+    height: 650px;
     margin-left: 20px;
     overflow-y: auto;
 }
@@ -68,3 +68,4 @@ hr {
     /* display: flex; */
     justify-content: center;
 }
+

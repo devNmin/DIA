@@ -10,7 +10,7 @@ import field1112 from '../../assets/futsal1112.png'
 export default function CurrentFieldComp(props) {
     const [field, setField] = useState(fieldimg)
     useEffect(() => {
-        if (props.curform === '122') {
+        if (props.curform === '1202') {
             setField(field122 )            
         }else if (props.curform === '1121') {
             setField(field1121)

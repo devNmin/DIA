@@ -1,7 +1,49 @@
+import React, {useEffect, useState, useContext} from 'react';
 import DataGraphDetail from '../components/MyPage/DataGraphDetail';
 import BotNavbar from '../components/Navbar/BotNavbar';
+import axios from '../utils/axios'
+import HeatMap from '../components/MyPage/HeatMap';
+import AuthContext from '../context/AuthContext'
 
 function MyPageDetailGraph(props) {
+  const { BASE_URL } = useContext(AuthContext)
+  const gameId  = props.match.params.id;
+
+  const [userGameData, setUserGameData] = useState({
+    userAttack: 1,
+    userDefence:2,
+    userDistance: 2,
+    userGameId: 2,
+    userGoal: 2,
+    userHeart: 2,
+    userHeatmap: "2",
+    userMaxSpeed: 2,
+    userPass: 2,
+    userPosition: "2",
+    userSave: 2,
+    userSpeed: 2,
+    userSprint: 2,
+    userStamina: 2,
+    userPhysical:2
+  });
+  useEffect(() => {
+    MyGameDataHandler();
+    
+  }, []);
+  
+  // const data = []
+  const MyGameDataHandler = async (e) => {
+    await axios.get(BASE_URL + `usergame/info/${gameId}`)
+    // await axios.get(`http://localhost:8081/api/v1/usergame/info/${gameId}/2`)
+    .then(res => {     
+        console.log(res.data)
+        setUserGameData(res.data)
+            
+    }).catch(err => {
+      console.log("eee")
+    })
+  }
+
   const data = [
     {
       "id": "경기1",
@@ -13,103 +55,27 @@ function MyPageDetailGraph(props) {
         },
         {
           "x": "체력",
-          "y": 90
+          "y": userGameData.userStamina
         },
         {
           "x": "스피드",
-          "y": 90
+          "y": userGameData.userSpeed
         },
         {
           "x": "공격력",
-          "y": 68
+          "y": userGameData.userAttack
         },
         {
           "x": "수비력",
-          "y": 67
+          "y": userGameData.userDefence
         },
         {
           "x": "이동거리",
-          "y": 77
+          "y": userGameData.userDistance
         },
         {
           "x": "피지컬",
-          "y": 87
-        },
-        {
-          "x": "'",
-          "y": 100
-        },
-      ]
-    },
-    {
-      "id": "경기2",
-      "color": "hsl(307, 70%, 50%)",
-      "data": [
-        {
-          "x": "",
-          "y": 0
-        },
-        {
-          "x": "체력",
-          "y": 78
-        },
-        {
-          "x": "스피드",
-          "y": 93
-        },
-        {
-          "x": "공격력",
-          "y": 88
-        },
-        {
-          "x": "수비력",
-          "y": 67
-        },
-        {
-          "x": "이동거리",
-          "y": 44
-        },
-        {
-          "x": "피지컬",
-          "y": 67
-        },
-        {
-          "x": "'",
-          "y": 100
-        },
-      ]
-    },
-    {
-      "id": "경기3",
-      "color": "hsl(307, 70%, 50%)",
-      "data": [
-        {
-          "x": "",
-          "y": 0
-        },
-        {
-          "x": "체력",
-          "y": 80
-        },
-        {
-          "x": "스피드",
-          "y": 96
-        },
-        {
-          "x": "공격력",
-          "y": 89
-        },
-        {
-          "x": "수비력",
-          "y": 70
-        },
-        {
-          "x": "이동거리",
-          "y": 60
-        },
-        {
-          "x": "피지컬",
-          "y": 67
+          "y": userGameData.userPhysical
         },
         {
           "x": "'",
@@ -119,10 +85,11 @@ function MyPageDetailGraph(props) {
     },
   ]
   return (
-    <div>
+    <>
       <DataGraphDetail data={data} />
+      <HeatMap data={gameId}/>
       <BotNavbar />
-    </div>
+    </>
   );
 }
 

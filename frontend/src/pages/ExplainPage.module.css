@@ -1,12 +1,27 @@
 .body {
     height: 100vh;
-    background: #000F24;
+    width: 100vw;
+    background-size: cover;
+    background-color: rgba(0, 0, 0, 0.796);
+    background-image: url('https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80');
     display: flex;
     justify-content: center;
+    z-index: -1;
+}
+
+.body::before{
+    content: "";
+    opacity: 0.5;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: #000;
 }
 
 .explainCarousel {
-    max-width: 95%;
+    max-width: 85%;
     max-height: 90%;
     margin-top: 2rem;
 }
@@ -16,21 +31,66 @@
     color: aliceblue;
 }
 
+.explainptag {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.explain a {
+    color: yellow;
+    text-decoration: none;
+}
+
 .explain p {
     margin-bottom: 0.5rem;
     font-size: 1.2rem;
+}
+
+.droidimage {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    height: 40%;
+}
+
+.droidimage img {
+    margin-left: 3rem;
+    margin-right: 3rem;
 }
 
 .notebookimage {
     margin-top: 3rem;
     display: flex;
     justify-content: space-between;
-    height: 30%;
+    height: 25%;
 }
 
 .wearosimage {
     margin-top: 3rem;
     display: flex;
     justify-content: space-between;
-    height: 50%;
+    height: 40%;
+}
+
+.signup {
+    margin-top: 2rem;
+    margin-right: 2rem;
+    display: flex;
+    justify-content: flex-end;
+    text-decoration: none;
+}
+
+.signup button {
+    width: 15rem;
+    height: 2.5rem;
+    border: #739106 solid;
+    border-radius: 30px;
+    color: aliceblue;
+    background-color: #739106;
+}
+
+.logoimage {
+    height: 30rem;
+    margin-top: 5rem;
 }

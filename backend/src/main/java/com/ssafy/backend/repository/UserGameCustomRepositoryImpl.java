@@ -6,6 +6,8 @@ import com.ssafy.backend.dto.UserGameDto;
 import com.ssafy.backend.entity.QUserGame;
 import com.ssafy.backend.entity.UserGame;
 
+import javax.persistence.Column;
+
 public class UserGameCustomRepositoryImpl implements UserGameCustomRepository{
     private final JPAQueryFactory jpaQueryFactory;
 
@@ -30,9 +32,9 @@ public class UserGameCustomRepositoryImpl implements UserGameCustomRepository{
                         qUserGame.userSave,
                         qUserGame.userSpeed,
                         qUserGame.userSprint,
-                        qUserGame.userStamina))
+                        qUserGame.userStamina,
+                        qUserGame.userPhysical))
                 .from(qUserGame)
                 .where(qUserGame.user.userId.eq(userId).and(qUserGame.game.gameId.eq(gameId))).fetchOne();
-
     }
 }

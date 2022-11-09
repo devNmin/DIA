@@ -18,7 +18,7 @@ export default function FootballNavbar(props) {
         }
     })
     const goIpInsert = () => {
-        if (currentTeam.length) {          
+        if (currentTeam.length) {         
          
             history.push('/ipInsert')
         }else {

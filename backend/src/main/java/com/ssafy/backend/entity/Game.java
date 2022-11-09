@@ -31,4 +31,12 @@ public class Game {
     @Column(name = "game_xy") // 경기 트래킹 좌표 파일 위치
     @Lob
     private String gameXY;
+
+    public Game(long gameId, int gameYear, int gameMonth, int gameDay, int gameTime) {
+        this.gameId = gameId;
+        this.gameYear = gameYear;
+        this.gameMonth = gameMonth;
+        this.gameDay = gameDay;
+        this.gameTime = gameTime;
+    }
 }

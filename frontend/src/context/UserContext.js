@@ -8,7 +8,7 @@ export default UserContext;
 export const UserProvider = ({children}) => {
     let [ipV4, setIpV4] = useState(null)
     let [portinput, setPort] = useState(null)
-    let [currentTeam, setCurrentTeam] = useState(['권혁림'])
+    let [currentTeam, setCurrentTeam] = useState([])
 
     let contextData = {
         // user: user,

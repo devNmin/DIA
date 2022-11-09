@@ -5,9 +5,11 @@ import com.ssafy.backend.entity.User;
 import com.ssafy.backend.entity.UserGame;
 import com.ssafy.backend.entity.UserInfo;
 import com.ssafy.backend.repository.GameRepository;
-import com.ssafy.backend.repository.UserGameRepository;
+import com.ssafy.backend.repository.UserGameInfo;
 import com.ssafy.backend.repository.UserInfoRepository;
 import com.ssafy.backend.repository.UserRepository;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,14 +19,14 @@ import java.util.List;
 @Service
 public class GameService {
     private final GameRepository gameRepository;
-    private final UserGameRepository userGameRepository;
+    private final UserGameInfo UserGameInfo;
     private final UserRepository userRepository;
 
     private final UserInfoRepository userInfoRepository;
 
-    public GameService(GameRepository gameRepository, UserGameRepository userGameRepository, UserRepository userRepository, UserInfoRepository userInfoRepository) {
+    public GameService(GameRepository gameRepository, UserGameInfo UserGameInfo, UserRepository userRepository, UserInfoRepository userInfoRepository) {
         this.gameRepository = gameRepository;
-        this.userGameRepository = userGameRepository;
+        this.UserGameInfo = UserGameInfo;
         this.userRepository = userRepository;
         this.userInfoRepository = userInfoRepository;
     }
@@ -57,7 +59,7 @@ public class GameService {
                 }
 
                 User user = userRepository.findUserByUserId(Long.parseLong(userId));
-
+                UserInfo userInfo = userInfoRepository.findUserInfoByUser_UserId(user.getUserId());
                 //todo 해당 유저의 정보들 추가적으로 계산하는 로직 필요
                 System.out.println("user" + user);
                 System.out.println("game" + game);
@@ -66,11 +68,12 @@ public class GameService {
                         .game(game)
                         .user(user)
                         // todo 유저 정보 추가적으로 입력 필요
+                        .userPhysical((userInfo.getUserPhysical()))
                         .userMaxSpeed(Float.parseFloat(((Double)userV.get(userId).get(0)).toString()))
                         .userSpeed(Float.parseFloat(((Double)userV.get(userId).get(1)).toString()))
                         .userDistance(Float.parseFloat((String) userData.get(index).get("userDistance")))
                         .build();
-                userGameRepository.save(userGame);
+                UserGameInfo.save(userGame);
             }
 
             return true;
@@ -83,8 +86,6 @@ public class GameService {
 
     public HashMap<String,List> getUserStat(HashMap<String,List> param){
         HashMap<String,List> returnData = new HashMap<>();
-
-
 
         double lastX = 0.0f;
         double lastY = 0.0f;
@@ -176,5 +177,20 @@ public class GameService {
         }
 
         return returnData;
+    }
+
+    // 해당 게임의 해당 유저의 좌표 정보 얻기
+    public JSONObject getGame_gameXYByGameId(Long userId, Long gameId){
+        try{
+            String gameXY = gameRepository.getGame_gameXYByGameId(gameId);
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse( gameXY );
+            JSONObject jsonObj = (JSONObject) obj;
+            JSONObject tmp = new JSONObject();
+            tmp.put("points", jsonObj.get(Long.toString(userId).toString()));
+            return tmp;
+        }catch (Exception e){
+            return null;
+        }
     }
 }

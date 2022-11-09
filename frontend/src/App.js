@@ -43,7 +43,7 @@ function App() {
                 <NonPrivateRoute component={Explainpage} exact path="/explain" />
                 <PrivateRoute component={MyPage} exact path='/mypage'></PrivateRoute>
                 <PrivateRoute component={MyAnalysis} exact path='/analysis'></PrivateRoute>
-                <PrivateRoute component={MyPageDetailGraph} exact path='/detail'></PrivateRoute>
+                <PrivateRoute component={MyPageDetailGraph} exact path='/detail/:id'></PrivateRoute>
                 <NonPrivateRoute component={FieldPage} exact path="/canvasTest" />
                 <PrivateRoute component={TestHeightPage} exact path="/testheight" />
               </Switch>

@@ -3,12 +3,12 @@ import { ResponsiveLine } from '@nivo/line'
 
 function DataGraphDetail({data}) {
   return (
-    <div style={{ width: '80%', height: '80%', margin: '200', position: 'absolute',
-     top: '50%', left: '50%', transform: 'translate(-50%, -50%)'
+    <div style={{ width: '52%', height: '52%', marginLeft : '200', position: 'absolute',
+     top: '40%', left: '100%', transform: 'translate(-100%, -40%)'
       }}>
       <ResponsiveLine
         data={data}
-        margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+        margin={{ top: 50, right: 50, bottom: 50, left: 60 }}
         xScale={{ type: 'point' }}
         yScale={{
             type: 'linear',
@@ -27,7 +27,7 @@ function DataGraphDetail({data}) {
             tickRotation: 0,
             legend: 'ability',
             legendOffset: 36,
-            legendPosition: 'middle'
+            legendPosition: 'middle',
         }}
         axisLeft={{
             orient: 'left',
@@ -46,7 +46,7 @@ function DataGraphDetail({data}) {
         useMesh={true}
         legends={[
             {
-                anchor: 'bottom-right',
+                anchor: 'bottom-left',
                 direction: 'column',
                 justify: false,
                 translateX: 100,
@@ -70,6 +70,40 @@ function DataGraphDetail({data}) {
                 ]
             }
         ]}
+        theme={{
+            textColor: '#ffffff' ,
+            fontSize: 11,
+            axis: {
+              domain: {
+                line: {
+                  stroke: '#dddddd',
+                  strokeWidth: 1,
+                },
+              },
+              legend: {
+                text: {
+                  fontSize: 12,
+                  fill: '#ffffff',
+                },
+              },
+              ticks: {
+                line: {
+                  stroke: '#777777',
+                  strokeWidth: 1,
+                },
+                text: {
+                  fontSize: 15,
+                },
+              },
+            },
+            tooltip: {
+              container: {
+                background: '#ffffff',
+                color: '#333333',
+                fontSize: 16,
+              },
+            },
+          }}
     />
     </div>
   );

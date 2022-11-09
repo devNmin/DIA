@@ -21,6 +21,7 @@ export default function UserSearch() {
   // const [foramation, setFormation] = useState('0000')
   const [addColor, setAddColor] = useState(null)
   const [checkbyId, setCheckById] = useState([])
+  const totalTeam = [...pivot, ...ala, ...fixo, ...goalkeeper, ...currentTeam]
   const submitHandler = async (e) => {
     e.preventDefault()
     await axios.post('search/user', {
@@ -48,12 +49,15 @@ export default function UserSearch() {
     // console.log('current');
     // console.log(currentTeam.includes(v));
     if (currentTeam.length) {
-      if (checkbyId.includes(v.userId)) {
-        alert('this player is already in the squad')        
-      }else {
-        setCurrentTeam([...currentTeam, v]) 
-        setCheckById([...checkbyId, v.userId])    
-      }
+      for (let index = 0; index < totalTeam.length; index++) {
+        const element = totalTeam[index];
+        if (element.userId === v.userId) {
+          alert('this player is already in the squad')  
+          return 
+        }        
+      }      
+      setCurrentTeam([...currentTeam, v]) 
+      setCheckById([...checkbyId, v.userId])   
     }
     else {
       setCurrentTeam([v])
@@ -65,37 +69,48 @@ export default function UserSearch() {
   } 
 
   const removeCurrentTeam = (r) => {
-    setCurrentTeam(() =>        
-      currentTeam.filter((currentP) => currentP.userId !== r.userId )      
+    setCurrentTeam((c) =>        
+      c.filter((currentP) => currentP.userId !== r.userId )      
     )
     console.log(currentTeam);
   } 
   
+  const addCurrentTeam = (o) => {
+    console.log('add');
+    if (o) {
+      setCurrentTeam((c) => [...c,o])      
+    }
+  }
+
 
   const putPlayertoPosition = async (p) => {
     if (addColor === 'red') {
-      pivot.pop()
+      addCurrentTeam(pivot.pop())
       pivot.unshift(p)
-      setPivot(pivot)
+      setPivot(pivot)        
       removeCurrentTeam(p)
-      console.log(pivot);
     }else if (addColor === 'green') {
-      ala.pop()
+      addCurrentTeam(ala.pop())
       ala.unshift(p)
       setAla(ala)
       removeCurrentTeam(p)
     }else if (addColor === 'blue') {
-      fixo.pop()
+      addCurrentTeam(fixo.pop())
       fixo.unshift(p)
       setFixo(fixo)
       removeCurrentTeam(p)
+     
     }else if (addColor === 'yellow') {
-      goalkeeper.pop()
+      addCurrentTeam(goalkeeper.pop())
       goalkeeper.unshift(p)
       setGoalkeeper(goalkeeper)
       removeCurrentTeam(p)
+     
     }
+    
   }
+  
+  
   
 
   return (

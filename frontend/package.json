@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-
+    "@mui/icons-material": "^5.10.9",
+    "@mui/material": "^5.10.13",
     "@coreui/react": "^4.4.0",
     "@nivo/core": "^0.80.0",
     "@nivo/line": "^0.80.0",

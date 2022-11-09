@@ -14,7 +14,8 @@ import Explainpage from './pages/Explainpage';
 import FieldPage from './pages/FieldPage';
 // import CanvasTestPage from './pages/CanvasTestPage';
 // import IpInsertPage from './pages/IpInsertPage';
-import { UserProvider } from './context/UserContext'
+import { UserProvider } from './context/UserContext';
+import { FieldProvider } from './context/FieldContext';
 // import TeamMakePage from './pages/TeamMakePage';
 import Transition from './components/test/Transition';
 import TestHeightPage from './pages/TestHeightPage';
@@ -34,20 +35,58 @@ function App() {
             let {userInfo} = useContext(AuthContext) => 현재 유저정보 가져오기 
           */}
           <UserProvider>
-            <ScrollToTop>
-              <Switch className="App">
-                <NonPrivateRoute component={LoginPage} exact path="/login" />
-                <NonPrivateRoute component={AccountRegisterPage} exact path="/register" />
-                <PrivateRoute component={MainPage} exact path='/main'></PrivateRoute>
-                <NonPrivateRoute component={NonLoginMainPage} exact path="/" />
-                <NonPrivateRoute component={Explainpage} exact path="/explain" />
-                <PrivateRoute component={MyPage} exact path='/mypage'></PrivateRoute>
-                <PrivateRoute component={MyAnalysis} exact path='/analysis'></PrivateRoute>
-                <PrivateRoute component={MyPageDetailGraph} exact path='/detail/:id'></PrivateRoute>
-                <NonPrivateRoute component={FieldPage} exact path="/canvasTest" />
-                <PrivateRoute component={TestHeightPage} exact path="/testheight" />
-              </Switch>
-            </ScrollToTop>
+            <FieldProvider>
+              <ScrollToTop>
+                <Switch className="App">
+                  <NonPrivateRoute component={LoginPage} exact path="/login" />
+                  <NonPrivateRoute
+                    component={AccountRegisterPage}
+                    exact
+                    path="/register"
+                  />
+                  <PrivateRoute
+                    component={MainPage}
+                    exact
+                    path="/main"
+                  ></PrivateRoute>
+                  <NonPrivateRoute
+                    component={NonLoginMainPage}
+                    exact
+                    path="/"
+                  />
+                  <NonPrivateRoute
+                    component={Explainpage}
+                    exact
+                    path="/explain"
+                  />
+                  <PrivateRoute
+                    component={MyPage}
+                    exact
+                    path="/mypage"
+                  ></PrivateRoute>
+                  <PrivateRoute
+                    component={MyAnalysis}
+                    exact
+                    path="/analysis"
+                  ></PrivateRoute>
+                  <PrivateRoute
+                    component={MyPageDetailGraph}
+                    exact
+                    path="/detail/:id"
+                  ></PrivateRoute>
+                  <NonPrivateRoute
+                    component={FieldPage}
+                    exact
+                    path="/canvasTest"
+                  />
+                  <PrivateRoute
+                    component={TestHeightPage}
+                    exact
+                    path="/testheight"
+                  />
+                </Switch>
+              </ScrollToTop>
+            </FieldProvider>
           </UserProvider>
         </AuthProvider>
         <AuthProvider>

@@ -22,6 +22,7 @@ export default function IpInsertPage() {
   };
   return (
     <div>
+      <FootballNavbar currentpage = 'ipinsert'></FootballNavbar>
       <h1>노트북 ip와 포트를 입력해주세요</h1>
       <div>
         <InputMask

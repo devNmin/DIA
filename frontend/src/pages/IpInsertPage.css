@@ -1,6 +1,8 @@
 .ipInput {
     text-align: center;
     font-size: 40px;
+    background-color: transparent;
+    color: #b3dc45 ;
 }
 
 .Port {
@@ -8,8 +10,36 @@
     font-size: 30px;
     text-align: center;
     width: 120px;
+    background-color: transparent;
+    color: #b3dc45 ;
 }
 
 .ipButton {
     margin-top: 40px;
+    color: white;
+    background-color: transparent;
+    width: 10%;  
+    height: 20%;
+    cursor: pointer;
+    border: 1px solid #fff;
+    border-radius: 4px;
+  
+}
+.ipInsertCon {
+    background-color: rgba(49, 50, 56, 0.6);
+    padding-top: 40px;
+    padding-bottom: 40px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-radius: 1.5rem;
+    margin-top: 100px;
+}
+
+.ipInsertTitle{
+    color: aliceblue;
+}
+.ipfont {
+    color: aliceblue;
+    
+    font-size: 40px;
 }

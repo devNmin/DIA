@@ -1,51 +1,70 @@
-import React, { useRef, useContext } from 'react';
-import './IpInsertPage.css';
-import InputMask from 'react-input-mask';
+import React, {useRef, useContext} from 'react'
+import './IpInsertPage.css'
+import InputMask from "react-input-mask";
 import UserContext from '../context/UserContext';
 import { useHistory } from 'react-router-dom';
 import FootballNavbar from '../components/Navbar/FootballNavbar';
 
-export default function IpInsertPage() {
-  const { setIpV4, setPort } = useContext(UserContext);
-  const history = useHistory();
-  const ipAddress = useRef();
-  const port = useRef();
-  const ipChecker = () => {
-    const ipsubmit = ipAddress.current.value.replace(/ /g, '');
-    const portsubmit = port.current.value;
 
-    console.log(ipsubmit);
-    setIpV4(ipsubmit);
-    console.log(portsubmit);
-    setPort(portsubmit);
-    history.push('/canvasTest');
-  };
+
+export default function IpInsertPage() {
+  const { setIpV4, setPort, ipV4, portinput  } = useContext(UserContext)
+  const history = useHistory();
+  const ipAddress = useRef();  
+  const port = useRef();
+  const ipChecker = async () => {     
+    // await setIpV4(ipAddress.current.value.replace(/ /g, ''))
+    // // console.log(portsubmit);
+    // await setPort(port.current.value)
+
+    if (ipV4) {
+      if (portinput) {
+          history.push('/teamregister')                
+      }else {
+          alert('port번호를 입력해주세요')
+          return
+      }         
+    
+  }else {
+      alert('노트북 IP를 입력해주세요')
+      return
+  }  
+  }    
   return (
     <div>
       <FootballNavbar currentpage = 'ipinsert'></FootballNavbar>
-      <h1>노트북 ip와 포트를 입력해주세요</h1>
-      <div>
-        <InputMask
-          className="ipInput"
-          mask="999.999.999.999"
-          maskChar=" "
-          placeholder="xxx.xxx.xxx.xxx"
-          ref={ipAddress}
-        />
+      <div className= 'ipInsertCon'>
+          <h1 className='ipInsertTitle'>노트북 ip와 포트를 입력해주세요</h1>  
+            <div>
+              <div>    
+                <label className='ipfont'> IP : </label>
+                  <InputMask
+                  className= 'ipInput'
+                  mask="999.999.9.9"
+                  maskChar=" "
+                  placeholder="xxx.xxx.x.x"  
+                  ref={ipAddress} 
+                  onChange = {() => {
+                    setIpV4(ipAddress.current.value.replace(/ /g, ''))
+                  }}         
+                  />      
+              </div>
+              <div>
+              <label className='ipfont'> PORT : </label>
+                <InputMask
+                    className= 'Port'
+                    mask="9999"
+                    maskChar=" "
+                    placeholder="xxxx"  
+                    ref={port}
+                    onChange = {() => {
+                      setPort(port.current.value);                
+                    }}          
+                    /> 
+              </div>
+            </div>
+          <button className='ipButton' onClick={ipChecker}>완료</button>
+        </div>
       </div>
-      <div>
-        <InputMask
-          className="Port"
-          mask="9999"
-          maskChar=" "
-          placeholder="xxxx"
-          ref={port}
-        />
-      </div>
-
-      <button className="ipButton" onClick={ipChecker}>
-        입력
-      </button>
-    </div>
-  );
+  )
 }

@@ -1,0 +1,12 @@
+.canvas_box {
+  position: relative;
+}
+
+.canvas2 {
+  z-index: -1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  /* background-image: url(../assets/soccer_field.jpg);
+  background-size: 100% 100%; */
+}

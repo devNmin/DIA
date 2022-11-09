@@ -10,7 +10,7 @@
   height: 80%;
   position: relative;
 }
-.pitch:after {
+/* .pitch:after {
   content: '';
   border-left: 1px solid white;
   position: absolute;
@@ -99,4 +99,4 @@
 }
 .right .penalty_area:after {
   left: 15px;
-}
+} */

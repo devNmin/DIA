@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.webkit.*
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity(){
     var urlPath = "https://k7b307.p.ssafy.io"
 //    var urlPath = "http://192.168.0.35:3000/mypage"
     private val REQUEST_CODE = 1112
+    var backKEyPressTime : Long = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -155,13 +157,15 @@ class MainActivity : AppCompatActivity(){
 
 
     override fun onBackPressed() {
-        if (webview.canGoBack())
-        {
+        if (webview.canGoBack()) {
             webview.goBack()
-        }
-        else
-        {
-            finish()
+        }else {
+            if(System.currentTimeMillis() < backKEyPressTime + 2500){
+                finish()
+            }else{
+                Toast.makeText(applicationContext, "한번 더 뒤로가기 버튼을 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+            }
+            backKEyPressTime = System.currentTimeMillis();
         }
     }
 }

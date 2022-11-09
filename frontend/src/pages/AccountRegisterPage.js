@@ -11,12 +11,12 @@ import { Link } from 'react-router-dom';
 export default function AccountRegisterPage() {
   const { BASE_URL } = useContext(AuthContext)
   const [emailChecker, setEmailChecker] = useState('');
-  const [ageChecker, setAgeChecker] = useState(null);
+  // const [ageChecker, setAgeChecker] = useState(null);
   const emailInput = useRef();
   const passwordInput = useRef();
   const passwordCheckInput = useRef();
   const nameInput = useRef();
-  const ageInput = useRef();  
+  // const ageInput = useRef();  
   const history = useHistory();
   const [showAuth, setShowAuth] = useState(false)
   const [authKey, setAuthKey] = useState(null)
@@ -24,6 +24,24 @@ export default function AccountRegisterPage() {
   const [canSignup, setCanSignup] = useState(false)
   const [isChecked, setIsChecked] = useState(false)
   const [emailDisable, setEmailDisable] = useState(false)
+  const [age, setAge] = useState(null)
+  const [height, setHeight] = useState(null)
+  const [weight, setWeight] = useState(null)
+  const [position, setPosition] = useState('')
+    const heightHandler = (e) => {
+        setHeight(e.target.value)
+    }
+    const weightHandler = (e) => {
+        setWeight(e.target.value)
+    }
+    const AgeHandler = (e) => {
+      setAge(e.target.value)
+    }
+
+    // const positionHandler = (value) => {
+    //   value.preventDefault()
+    //   setPosition(value)
+    // }
 
   // let [formData, setformData] = useState({
   //   gender: ""
@@ -104,7 +122,7 @@ export default function AccountRegisterPage() {
     const passwordsubmit = passwordInput.current.value;
     const passwordchecksubmit = passwordCheckInput.current.value;
     const namesubmit = nameInput.current.value;    
-    const agesubmit = ageInput.current.value;
+    // const agesubmit = ageInput.current.value;
     
 
     await fetch(BASE_URL + 'signup', {
@@ -117,7 +135,10 @@ export default function AccountRegisterPage() {
         "userPassword": passwordsubmit,
         "userPassword2": passwordchecksubmit,
         "userName": namesubmit,            
-        "userAge": agesubmit
+        "userAge": age,    
+        "userWeight": weight,
+        "userPosition" : position,
+        "userHeight" : height
       })
 
     }).then(res => {
@@ -148,15 +169,15 @@ export default function AccountRegisterPage() {
       setEmailChecker("")
     }
   }
-  const AgeCheckHandler = (e) => {
-    if (isNaN(e.target.value)) {
-      setAgeChecker("This is not a number please check again!!")      
-    }else if(Number(e.target.value) >= 100) {
-      setAgeChecker("Your age is too old..please check again")
-    }else {
-      setAgeChecker("")
-    }
-  }
+  // const AgeCheckHandler = (e) => {
+  //   if (isNaN(e.target.value)) {
+  //     setAgeChecker("This is not a number please check again!!")      
+  //   }else if(Number(e.target.value) >= 100) {
+  //     setAgeChecker("Your age is too old..please check again")
+  //   }else {
+  //     setAgeChecker("")
+  //   }
+  // }
   
   const emailCheckerHandler2 = (e) => {
     var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -204,14 +225,10 @@ export default function AccountRegisterPage() {
 
   return (
     <div className= {styles.background}>
-      <section className={styles.auth}>
-        <div style={{ display: 'flex', justifyContent: "center" }}>
-          {/* <img src={logo} alt="" /> */}
-
-        </div>
-        <form>
-
-          <div className='Signup'>
+      <section className={styles.auth} style={{ 'marginTop' : '100px'}}>
+        <form >
+          
+          <div className= 'Signup'>
             <div>
               {/* 아이디 */}
               <div className={styles.control}>
@@ -232,17 +249,16 @@ export default function AccountRegisterPage() {
                     <h5> Key </h5>
                     <div>
                       <input type='text' maxLength='10' name='auth_key' ref={keyInput} />
-                      <button onClick={keyValidChecker}>인증하기</button>
                     </div>
+                    <button className= {styles.authChecker} onClick={keyValidChecker}>인증하기</button>
                 </div>
                 : 
                 <div>
                   {isChecked?
                   <button className={styles.authChecker} onClick={emailAuthChecker}>Authenticate</button> :null
                   }
-                </div>               
-                
-                
+                </div>            
+                          
                 }
                 
               </div>
@@ -269,20 +285,63 @@ export default function AccountRegisterPage() {
                 <h5> Nickname </h5>
                 <input type='text' maxLength='10' name='signup_nickname' ref={nicknameInput} />
               </div> */}
-              <div className={styles.control}>
+              {/* <div className={styles.control}>
                 <h5> Age </h5>
                 <input type='text' maxLength='10' onKeyUp={AgeCheckHandler} name='signup_name' ref={ageInput} />
-                <p className={styles.emailChecker} dangerouslySetInnerHTML={{__html: ageChecker}}></p>
-                
+                <p className={styles.emailChecker} dangerouslySetInnerHTML={{__html: ageChecker}}></p>                
               </div>              
+              <br /> */}
               <br />
-              <div>
-              </div>
-              {/* 생년월일 */}
-              {/* 생년월일 */}
-            </div>
-          </div>
-          {canSignup? 
+              <div className="bmi-calculator-weight">
+                <input className="weight-slider" name="realAge" id="myAge" onChange={(e) => {AgeHandler(e)}} type="range" min={10} max={90} defaultValue={20} />
+                <p style={{marginTop: '1.8em'}}>
+                  AGE: {age}            
+                  <span id="weight" /> 
+                </p>
+              </div>                       
+              <div className="bmi-calculator-height">
+                <input className="height-slider" name="realheight" id="myHeight" onChange={(e)=>{heightHandler(e)}}  type="range" min={120} max={210} defaultValue={160} />
+                <p style={{marginTop: '1.8em'}}>
+                  HEIGHT: {height}              
+                  <span id="height" /> cm
+                </p>
+              </div>              
+              <div className="bmi-calculator-weight">
+                <input className="weight-slider" name="realweight" id="myWeight" onChange={(e) => {weightHandler(e)}} type="range" min={40} max={120} defaultValue={60} />
+                <p style={{marginTop: '1.8em'}}>
+                  WEIGHT: {weight}            
+                  <span id="weight" /> kg
+                </p>
+              </div> 
+              <div className={styles.control}>
+                <h5> Position </h5>
+                <div>
+                  <button className={styles.EmailCheck} onClick = {(e) => {
+                    e.preventDefault()
+                    setPosition('FW')
+                  }} style ={{ 'backgroundColor' : position === 'FW'? '#b3dc45' : null }}>
+                  FW</button>
+
+                  <button className={styles.EmailCheck}
+                  onClick = {(e) => {
+                    e.preventDefault()
+                    setPosition('MF')
+                  }}
+                  style ={{ 'backgroundColor' : position === 'MF'? '#b3dc45' : null }}
+                  >MF</button>
+                  <button className={styles.EmailCheck}
+                  onClick = {(e) => {
+                    e.preventDefault()
+                    setPosition('DF')
+                  }}
+                  style ={{ 'backgroundColor' : position === 'DF'? '#b3dc45' : null }}>DF</button>
+                </div>
+              </div>             
+             </div>
+          </div>  
+          <br />        
+          
+          {canSignup?
             
           <div className={styles.actions}>
             <span></span>
@@ -296,7 +355,7 @@ export default function AccountRegisterPage() {
           }
         </form>
 
-        <Link className={styles.linkP} to='/'>
+        <Link className={styles.linkP} to='/login'>
           <p>Already Have An Account</p>
         </Link>
       </section>

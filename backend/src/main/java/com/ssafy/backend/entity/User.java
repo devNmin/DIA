@@ -16,7 +16,7 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@ToString(exclude = "userinfo")
 public class User {
     @Id
     @Column(name = "user_id")
@@ -25,18 +25,9 @@ public class User {
 
     @Column(name = "user_email", unique = true)
     private String userEmail;
-
     @Column(name = "user_password")
     @JsonIgnore
     private String userPassword;
-
-    @Column(name = "user_name",nullable = true)
-    private String userName;
-
-    @Column(name = "user_age")
-    @ColumnDefault("0")
-    private Integer userAge;
-
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -45,4 +36,7 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "authority_name")})
     private Set<Authority> authorities;
 
+    @JsonIgnore
+    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private UserInfo userinfo;
 }

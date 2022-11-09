@@ -3,6 +3,7 @@ import './IpInsertPage.css';
 import InputMask from 'react-input-mask';
 import UserContext from '../context/UserContext';
 import { useHistory } from 'react-router-dom';
+import FootballNavbar from '../components/Navbar/FootballNavbar';
 
 export default function IpInsertPage() {
   const { setIpV4, setPort } = useContext(UserContext);

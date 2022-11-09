@@ -1,0 +1,14 @@
+.playerImg {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 1rem;    
+}
+
+.playerInfoContainer{
+    margin-right: 10px;
+}
+
+.userinfo {
+    margin-top: 5px;
+}

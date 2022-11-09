@@ -1,0 +1,51 @@
+.modalWrapper {
+  box-sizing: border-box;
+  display: block;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  overflow: auto;
+  outline: 0;
+}
+
+.modal_inner {
+  background: rgba(255, 255, 255, 0.8);
+  box-sizing: border-box;
+  position: relative;
+  height: 97%;
+  width: 95%;
+  top: 70%;
+  transform: translateY(-70%);
+  margin: 0 auto;
+  /* display: flex;
+  align-items: flex-end;
+  justify-content: flex-end; */
+}
+
+.modal_inner2 {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.closeStyle {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.closebutton {
+  cursor: pointer;
+  width: 15rem;
+  height: 3rem;
+  border: #739106 solid;
+  border-radius: 30px;
+  color: aliceblue;
+  background-color: #739106;
+}

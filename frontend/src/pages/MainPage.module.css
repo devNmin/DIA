@@ -4,7 +4,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #000F24;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)), url(http://orig10.deviantart.net/c37f/f/2016/188/0/d/background_fav___share_by_dreamgraphicss-da93xt5.jpg);
 }
 
 .Modal {
@@ -46,4 +46,7 @@
     color: aliceblue;
     background-color: #739106;
 }
+
+
+
 

@@ -6,10 +6,9 @@ const UserContext = createContext();
 export default UserContext;
 
 export const UserProvider = ({ children }) => {
-  // [todo] 초기값 null로 수정해야함
-
-  let [ipV4, setIpV4] = useState('192.168.0.37');
-  let [portinput, setPort] = useState(9999);
+  let [ipV4, setIpV4] = useState(null);
+  let [portinput, setPort] = useState(null);
+  let [currentTeam, setCurrentTeam] = useState([]);
 
   let contextData = {
     // user: user,
@@ -17,6 +16,8 @@ export const UserProvider = ({ children }) => {
     ipV4: ipV4,
     setPort: setPort,
     portinput: portinput,
+    setCurrentTeam: setCurrentTeam,
+    currentTeam: currentTeam,
   };
   return (
     <UserContext.Provider value={contextData}>{children}</UserContext.Provider>

@@ -21,4 +21,10 @@ interface APIS {
     )
     fun sendHeartRate(@Body heartRateDto: HeartRateDto):Call<ResponseDto>
 
+    @POST("health/sensor")
+    @Headers("accept: application/json",
+        "content-type: application/json"
+    )
+    fun sensorSend(@Body sensorDto: SensorDto):Call<ResponseDto>
+
 }

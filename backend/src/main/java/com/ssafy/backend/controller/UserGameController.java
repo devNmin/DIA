@@ -46,9 +46,9 @@ public class UserGameController {
             HttpServletRequest request,
             @RequestBody PagenationDto pagenationDto
     ){
-//        String userEmail = tokenService.getUserEmailFromToken(request);
-//        List<GameMapper> gameMapper = userGameService.myGameInfo(pagenationDto.getStart(),pagenationDto.getEnd(),userEmail);
-        List<GameMapper> gameMapper = userGameService.myGameInfo(pagenationDto.getStart(),pagenationDto.getEnd(), pagenationDto.getUserEmail());
+        String userEmail = tokenService.getUserEmailFromToken(request);
+        List<GameMapper> gameMapper = userGameService.myGameInfo(pagenationDto.getStart(),pagenationDto.getEnd(),userEmail);
+//        List<GameMapper> gameMapper = userGameService.myGameInfo(pagenationDto.getStart(),pagenationDto.getEnd(), pagenationDto.getUserEmail());
         return ResponseEntity.ok(gameMapper);
     }
 

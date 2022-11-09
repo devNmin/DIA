@@ -16,14 +16,22 @@
 .searchfirst {
     display: block;
 }
+.searchsecond {
+    font-size: 13.5px;
+}
 
 .searchExplanation {
     color: white;
     width: 70%;
     margin-left: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .imgContainer{
     display: flex;
     align-items: center;
+    margin: 10px 10px;
 }
+

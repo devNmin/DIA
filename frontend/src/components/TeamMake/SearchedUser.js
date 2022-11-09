@@ -10,8 +10,10 @@ export default function SearchedUser(props) {
         <img className= 'searchimg' src= {testurl} alt="#" />
       </div>     
       <div className='searchExplanation'>
-        <p className='searchfirst'>{userInfo.userName} {userInfo.userPosition} </p>      
-        <p> Age: {userInfo.userAge} / Height: {userInfo.userHeight}cm / Weight: {userInfo.userWeight}kg</p>
+        <div>
+          <p className='searchfirst'>{userInfo.userName} {userInfo.userPosition} </p>      
+          <p className='searchsecond'> Age: {userInfo.userAge} / Height: {userInfo.userHeight}cm / Weight: {userInfo.userWeight}kg</p>
+        </div>
       </div>
     </div>
   )

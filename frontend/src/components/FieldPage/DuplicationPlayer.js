@@ -9,6 +9,9 @@ function DuplicationPlayer() {
   const canvasWidth = window.innerWidth;
   const canvasHeigth = window.innerHeight * 0.8;
 
+  // let lastX = fieldCtx.lastX;
+  // let lastY = fieldCtx.lastY;
+
   const colors = [
     'red',
     'red',
@@ -21,12 +24,12 @@ function DuplicationPlayer() {
     'blue',
     'blue',
     'blue',
+    'blue',
   ];
   function duplicationHandler() {
     if (!fieldCtx.duplicationEvent) {
       return;
     }
-
     const canvas3 = canvasRef3.current;
     canvas3.width = canvasWidth;
     canvas3.height = canvasHeigth;
@@ -64,6 +67,7 @@ function DuplicationPlayer() {
       }
     }
   }
+
   useEffect(() => {
     duplicationHandler();
   }, [fieldCtx.isPause, fieldCtx.isMoving]);

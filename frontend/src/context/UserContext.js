@@ -6,8 +6,8 @@ const UserContext = createContext();
 export default UserContext;
 
 export const UserProvider = ({ children }) => {
-  let [ipV4, setIpV4] = useState(null);
-  let [portinput, setPort] = useState(null);
+  let [ipV4, setIpV4] = useState('192.168.0.37');
+  let [portinput, setPort] = useState(9999);
   let [currentTeam, setCurrentTeam] = useState([]);
 
   let contextData = {

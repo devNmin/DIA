@@ -65,7 +65,7 @@ function DuplicationLine() {
 
       ctx.rotate(angle);
       ctx.beginPath();
-      console.log('angle ', angle);
+
       //화살표 모양 만들기
       ctx.moveTo(length - aLength, -aWidth);
       ctx.lineTo(length, 0);
@@ -83,8 +83,6 @@ function DuplicationLine() {
     const { clientX, clientY } = fieldCtx.ctxEvenet.changedTouches[0];
 
     if (ctx) {
-      console.log('시작1', fieldCtx.isMoving, fieldCtx.ctxEvenet.type);
-
       if (fieldCtx.ctxEvenet.type === 'touchstart') {
         // 터치 시작
         setIsStart(false);
@@ -96,7 +94,7 @@ function DuplicationLine() {
         setIsStart(false);
       } else {
         // 터치중
-        console.log(clientX, clientY);
+
         fieldCtx.setDupleLineCoords((prev) => {
           let now = prev;
           now[fieldCtx.nowD].push([

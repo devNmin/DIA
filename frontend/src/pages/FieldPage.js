@@ -133,15 +133,13 @@ function FieldPage() {
         return now;
       });
       nowI = minIdx;
-      console.log('nowI', nowI);
+
       fieldCtx.setNowD(minIdx);
       fieldCtx.duplication[minIdx][0] =
         fieldCtx.allCoords[minIdx][fieldCtx.playIndex][0];
       fieldCtx.duplication[minIdx][0] =
         fieldCtx.allCoords[minIdx][fieldCtx.playIndex][1];
       fieldCtx.setIsMoving(true);
-    } else {
-      console.log('범위내의 좌표없음');
     }
 
     if (nowI === -1) {

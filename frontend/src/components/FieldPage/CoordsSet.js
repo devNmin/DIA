@@ -77,7 +77,7 @@ function CoordsSet() {
     ) {
       return;
     }
-    console.log(fieldCtx.accumulate);
+
     sleep(100)
       .then(() => {
         fieldSet();

@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.R
 import retrofit2.Call
@@ -39,6 +40,8 @@ class SensorActivity : AppCompatActivity() ,SensorEventListener{
     var startStep:Float?=null // 시작 눌렀을 때 스텝 수
     var endStep:Float?=null //종료 눌렀을 때 스텝 수
 
+    var textView: TextView? = null;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sensor)
@@ -63,19 +66,19 @@ class SensorActivity : AppCompatActivity() ,SensorEventListener{
         service = retrofit!!.create(APIS::class.java);
 
         //저장된 정보 가져오는 객체
-        prefs = this.getSharedPreferences("user_prefs",0)
+        prefs = this.getSharedPreferences("user_prefs", 0)
         //저장된 정보 불러오기
-        prefs!!.getString("user_email","")
-        userEmail = prefs!!.getString("user_email","");
-        userName = prefs!!.getString("user_name","");
-        userCode = prefs!!.getString("user_code","")?.toInt();
+        prefs!!.getString("user_email", "")
+        userEmail = prefs!!.getString("user_email", "");
+        userName = prefs!!.getString("user_name", "");
+        userCode = prefs!!.getString("user_code", "")?.toInt();
 
 
         val timer = Timer()
         val timerTask: TimerTask = object : TimerTask() {
             override fun run() {
                 //5초마다 심박수 전송
-                if(userHeartRate!! > 0.0f){ //심박수가 측정이 된다면
+                if (userHeartRate!! > 0.0f) { //심박수가 측정이 된다면
                     totalHeartRateCnt++
                     totalHeartRate += userHeartRate!!
                     sendHeartRate(userHeartRate!!)
@@ -85,18 +88,20 @@ class SensorActivity : AppCompatActivity() ,SensorEventListener{
         timer.schedule(timerTask, 0, 5000)
 
         val checkBtn = findViewById<Button>(R.id.check_btn); //측정시작 버튼
-        val intent = Intent(this,StartActivity::class.java);
-        checkBtn.setOnClickListener(){
+        val intent = Intent(this, StartActivity::class.java);
+        checkBtn.setOnClickListener() {
             mSensorManager!!.unregisterListener(this); //센서 측정 종료
 //            prefs!!.edit().putString("user_step",""+(endStep!!- startStep!!)).apply()
-            sendData((endStep!! - startStep!!),(totalHeartRate/totalHeartRateCnt))
-            if(timerTask != null){
+            sendData((endStep!! - startStep!!), (totalHeartRate / totalHeartRateCnt))
+            if (timerTask != null) {
                 timerTask.cancel()
             }
             startActivity(intent);
         }
 
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+
+        textView = findViewById<TextView>(R.id.textView) as TextView;
 
     }
 
@@ -161,7 +166,8 @@ class SensorActivity : AppCompatActivity() ,SensorEventListener{
     override fun onSensorChanged(event : SensorEvent) {
         //Update your data.
         if (event.sensor.type == Sensor.TYPE_HEART_RATE) {
-            userHeartRate = event.values[0]
+            userHeartRate = event.values[0];
+            textView?.text = "심박수 측정 중.. \n현재 심박수:" + event.values[0].toInt();
         }
         if(event.sensor.type ==Sensor.TYPE_STEP_COUNTER){
             if(startStep != -1.0f){ //처음 시작한 경우가 아닌 경우

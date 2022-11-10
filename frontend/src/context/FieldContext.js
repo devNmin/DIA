@@ -44,6 +44,7 @@ const FieldContext = createContext({
   setLastY: () => {},
   ctxEvenet: null,
   setCtxEvent: () => {},
+  duplicationReset: () => {},
 });
 
 export default FieldContext;
@@ -83,20 +84,8 @@ export const FieldProvider = ({ children }) => {
   const [isPause, setIsPause] = useState(false); // 일시정지 상태인가?
   const HandlePause = () => {
     // 일시정지 버튼 누를 때 재생 상태가 바뀌고 복제점 사라짐
-    setDuplication({
-      0: [-1, -1],
-      1: [-1, -1],
-      2: [-1, -1],
-      3: [-1, -1],
-      4: [-1, -1],
-      5: [-1, -1],
-      6: [-1, -1],
-      7: [-1, -1],
-      8: [-1, -1],
-      9: [-1, -1],
-      10: [-1, -1],
-      11: [-1, -1],
-    });
+
+    duplicationReset();
     setIsPause((prev) => {
       return !prev;
     });
@@ -139,6 +128,38 @@ export const FieldProvider = ({ children }) => {
   const [lastX, setLastX] = useState(null);
   const [lastY, setLastY] = useState(null);
   const [ctxEvenet, setCtxEvent] = useState(null);
+  const duplicationReset = () => {
+    setDuplicationEvent(null);
+    setCtxEvent(null);
+    setDuplication({
+      0: [-1, -1],
+      1: [-1, -1],
+      2: [-1, -1],
+      3: [-1, -1],
+      4: [-1, -1],
+      5: [-1, -1],
+      6: [-1, -1],
+      7: [-1, -1],
+      8: [-1, -1],
+      9: [-1, -1],
+      10: [-1, -1],
+      11: [-1, -1],
+    });
+    setDupleLineCoords({
+      0: [],
+      1: [],
+      2: [],
+      3: [],
+      4: [],
+      5: [],
+      6: [],
+      7: [],
+      8: [],
+      9: [],
+      10: [],
+      11: [],
+    });
+  };
 
   /////////////////////////
   let contextData = {
@@ -184,6 +205,7 @@ export const FieldProvider = ({ children }) => {
     setLastY: setLastY,
     ctxEvenet: ctxEvenet,
     setCtxEvent: setCtxEvent,
+    duplicationReset: duplicationReset,
   };
   return (
     <FieldContext.Provider value={contextData}>

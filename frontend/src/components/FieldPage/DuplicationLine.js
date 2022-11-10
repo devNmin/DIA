@@ -8,6 +8,7 @@ function DuplicationLine() {
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
   const [ctx, setCtx] = useState();
+  const [isStart, setIsStart] = useState(false);
 
   const canvasWidth = window.innerWidth;
   const canvasHeigth = window.innerHeight * 0.8;
@@ -16,11 +17,11 @@ function DuplicationLine() {
     if (!ctx) {
       return;
     }
-    console.log('여기여기');
+
     for (let i = 0; i < 12; i++) {
       let dLength = fieldCtx.dupleLineCoords[i].length;
-      if (dLength < 1 || fieldCtx.nowD === i) {
-        console.log('여여');
+
+      if (dLength < 2) {
         continue;
       }
 
@@ -29,67 +30,73 @@ function DuplicationLine() {
       let nx = 0; //현재 x
       let ny = 0; //현재 y
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-
       for (let j = 1; j < dLength; j++) {
         dx = fieldCtx.dupleLineCoords[i][j - 1][0];
         dy = fieldCtx.dupleLineCoords[i][j - 1][1];
         nx = fieldCtx.dupleLineCoords[i][j][0];
         ny = fieldCtx.dupleLineCoords[i][j][1];
-
         ctx.moveTo(dx, dy);
         ctx.lineTo(nx, ny);
         ctx.stroke();
       }
     }
+
+    // // 화살표 그리기
+    for (let i = 0; i < 12; i++) {
+      let dLength = fieldCtx.dupleLineCoords[i].length;
+      if (dLength < 11) {
+        continue;
+      }
+      let offset = 10;
+      let aWidth = 20;
+      let aLength = 20;
+      let bx =
+        fieldCtx.dupleLineCoords[i][dLength - 1][0] -
+        fieldCtx.dupleLineCoords[i][dLength - offset][0];
+      let by =
+        fieldCtx.dupleLineCoords[i][dLength - 1][1] -
+        fieldCtx.dupleLineCoords[i][dLength - offset][1];
+      let angle = Math.atan2(by, bx);
+      let length = Math.sqrt(bx * bx + by * by);
+      ctx.translate(
+        fieldCtx.dupleLineCoords[i][dLength - offset][0],
+        fieldCtx.dupleLineCoords[i][dLength - offset][1]
+      );
+
+      ctx.rotate(angle);
+      ctx.beginPath();
+      console.log('angle ', angle);
+      //화살표 모양 만들기
+      ctx.moveTo(length - aLength, -aWidth);
+      ctx.lineTo(length, 0);
+      ctx.lineTo(length - aLength, aWidth);
+      ctx.stroke();
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+    }
   };
 
   const drawing = () => {
-    if (!ctx) {
+    if (!ctx || fieldCtx.nowD < 0 || !fieldCtx.duplicationEvent) {
       return;
     }
-    ////////////
 
-    ////////////
-    console.log('저장된거', fieldCtx.dupleLineCoords);
-    if (fieldCtx.nowD < 0) {
-      return;
-    }
-    if (!fieldCtx.ctxEvenet || !fieldCtx.duplicationEvent) {
-      return;
-    }
     const { clientX, clientY } = fieldCtx.ctxEvenet.changedTouches[0];
 
     if (ctx) {
+      console.log('시작1', fieldCtx.isMoving, fieldCtx.ctxEvenet.type);
+
       if (fieldCtx.ctxEvenet.type === 'touchstart') {
         // 터치 시작
-
+        setIsStart(false);
         ctx.beginPath();
         ctx.moveTo(clientX, clientY);
-      } else if (!fieldCtx.isMoving) {
-        // 터치가 종료
-        // console.log('ㅇㅅㄱ', fieldCtx.ctxEvenet);
-        // console.log('ㅇㅅㄱ2222', lastC);
-        // console.log('last Points ', lastC[0] + ' ' + lastC[1]);
-        // console.log('clientX clienty ', clientX + ' ' + clientY);
-        // var aWidth = 10;
-        // var aLength = 10;
-        // var dx = clientX - lastC[0];
-        // var dy = clientY - lastC[1];
-        // var angle = Math.atan2(dy, dx);
-        // var length = Math.sqrt(dx * dx + dy * dy);
-        // ctx.translate(lastC[0], lastC[1]);
-        // ctx.rotate(angle);
-        // ctx.beginPath();
-        // console.log('angle ', angle);
-        // //화살표 모양 만들기
-        // ctx.moveTo(length - aLength, -aWidth);
-        // ctx.lineTo(length, 0);
-        // ctx.lineTo(length - aLength, aWidth);
-        // ctx.fill();
-        // ctx.setTransform(1, 0, 0, 1, 0, 0);
+      } else if (isStart && fieldCtx.ctxEvenet.type === 'touchmove') {
+        ctx.beginPath();
+        ctx.moveTo(clientX, clientY);
+        setIsStart(false);
       } else {
         // 터치중
-
+        console.log(clientX, clientY);
         fieldCtx.setDupleLineCoords((prev) => {
           let now = prev;
           now[fieldCtx.nowD].push([
@@ -100,7 +107,7 @@ function DuplicationLine() {
         });
         ctx.lineTo(clientX, clientY);
         ctx.strokeStyle = 'white';
-        ctx.lineWidth = 10;
+        ctx.lineWidth = 5;
         ctx.stroke();
       }
     }
@@ -115,6 +122,7 @@ function DuplicationLine() {
       contextRef.current = context;
       setCtx(() => contextRef.current);
     }
+    setIsStart(true);
     if (!fieldCtx.isPause && ctx) {
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
     }
@@ -124,10 +132,10 @@ function DuplicationLine() {
       allDraw(ctx);
     }
   }, [
-    fieldCtx.isMoving,
     fieldCtx.ctxEvenet,
-    fieldCtx.isPause,
     fieldCtx.dupleLineCoords,
+    fieldCtx.isMoving,
+    fieldCtx.isPause,
   ]);
 
   return <canvas className={styles.canvas4} ref={canvasRef} />;

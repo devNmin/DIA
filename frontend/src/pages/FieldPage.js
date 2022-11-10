@@ -168,7 +168,7 @@ function FieldPage() {
     const context = canvas.getContext('2d');
     contextRef.current = context;
     setCtx(() => contextRef.current);
-  }, []);
+  }, [fieldCtx.isPause]);
 
   // 소켓
   const host = ipV4;

@@ -1,0 +1,38 @@
+.teamColorCon {
+    background-color: rgba(49, 50, 56, 0.4);
+    width: 100%;     
+    border-radius: 0.5rem;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    /* display: flex;
+    justify-content: center;
+    align-items: center ; */
+}
+
+.teamText {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.colorTitle {
+    color: white;
+    margin-right: 10px;
+    margin-left: 30px;
+}
+.rightUx {
+    width : 30%;
+    height: 75%;
+    margin-left : 10px    
+}
+.colorInput {
+    margin-right: 40px;
+}
+
+.startingCon {
+    background-color: rgba(49, 50, 56, 0.4);
+    width: 100%; 
+    border-radius: 0.5rem;
+    height: 100%;    
+}

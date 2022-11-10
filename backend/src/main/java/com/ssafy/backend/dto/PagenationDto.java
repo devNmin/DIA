@@ -10,5 +10,4 @@ import lombok.*;
 public class PagenationDto {
     private int start;
     private int end;
-    private String userEmail;
 }

@@ -42,9 +42,9 @@ export default function IpInsertPage() {
                 <label className='ipfont'> IP : </label>
                   <InputMask
                   className= 'ipInput'
-                  mask="999.999.9.9"
+                  mask="999.999.9.99"
                   maskChar=" "
-                  placeholder="xxx.xxx.x.x"  
+                  placeholder="xxx.xxx.x.xx"  
                   ref={ipAddress} 
                   onChange = {() => {
                     setIpV4(ipAddress.current.value.replace(/ /g, ''))

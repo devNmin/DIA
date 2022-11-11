@@ -49,7 +49,7 @@ public class GameService {
                         .gameDay((int)param.get("gameDay"))
                         .gameTime((int)param.get("gameTime"))
 //                        .gameVideo(param.get("gameVideo") == null ? null: (String)param.get("gameVideo"))
-                        .gameXY(param.get("gameXY") == null ? null : param.get("gameXY").toString())
+                        .gameXY(param.get("gameXY").toString())
                         .build();
                 gameRepository.save(game);
 

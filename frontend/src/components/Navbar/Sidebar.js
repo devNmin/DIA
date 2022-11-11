@@ -1,13 +1,22 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { SidebarData } from './SidebarData';
 import './Sidebarz.css';
+
 
 
 const Sidebar = () => {
   const [sidebar, setSidebar] = useState(false);
 
   const showSidebar = () => setSidebar(!sidebar);
+
+  // const rendering = () => {
+  //   const result = [];
+  //   for (let i = 0; i < users.length; i++) {
+  //     result.push(<span key={i}>{users[i]}</span>);
+  //   }
+  //   return result;
+  // };
+
 
   return (
     <>
@@ -23,16 +32,7 @@ const Sidebar = () => {
               심박수
             </Link>
           </li>
-          <div className='zzzz'>
-            {SidebarData.map((item, index) => {
-              return (
-                <li key={index} className={item.cName}>
-                  <Link to={item.path}>
-                    <span className='span'>{item.title}</span>
-                  </Link>
-                </li>
-              );
-            })}
+          <div className='qwer'>
           </div>
         </ul>
       </div>

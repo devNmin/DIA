@@ -21,6 +21,8 @@ import TestHeightPage from './pages/TestHeightPage';
 import MyPage from './pages/MyPage';
 import MyAnalysis from './pages/MyAnalysis';
 import MyPageDetailGraph from './pages/MyPageDetailGraph';
+import Heartbeat from './components/FieldPage/Heartbeat';
+import { HeartContextProvider } from './context/HeartContext';
 
 function App() {
   return (
@@ -34,8 +36,10 @@ function App() {
             let {userInfo} = useContext(AuthContext) => 현재 유저정보 가져오기 
           */}
           <UserProvider>
+            <HeartContextProvider >
             <ScrollToTop>
               <Switch className="App">
+              <NonPrivateRoute component={Heartbeat} exact path="/socket" />
                 <NonPrivateRoute component={LoginPage} exact path="/login" />
                 <NonPrivateRoute component={AccountRegisterPage} exact path="/register" />
                 <PrivateRoute component={MainPage} exact path='/main'></PrivateRoute>
@@ -48,6 +52,7 @@ function App() {
                 <PrivateRoute component={TestHeightPage} exact path="/testheight" />
               </Switch>
             </ScrollToTop>
+            </HeartContextProvider>
           </UserProvider>
         </AuthProvider>
         <AuthProvider>

@@ -281,8 +281,11 @@ function FieldPage() {
         <DuplicationLine />
       </div>
       <TimeRange />
-      <PlayInputGroup />
-      <DrawingTool />
+      <div className={styles.field_tools}>
+        <DrawingTool />
+        <PlayInputGroup />
+        <div></div>
+      </div>
     </div>
   );
 }

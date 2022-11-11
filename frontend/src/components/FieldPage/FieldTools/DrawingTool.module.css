@@ -2,9 +2,6 @@
   display: flex;
 }
 
-.colorbox {
-  position: relative;
-}
 .wrapper {
   display: inline-block;
   position: relative;
@@ -24,4 +21,15 @@
 .sizebox {
   position: relative;
   display: block;
+}
+.size_input {
+  position: absolute;
+  top: 2rem;
+  display: none;
+}
+.sizebox:hover .size_input {
+  display: block;
+}
+.size_icon {
+  width: 2rem;
 }

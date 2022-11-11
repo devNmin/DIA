@@ -24,19 +24,23 @@ function DrawingTool() {
           <PaletteOutlinedIcon fontSize="large" className={styles.color_icon} />
         </div>
         <input
+          className={styles.color_input}
           type="color"
           id="brushColor"
           value={fieldCtx.brushColor}
           onChange={(e) => {
             brushColorHandler(e);
           }}
-          className={styles.color_input}
         />
       </div>
 
       <div className={styles.sizebox}>
-        <HorizontalRuleRoundedIcon fontSize="large" />
+        <HorizontalRuleRoundedIcon
+          fontSize="large"
+          className={styles.size_icon}
+        />
         <input
+          className={styles.size_input}
           type="range"
           min="1"
           max="21"

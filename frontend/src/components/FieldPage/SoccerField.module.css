@@ -2,7 +2,7 @@
   width: 100vw;
   height: 100vh;
   position: absolute;
-  z-index: -2;
+  z-index: -50;
 }
 .pitch {
   background-color: #238729;

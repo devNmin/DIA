@@ -47,6 +47,9 @@ function CoordsSet() {
         context2.moveTo(x, y);
         context2.beginPath();
         context2.arc(x, y, 15, 0, Math.PI * 2, true);
+
+        context2.font = '25px Arial';
+        context2.fillText(i, x - 7.5, y - 6);
         context2.fillStyle = colors[i];
         context2.fill();
         context2.stroke();
@@ -59,16 +62,12 @@ function CoordsSet() {
   };
 
   const setPromise = () => {
-    console.log(
-      'timechanged?:',
-      fieldCtx.isTimeChanged,
-      'playTime:',
-      fieldCtx.playTime
-    );
     if (fieldCtx.isTimeChanged) {
-      console.log('여깅');
+      fieldCtx.setAccumulate(fieldCtx.maxIndex - fieldCtx.playTime);
+      fieldCtx.setIsBuffered(true);
       fieldCtx.setPlayIndex(fieldCtx.playTime);
       fieldCtx.setIsTimeChanged(false);
+
       return;
     }
     if (

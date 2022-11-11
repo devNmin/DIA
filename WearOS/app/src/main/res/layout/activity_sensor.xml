@@ -18,12 +18,22 @@
             android:id="@+id/check_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp"
             android:background="@drawable/rounded_corner"
             android:text="측정 중지"
             android:textColor="@color/black"
 
             />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:textSize="20dp"
+            android:text="심박수 측정 중.. \n현재 심박수:" />
 
     </RelativeLayout>
 

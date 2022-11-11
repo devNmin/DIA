@@ -9,6 +9,9 @@ function DuplicationPlayer() {
   const canvasWidth = window.innerWidth;
   const canvasHeigth = window.innerHeight * 0.8;
 
+  // let lastX = fieldCtx.lastX;
+  // let lastY = fieldCtx.lastY;
+
   const colors = [
     'red',
     'red',
@@ -21,17 +24,20 @@ function DuplicationPlayer() {
     'blue',
     'blue',
     'blue',
+    'blue',
   ];
   function duplicationHandler() {
-    if (!fieldCtx.duplicationEvent) {
-      return;
-    }
-
     const canvas3 = canvasRef3.current;
     canvas3.width = canvasWidth;
     canvas3.height = canvasHeigth;
     const context3 = canvas3.getContext('2d');
 
+    if (!fieldCtx.duplicationEvent) {
+      return;
+    }
+    if (!fieldCtx.isPause) {
+      context3.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    }
     const { clientX, clientY } = fieldCtx.duplicationEvent.changedTouches[0];
 
     if (fieldCtx.nowD > -1) {
@@ -64,6 +70,7 @@ function DuplicationPlayer() {
       }
     }
   }
+
   useEffect(() => {
     duplicationHandler();
   }, [fieldCtx.isPause, fieldCtx.isMoving]);

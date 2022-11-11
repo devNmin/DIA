@@ -30,12 +30,21 @@ const FieldContext = createContext({
 
   duplication: {},
   setDuplication: () => {},
+  dupleLineCoords: {},
+  setDupleLineCoords: () => {},
   duplicationEvent: {},
   setDuplicationEvent: () => {},
   isMoving: false,
   setIsMoving: () => {},
   nowD: 0,
   setNowD: () => {},
+  lastX: null,
+  setLastX: () => {},
+  lastY: null,
+  setLastY: () => {},
+  ctxEvenet: null,
+  setCtxEvent: () => {},
+  duplicationReset: () => {},
 });
 
 export default FieldContext;
@@ -75,20 +84,8 @@ export const FieldProvider = ({ children }) => {
   const [isPause, setIsPause] = useState(false); // 일시정지 상태인가?
   const HandlePause = () => {
     // 일시정지 버튼 누를 때 재생 상태가 바뀌고 복제점 사라짐
-    setDuplication({
-      0: [-1, -1],
-      1: [-1, -1],
-      2: [-1, -1],
-      3: [-1, -1],
-      4: [-1, -1],
-      5: [-1, -1],
-      6: [-1, -1],
-      7: [-1, -1],
-      8: [-1, -1],
-      9: [-1, -1],
-      10: [-1, -1],
-      11: [-1, -1],
-    });
+
+    duplicationReset();
     setIsPause((prev) => {
       return !prev;
     });
@@ -111,9 +108,58 @@ export const FieldProvider = ({ children }) => {
     10: [-1, -1],
     11: [-1, -1],
   });
+  const [dupleLineCoords, setDupleLineCoords] = useState({
+    0: [],
+    1: [],
+    2: [],
+    3: [],
+    4: [],
+    5: [],
+    6: [],
+    7: [],
+    8: [],
+    9: [],
+    10: [],
+    11: [],
+  });
   const [duplicationEvent, setDuplicationEvent] = useState(null); // 터치 이벤트
   const [isMoving, setIsMoving] = useState(false); // 점을 옮기는 중인지
   const [nowD, setNowD] = useState(-1); // 옮기고 있는 점의 플레이어 번호
+  const [lastX, setLastX] = useState(null);
+  const [lastY, setLastY] = useState(null);
+  const [ctxEvenet, setCtxEvent] = useState(null);
+  const duplicationReset = () => {
+    setDuplicationEvent(null);
+    setCtxEvent(null);
+    setDuplication({
+      0: [-1, -1],
+      1: [-1, -1],
+      2: [-1, -1],
+      3: [-1, -1],
+      4: [-1, -1],
+      5: [-1, -1],
+      6: [-1, -1],
+      7: [-1, -1],
+      8: [-1, -1],
+      9: [-1, -1],
+      10: [-1, -1],
+      11: [-1, -1],
+    });
+    setDupleLineCoords({
+      0: [],
+      1: [],
+      2: [],
+      3: [],
+      4: [],
+      5: [],
+      6: [],
+      7: [],
+      8: [],
+      9: [],
+      10: [],
+      11: [],
+    });
+  };
 
   /////////////////////////
   let contextData = {
@@ -145,12 +191,21 @@ export const FieldProvider = ({ children }) => {
 
     duplication: duplication,
     setDuplication: setDuplication,
+    dupleLineCoords: dupleLineCoords,
+    setDupleLineCoords: setDupleLineCoords,
     duplicationEvent: duplicationEvent,
     setDuplicationEvent: setDuplicationEvent,
     isMoving: isMoving,
     setIsMoving: setIsMoving,
     nowD: nowD,
     setNowD: setNowD,
+    lastX: lastX,
+    setLastX: setLastX,
+    lastY: lastY,
+    setLastY: setLastY,
+    ctxEvenet: ctxEvenet,
+    setCtxEvent: setCtxEvent,
+    duplicationReset: duplicationReset,
   };
   return (
     <FieldContext.Provider value={contextData}>

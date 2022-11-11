@@ -161,6 +161,10 @@ function FieldPage() {
   }
 
   useEffect(() => {
+    socketStart()
+  },[])
+
+  useEffect(() => {
     const canvas = canvasRef.current;
     canvas.width = canvasWidth;
     canvas.height = canvasHeigth;
@@ -287,7 +291,7 @@ function FieldPage() {
           <div>
             <button onClick={socketStart}>소켓 시작</button>
             <button onClick={socketStop}>소켓 종료</button>
-            <button onClick={socketSend}>소켓 전송</button>
+            {/* <button onClick={socketSend}>소켓 전송</button> */}
           </div>
         </div>
       </div>

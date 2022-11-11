@@ -1,6 +1,7 @@
 import styles from './CoordsSet.module.css';
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import filedContext from '../../context/FieldContext';
+import BufferComponent from './FieldTools/BufferComponent';
 
 function CoordsSet() {
   const fieldCtx = useContext(filedContext);
@@ -99,6 +100,12 @@ function CoordsSet() {
     fieldCtx.playIndex,
     fieldCtx.isBuffered,
   ]);
-  return <canvas className={styles.canvas2} ref={canvasRef2} />;
+
+  return (
+    <div>
+      <canvas className={styles.canvas2} ref={canvasRef2} />
+      {fieldCtx.isBuffered ? null : <BufferComponent />}
+    </div>
+  );
 }
 export default CoordsSet;

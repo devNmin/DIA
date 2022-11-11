@@ -6,9 +6,10 @@ import styles from './FieldPage.module.css';
 import SoccerField from '../components/FieldPage/SoccerField';
 import CoordsSet from '../components/FieldPage/CoordsSet';
 import DuplicationPlayer from '../components/FieldPage/DuplicationPlayer';
-import TimeRange from '../components/FieldPage/TimeRange';
+import TimeRange from '../components/FieldPage/FieldTools/TimeRange';
 import PlayInputGroup from '../components/FieldPage/PlayInputGroup';
 import DuplicationLine from '../components/FieldPage/DuplicationLine';
+import DrawingTool from '../components/FieldPage/FieldTools/DrawingTool';
 
 function FieldPage() {
   const { ipV4, portinput } = useContext(UserContext);
@@ -16,11 +17,8 @@ function FieldPage() {
 
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
-  const [ctx, setCtx] = useState();
 
   const [isDrawing, setIsDrawing] = useState(false);
-  const [brushColor, setBrushColor] = useState('#F5DF4D');
-  const [brushSize, setBrushSize] = useState('1');
 
   const canvasWidth = window.innerWidth;
   const canvasHeigth = window.innerHeight * 0.8;
@@ -65,15 +63,15 @@ function FieldPage() {
       }
     }
 
-    if (ctx) {
+    if (fieldCtx.ctx) {
       fieldCtx.setPrevData((prev) => [timestamp, clientX, clientY, prev[3]]);
       if (!isDrawing) {
-        ctx.beginPath();
-        ctx.moveTo(clientX, clientY);
+        fieldCtx.ctx.beginPath();
+        fieldCtx.ctx.moveTo(clientX, clientY);
       } else {
-        ctx.lineTo(clientX, clientY);
-        ctx.strokeStyle = brushColor;
-        ctx.lineWidth = brushSize;
+        fieldCtx.ctx.lineTo(clientX, clientY);
+        fieldCtx.ctx.strokeStyle = fieldCtx.brushColor;
+        fieldCtx.ctx.lineWidth = fieldCtx.brushSize;
         if (
           nativeEvent.targetTouches.length > 1 ||
           (nativeEvent.type === 'touchstart' &&
@@ -81,7 +79,7 @@ function FieldPage() {
         ) {
           return;
         }
-        ctx.stroke();
+        fieldCtx.ctx.stroke();
       }
     }
   };
@@ -149,26 +147,16 @@ function FieldPage() {
     }
   };
 
-  function brushColorHandler(e) {
-    setBrushColor(() => e.target.value);
-  }
-  function brushSizeHandler(e) {
-    setBrushSize(() => e.target.value);
-  }
-  function canvasClear() {
-    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-  }
-
   useEffect(() => {
-    const canvas = canvasRef.current;
-    canvas.width = canvasWidth;
-    canvas.height = canvasHeigth;
-    const context = canvas.getContext('2d');
-    contextRef.current = context;
-    setCtx(() => contextRef.current);
-
+    if (!fieldCtx.ctx) {
+      const canvas = canvasRef.current;
+      canvas.width = canvasWidth;
+      canvas.height = canvasHeigth;
+      const context = canvas.getContext('2d');
+      contextRef.current = context;
+      fieldCtx.setCtx(() => contextRef.current);
+    }
   }, [fieldCtx.isPause]);
-
 
   // 소켓
   const host = ipV4;
@@ -253,41 +241,15 @@ function FieldPage() {
 
   return (
     <div className={styles.size}>
-      <div className={styles.toolbox}>
-        <input
-          type="color"
-          id="brushColor"
-          value={brushColor}
-          onChange={(e) => {
-            brushColorHandler(e);
-          }}
-        />
-        <input
-          type="range"
-          min="1"
-          max="21"
-          step="4"
-          value={brushSize}
-          id="brushSize"
-          onChange={(e) => {
-            brushSizeHandler(e);
-          }}
-        />
-        <button onClick={canvasClear}>전체지우기</button>
-        <div className={styles.socketGroup}>
-          <div> IP :  </div>
-          <div>
-            {host}
-          </div>
-          <div> PORT : </div>
-          <div>
-            {port}
-          </div>
-          <div>
-            <button onClick={socketStart}>소켓 시작</button>
-            <button onClick={socketStop}>소켓 종료</button>
-            <button onClick={socketSend}>소켓 전송</button>
-          </div>
+      <div className={styles.socketGroup}>
+        <div> IP : </div>
+        <div>{host}</div>
+        <div> PORT : </div>
+        <div>{port}</div>
+        <div>
+          <button onClick={socketStart}>소켓 시작</button>
+          <button onClick={socketStop}>소켓 종료</button>
+          <button onClick={socketSend}>소켓 전송</button>
         </div>
       </div>
 
@@ -320,6 +282,7 @@ function FieldPage() {
       </div>
       <TimeRange />
       <PlayInputGroup />
+      <DrawingTool />
     </div>
   );
 }

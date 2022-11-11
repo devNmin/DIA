@@ -4,6 +4,12 @@ const FieldContext = createContext({
   //// 그리기
   prevData: [],
   setPrevData: () => {},
+  ctx: null,
+  setCtx: () => {},
+  brushColor: 0,
+  setBrushColor: () => {},
+  brushSize: 0,
+  setBrushSize: () => {},
   //// 재생
   isSocket: false,
   setIsSocket: () => {},
@@ -52,6 +58,9 @@ export default FieldContext;
 export const FieldProvider = ({ children }) => {
   //// 그리기 관련
   const [prevData, setPrevData] = useState([0, 0, 0, '']);
+  const [ctx, setCtx] = useState(null);
+  const [brushColor, setBrushColor] = useState('#F5DF4D');
+  const [brushSize, setBrushSize] = useState('1');
   //// 재생 관련
   const [isSocket, setIsSocket] = useState(false);
   const [playIndex, setPlayIndex] = useState(0); // 현재 그려주는 시점 인덱스
@@ -165,7 +174,13 @@ export const FieldProvider = ({ children }) => {
   let contextData = {
     prevData: prevData,
     setPrevData: setPrevData,
-
+    ctx: ctx,
+    setCtx: setCtx,
+    brushColor: brushColor,
+    setBrushColor: setBrushColor,
+    brushSize: brushSize,
+    setBrushSize: setBrushSize,
+    //
     isSocket: isSocket,
     setIsSocket: setIsSocket,
     playIndex: playIndex,

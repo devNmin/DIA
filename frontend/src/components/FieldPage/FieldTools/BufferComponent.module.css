@@ -1,0 +1,64 @@
+.position {
+  position: absolute;
+  top: 85%;
+}
+
+.soccer {
+  background: url(http://upload.wikimedia.org/wikipedia/en/e/ec/Soccer_ball.svg);
+  background-size: 5rem 5rem;
+  height: 5rem;
+  width: 5rem;
+  position: relative;
+  -webkit-animation: roll 4.5s infinite;
+  -moz-animation: roll 4.5s infinite;
+  animation: roll 4.5s infinite;
+}
+
+@-moz-keyframes roll {
+  0% {
+    left: 2vw;
+    -webkit-transform: rotate(-360deg);
+  }
+  50% {
+    left: 90vw;
+    -webkit-transform: rotate(360deg);
+  }
+  100% {
+    left: 2vw;
+    -webkit-transform: rotate(-360deg);
+  }
+}
+@-webkit-keyframes roll {
+  0% {
+    left: 2vw;
+    -webkit-transform: rotate(-360deg);
+  }
+  50% {
+    left: 90vw;
+    -webkit-transform: rotate(360deg);
+  }
+  100% {
+    left: 2vw;
+    -webkit-transform: rotate(-360deg);
+  }
+}
+
+@keyframes roll {
+  0% {
+    left: 2vw;
+    -webkit-transform: rotate(-360deg);
+  }
+  50% {
+    left: 90vw;
+    -webkit-transform: rotate(360deg);
+  }
+  100% {
+    left: 2vw;
+    -webkit-transform: rotate(-360deg);
+  }
+}
+
+.world-cup {
+  color: #82ae6f;
+  text-align: center;
+}

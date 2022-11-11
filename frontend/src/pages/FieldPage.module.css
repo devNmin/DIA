@@ -4,13 +4,11 @@
   overflow: hidden;
 }
 
-.toolbox {
+.socketGroup {
+  color: white;
   z-index: 2;
   position: absolute;
   display: flex;
-}
-.socketGroup {
-  color: white;
 }
 .canvas_box {
   position: relative;

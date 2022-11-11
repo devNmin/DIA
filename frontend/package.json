@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@coreui/react": "^4.4.0",
     "@mui/icons-material": "^5.10.9",
     "@mui/material": "^5.10.13",
-    "@coreui/react": "^4.4.0",
     "@nivo/core": "^0.80.0",
     "@nivo/line": "^0.80.0",
     "@nivo/radar": "^0.80.0",
@@ -22,6 +22,7 @@
     "react": "^18.2.0",
     "react-custom-scrollbars-2": "^4.5.0",
     "react-dom": "^18.2.0",
+    "react-input-color": "^4.0.1",
     "react-input-mask": "^2.0.4",
     "react-modal": "^3.16.1",
     "react-router-dom": "^5.3.3",

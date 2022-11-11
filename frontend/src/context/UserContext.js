@@ -14,7 +14,9 @@ export const UserProvider = ({children}) => {
     const [ala, setAla] = useState(new Array(parseInt(formation[2])).fill(0))   
     const [pivot, setPivot] = useState(new Array(parseInt(formation[3])).fill(0))  
     const totalTeam = [...pivot, ...ala, ...fixo, ...goalkeeper, ...currentTeam]
-    
+    const [ourColor, setOurColor] = useState('#18A0FB')
+    const [theirColor, setTheirColor] = useState('#D93636')
+      
 
     let contextData = {
         // user: user,
@@ -35,6 +37,10 @@ export const UserProvider = ({children}) => {
         pivot : pivot, 
         setPivot : setPivot,   
         totalTeam : totalTeam,     
+        ourColor : ourColor,
+        setOurColor : setOurColor,
+        theirColor : theirColor,
+        setTheirColor : setTheirColor,
       };
     return <UserContext.Provider value={contextData}>{children}</UserContext.Provider>;
 }

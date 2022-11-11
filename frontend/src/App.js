@@ -79,21 +79,17 @@ function App() {
                     exact
                     path="/canvasTest"
                   />
-                  <PrivateRoute
+                  {/* <PrivateRoute
                     component={TestHeightPage}
                     exact
                     path="/testheight"
-                  />
+                  /> */}
                 </Switch>
+                <Transition />
               </ScrollToTop>
             </FieldProvider>
           </UserProvider>
-        </AuthProvider>
-        <AuthProvider>
-          <UserProvider>
-            <Transition />
-          </UserProvider>
-        </AuthProvider>
+        </AuthProvider>    
       </Router>
     </div>
   );

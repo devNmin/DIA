@@ -34,48 +34,54 @@ public class GameService {
 //    @Transactional
     public boolean newGame(HashMap<String, Object> param){
         try {
-            Game game = Game.builder()
-                    .gameYear((int)param.get("gameYear"))
-                    .gameMonth((int)param.get("gameMonth"))
-                    .gameDay((int)param.get("gameDay"))
-                    .gameTime((int)param.get("gameTime"))
-                    .gameVideo((String)param.get("gameVideo"))
-                    .gameXY(param.get("gameXY").toString())
-                    .build();
-            gameRepository.save(game);
-
-            HashMap<String,List> userV = getUserStat((HashMap<String, List>) param.get("gameXY"));
-
-            List<HashMap<String, Object>> userData = (List<HashMap<String, Object>>) param.get("userData");
-
-
-
-
-            for (int index = 0; index < userData.size(); index++){
-                String userId = (String) userData.get(index).get("userID");
-                System.out.println(userId);
-                if(userId == null){
-                    return false;
-                }
-
-                User user = userRepository.findUserByUserId(Long.parseLong(userId));
-                UserInfo userInfo = userInfoRepository.findUserInfoByUser_UserId(user.getUserId());
-                //todo 해당 유저의 정보들 추가적으로 계산하는 로직 필요
-                System.out.println("user" + user);
-                System.out.println("game" + game);
-                System.out.println("udostance" + Float.parseFloat((String) userData.get(index).get("userDistance")));
-                UserGame userGame = UserGame.builder()
-                        .game(game)
-                        .user(user)
-                        // todo 유저 정보 추가적으로 입력 필요
-                        .userPhysical((userInfo.getUserPhysical()))
-                        .userMaxSpeed(Float.parseFloat(((Double)userV.get(userId).get(0)).toString()))
-                        .userSpeed(Float.parseFloat(((Double)userV.get(userId).get(1)).toString()))
-                        .userDistance(Float.parseFloat((String) userData.get(index).get("userDistance")))
+            if(param.get("gameXY") == null ){
+                Game game = Game.builder()
+                        .gameYear((int)param.get("gameYear"))
+                        .gameMonth((int)param.get("gameMonth"))
+                        .gameDay((int)param.get("gameDay"))
+                        .gameTime((int)param.get("gameTime"))
                         .build();
-                UserGameInfo.save(userGame);
-            }
+                gameRepository.save(game);
+            }else{
+                Game game = Game.builder()
+                        .gameYear((int)param.get("gameYear"))
+                        .gameMonth((int)param.get("gameMonth"))
+                        .gameDay((int)param.get("gameDay"))
+                        .gameTime((int)param.get("gameTime"))
+//                        .gameVideo(param.get("gameVideo") == null ? null: (String)param.get("gameVideo"))
+                        .gameXY(param.get("gameXY").toString())
+                        .build();
+                gameRepository.save(game);
 
+                HashMap<String,List> userV = getUserStat((HashMap<String, List>) param.get("gameXY"));
+
+                List<HashMap<String, Object>> userData = (List<HashMap<String, Object>>) param.get("userData");
+
+                for (int index = 0; index < userData.size(); index++){
+                    String userId = (String) userData.get(index).get("userID");
+                    System.out.println(userId);
+                    if(userId == null){
+                        return false;
+                    }
+
+                    User user = userRepository.findUserByUserId(Long.parseLong(userId));
+                    UserInfo userInfo = userInfoRepository.findUserInfoByUser_UserId(user.getUserId());
+                    //todo 해당 유저의 정보들 추가적으로 계산하는 로직 필요
+                    System.out.println("user" + user);
+                    System.out.println("game" + game);
+                    System.out.println("udostance" + Float.parseFloat((String) userData.get(index).get("userDistance")));
+                    UserGame userGame = UserGame.builder()
+                            .game(game)
+                            .user(user)
+                            // todo 유저 정보 추가적으로 입력 필요
+                            .userPhysical((userInfo.getUserPhysical()))
+                            .userMaxSpeed(Float.parseFloat(((Double)userV.get(userId).get(0)).toString()))
+                            .userSpeed(Float.parseFloat(((Double)userV.get(userId).get(1)).toString()))
+                            .userDistance(Float.parseFloat((String) userData.get(index).get("userDistance")))
+                            .build();
+                    UserGameInfo.save(userGame);
+                }
+            }
             return true;
         }catch (Exception e){
             System.out.println(e);

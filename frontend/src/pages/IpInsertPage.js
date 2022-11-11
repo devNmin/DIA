@@ -31,9 +31,12 @@ export default function IpInsertPage() {
               console.log('connected!!');
             ws.onmessage = async (message) => {
               console.log(message);
+              
               setFirstCoord(message.data)     
-              ws.close()
-              history.push('/teamregister')         
+              if (firstCoord) {
+                history.push('/teamregister')        
+                
+              }
             };
           };
             ws.onerror = () => {

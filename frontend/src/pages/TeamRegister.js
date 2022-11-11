@@ -1,12 +1,14 @@
-import React ,{useContext, useState } from 'react'
+import React ,{useContext } from 'react'
 import FootballNavbar from '../components/Navbar/FootballNavbar'
 import UserContext from '../context/UserContext';
 import styles from './TeamRegister.module.css'
+import { useHistory } from 'react-router-dom';
 
 export default function TeamRegister() {
-  const {ourColor, setOurColor, theirColor, setTheirColor, ipV4, portinput} = useContext(UserContext) 
-  const testColor = (e) => {
-    console.log(e);
+  const {ourColor, setOurColor, theirColor, setTheirColor, ipV4, portinput, firstCoord} = useContext(UserContext) 
+  const history = useHistory();
+  const goToCanvas = () => {
+    history.push('/canvasTest')
   }
 
   return (
@@ -14,6 +16,7 @@ export default function TeamRegister() {
         <FootballNavbar currentpage = 'teamregister'></FootballNavbar> 
         <div>{ipV4}</div>
         <div>{portinput}</div>  
+        <div>{firstCoord}</div>
         <div className= {styles.rightUx}>
           <div className={styles.teamColorCon}>
             <div className= {styles.teamText}>
@@ -35,7 +38,8 @@ export default function TeamRegister() {
           </div>
           <div className= {styles.startingCon}>
             HI
-          </div>   
+          </div>
+          <button onClick={() => {goToCanvas()}}>Go to Canvas</button>   
 
         </div>
         

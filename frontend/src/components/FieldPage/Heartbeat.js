@@ -109,7 +109,7 @@ function Heartbeat(props) {
   return (
     <>
       <div style={{
-        color: 'white', display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-end',
+        color: 'black', display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-end',
         position: 'absolute', bottom: 0
       }}>
         {heartBeatCtx.heartBeat.map((heart, index) => (

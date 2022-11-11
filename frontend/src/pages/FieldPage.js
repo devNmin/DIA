@@ -9,6 +9,7 @@ import DuplicationPlayer from '../components/FieldPage/DuplicationPlayer';
 import TimeRange from '../components/FieldPage/TimeRange';
 import PlayInputGroup from '../components/FieldPage/PlayInputGroup';
 import DuplicationLine from '../components/FieldPage/DuplicationLine';
+import Heartbeat from '../components/FieldPage/Heartbeat';
 
 function FieldPage() {
   const { ipV4, portinput } = useContext(UserContext);
@@ -320,6 +321,7 @@ function FieldPage() {
       </div>
       <TimeRange />
       <PlayInputGroup />
+      <Heartbeat />
     </div>
   );
 }

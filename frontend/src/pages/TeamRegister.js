@@ -4,14 +4,16 @@ import UserContext from '../context/UserContext';
 import styles from './TeamRegister.module.css'
 
 export default function TeamRegister() {
-  const {ourColor, setOurColor, theirColor, setTheirColor} = useContext(UserContext) 
+  const {ourColor, setOurColor, theirColor, setTheirColor, ipV4, portinput} = useContext(UserContext) 
   const testColor = (e) => {
     console.log(e);
   }
 
   return (
     <div>
-        <FootballNavbar currentpage = 'teamregister'></FootballNavbar>   
+        <FootballNavbar currentpage = 'teamregister'></FootballNavbar> 
+        <div>{ipV4}</div>
+        <div>{portinput}</div>  
         <div className= {styles.rightUx}>
           <div className={styles.teamColorCon}>
             <div className= {styles.teamText}>

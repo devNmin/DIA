@@ -19,7 +19,9 @@ export default function IpInsertPage() {
 
     if (ipV4) {
       if (portinput) {
-          history.push('/teamregister')                
+          console.log(ipV4);
+          console.log(portinput);
+          history.push('/canvasTest')                
       }else {
           alert('port번호를 입력해주세요')
           return

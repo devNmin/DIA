@@ -1,9 +1,12 @@
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
 import './TestHeight.css'
+import UserContext from '../context/UserContext'
 
 export default function TestHeightPage() {
+    const {portinput, ipV4} =  useContext(UserContext)
     const [height, setHeight] = useState(null)
     const [weight, setWeight] = useState(null)
+  
     const heightHandler = (e) => {
         setHeight(e.target.value)
     }
@@ -12,6 +15,12 @@ export default function TestHeightPage() {
     }    
   return (
     <div >
+        <div>
+          {portinput}
+        </div>
+        <div>
+          {ipV4}
+        </div>
          <form name="bmiForm">
         <div className="bmi-calculator fadeout">
           <h1 style={{marginBottom: '1em'}}>Calculate your BMI</h1>

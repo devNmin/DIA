@@ -152,6 +152,7 @@ function FieldPage() {
     const context = canvas.getContext('2d');
     contextRef.current = context;
     setCtx(() => contextRef.current);
+    
   }, []);
 
   // 소켓
@@ -258,8 +259,14 @@ function FieldPage() {
         />
         <button onClick={canvasClear}>전체지우기</button>
         <div className={styles.socketGroup}>
-          <div> IP : {ipV4} </div>
-          <div> PORT : {portinput} </div>
+          <div> IP :  </div>
+          <div>
+            {host}
+          </div>
+          <div> PORT : </div>
+          <div>
+            {port}
+          </div>
           <div>
             <button onClick={socketStart}>소켓 시작</button>
             <button onClick={socketStop}>소켓 종료</button>

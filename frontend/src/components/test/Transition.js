@@ -3,7 +3,9 @@ import { Route, Switch, useLocation } from "react-router-dom";
 import "./Transition.css";
 import TeamMakePage from "../../pages/TeamMakePage";
 import IpInsertPage from "../../pages/IpInsertPage";
-import TeamRegister from "../../pages/TeamRegister"
+import TeamRegister from "../../pages/TeamRegister";
+import TestHeightPage from "../../pages/TestHeightPage";
+import FieldPage from "../../pages/FieldPage";
 
 // const irene =
 //   "https://raw.githubusercontent.com/baeharam/Redvelvet-Fansite/master/images/about-irene.jpg";
@@ -41,7 +43,7 @@ const Transition = () => {
           <Route path="/wendy" children={PageWendy} /> */}
           <Route exact path = '/teamregister' >
             <TeamRegister></TeamRegister>
-          </Route>
+          </Route>       
         </Switch>
       </CSSTransition>
     </SwitchTransition>

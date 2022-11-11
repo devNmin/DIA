@@ -4,8 +4,8 @@ import "./Transition.css";
 import TeamMakePage from "../../pages/TeamMakePage";
 import IpInsertPage from "../../pages/IpInsertPage";
 import TeamRegister from "../../pages/TeamRegister";
-import TestHeightPage from "../../pages/TestHeightPage";
-import FieldPage from "../../pages/FieldPage";
+// import TestHeightPage from "../../pages/TestHeightPage";
+// import FieldPage from "../../pages/FieldPage";
 
 // const irene =
 //   "https://raw.githubusercontent.com/baeharam/Redvelvet-Fansite/master/images/about-irene.jpg";
@@ -28,25 +28,27 @@ const Transition = () => {
   const location = useLocation();
   const mode = "out-in"
 
-  return (       
-    <SwitchTransition  mode={mode} className="transition-group">
-      <CSSTransition key={location.pathname} classNames="fade" timeout={500}>
-        <Switch location={location}>
-          <Route exact path="/teammake">
-            <TeamMakePage></TeamMakePage>
-          </Route>  
-          <Route exact path="/ipInsert" children={IpInsertPage}>
-            <IpInsertPage></IpInsertPage>
-          </Route>         
-          {/* <Route path="/yeri" children={PageYeri} />
-          <Route path="/joy" children={PageJoy} />
-          <Route path="/wendy" children={PageWendy} /> */}
-          <Route exact path = '/teamregister' >
-            <TeamRegister></TeamRegister>
-          </Route>       
-        </Switch>
-      </CSSTransition>
-    </SwitchTransition>
+  return (     
+     <div className= 'backgroundimage'>
+      <SwitchTransition  mode={mode} className="transition-group">
+        <CSSTransition key={location.pathname} classNames="fade" timeout={500}>
+          <Switch location={location}>
+            <Route exact path="/teammake">
+              <TeamMakePage></TeamMakePage>
+            </Route>  
+            <Route exact path="/ipInsert" children={IpInsertPage}>
+              <IpInsertPage></IpInsertPage>
+            </Route>         
+            {/* <Route path="/yeri" children={PageYeri} />
+            <Route path="/joy" children={PageJoy} />
+            <Route path="/wendy" children={PageWendy} /> */}
+            <Route exact path = '/teamregister' >
+              <TeamRegister></TeamRegister>
+            </Route>       
+          </Switch>
+        </CSSTransition>
+      </SwitchTransition>
+     </div> 
     
   );
 };

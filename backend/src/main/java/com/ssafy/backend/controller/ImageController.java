@@ -1,5 +1,6 @@
 package com.ssafy.backend.controller;
 
+import com.ssafy.backend.dto.ImageDto;
 import com.ssafy.backend.dto.ProfileUrlDto;
 import com.ssafy.backend.dto.ResponseDto;
 import com.ssafy.backend.entity.User;
@@ -52,7 +53,7 @@ public class ImageController {
                 Long id = user.getUserId();
                 userInfoRepository.updateUserProfile(id,imageUrl);
             }
-            return ResponseEntity.ok(new ResponseDto(200,"프로필 저장 완료"));
+            return ResponseEntity.ok(new ImageDto(list));
         }
 
     }

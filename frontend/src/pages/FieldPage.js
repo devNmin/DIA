@@ -1,110 +1,69 @@
 //https://velog.io/@mokyoungg/React-React%EC%97%90%EC%84%9C-Canvas-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0%EB%A7%88%EC%9A%B0%EC%8A%A4-%EA%B7%B8%EB%A6%AC%EA%B8%B0
 import UserContext from '../context/UserContext';
+import fieldContext from '../context/FieldContext';
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import styles from './FieldPage.module.css';
 import SoccerField from '../components/FieldPage/SoccerField';
+import CoordsSet from '../components/FieldPage/CoordsSet';
+import DuplicationPlayer from '../components/FieldPage/DuplicationPlayer';
+import TimeRange from '../components/FieldPage/TimeRange';
 
 function FieldPage() {
+  const { ipV4, portinput } = useContext(UserContext);
+  const fieldCtx = useContext(fieldContext);
+
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
-  const canvasRef2 = useRef(null);
-  const canvasRef3 = useRef(null);
-
-  const { ipV4, portinput } = useContext(UserContext);
   const [ctx, setCtx] = useState();
-  const [ctx2, setCtx2] = useState();
-  const [ctx3, setCtx3] = useState();
 
   const [isDrawing, setIsDrawing] = useState(false);
-  const [brushColor, setBrushColor] = useState('black');
+  const [brushColor, setBrushColor] = useState('#F5DF4D');
   const [brushSize, setBrushSize] = useState('1');
-  const [prevData, setPrevData] = useState([0, 0, 0, '']);
-  const [isMoving, setIsMoving] = useState(false);
 
-  ////1. 일시정지(재생), 3. 뒤로가기, 4.앞으로 가기
-  const [isPause, setIsPause] = useState(false);
-  ////
-
-  const [coord, setCoord] = useState(null);
-  const [coords, setCoords] = useState({
-    0: [],
-    1: [],
-    2: [],
-    3: [],
-    4: [],
-    5: [],
-  });
-  const [nowD, setNowD] = useState(-1);
-  const [duplication, setDuplication] = useState({
-    0: [-1, -1],
-    1: [-1, -1],
-    2: [-1, -1],
-    3: [-1, -1],
-    4: [-1, -1],
-    5: [-1, -1],
-  });
   const canvasWidth = window.innerWidth;
   const canvasHeigth = window.innerHeight * 0.8;
 
   const startDrawing = () => {
-    setIsDrawing(true);
+    setIsDrawing(() => true);
   };
   const finishDrawing = () => {
-    setIsDrawing(false);
-  };
-
-  const startMoving = () => {
-    setIsMoving(true);
-  };
-  const finishMoving = () => {
-    setIsMoving(false);
-  };
-
-  const HandlePause = () => {
-    if (isPause) {
-      setIsPause(false);
-      ctx3.clearRect(0, 0, window.innerWidth, window.innerHeight);
-      setDuplication({
-        0: [-1, -1],
-        1: [-1, -1],
-        2: [-1, -1],
-        3: [-1, -1],
-        4: [-1, -1],
-        5: [-1, -1],
-      });
-    }
+    setIsDrawing(() => false);
   };
 
   const drawing = ({ nativeEvent }) => {
-    if (isMoving) {
+    if (!nativeEvent || fieldCtx.isMoving || fieldCtx.playIndex < 0) {
       return;
     }
     const { clientX, clientY } = nativeEvent.changedTouches[0];
     const timestamp = nativeEvent.timeStamp;
-
-    setPrevData((prev) => [prev[0], prev[1], prev[2], nativeEvent.type]);
-    if (prevData) {
+    fieldCtx.setPrevData((prev) => [
+      prev[0],
+      prev[1],
+      prev[2],
+      nativeEvent.type,
+    ]);
+    if (fieldCtx.prevData) {
       if (
-        Math.abs(timestamp - prevData[0]) < 15 &&
-        (Math.abs(prevData[1] - clientX) > 10 ||
-          Math.abs(prevData[2] - clientY) > 10)
+        Math.abs(timestamp - fieldCtx.prevData[0]) < 15 &&
+        (Math.abs(fieldCtx.prevData[1] - clientX) > 10 ||
+          Math.abs(fieldCtx.prevData[2] - clientY) > 10)
       ) {
         return;
       }
 
       if (
-        prevData[3] === 'touchstart' &&
+        fieldCtx.prevData[3] === 'touchstart' &&
         nativeEvent.type === 'touchmove' &&
-        (Math.abs(timestamp - prevData[0]) > 10 ||
-          Math.abs(prevData[1] - clientX) > 1 ||
-          Math.abs(prevData[2] - clientY) > 1)
+        (Math.abs(timestamp - fieldCtx.prevData[0]) > 10 ||
+          Math.abs(fieldCtx.prevData[1] - clientX) > 1 ||
+          Math.abs(fieldCtx.prevData[2] - clientY) > 1)
       ) {
         return;
       }
     }
 
     if (ctx) {
-      setPrevData((prev) => [timestamp, clientX, clientY, prev[3]]);
+      fieldCtx.setPrevData((prev) => [timestamp, clientX, clientY, prev[3]]);
       if (!isDrawing) {
         ctx.beginPath();
         ctx.moveTo(clientX, clientY);
@@ -114,7 +73,8 @@ function FieldPage() {
         ctx.lineWidth = brushSize;
         if (
           nativeEvent.targetTouches.length > 1 ||
-          (nativeEvent.type === 'touchstart' && prevData[3] === 'touchstart')
+          (nativeEvent.type === 'touchstart' &&
+            fieldCtx.prevData[3] === 'touchstart')
         ) {
           return;
         }
@@ -122,192 +82,93 @@ function FieldPage() {
       }
     }
   };
-  const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
 
-  const field_set = () => {
-    // for더미!!!!!!!!
-    if (!coord) {
-      setCoord({
-        0: [-0.23, 0.8],
-        1: [-0.19, 0.7],
-        2: [-0.18, 0.6],
-        3: [-0.15, 0.7],
-        4: [-0.12, 0.9],
-        5: [0.03, 0.7],
-      });
-    }
-
-    if (ctx2 && coord) {
-      ctx2.clearRect(0, 0, window.innerWidth, window.innerHeight);
-      for (let i = 0; i < 6; i++) {
-        if (i in coord) {
-          const x = coord[i][0] * canvasWidth + canvasWidth / 2;
-          const y = coord[i][1] * canvasHeigth - canvasHeigth / 2;
-          coords[i].push([x, y]);
-          //// 좌표 움직이고 있으면 들어오는 좌표는 기억하고 그려주지는 않기
-          // 1. todo : 일시정지 넣기
-          if (isPause) {
-            return;
-          }
-          ////
-
-          ctx2.moveTo(x, y);
-          ctx2.beginPath();
-          ctx2.arc(x, y, 15, 0, Math.PI * 2, true);
-          ctx2.fillStyle = colors[i];
-          ctx2.fill();
-          ctx2.stroke();
-        } else if (coords.length > 0) {
-          console.log('이게 동작하기는 하나?');
-          const x = coords[i].at(-1)[0] * canvasWidth;
-          const y = coords[i].at(-1)[1] * canvasHeigth;
-          coords[i].push([x, y]);
-
-          ctx2.moveTo(x, y);
-          ctx2.beginPath();
-          ctx2.arc(x, y, 15, 0, Math.PI * 2, true);
-          ctx2.fillStyle = colors[i];
-          ctx2.fill();
-          ctx2.stroke();
-        }
-      }
-    }
-  };
-
+  // 플레이어 클릭했는지 확인하는 함수
   let nowI = -1;
   const playerClick = ({ nativeEvent }) => {
-    setNowD(-1);
-    if (!coord) {
+    if (fieldCtx.playIndex < 1) {
       return;
     }
+
+    fieldCtx.setNowD(() => -1);
     const x = nativeEvent.targetTouches[0].clientX;
     const y = nativeEvent.targetTouches[0].clientY;
 
     //// 복제한 좌표 다시 클릭할 때
-    for (let i = 0; i < 6; i++) {
-      const circleX = duplication[i][0];
-      const circleY = duplication[i][1];
+    for (let i = 0; i < 12; i++) {
+      const circleX = fieldCtx.duplication[i][0];
+      const circleY = fieldCtx.duplication[i][1];
       const distance = Math.sqrt((circleX - x) ** 2 + (circleY - y) ** 2);
-
-      if (distance < 15) {
-        console.log('복제클릭?', i);
+      // 원래 distance < 15 였는데 넉넉하게 바꿔줌
+      if (distance < 17) {
         nowI = i;
-        setNowD(i);
-        duplication[i][0] = x;
-        duplication[i][1] = y;
-        startMoving();
+        fieldCtx.setNowD(() => i);
+        fieldCtx.duplication[i][0] = x;
+        fieldCtx.duplication[i][1] = y;
+        fieldCtx.setIsMoving(() => true);
         return;
       }
     }
-    ////
-    for (let i = 0; i < 6; i++) {
-      const circleX = coord[i][0] * canvasWidth + canvasWidth / 2;
-      const circleY = coord[i][1] * canvasHeigth - canvasHeigth / 2;
-      // r = sqrt((x-x)^2 +)
+    //// 플레이어 클릭시
+    for (let i = 0; i < 12; i++) {
+      const circleX = fieldCtx.allCoords[i][fieldCtx.playIndex][0];
+      const circleY = fieldCtx.allCoords[i][fieldCtx.playIndex][1];
 
       const distance = Math.sqrt((circleX - x) ** 2 + (circleY - y) ** 2);
 
-      if (distance < 15) {
+      if (distance < 17) {
+        fieldCtx.setIsPause(true);
         nowI = i;
-        setNowD(i);
-        console.log('점클릭?', i, duplication);
-        duplication[i][0] = coord[i][0] * canvasWidth + canvasWidth / 2;
-        duplication[i][0] = coord[i][1] * canvasHeigth - canvasHeigth / 2;
-        startMoving();
-        setIsPause(true);
-        break;
+        fieldCtx.setNowD(() => i);
+        fieldCtx.duplication[i][0] =
+          fieldCtx.allCoords[i][fieldCtx.playIndex][0];
+        fieldCtx.duplication[i][0] =
+          fieldCtx.allCoords[i][fieldCtx.playIndex][1];
+        fieldCtx.setIsMoving(true);
+        return;
       }
     }
     if (nowI === -1) {
-      finishMoving();
+      // 플레이어, 복제좌표 모두 클릭하지 않았을 때 복제모드 끔
+      fieldCtx.setIsMoving(() => false);
       return;
     }
   };
-  /// 복제 좌표 그리기
-  function duplicationHandler({ nativeEvent }) {
-    console.log(nowD);
-    if (!ctx3) {
-      return;
-    }
-    const { clientX, clientY } = nativeEvent.changedTouches[0];
-    if (!isMoving) {
-      ctx3.moveTo(clientX, clientY);
-    } else if (nowD > -1) {
-      ctx3.clearRect(0, 0, window.innerWidth, window.innerHeight);
-      for (let i = 0; i < 6; i++) {
-        if (i in duplication && i !== nowD) {
-          const x = duplication[i][0];
-          const y = duplication[i][1];
-          ctx3.beginPath();
-          ctx3.moveTo(clientX, clientY);
-          ctx3.beginPath();
 
-          ctx3.arc(x, y, 15, 0, Math.PI * 2, true);
-          ctx3.font = '25px Arial';
-          ctx3.fillText(i, x - 7.5, y - 6);
-          ctx3.fillStyle = colors[i];
-          ctx3.globalAlpha = 0.6;
-          ctx3.fill();
-          ctx3.stroke();
-        } else if (i === nowD) {
-          ///지금 움직이는 원
-          ctx3.beginPath();
-          duplication[i] = [clientX, clientY];
-          console.log('dup', duplication);
-          const x = duplication[i][0];
-          const y = duplication[i][1];
-
-          ctx3.moveTo(clientX, clientY);
-          ctx3.beginPath();
-
-          ctx3.arc(x, y, 15, 0, Math.PI * 2, true);
-          ctx3.font = '25px Arial';
-          ctx3.fillText(i, x - 7.5, y - 7.5);
-          ctx3.fillStyle = colors[i];
-          ctx3.globalAlpha = 0.8;
-          ctx3.fill();
-          ctx3.stroke();
-        }
-      }
-    }
-  }
-  ///////////////////
   function brushColorHandler(e) {
-    setBrushColor(e.target.value);
+    setBrushColor(() => e.target.value);
   }
   function brushSizeHandler(e) {
-    setBrushSize(e.target.value);
+    setBrushSize(() => e.target.value);
   }
   function canvasClear() {
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
   }
+
   useEffect(() => {
     const canvas = canvasRef.current;
     canvas.width = canvasWidth;
     canvas.height = canvasHeigth;
     const context = canvas.getContext('2d');
     contextRef.current = context;
-    setCtx(contextRef.current);
-
-    const canvas2 = canvasRef2.current;
-    canvas2.width = canvasWidth;
-    canvas2.height = canvasHeigth;
-    const context2 = canvas2.getContext('2d');
-    setCtx2(context2);
-
-    const canvas3 = canvasRef3.current;
-    canvas3.width = canvasWidth;
-    canvas3.height = canvasHeigth;
-    const context3 = canvas3.getContext('2d');
-    setCtx3(context3);
-
-    field_set();
-  }, [coord]);
+    setCtx(() => contextRef.current);
+    
+  }, []);
 
   // 소켓
   const host = ipV4;
   const port = portinput;
   let ws = undefined;
+
+  let disX = 0;
+  let disY = 0; //x,y의 거리 값
+  let fixelX = 40 / 1180; // 실제 거리 변환을 위한 값 -> 미터 단위
+  let fixelY = 20 / 656;
+  let nowDistance = 0;
+  let totalDistance = Array.from({ length: 6 }, () => 0);
+  let fpsTime = 0.005; //프레임 컴퓨터에서 계산하는 속도? 5ms -> 나중엔 받아서 변경
+  let userXInfo = Array.from({ length: 6 }, () => 0);
+  let userYInfo = Array.from({ length: 6 }, () => 0); //이전 유저의 x,y 좌표값
 
   const socketStart = () => {
     console.log('connecting....');
@@ -317,9 +178,40 @@ function FieldPage() {
         console.log('connected!!');
       };
       ws.onmessage = (message) => {
-        //server to client
-        console.log('message', message.data);
-        setCoord(JSON.parse(message.data));
+        fieldCtx.setIsSocket(() => true);
+        const coordData = JSON.parse(message.data);
+        for (let i = 0; i < 12; i++) {
+          if (i in coordData) {
+            //user x,y
+            const x = parseFloat(coordData[i][0] * canvasWidth);
+            const y = parseFloat(coordData[i][1] * canvasHeigth);
+            fieldCtx.allCoords[i].push([x, y]);
+
+            //이전 값이 있다면 거리 계산
+            if (userXInfo[i] != null && userYInfo[i] != null) {
+              disX = Math.abs(x * fixelX - userXInfo[i]);
+              disY = Math.abs(y * fixelY - userYInfo[i]);
+              nowDistance = Math.sqrt(disX * disX + disY * disY);
+              if (((nowDistance / fpsTime) * 360) / 1000 < 44) {
+                //속도가 정상 속도면 거리 합 진행
+                totalDistance[i] += Math.sqrt(disX * disX + disY * disY);
+              }
+            }
+            userXInfo[i] = x * fixelX;
+            userYInfo[i] = y * fixelY;
+          } else if (fieldCtx.allCoords[i].length > 0) {
+            // 값이 안들어오면 이전 값 넣어줌
+            fieldCtx.allCoords[i].push([
+              fieldCtx.allCoords[i].at(-1)[0],
+              fieldCtx.allCoords[i].at(-1)[1],
+            ]);
+          } else {
+            // 이전 값도 없으면 [0, 0] 넣어줌
+            fieldCtx.allCoords[i].push([0, 0]);
+          }
+        }
+        fieldCtx.HandleBuffer();
+        fieldCtx.setMaxIndex((prev) => prev + 1);
       };
       ws.onclose = function () {
         ws = undefined;
@@ -349,6 +241,7 @@ function FieldPage() {
         <input
           type="color"
           id="brushColor"
+          value={brushColor}
           onChange={(e) => {
             brushColorHandler(e);
           }}
@@ -366,15 +259,23 @@ function FieldPage() {
         />
         <button onClick={canvasClear}>전체지우기</button>
         <div className={styles.socketGroup}>
-          <div> IP : {ipV4} </div>
-          <div> PORT : {portinput} </div>
+          <div> IP :  </div>
+          <div>
+            {host}
+          </div>
+          <div> PORT : </div>
+          <div>
+            {port}
+          </div>
           <div>
             <button onClick={socketStart}>소켓 시작</button>
             <button onClick={socketStop}>소켓 종료</button>
             <button onClick={socketSend}>소켓 전송</button>
           </div>
         </div>
-        <button onClick={HandlePause}>시작</button>
+        <button onClick={fieldCtx.HandlePause}>
+          {fieldCtx.isPause ? '시작' : '일시정지'}
+        </button>
       </div>
 
       <div className={styles.canvas_box}>
@@ -389,21 +290,30 @@ function FieldPage() {
           }}
           onTouchEnd={() => {
             finishDrawing();
-            finishMoving();
+            fieldCtx.setIsMoving(() => false);
           }}
           onTouchMove={(e) => {
             drawing(e);
-            duplicationHandler(e);
+            fieldCtx.setDuplicationEvent(() => e);
           }}
           onTouchCancel={() => {
             finishDrawing();
-            finishMoving();
+            fieldCtx.setIsMoving(() => false);
           }}
         />
-        <canvas className={styles.canvas3} ref={canvasRef3} />
-        <canvas className={styles.canvas2} ref={canvasRef2} />
+        <DuplicationPlayer />
+        <CoordsSet />
       </div>
+      <TimeRange />
     </div>
   );
 }
 export default FieldPage;
+
+/* useState...
+useState를 써서 index를 1씩 늘리려 해도 변경된 값을 불러올 수 없다.
+변경된 값을 불러오는 방법은 useEffect({}, ['#여기']) 안에 받아오고 싶은 변수를 넣으면 되는데
+이렇게 하면 canvas에 문제가 생겨서 drawing을 할 수 없게 된다.
+
+====> 그러면 canvas 컴포넌트들을 나눈다면?????????
+*/

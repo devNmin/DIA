@@ -112,6 +112,9 @@ pipeline {
 
 //                         업데이트된 코드로 빌드 및 실행
                     sh 'sudo docker-compose up -d'
+                    sh 'sudo chmod 777 -R /home/ubuntu/profile'
+                    sh 'sudo chmod 777 -R /var/lib/docker'
+                    sh 'sudo chmod 777 -R /var/lib/docker/containers/*'
                 }
                 
             }

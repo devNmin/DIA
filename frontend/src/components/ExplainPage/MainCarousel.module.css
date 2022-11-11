@@ -46,26 +46,13 @@
 }
 
 .left_arrow {
+    font-size: 3rem;
+    color: white;
     left: 1px;
 }
 
 .right_arrow {
+    font-size: 3rem;
+    color: white;
     right: 1px;
-}
-
-.signup {
-    margin-top: 1rem;
-    margin-right: 2rem;
-    display: flex;
-    justify-content: flex-end;
-    text-decoration: none;
-}
-
-.signup button {
-    width: 15rem;
-    height: 3rem;
-    border: #739106 solid;
-    border-radius: 30px;
-    color: aliceblue;
-    background-color: #739106;
 }

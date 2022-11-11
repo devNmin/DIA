@@ -4,7 +4,7 @@ import { useHistory, Link } from 'react-router-dom';
 import UserContext from '../../context/UserContext';
 
 export default function FootballNavbar(props) {
-    const {currentTeam, ipV4, portinput} = useContext(UserContext)
+    const {currentTeam, totalTeam, ipV4, portinput} = useContext(UserContext)
     const history = useHistory();
     const currentpage2 = props.currentpage 
     let [currentCheck, setCurrentCheck] = useState(0)
@@ -17,21 +17,37 @@ export default function FootballNavbar(props) {
             setCurrentCheck(3)
         }
     })
-    const goIpInsert = () => {
-        if (currentTeam.length) {          
-         
-            history.push('/ipInsert')
+    const goIpInsert = async () => {
+        console.log(totalTeam);
+        if (totalTeam.length) {
+            for (let index = 0; index < totalTeam.length; index++) {
+                const element = totalTeam[index];
+                if (element === 0) {                
+                    alert('팀을 등록해주세요')
+                    window.ReactAlert.showToast('팀을 등록해주세요')                
+                    return
+                }
+            }
+            
         }else {
             alert('팀을 등록해주세요')
-            window.ReactAlert.showToast('팀을 등록해주세요')
-        }
+            window.ReactAlert.showToast('팀을 등록해주세요')                
+            return
+        }        
+           
+        history.push('/ipInsert')      
+       
     }
-    const goTeammake = () => {
-        history.push('/teammake')
+    const goTeamRegister = async () => {
+        alert('완료버튼을 눌러세요!')
     }
     
+    // const goTeammake = () => {
+    //     history.push('/teammake')
+    // }
+    
     return (
-    <div>
+    
       <nav className="container-fluid">
             <ul>
               <li className="main left" > 
@@ -41,13 +57,18 @@ export default function FootballNavbar(props) {
             </li>           
              
             <li className="main" > 
-                <Link to= "/ipInsert" onClick={() => {goIpInsert()}} style={{ 'textDecoration' : 'none'}}> 
+                <div onClick={() => {goIpInsert()}} style={{ 'textDecoration' : 'none'}}> 
                     <span style={{ 'color' : (currentCheck === 2)? 'red': null}}>IP 연결</span>
-                </Link> 
+                </div> 
             </li>
-              <li className="main"><span>팀 구성하기</span></li>               
+              <li className="main">
+                <div onClick = {() => {goTeamRegister()}}>
+                    <span style={{ 'color' : (currentCheck === 3)? 'red': null}}>팀 구성하기</span>
+                </div>                
+                
+              </li>               
             </ul>
         </nav>
-    </div>
+    
   )
 }

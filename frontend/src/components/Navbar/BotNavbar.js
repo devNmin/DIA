@@ -11,7 +11,7 @@ function BotNavbar(props) {
     history.goBack();
   }
   return (
-    <nav className={styles.wrapper}>
+    <div className={styles.wrapper}>
       <div>
         <button className={styles.navButton} onClick={handleHistory}>back</button>
         <Link to='/main'>
@@ -23,7 +23,7 @@ function BotNavbar(props) {
             Hello, young
           </button>
         </div>
-    </nav>
+    </div>
   );
 }
 

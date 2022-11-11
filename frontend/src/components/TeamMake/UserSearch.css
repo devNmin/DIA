@@ -1,0 +1,72 @@
+.usersearch {
+    background-color: rgba(49, 50, 56, 0.6);
+    width: 40%;
+    border-radius: 1.5rem;
+    height: 650px;
+    
+}
+.playersearchbar {
+    margin-top: 10px;
+}
+.usersearch {
+    margin-left: 10px;
+}
+
+.searchinput {
+    width: 80%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #fff;
+    outline: 0;
+    color: white;
+}
+
+.entiresearch {
+    display: flex;
+}
+
+.usersquad {
+    background-color: rgba(49, 50, 56, 0.6);
+    width: 55%;
+    border-radius: 1.5rem;
+    height: 650px;
+    margin-left: 20px;
+    overflow-y: auto;
+}
+.squadtitle {
+    color: white;
+    margin-top: 11.6px;
+    
+    
+}
+.squadBench {
+   display: flex;
+   margin-left: 10px;
+   margin-bottom: 10px;
+}
+
+.fieldContainer{
+    display: flex;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    height: 65%;
+}
+
+hr {
+    display: block;
+    unicode-bidi: isolate;
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    overflow: hidden;
+    border-style: inset;
+    border-width: 1px;
+}
+
+.dropdownmenu {
+    width: 60%;
+    /* display: flex; */
+    justify-content: center;
+}
+

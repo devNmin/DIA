@@ -1,27 +1,77 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useContext, useEffect } from 'react'
 import styles from './MyCard.module.css'
 // import star  from '../../assets/혁림.gif'
 import logo from '../../assets/freelogo.png'
+import axios from 'axios'
+import AuthContext from '../../context/AuthContext';
 
 function MyCard(props) {
+	let { authTokens } = useContext(AuthContext);
 	const [img, setImage] = useState(logo);
 	const fileInput = useRef(null)
 
-	const onChange = (e) => {
-		if (e.target.files[0]) {
-			setImage(e.target.files[0])
-		} else { //업로드 취소할 시
-			setImage(img)
-			return
-		}
-		//화면에 프로필 사진 표시
+	const getImages = () => {
+		const image = '';
 		const reader = new FileReader();
-		reader.onload = () => {
-			if (reader.readyState === 2) {
-				setImage(reader.result)
+		axios({
+			headers: {
+				"Content-Type": "multipart/form-data",
+				Authorization: `Bearer ${authTokens.accessToken}`,
+				'Access-Control-Allow-Origin': '*',
+      },
+      url: 'https://k7b307.p.ssafy.io/api/v1/images/profile/link',
+      method: 'GET',
+      data: { profileUrl: image },
+    })
+		.then((response) => {
+			setImage(response.data.profileUrl)
+			//화면에 프로필 사진 표시
+			reader.onload = () => {
+				if (reader.readyState === 2) {
+					setImage(reader.result)
+				}
 			}
-		}
-		reader.readAsDataURL(e.target.files[0])
+			reader.readAsDataURL(image)
+			console.log('저장')
+		})
+		.catch((err) => console.log(err));
+	};
+	useEffect(() => {
+		getImages()
+	}, [])
+
+	const onChange = (e) => {
+		const image = e.target.files[0];
+		const reader = new FileReader();
+		
+		axios({
+			headers: {
+				"Content-Type": "multipart/form-data",
+				Authorization: `Bearer ${authTokens.accessToken}`,
+				'Access-Control-Allow-Origin': '*',
+      },
+      url: 'https://k7b307.p.ssafy.io/api/v1/images/profile',
+      method: 'POST',
+      data: { files: image },
+    })
+		.then((response) => {
+				setImage(image)
+				//화면에 프로필 사진 표시
+				reader.onload = () => {
+					if (reader.readyState === 2) {
+						setImage(reader.result)
+					}
+				}
+				reader.readAsDataURL(image)
+				console.log('저장')
+      })
+      .catch((err) => console.log(err));
+			// if (image) {
+			// 	setImage(image)
+			// } else { //업로드 취소할 시
+			// 	setImage(img)
+			// 	return
+			// }
 	}
 
 	return (

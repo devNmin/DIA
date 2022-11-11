@@ -1,0 +1,37 @@
+.searchimg {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 1.5rem;
+    margin-left: 10px;
+  }
+
+.searchcard {
+    display: flex;
+    border: 1px #b3dc45 solid;
+    border-radius: 1.5rem;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.searchfirst {
+    display: block;
+}
+.searchsecond {
+    font-size: 13.5px;
+}
+
+.searchExplanation {
+    color: white;
+    width: 70%;
+    margin-left: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imgContainer{
+    display: flex;
+    align-items: center;
+    margin: 10px 10px;
+}
+

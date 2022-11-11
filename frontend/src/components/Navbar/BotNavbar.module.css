@@ -1,20 +1,18 @@
-nav {
-  overflow: hidden;
-  background: #000F24;
-}
-
-nav > div {
-  /* 수평정렬, 5개의 button을 각각 20% width만큼 할당 */
+/* nav > div {
   text-align: center;
   float: left;
-}
+} */
 
 .wrapper {
+  overflow: hidden;
+  background: #000F24;
   height: 5vh;
   display: flex;
   align-items: center;
-  position: sticky;
-  top: 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
   justify-content: space-between;
 }

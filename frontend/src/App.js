@@ -24,6 +24,7 @@ import MyAnalysis from './pages/MyAnalysis';
 import MyPageDetailGraph from './pages/MyPageDetailGraph';
 import Heartbeat from './components/FieldPage/Heartbeat';
 import { HeartContextProvider } from './context/HeartContext';
+import FirstPage from './pages/FirstPage';
 
 function App() {
   return (
@@ -88,6 +89,7 @@ function App() {
                     path="/testheight"
                   /> */}
                   <NonPrivateRoute component={Heartbeat} exact path="/socket" />
+                  <NonPrivateRoute component={FirstPage} exact path="/first" />
                 </Switch>
                 <Transition />
               </ScrollToTop>

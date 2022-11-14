@@ -12,7 +12,9 @@
   font-style: normal;
 }
 .background {
-  height: 150vh;
+  height: 120vh;
+  /* background: linear-gradient(#141e30, #243b55); */
+  user-select: none;
   background-image: url('../assets/background.jpg');
   background-size: cover;
 }
@@ -26,7 +28,7 @@
   width: 95%;
   max-width: 50rem;
   border-radius: 6px;
-  background: linear-gradient(#141e30, #243b55);
+  background: rgba(0, 0, 0, 0.5);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   padding: 1rem;
   margin-top: 2rem;

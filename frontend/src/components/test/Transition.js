@@ -28,27 +28,25 @@ const Transition = () => {
   const location = useLocation();
   const mode = "out-in"
 
-  return (     
-     <div className= 'backgroundimage'>
-      <SwitchTransition  mode={mode} className="transition-group">
-        <CSSTransition key={location.pathname} classNames="fade" timeout={500}>
-          <Switch location={location}>
-            <Route exact path="/teammake">
-              <TeamMakePage></TeamMakePage>
-            </Route>  
-            <Route exact path="/ipInsert" children={IpInsertPage}>
-              <IpInsertPage></IpInsertPage>
-            </Route>         
-            {/* <Route path="/yeri" children={PageYeri} />
-            <Route path="/joy" children={PageJoy} />
-            <Route path="/wendy" children={PageWendy} /> */}
-            <Route exact path = '/teamregister' >
-              <TeamRegister></TeamRegister>
-            </Route>       
-          </Switch>
-        </CSSTransition>
-      </SwitchTransition>
-     </div> 
+  return (       
+    <SwitchTransition  mode={mode} className="transition-group">
+      <CSSTransition key={location.pathname} classNames="fade" timeout={500}>
+        <Switch location={location}>
+          <Route exact path="/teammake">
+            <TeamMakePage></TeamMakePage>
+          </Route>  
+          <Route exact path="/ipInsert" children={IpInsertPage}>
+            <IpInsertPage></IpInsertPage>
+          </Route>         
+          {/* <Route path="/yeri" children={PageYeri} />
+          <Route path="/joy" children={PageJoy} />
+          <Route path="/wendy" children={PageWendy} /> */}
+          <Route exact path = '/teamregister' >
+            <TeamRegister></TeamRegister>
+          </Route>       
+        </Switch>
+      </CSSTransition>
+    </SwitchTransition>
     
   );
 };

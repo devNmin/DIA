@@ -27,13 +27,17 @@ export default function IpInsertPage() {
           console.log('connecting....');
           if (ws === undefined) {
             ws = new WebSocket('ws://' + ipV4 + ':' + portinput + '/ws');
+            let flag = true
             ws.onopen = () => {
               console.log('connected!!');
             ws.onmessage = async (message) => {
-              console.log(message);
-              setFirstCoord(message.data)     
-              ws.close()
-              history.push('/teamregister')         
+              console.log(message);              
+              if (flag) {
+                flag = false
+                console.log('hi');
+                setFirstCoord(message.data)     
+                history.push('/teamregister')    
+              }
             };
           };
             ws.onerror = () => {

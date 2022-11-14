@@ -4,7 +4,7 @@ import { createContext, useState } from 'react';
 const UserContext = createContext();
 
 export default UserContext;
-export const UserProvider = ({children}) => {
+export const UserProvider = ({children}) => {    
     let [ipV4, setIpV4] = useState(null)
     let [portinput, setPort] = useState(null)
     let [currentTeam, setCurrentTeam] = useState([])
@@ -17,7 +17,13 @@ export const UserProvider = ({children}) => {
     const [ourColor, setOurColor] = useState('#18A0FB')
     const [theirColor, setTheirColor] = useState('#D93636')
     const [firstCoord, setFirstCoord] = useState([])
-      
+    const [ourTeamCoord, setOurTeamCoord] = useState([])
+    // const testheight = document.bod.clientHeight 
+    // const testwidth = document.querySelector('#leftux').clientWidth
+
+
+
+        
 
     let contextData = {
         // user: user,
@@ -44,6 +50,9 @@ export const UserProvider = ({children}) => {
         setTheirColor : setTheirColor,
         setFirstCoord : setFirstCoord,
         firstCoord : firstCoord,
+        ourTeamCoord : ourTeamCoord,
+        setOurTeamCoord : setOurTeamCoord,
+        // testheight : testheight,
       };
     return <UserContext.Provider value={contextData}>{children}</UserContext.Provider>;
 }

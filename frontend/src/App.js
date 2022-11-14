@@ -56,8 +56,9 @@ function App() {
                   <NonPrivateRoute
                     component={NonLoginMainPage}
                     exact
-                    path="/"
+                    path="/first"
                   />
+                  <NonPrivateRoute component={FirstPage} exact path="/" />
                   <NonPrivateRoute
                     component={Explainpage}
                     exact
@@ -89,7 +90,6 @@ function App() {
                     path="/testheight"
                   /> */}
                   <NonPrivateRoute component={Heartbeat} exact path="/socket" />
-                  <NonPrivateRoute component={FirstPage} exact path="/first" />
                 </Switch>
                 <Transition />
               </ScrollToTop>

@@ -8,7 +8,7 @@ function FirstPage(props) {
   // }
 
   return (
-    <Link to="/">
+    <Link to="/first">
       <FirstPageVideo />
     </Link>
   );

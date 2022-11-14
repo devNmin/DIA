@@ -34,7 +34,7 @@ export default function MainPage() {
     }
   }
   return (
-    <div className={styles.mainPage}>
+    <div >
       <TabletView>
         {modalIsOpen && (
           <Modal $visible={modalIsOpen} closable={true} maskClosable={true} onClose={closeModal} />

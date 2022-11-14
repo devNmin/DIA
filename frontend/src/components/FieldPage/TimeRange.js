@@ -13,7 +13,7 @@ function TimeRange() {
     }
     console.log(fieldCtx.maxIndex, e.target.value);
     // await fieldCtx.HandlePause();
-    fieldCtx.setIsPause(true);
+    // fieldCtx.setIsPause(true);
     fieldCtx.setIsTimeChanged(true);
     fieldCtx.setPlayTime(parseInt(e.target.value));
     setIsTouchEnd(false);
@@ -21,7 +21,7 @@ function TimeRange() {
 
   useEffect(() => {
     // setTimeout(setRangeMax(fieldCtx.maxIndex), 500);
-  }, []);
+  }, [fieldCtx.playIndex]);
   return (
     <input
       type="range"

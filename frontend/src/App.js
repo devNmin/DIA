@@ -22,6 +22,9 @@ import TestHeightPage from './pages/TestHeightPage';
 import MyPage from './pages/MyPage';
 import MyAnalysis from './pages/MyAnalysis';
 import MyPageDetailGraph from './pages/MyPageDetailGraph';
+import Heartbeat from './components/FieldPage/Heartbeat';
+import { HeartContextProvider } from './context/HeartContext';
+import FirstPage from './pages/FirstPage';
 
 function App() {
   return (
@@ -36,6 +39,7 @@ function App() {
           */}
           <UserProvider>
             <FieldProvider>
+            <HeartContextProvider >
               <ScrollToTop>
                 <Switch className="App">
                   <NonPrivateRoute component={LoginPage} exact path="/login" />
@@ -52,8 +56,9 @@ function App() {
                   <NonPrivateRoute
                     component={NonLoginMainPage}
                     exact
-                    path="/"
+                    path="/first"
                   />
+                  <NonPrivateRoute component={FirstPage} exact path="/" />
                   <NonPrivateRoute
                     component={Explainpage}
                     exact
@@ -84,9 +89,11 @@ function App() {
                     exact
                     path="/testheight"
                   /> */}
+                  <NonPrivateRoute component={Heartbeat} exact path="/socket" />
                 </Switch>
                 <Transition />
               </ScrollToTop>
+              </HeartContextProvider>
             </FieldProvider>
           </UserProvider>
         </AuthProvider>    

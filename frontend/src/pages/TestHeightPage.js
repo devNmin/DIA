@@ -1,5 +1,4 @@
 import React, {useContext, useState} from 'react'
-import './TestHeight.css'
 import UserContext from '../context/UserContext'
 
 export default function TestHeightPage() {

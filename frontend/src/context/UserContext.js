@@ -16,6 +16,7 @@ export const UserProvider = ({children}) => {
     const totalTeam = [...pivot, ...ala, ...fixo, ...goalkeeper, ...currentTeam]
     const [ourColor, setOurColor] = useState('#18A0FB')
     const [theirColor, setTheirColor] = useState('#D93636')
+    const [firstCoord, setFirstCoord] = useState([])
       
 
     let contextData = {
@@ -41,6 +42,8 @@ export const UserProvider = ({children}) => {
         setOurColor : setOurColor,
         theirColor : theirColor,
         setTheirColor : setTheirColor,
+        setFirstCoord : setFirstCoord,
+        firstCoord : firstCoord,
       };
     return <UserContext.Provider value={contextData}>{children}</UserContext.Provider>;
 }

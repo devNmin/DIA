@@ -7,6 +7,9 @@ import SoccerField from '../components/FieldPage/SoccerField';
 import CoordsSet from '../components/FieldPage/CoordsSet';
 import DuplicationPlayer from '../components/FieldPage/DuplicationPlayer';
 import TimeRange from '../components/FieldPage/TimeRange';
+import PlayInputGroup from '../components/FieldPage/PlayInputGroup';
+import DuplicationLine from '../components/FieldPage/DuplicationLine';
+import Heartbeat from '../components/FieldPage/Heartbeat';
 
 function FieldPage() {
   const { ipV4, portinput } = useContext(UserContext);
@@ -31,6 +34,7 @@ function FieldPage() {
   };
 
   const drawing = ({ nativeEvent }) => {
+    fieldCtx.setCtxEvent(nativeEvent);
     if (!nativeEvent || fieldCtx.isMoving || fieldCtx.playIndex < 0) {
       return;
     }
@@ -110,24 +114,35 @@ function FieldPage() {
       }
     }
     //// 플레이어 클릭시
+    let minDistance = 1000;
+    let minIdx = 0;
     for (let i = 0; i < 12; i++) {
       const circleX = fieldCtx.allCoords[i][fieldCtx.playIndex][0];
       const circleY = fieldCtx.allCoords[i][fieldCtx.playIndex][1];
-
       const distance = Math.sqrt((circleX - x) ** 2 + (circleY - y) ** 2);
 
-      if (distance < 17) {
-        fieldCtx.setIsPause(true);
-        nowI = i;
-        fieldCtx.setNowD(() => i);
-        fieldCtx.duplication[i][0] =
-          fieldCtx.allCoords[i][fieldCtx.playIndex][0];
-        fieldCtx.duplication[i][0] =
-          fieldCtx.allCoords[i][fieldCtx.playIndex][1];
-        fieldCtx.setIsMoving(true);
-        return;
+      if (distance < minDistance) {
+        minDistance = distance;
+        minIdx = i;
       }
     }
+    if (minDistance < 17) {
+      fieldCtx.setIsPause(true);
+      fieldCtx.setDupleLineCoords((prev) => {
+        let now = prev;
+        now[minIdx] = [];
+        return now;
+      });
+      nowI = minIdx;
+
+      fieldCtx.setNowD(minIdx);
+      fieldCtx.duplication[minIdx][0] =
+        fieldCtx.allCoords[minIdx][fieldCtx.playIndex][0];
+      fieldCtx.duplication[minIdx][0] =
+        fieldCtx.allCoords[minIdx][fieldCtx.playIndex][1];
+      fieldCtx.setIsMoving(true);
+    }
+
     if (nowI === -1) {
       // 플레이어, 복제좌표 모두 클릭하지 않았을 때 복제모드 끔
       fieldCtx.setIsMoving(() => false);
@@ -146,14 +161,19 @@ function FieldPage() {
   }
 
   useEffect(() => {
+    socketStart()
+  },[])
+
+  useEffect(() => {
     const canvas = canvasRef.current;
     canvas.width = canvasWidth;
     canvas.height = canvasHeigth;
     const context = canvas.getContext('2d');
     contextRef.current = context;
     setCtx(() => contextRef.current);
-    
-  }, []);
+
+  }, [fieldCtx.isPause]);
+
 
   // 소켓
   const host = ipV4;
@@ -215,6 +235,7 @@ function FieldPage() {
       };
       ws.onclose = function () {
         ws = undefined;
+        fieldCtx.setIsBuffered(true);
         console.log('Server Disconnect..');
       };
       ws.onerror = function (message) {
@@ -270,12 +291,9 @@ function FieldPage() {
           <div>
             <button onClick={socketStart}>소켓 시작</button>
             <button onClick={socketStop}>소켓 종료</button>
-            <button onClick={socketSend}>소켓 전송</button>
+            {/* <button onClick={socketSend}>소켓 전송</button> */}
           </div>
         </div>
-        <button onClick={fieldCtx.HandlePause}>
-          {fieldCtx.isPause ? '시작' : '일시정지'}
-        </button>
       </div>
 
       <div className={styles.canvas_box}>
@@ -303,8 +321,11 @@ function FieldPage() {
         />
         <DuplicationPlayer />
         <CoordsSet />
+        <DuplicationLine />
       </div>
       <TimeRange />
+      <PlayInputGroup />
+      <Heartbeat />
     </div>
   );
 }

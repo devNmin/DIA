@@ -19,11 +19,7 @@ export const UserProvider = ({children}) => {
     const [firstCoord, setFirstCoord] = useState([])
     const [ourTeamCoord, setOurTeamCoord] = useState([])
     // const testheight = document.bod.clientHeight 
-    // const testwidth = document.querySelector('#leftux').clientWidth
-
-
-
-        
+    // const testwidth = document.querySelector('#leftux').clientWidth      
 
     let contextData = {
         // user: user,
@@ -57,33 +53,5 @@ export const UserProvider = ({children}) => {
     return <UserContext.Provider value={contextData}>{children}</UserContext.Provider>;
 }
 
-  let contextData = {
-    // user: user,
-    setIpV4: setIpV4,
-    ipV4: ipV4,
-    setPort: setPort,
-    portinput: portinput,
-    setCurrentTeam: setCurrentTeam,
-    currentTeam: currentTeam,
-    formation: formation,
-    setFormation: setFormation,
-    goalkeeper: goalkeeper,
-    setGoalkeeper: setGoalkeeper,
-    fixo: fixo,
-    setFixo: setFixo,
-    ala: ala,
-    setAla: setAla,
-    pivot: pivot,
-    setPivot: setPivot,
-    totalTeam: totalTeam,
-    ourColor: ourColor,
-    setOurColor: setOurColor,
-    theirColor: theirColor,
-    setTheirColor: setTheirColor,
-    setFirstCoord: setFirstCoord,
-    firstCoord: firstCoord,
-  };
-  return (
-    <UserContext.Provider value={contextData}>{children}</UserContext.Provider>
-  );
-};
+ 
+

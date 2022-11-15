@@ -20,12 +20,12 @@
 }
 
 .auth {
-  font-family: 'TmoneyRoundWindExtraBold';
+  /* font-family: 'TmoneyRoundWindExtraBold'; */
   position: absolute;
   top: 30%;
   left: 50%;
   transform: translate(-50%, -30%);
-  width: 95%;
+  width: 60vw;
   max-width: 50rem;
   border-radius: 6px;
   background: rgba(0, 0, 0, 0.5);
@@ -41,17 +41,6 @@
 .auth h1 {
   text-align: center;
   color: white;
-}
-
-.auth h3 {
-  text-align: center;
-  color: black;
-}
-
-.auth img{
-  max-width: 300px;
-  margin-top: 5rem;
-  margin-bottom: 3rem;
 }
 
 .control {
@@ -230,7 +219,28 @@ input[type=password] {
   margin-left: 40px;
 }
 
+.auth img {
+  height: 10vh;
+}
 
+.auth h2 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #B3DC3C;
+  text-align: center;
+}
+
+.auth h3 {
+  margin-top: 0.5rem;
+  padding: 0;
+  color: aliceblue;
+  text-align: center;
+}
+
+.dia {
+  display: flex;
+  justify-content: center;
+}
 
 .authChecker{
   color: #fff;
@@ -282,6 +292,24 @@ input[type=password] {
   height: 2px;
   background: linear-gradient(90deg, transparent, #b3dc45);
   animation: btn-anim1 1s linear infinite;
+}
+
+.age {
+  display: flex;
+  /* flex-direction: column; */
+  margin-left: 40px;
+  width: 90%;
+  margin-bottom: 2rem;
+}
+
+.age p {
+  width: 5rem;
+ text-align: start;
+}
+
+.age input {
+  margin-left: 2rem;
+  width: 80%;
 }
 
 @keyframes btn-anim1 {

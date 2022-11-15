@@ -1,5 +1,6 @@
 .toolbox {
   display: flex;
+  margin-left: 1rem;
 }
 
 .wrapper {
@@ -21,6 +22,7 @@
 .sizebox {
   position: relative;
   display: block;
+  margin-left: 1rem;
 }
 .size_input {
   position: absolute;
@@ -32,4 +34,8 @@
 }
 .size_icon {
   width: 2rem;
+}
+
+.bin_icon {
+  margin-left: 1rem;
 }

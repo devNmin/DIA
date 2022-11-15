@@ -52,7 +52,11 @@ function DrawingTool() {
           }}
         />
       </div>
-      <DeleteOutlineOutlinedIcon fontSize="large" onClick={canvasClear} />
+      <DeleteOutlineOutlinedIcon
+        fontSize="large"
+        className={styles.bin_icon}
+        onClick={canvasClear}
+      />
     </section>
   );
 }

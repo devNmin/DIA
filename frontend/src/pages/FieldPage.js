@@ -10,16 +10,22 @@ import TimeRange from '../components/FieldPage/FieldTools/TimeRange';
 import PlayInputGroup from '../components/FieldPage/PlayInputGroup';
 import DuplicationLine from '../components/FieldPage/DuplicationLine';
 import DrawingTool from '../components/FieldPage/FieldTools/DrawingTool';
+import BookMark from '../components/FieldPage/FieldTools/BookMark';
+import ScoreBoard from '../components/FieldPage/FieldTools/ScoreBoard';
+
+import axios from 'axios';
+import AuthContext from '../context/AuthContext';
 
 function FieldPage() {
   const { ipV4, portinput } = useContext(UserContext);
   const fieldCtx = useContext(fieldContext);
+  const { authTokens, BASE_URL } = useContext(AuthContext);
 
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
 
   const [isDrawing, setIsDrawing] = useState(false);
-
+  const [nowDate, setNowDate] = useState(null);
   const canvasWidth = window.innerWidth;
   const canvasHeigth = window.innerHeight * 0.8;
 
@@ -156,6 +162,19 @@ function FieldPage() {
       contextRef.current = context;
       fieldCtx.setCtx(() => contextRef.current);
     }
+    if (!nowDate) {
+      let today = new Date();
+      const gameYear = today.getFullYear();
+      const gameMonth = today.getMonth() + 1;
+      const gameDay = today.getDate();
+      const gameTime = today.getHours();
+      setNowDate({
+        gameYear: gameYear,
+        gameMonth: gameMonth,
+        gameDay: gameDay,
+        gameTime: gameTime,
+      });
+    }
   }, [fieldCtx.isPause]);
 
   // 소켓
@@ -169,10 +188,10 @@ function FieldPage() {
   let fixelY = 20 / 656;
   let nowDistance = 0;
   let totalDistance = Array.from({ length: 6 }, () => 0);
-  let fpsTime = 0.005; //프레임 컴퓨터에서 계산하는 속도? 5ms -> 나중엔 받아서 변경
+  let fpsTime = 0.04; //프레임 컴퓨터에서 계산하는 속도? 5ms -> 나중엔 받아서 변경
   let userXInfo = Array.from({ length: 6 }, () => 0);
   let userYInfo = Array.from({ length: 6 }, () => 0); //이전 유저의 x,y 좌표값
-
+  let index = -1;
   const socketStart = () => {
     console.log('connecting....');
     if (ws === undefined) {
@@ -183,34 +202,65 @@ function FieldPage() {
       ws.onmessage = (message) => {
         fieldCtx.setIsSocket(() => true);
         const coordData = JSON.parse(message.data);
+        console.log(fieldCtx.allCoords);
+        index++;
         for (let i = 0; i < 12; i++) {
           if (i in coordData) {
             //user x,y
-            const x = parseFloat(coordData[i][0] * canvasWidth);
-            const y = parseFloat(coordData[i][1] * canvasHeigth);
-            fieldCtx.allCoords[i].push([x, y]);
-
+            const x = (coordData[i][0] * canvasWidth).toFixed(3);
+            const y = (coordData[i][1] * canvasHeigth).toFixed(3);
+            if (fieldCtx.allCoords[i].length === 0) {
+              fieldCtx.allCoords[i].push([x, y]);
+              console.log('처음', index);
+              continue;
+            }
             //이전 값이 있다면 거리 계산
             if (userXInfo[i] != null && userYInfo[i] != null) {
               disX = Math.abs(x * fixelX - userXInfo[i]);
               disY = Math.abs(y * fixelY - userYInfo[i]);
               nowDistance = Math.sqrt(disX * disX + disY * disY);
-              if (((nowDistance / fpsTime) * 360) / 1000 < 44) {
+              console.log(
+                'i:',
+                i,
+                'index',
+                index,
+                'x, y',
+                x,
+                y,
+                'prev',
+                userXInfo[i] / fixelX,
+                userYInfo[i] / fixelY
+              );
+              if (((nowDistance / fpsTime) * 3600) / 1000 < 44) {
                 //속도가 정상 속도면 거리 합 진행
+                console.log('정상', i, index);
+                fieldCtx.allCoords[i].push([x, y]);
                 totalDistance[i] += Math.sqrt(disX * disX + disY * disY);
+              } else {
+                console.log('비정상', i, index);
+                fieldCtx.allCoords[i].push([
+                  fieldCtx.allCoords[i].at(-1)[0],
+                  fieldCtx.allCoords[i].at(-1)[1],
+                ]);
               }
+            } else {
+              fieldCtx.allCoords[i].push([x, y]);
+              console.log('이전값 없음', i, index);
             }
+
             userXInfo[i] = x * fixelX;
             userYInfo[i] = y * fixelY;
           } else if (fieldCtx.allCoords[i].length > 0) {
             // 값이 안들어오면 이전 값 넣어줌
+            console.log('값없음22');
             fieldCtx.allCoords[i].push([
               fieldCtx.allCoords[i].at(-1)[0],
               fieldCtx.allCoords[i].at(-1)[1],
             ]);
           } else {
+            console.log('이전값 없음22');
             // 이전 값도 없으면 [0, 0] 넣어줌
-            fieldCtx.allCoords[i].push([0, 0]);
+            fieldCtx.allCoords[i].push([0.001, 0.001]);
           }
         }
         fieldCtx.HandleBuffer();
@@ -220,6 +270,28 @@ function FieldPage() {
         ws = undefined;
         fieldCtx.setIsBuffered(true);
         console.log('Server Disconnect..');
+        const data = {
+          gameYear: nowDate.gameYear,
+          gameMonth: nowDate.gameMonth,
+          gameDay: nowDate.gameDay,
+          gameTime: nowDate.gameTime,
+          userData: [
+            {
+              userID: '10',
+              userDistance: `${totalDistance[0]}`,
+            },
+          ],
+          gameXY: fieldCtx.allCoords,
+        };
+        console.log(data);
+        axios({
+          method: 'post',
+          url: BASE_URL + 'game/newGame/',
+          headers: `Bearer ${authTokens}`,
+          data: data,
+        })
+          .then((response) => console.log(response))
+          .catch((err) => console.log(err));
       };
       ws.onerror = function (message) {
         console.log('error..');
@@ -252,7 +324,7 @@ function FieldPage() {
           <button onClick={socketSend}>소켓 전송</button>
         </div>
       </div>
-
+      <ScoreBoard />
       <div className={styles.canvas_box}>
         <SoccerField />
         <canvas
@@ -284,7 +356,7 @@ function FieldPage() {
       <div className={styles.field_tools}>
         <DrawingTool />
         <PlayInputGroup />
-        <div></div>
+        {/* <BookMark /> */}
       </div>
     </div>
   );

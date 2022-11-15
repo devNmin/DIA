@@ -51,6 +51,11 @@ const FieldContext = createContext({
   ctxEvenet: null,
   setCtxEvent: () => {},
   duplicationReset: () => {},
+
+  score1: 0,
+  setScore1: () => {},
+  score2: 0,
+  setScore2: () => {},
 });
 
 export default FieldContext;
@@ -169,6 +174,9 @@ export const FieldProvider = ({ children }) => {
       11: [],
     });
   };
+  ////기타
+  const [score1, setScore1] = useState(0);
+  const [score2, setScore2] = useState(0);
 
   /////////////////////////
   let contextData = {
@@ -221,6 +229,11 @@ export const FieldProvider = ({ children }) => {
     ctxEvenet: ctxEvenet,
     setCtxEvent: setCtxEvent,
     duplicationReset: duplicationReset,
+
+    score1: score1,
+    setScore1: setScore1,
+    score2: score2,
+    setScore2: setScore2,
   };
   return (
     <FieldContext.Provider value={contextData}>

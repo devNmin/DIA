@@ -1,6 +1,7 @@
 .position {
   position: absolute;
   top: 85%;
+  z-index: -1;
 }
 
 .soccer {

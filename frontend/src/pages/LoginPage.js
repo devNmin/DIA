@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import AuthContext from '../context/AuthContext';
 import { Link } from 'react-router-dom';
-// import logo from '../assets/Logo.png';
+import logo from '../assets/freelogo.png';
 import styles from './LoginPage.module.css';
 
 function LoginPage() {
@@ -10,8 +10,13 @@ function LoginPage() {
   return (
     <div className={styles.body}>
       <section className={styles.login_box}>
-        <input type="file" />
-        <h2>DIA</h2>
+        <img src={logo} alt="#" />
+        <div className={styles.dia}>
+          <h2>DI</h2>
+          <h3>recting</h3>
+          <h2>A</h2>
+          <h3>ssistant</h3>
+        </div>
         <form onSubmit={loginUser}>
           {/* <img src={logo} alt="" /> */}
           <div className={styles.user_box}>
@@ -38,7 +43,7 @@ function LoginPage() {
           </div>
         </form>
         <Link to="/register" className={styles.signup_link}>
-          <p>처음이신가요?</p>
+          <p>DIA에 처음오셨나요?</p>
         </Link>
       </section>
     </div>

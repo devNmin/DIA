@@ -1,0 +1,40 @@
+.score_box {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 5rem;
+  background-color: #000f24;
+  box-shadow: 0rem 0.2rem 1rem #00040a;
+  justify-content: center;
+}
+.score_inner {
+  display: flex;
+}
+.inner_box {
+  background-color: rgba(65, 72, 84, 0.5);
+  width: 1.5rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+
+  /* transform: translate(0, 50%); */
+}
+
+.jum {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+.score {
+  font-size: 2rem;
+  color: white;
+}
+
+/* .score:hover,
+.score:active {
+  color: #b3dc3c;
+} */
+.score_hover {
+  color: #b3dc3c;
+}

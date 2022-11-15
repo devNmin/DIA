@@ -2,33 +2,40 @@
   position: relative;
   user-select: none;
   overflow: hidden;
-}
+  height: 100vh;
 
-.toolbox {
-  z-index: 2;
-  position: absolute;
-  display: flex;
+  /* background-color: #000f24; */
 }
+/* .size * {
+  touch-action: none;
+} */
 .socketGroup {
   color: white;
+  z-index: 1;
+  position: absolute;
+  display: flex;
 }
 .canvas_box {
   position: relative;
 }
 
-.canvas2 {
-  z-index: -1;
-  position: fixed;
-  top: 0;
-  left: 0;
-  /* background-image: url(../assets/soccer_field.jpg);
-  background-size: 100% 100%; */
+.field_tools {
+  display: flex;
+  justify-content: space-between;
+  height: 3rem;
 }
-.canvas3 {
-  z-index: -2;
-  position: fixed;
-  top: 0;
-  left: 0;
-  /* background-image: url(../assets/soccer_field.jpg);
-  background-size: 100% 100%; */
-}
+
+/* !!Z-INDEX 정리!!*/
+/*
+TOP: 
+0. 소켓그룹 1
+1. fieldPage Canvas(드로잉 관련) 0
+2. buffer 관련 (1. buffer 축구공, 2. 회색박스(CoordsSet)) -1, -2
+3. 복제좌표 -3
+4. 원좌표 -4
+5. 복제좌표 선 -5
+6. 필드 -10
+7. 스코어보드 2
+
+
+*/

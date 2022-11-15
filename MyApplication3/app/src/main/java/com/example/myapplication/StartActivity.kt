@@ -1,6 +1,8 @@
 package com.example.myapplication
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -12,6 +14,15 @@ import kotlinx.android.synthetic.main.activity_start.*
 
 class StartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        if(IsPhone()){ // phone 인 경우
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }else if(IsTablet()){ // table인 경우
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+        }else{ // 알수 없는 경우
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+        }
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
         splashAnimation()
@@ -35,7 +46,22 @@ class StartActivity : AppCompatActivity() {
     private fun splashAnimation(){
         val fade_out : Animation = AnimationUtils.loadAnimation(this, R.anim.fade_out)
         textView.startAnimation(fade_out)
-        val fade_in : Animation = AnimationUtils.loadAnimation(this, R.anim.fade_in)
-        textView2.startAnimation(fade_in)
+        val fade_in2 : Animation = AnimationUtils.loadAnimation(this, R.anim.fade_in)
+        imageView.startAnimation(fade_in2)
+    }
+
+    // 핸드폰인지 확인
+    fun IsPhone(): Boolean {
+        val screenSizeType =
+            resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK
+        return screenSizeType == Configuration.SCREENLAYOUT_SIZE_NORMAL || screenSizeType == Configuration.SCREENLAYOUT_SIZE_SMALL
+    }
+
+    // 태블릿인지 확인
+    fun IsTablet(): Boolean {
+        //화면 사이즈 종류 구하기
+        val screenSizeType =
+            resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK
+        return screenSizeType == Configuration.SCREENLAYOUT_SIZE_XLARGE || screenSizeType == Configuration.SCREENLAYOUT_SIZE_LARGE
     }
 }

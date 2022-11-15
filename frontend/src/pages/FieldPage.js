@@ -2,6 +2,7 @@
 import UserContext from '../context/UserContext';
 import fieldContext from '../context/FieldContext';
 import React, { useEffect, useRef, useState, useContext } from 'react';
+import axios from 'axios';
 import styles from './FieldPage.module.css';
 import SoccerField from '../components/FieldPage/SoccerField';
 import CoordsSet from '../components/FieldPage/CoordsSet';
@@ -12,9 +13,8 @@ import DuplicationLine from '../components/FieldPage/DuplicationLine';
 import DrawingTool from '../components/FieldPage/FieldTools/DrawingTool';
 import BookMark from '../components/FieldPage/FieldTools/BookMark';
 import ScoreBoard from '../components/FieldPage/FieldTools/ScoreBoard';
-
-import axios from 'axios';
 import AuthContext from '../context/AuthContext';
+import Heartbeat from '../components/FieldPage/Heartbeat';
 
 function FieldPage() {
   const { ipV4, portinput } = useContext(UserContext);
@@ -175,6 +175,7 @@ function FieldPage() {
         gameTime: gameTime,
       });
     }
+    socketStart();
   }, [fieldCtx.isPause]);
 
   // 소켓
@@ -219,18 +220,6 @@ function FieldPage() {
               disX = Math.abs(x * fixelX - userXInfo[i]);
               disY = Math.abs(y * fixelY - userYInfo[i]);
               nowDistance = Math.sqrt(disX * disX + disY * disY);
-              console.log(
-                'i:',
-                i,
-                'index',
-                index,
-                'x, y',
-                x,
-                y,
-                'prev',
-                userXInfo[i] / fixelX,
-                userYInfo[i] / fixelY
-              );
               if (((nowDistance / fpsTime) * 3600) / 1000 < 44) {
                 //속도가 정상 속도면 거리 합 진행
                 console.log('정상', i, index);
@@ -321,7 +310,7 @@ function FieldPage() {
         <div>
           <button onClick={socketStart}>소켓 시작</button>
           <button onClick={socketStop}>소켓 종료</button>
-          <button onClick={socketSend}>소켓 전송</button>
+          {/* <button onClick={socketSend}>소켓 전송</button> */}
         </div>
       </div>
       <ScoreBoard />
@@ -353,10 +342,12 @@ function FieldPage() {
         <DuplicationLine />
       </div>
       <TimeRange />
+
       <div className={styles.field_tools}>
         <DrawingTool />
         <PlayInputGroup />
         {/* <BookMark /> */}
+        <Heartbeat />
       </div>
     </div>
   );

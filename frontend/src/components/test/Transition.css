@@ -1,10 +1,12 @@
-body {
+/* body {
   overflow: auto;
-  /* background-image:  url(http://orig10.deviantart.net/c37f/f/2016/188/0/d/background_fav___share_by_dreamgraphicss-da93xt5.jpg); */
-}
+  background-image:  url(http://orig10.deviantart.net/c37f/f/2016/188/0/d/background_fav___share_by_dreamgraphicss-da93xt5.jpg);
+  background-size: cover;
+} */
 
 .transition-group {
-  position: relative;
+  position: relative;  
+
 }
 
 .fade-enter {
@@ -32,4 +34,11 @@ body {
 .fade-enter-active,
 .fade-exit-active  {
   transition: opacity 200ms, transform 500ms;
+}
+
+.backgroundimage {
+  overflow: auto;   
+  height : 962px; 
+  background-image:  url(http://orig10.deviantart.net/c37f/f/2016/188/0/d/background_fav___share_by_dreamgraphicss-da93xt5.jpg);
+  background-size: cover;
 }

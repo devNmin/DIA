@@ -4,10 +4,10 @@ import { createContext, useState } from 'react';
 const UserContext = createContext();
 
 export default UserContext;
+
 export const UserProvider = ({ children }) => {
-  /////커밋할 때 아래 두개 null값으로 변경한 후 해야 함!!!!
-  let [ipV4, setIpV4] = useState('192.168.0.37');
-  let [portinput, setPort] = useState(9999);
+  let [ipV4, setIpV4] = useState(null);
+  let [portinput, setPort] = useState(null);
   let [currentTeam, setCurrentTeam] = useState([]);
   let [formation, setFormation] = useState('0000');
   const [goalkeeper, setGoalkeeper] = useState(
@@ -19,6 +19,7 @@ export const UserProvider = ({ children }) => {
   const totalTeam = [...pivot, ...ala, ...fixo, ...goalkeeper, ...currentTeam];
   const [ourColor, setOurColor] = useState('#18A0FB');
   const [theirColor, setTheirColor] = useState('#D93636');
+  const [firstCoord, setFirstCoord] = useState([]);
 
   let contextData = {
     // user: user,
@@ -43,6 +44,8 @@ export const UserProvider = ({ children }) => {
     setOurColor: setOurColor,
     theirColor: theirColor,
     setTheirColor: setTheirColor,
+    setFirstCoord: setFirstCoord,
+    firstCoord: firstCoord,
   };
   return (
     <UserContext.Provider value={contextData}>{children}</UserContext.Provider>

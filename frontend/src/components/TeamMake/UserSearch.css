@@ -3,6 +3,7 @@
     width: 40%;
     border-radius: 1.5rem;
     height: 650px;
+    max-width: 600px;
     
 }
 .playersearchbar {
@@ -32,6 +33,7 @@
     height: 650px;
     margin-left: 20px;
     overflow-y: auto;
+    max-width: 700px;
 }
 .squadtitle {
     color: white;
@@ -70,3 +72,6 @@ hr {
     justify-content: center;
 }
 
+.userSearchbackground {
+    background-image: url(http://orig10.deviantart.net/c37f/f/2016/188/0/d/background_fav___share_by_dreamgraphicss-da93xt5.jpg);
+}

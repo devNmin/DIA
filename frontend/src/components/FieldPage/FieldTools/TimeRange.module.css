@@ -1,3 +1,17 @@
 .time_range {
-  width: 99vw;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+.slider_box {
+  width: 98%;
+}
+.slider {
+  color: #739106;
+}
+.slider .thumb {
+  border-radius: 4px;
+}
+.playing_slider {
+  color: #b3dc3c;
 }

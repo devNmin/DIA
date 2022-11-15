@@ -203,7 +203,7 @@ function FieldPage() {
       ws.onmessage = (message) => {
         fieldCtx.setIsSocket(() => true);
         const coordData = JSON.parse(message.data);
-        console.log(fieldCtx.allCoords);
+
         index++;
         for (let i = 0; i < 12; i++) {
           if (i in coordData) {
@@ -212,7 +212,6 @@ function FieldPage() {
             const y = (coordData[i][1] * canvasHeigth).toFixed(3);
             if (fieldCtx.allCoords[i].length === 0) {
               fieldCtx.allCoords[i].push([x, y]);
-              console.log('처음', index);
               continue;
             }
             //이전 값이 있다면 거리 계산
@@ -222,11 +221,9 @@ function FieldPage() {
               nowDistance = Math.sqrt(disX * disX + disY * disY);
               if (((nowDistance / fpsTime) * 3600) / 1000 < 44) {
                 //속도가 정상 속도면 거리 합 진행
-                console.log('정상', i, index);
                 fieldCtx.allCoords[i].push([x, y]);
                 totalDistance[i] += Math.sqrt(disX * disX + disY * disY);
               } else {
-                console.log('비정상', i, index);
                 fieldCtx.allCoords[i].push([
                   fieldCtx.allCoords[i].at(-1)[0],
                   fieldCtx.allCoords[i].at(-1)[1],
@@ -234,20 +231,16 @@ function FieldPage() {
               }
             } else {
               fieldCtx.allCoords[i].push([x, y]);
-              console.log('이전값 없음', i, index);
             }
-
             userXInfo[i] = x * fixelX;
             userYInfo[i] = y * fixelY;
           } else if (fieldCtx.allCoords[i].length > 0) {
             // 값이 안들어오면 이전 값 넣어줌
-            console.log('값없음22');
             fieldCtx.allCoords[i].push([
               fieldCtx.allCoords[i].at(-1)[0],
               fieldCtx.allCoords[i].at(-1)[1],
             ]);
           } else {
-            console.log('이전값 없음22');
             // 이전 값도 없으면 [0, 0] 넣어줌
             fieldCtx.allCoords[i].push([0.001, 0.001]);
           }

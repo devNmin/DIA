@@ -2,12 +2,11 @@ package com.example.myapplication
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.net.Uri
-import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -17,7 +16,6 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.startActivityForResult
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import java.text.SimpleDateFormat
@@ -41,7 +39,15 @@ class MainActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE    );
+        if(IsPhone()){ // phone 인 경우
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }else if(IsTablet()){ // table인 경우
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+        }else{ // 알수 없는 경우
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+        }
+
+
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val b: Boolean = checkPermission()
             if (b == false) {
@@ -94,6 +100,21 @@ class MainActivity : AppCompatActivity(){
 //            val intent= Intent( this, CamActivity::class.java)
 //            startActivity(intent)
 //        }
+    }
+
+    // 핸드폰인지 확인
+    fun IsPhone(): Boolean {
+        val screenSizeType =
+            resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK
+        return screenSizeType == Configuration.SCREENLAYOUT_SIZE_NORMAL || screenSizeType == Configuration.SCREENLAYOUT_SIZE_SMALL
+    }
+
+    // 태블릿인지 확인
+    fun IsTablet(): Boolean {
+        //화면 사이즈 종류 구하기
+        val screenSizeType =
+            resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK
+        return screenSizeType == Configuration.SCREENLAYOUT_SIZE_XLARGE || screenSizeType == Configuration.SCREENLAYOUT_SIZE_LARGE
     }
 
     private fun checkPermission(): Boolean {

@@ -104,7 +104,7 @@ function DuplicationLine() {
           return now;
         });
         ctx.lineTo(clientX, clientY);
-        ctx.strokeStyle = 'white';
+        ctx.strokeStyle = '#B3DC3C';
         ctx.lineWidth = 5;
         ctx.stroke();
       }

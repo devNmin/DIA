@@ -1,6 +1,7 @@
 import styles from './CoordsSet.module.css';
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import filedContext from '../../context/FieldContext';
+import BufferComponent from './FieldTools/BufferComponent';
 
 function CoordsSet() {
   const fieldCtx = useContext(filedContext);
@@ -16,12 +17,26 @@ function CoordsSet() {
     'red',
     'red',
     'red',
-    'blue',
-    'blue',
-    'blue',
-    'blue',
-    'blue',
-    'blue',
+    'pink',
+    'pink',
+    'pink',
+    'pink',
+    'pink',
+    'pink',
+  ];
+  const textColor = [
+    'white',
+    'white',
+    'white',
+    'white',
+    'white',
+    'white',
+    'black',
+    'black',
+    'black',
+    'black',
+    'black',
+    'black',
   ];
 
   const fieldSet = () => {
@@ -47,12 +62,16 @@ function CoordsSet() {
         context2.moveTo(x, y);
         context2.beginPath();
         context2.arc(x, y, 15, 0, Math.PI * 2, true);
-
-        context2.font = '25px Arial';
-        context2.fillText(i, x - 7.5, y - 6);
         context2.fillStyle = colors[i];
         context2.fill();
         context2.stroke();
+
+        context2.font = '1.2rem Arial';
+        context2.fillStyle = textColor[i];
+        context2.textAlign = 'center';
+        context2.textBaseline = 'hanging';
+
+        context2.fillText(i, x, y - 7);
       }
     }
   };
@@ -99,6 +118,17 @@ function CoordsSet() {
     fieldCtx.playIndex,
     fieldCtx.isBuffered,
   ]);
-  return <canvas className={styles.canvas2} ref={canvasRef2} />;
+
+  return (
+    <div>
+      <canvas className={styles.canvas2} ref={canvasRef2} />
+      {fieldCtx.isBuffered ? null : (
+        <div>
+          <BufferComponent />
+          <div className={styles.gray_box}></div>
+        </div>
+      )}
+    </div>
+  );
 }
 export default CoordsSet;

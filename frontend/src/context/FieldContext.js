@@ -4,6 +4,12 @@ const FieldContext = createContext({
   //// 그리기
   prevData: [],
   setPrevData: () => {},
+  ctx: null,
+  setCtx: () => {},
+  brushColor: 0,
+  setBrushColor: () => {},
+  brushSize: 0,
+  setBrushSize: () => {},
   //// 재생
   isSocket: false,
   setIsSocket: () => {},
@@ -45,6 +51,11 @@ const FieldContext = createContext({
   ctxEvenet: null,
   setCtxEvent: () => {},
   duplicationReset: () => {},
+
+  score1: 0,
+  setScore1: () => {},
+  score2: 0,
+  setScore2: () => {},
 });
 
 export default FieldContext;
@@ -52,6 +63,9 @@ export default FieldContext;
 export const FieldProvider = ({ children }) => {
   //// 그리기 관련
   const [prevData, setPrevData] = useState([0, 0, 0, '']);
+  const [ctx, setCtx] = useState(null);
+  const [brushColor, setBrushColor] = useState('#F5DF4D');
+  const [brushSize, setBrushSize] = useState('1');
   //// 재생 관련
   const [isSocket, setIsSocket] = useState(false);
   const [playIndex, setPlayIndex] = useState(0); // 현재 그려주는 시점 인덱스
@@ -160,12 +174,21 @@ export const FieldProvider = ({ children }) => {
       11: [],
     });
   };
+  ////기타
+  const [score1, setScore1] = useState(0);
+  const [score2, setScore2] = useState(0);
 
   /////////////////////////
   let contextData = {
     prevData: prevData,
     setPrevData: setPrevData,
-
+    ctx: ctx,
+    setCtx: setCtx,
+    brushColor: brushColor,
+    setBrushColor: setBrushColor,
+    brushSize: brushSize,
+    setBrushSize: setBrushSize,
+    //
     isSocket: isSocket,
     setIsSocket: setIsSocket,
     playIndex: playIndex,
@@ -206,6 +229,11 @@ export const FieldProvider = ({ children }) => {
     ctxEvenet: ctxEvenet,
     setCtxEvent: setCtxEvent,
     duplicationReset: duplicationReset,
+
+    score1: score1,
+    setScore1: setScore1,
+    score2: score2,
+    setScore2: setScore2,
   };
   return (
     <FieldContext.Provider value={contextData}>

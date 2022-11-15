@@ -1,0 +1,41 @@
+.toolbox {
+  display: flex;
+  margin-left: 1rem;
+}
+
+.wrapper {
+  display: inline-block;
+  position: relative;
+}
+
+.color_icon {
+  width: 2rem;
+}
+.color_input {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.sizebox {
+  position: relative;
+  display: block;
+  margin-left: 1rem;
+}
+.size_input {
+  position: absolute;
+  top: 2rem;
+  display: none;
+}
+.sizebox:hover .size_input {
+  display: block;
+}
+.size_icon {
+  width: 2rem;
+}
+
+.bin_icon {
+  margin-left: 1rem;
+}

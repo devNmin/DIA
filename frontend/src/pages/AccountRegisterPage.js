@@ -4,7 +4,7 @@ import AuthContext from '../context/AuthContext'
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-// import logo from '../assets/Logo.png'
+import logo from '../assets/freelogo.png'
 // import swal from "sweetalert2";
 
 
@@ -226,13 +226,19 @@ export default function AccountRegisterPage() {
   return (
     <div className= {styles.background}>
       <section className={styles.auth} style={{ 'marginTop' : '100px'}}>
+      <img src={logo} alt="#" />
+        <div className={styles.dia}>
+          <h2>DI</h2>
+          <h3>recting</h3>
+          <h2>A</h2>
+          <h3>ssistant</h3>
+        </div>
         <form >
-          
           <div className= 'Signup'>
             <div>
               {/* 아이디 */}
               <div className={styles.control}>
-                <h5> E-mail </h5>
+                <h5> 이메일 </h5>
                 <div className={styles.Email}>
                   {emailDisable? 
                   <input disabled style={{ color : 'gray'}}  type='email' maxLength='25' name='signup_email' ref={emailInput} onKeyUp={EmailCheckHandler} onBlur={emailCheckerHandler2}/>
@@ -240,7 +246,7 @@ export default function AccountRegisterPage() {
                   <input  type='email' maxLength='25' name='signup_email' ref={emailInput} onKeyUp={EmailCheckHandler} onBlur={emailCheckerHandler2}/>
                   
                   }
-                  <button className={styles.EmailCheck} onClick={emailcheckHandler}>check</button>
+                  <button className={styles.EmailCheck} onClick={emailcheckHandler}>이메일 중복확인</button>
                   
                 </div>
                 <p className={styles.emailChecker} dangerouslySetInnerHTML={{__html: emailChecker}}></p>
@@ -250,12 +256,12 @@ export default function AccountRegisterPage() {
                     <div>
                       <input type='text' maxLength='10' name='auth_key' ref={keyInput} />
                     </div>
-                    <button className= {styles.authChecker} onClick={keyValidChecker}>인증하기</button>
+                    <button className= {styles.authChecker} onClick={keyValidChecker}>이메일 인증하기</button>
                 </div>
                 : 
                 <div>
                   {isChecked?
-                  <button className={styles.authChecker} onClick={emailAuthChecker}>Authenticate</button> :null
+                  <button className={styles.authChecker} onClick={emailAuthChecker}>인증번호 받기</button> :null
                   }
                 </div>            
                           
@@ -264,12 +270,12 @@ export default function AccountRegisterPage() {
               </div>
               {/* 비밀번호 */}
               <div className={styles.control}>
-                <h5 className={styles.password}> Password </h5>
+                <h5 className={styles.password}> 비밀번호 </h5>
                 <input type='password' maxLength='15' name='signup_password' ref={passwordInput} />
               </div>
               {/* 비밀번호2 */}
               <div className={styles.control}>
-                <h5> Password Check </h5>
+                <h5> 비밀번호 확인 </h5>
                 <input type='password' maxLength='15' name='signup_pswCheck' ref={passwordCheckInput} />
               </div>
             </div>
@@ -277,7 +283,7 @@ export default function AccountRegisterPage() {
             <div id='signup_section'>
               {/* 이름 */}
               <div className={styles.control}>
-                <h5> Name </h5>
+                <h5> 이름 </h5>
                 <input type='text' maxLength='10' name='signup_name' ref={nameInput} />
               </div>
 
@@ -292,29 +298,29 @@ export default function AccountRegisterPage() {
               </div>              
               <br /> */}
               <br />
-              <div className="bmi-calculator-weight">
-                <input className="weight-slider" name="realAge" id="myAge" onChange={(e) => {AgeHandler(e)}} type="range" min={10} max={90} defaultValue={20} />
-                <p style={{marginTop: '1.8em'}}>
-                  AGE: {age}            
+              <div className={styles.age}>
+                <p>
+                  나이: <br></br>{age}            
                   <span id="weight" /> 
                 </p>
+                <input className="weight-slider" name="realAge" id="myAge" onChange={(e) => {AgeHandler(e)}} type="range" min={10} max={90} defaultValue={20} />
               </div>                       
-              <div className="bmi-calculator-height">
-                <input className="height-slider" name="realheight" id="myHeight" onChange={(e)=>{heightHandler(e)}}  type="range" min={120} max={210} defaultValue={160} />
-                <p style={{marginTop: '1.8em'}}>
-                  HEIGHT: {height}              
+              <div className={styles.age}>
+                <p>
+                  키: <br></br>{height}              
                   <span id="height" /> cm
                 </p>
+                <input className="height-slider" name="realheight" id="myHeight" onChange={(e)=>{heightHandler(e)}}  type="range" min={120} max={210} defaultValue={160} />
               </div>              
-              <div className="bmi-calculator-weight">
-                <input className="weight-slider" name="realweight" id="myWeight" onChange={(e) => {weightHandler(e)}} type="range" min={40} max={120} defaultValue={60} />
-                <p style={{marginTop: '1.8em'}}>
-                  WEIGHT: {weight}            
+              <div className={styles.age}>
+                <p>
+                  몸무게: <br></br>{weight}            
                   <span id="weight" /> kg
                 </p>
+                <input className="weight-slider" name="realweight" id="myWeight" onChange={(e) => {weightHandler(e)}} type="range" min={40} max={120} defaultValue={60} />
               </div> 
               <div className={styles.control}>
-                <h5> Position </h5>
+                <h5> 포지션 </h5>
                 <div>
                   <button className={styles.EmailCheck} onClick = {(e) => {
                     e.preventDefault()
@@ -348,7 +354,7 @@ export default function AccountRegisterPage() {
             <span></span>
             <span></span>
             <span></span>
-            <input onClick={submitHandler} type="submit" value="Sign Up" />
+            <input onClick={submitHandler} type="submit" value="회원가입" />
           </div>
             :
             null
@@ -356,7 +362,7 @@ export default function AccountRegisterPage() {
         </form>
 
         <Link className={styles.linkP} to='/login'>
-          <p>Already Have An Account</p>
+          <p>이미 DIA 회원이신가요?</p>
         </Link>
       </section>
 

@@ -46,7 +46,6 @@ export default function HeatMapPage({data}) {
         };
         heatmapInstance.setData(data);
       }else{
-        console.log('조졌다.')
       }           
     }).catch(err => {
       console.log("heatmap err", err)

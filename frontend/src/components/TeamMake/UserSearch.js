@@ -139,7 +139,7 @@ export default function UserSearch() {
               <div className='searchresults'>
                 {searchedUserList.map((userInfo) => (
                 <div key={userInfo.userId} onClick = {() => addPlayerToTeam(userInfo)}>
-                  <SearchedUser  className='searchresult' user = {userInfo}></SearchedUser>
+                  <SearchedUser color = '#b3dc45' className='searchresult' user = {userInfo}></SearchedUser>
                   <br />              
                 </div>        
                 ))

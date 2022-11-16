@@ -6,4 +6,5 @@ public interface GameMapper {
     int getGameMonth();
     int getGameDay();
     int getGameTime();
+    String getGameScore();
 }

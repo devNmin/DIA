@@ -64,6 +64,9 @@ public class UserGameCustomRepositoryImpl implements UserGameCustomRepository{
                 .leftJoin(qGame)
                 .on(qUserGame.game.gameId.eq(qGame.gameId))
                 .where(qUserGame.user.userId.eq(id))
-                .orderBy(qGame.gameYear.desc(),qGame.gameMonth.desc(),qGame.gameDay.desc()).fetch();
+                .orderBy(qGame.gameYear.desc(),qGame.gameMonth.desc(),qGame.gameDay.desc(),qGame.gameTime.desc())
+                .offset(start)
+                .limit(end)
+                .fetch();
     }
 }

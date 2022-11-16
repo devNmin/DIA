@@ -26,7 +26,7 @@ export default function IpInsertPage() {
         setIsLoading(true);
         console.log('connecting....');
         if (ws === undefined) {
-          ws = new WebSocket('ws://' + host + ':' + port + '/ws');
+          ws = new WebSocket('ws://' + host + ':' + port + '/ws'); // ws 추가
           let flag = true;
           ws.onopen = () => {
             console.log('connected!!');

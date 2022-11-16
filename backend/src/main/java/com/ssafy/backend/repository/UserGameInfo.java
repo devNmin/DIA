@@ -9,11 +9,11 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface UserGameInfo extends JpaRepository<UserGame, String>,UserGameCustomRepository {
-    @Query(value = "SELECT distinct userGame from UserGame userGame " +
-            "left join userGame.game " +
-            "where userGame.user.userId = :id " +
-            "order by userGame.game.gameYear desc, userGame.game.gameMonth desc, userGame.game.gameDay desc ")
-    List<UserGame> getMyGameInfo(Pageable pageable, @Param(value="id") Long id);
+//    @Query(value = "SELECT distinct userGame from UserGame userGame " +
+//            "left join userGame.game " +
+//            "where userGame.user.userId = :id " +
+//            "order by userGame.game.gameYear desc, userGame.game.gameMonth desc, userGame.game.gameDay desc ")
+//    List<UserGame> getMyGameInfo(Pageable pageable, @Param(value="id") Long id);
 
 
 

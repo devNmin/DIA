@@ -60,7 +60,7 @@ public class UserGameController {
     ){
         String userEmail = tokenService.getUserEmailFromToken(request);
         User user = userRepository.findUserByUserEmail(userEmail);
-        List<UserGame> userGameList = (UserGameInfo.getMyGameInfo(PageRequest.of(pagenationDto.getStart(),pagenationDto.getEnd()), user.getUserId()));
+        List<UserGameDto> userGameList = (UserGameInfo.getMyGameInfo(pagenationDto.getStart(),pagenationDto.getEnd(), user.getUserId()));
         double avgDistance = 0;
         double avgAttack = 0;
         double avgDefence = 0;

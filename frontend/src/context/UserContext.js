@@ -19,7 +19,33 @@ export const UserProvider = ({children}) => {
     const [firstCoord, setFirstCoord] = useState([])
     const [ourTeamCoord, setOurTeamCoord] = useState([])
     // const testheight = document.bod.clientHeight 
-    // const testwidth = document.querySelector('#leftux').clientWidth      
+    // const testwidth = document.querySelector('#leftux').clientWidth 
+    const [currentNum, setCurrentNum] = useState(null)    
+    const [matchTeam, setMatchTeam] = useState(['','','','','',''])
+    const [matchTeamNum, setMatchTeamNum] = useState(['','','','','',''])
+    const registerPlayer = async (playerInfo) => {
+      if (currentNum) {
+        // 중복검사
+        if (matchTeamNum.includes(playerInfo.userId)) {
+          let pastNum = matchTeamNum.indexOf(playerInfo.userId)
+          matchTeam[pastNum] = ''
+          matchTeamNum[pastNum] = ''
+                    
+        }
+
+        matchTeam[parseInt(currentNum)] = playerInfo;
+        matchTeamNum[parseInt(currentNum)] = playerInfo.userId
+
+        setMatchTeam(() => {
+          return ([...matchTeam]
+          )
+        })
+        console.log(matchTeam);
+      }
+      else {
+        alert('필드에서 플레이어 위치를 선택해주세요!')
+      }
+    } 
 
     let contextData = {
         // user: user,
@@ -49,6 +75,11 @@ export const UserProvider = ({children}) => {
         ourTeamCoord : ourTeamCoord,
         setOurTeamCoord : setOurTeamCoord,
         // testheight : testheight,
+        currentNum : currentNum,
+        setCurrentNum : setCurrentNum,
+        matchTeam : matchTeam,
+        setMatchTeam : setMatchTeam,
+        registerPlayer : registerPlayer,
       };
     return <UserContext.Provider value={contextData}>{children}</UserContext.Provider>;
 }

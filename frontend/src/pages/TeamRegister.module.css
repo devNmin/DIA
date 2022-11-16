@@ -62,11 +62,12 @@
 .circle {
     border-radius: 50%;
     background-color: aqua;
-    position: absolute;
+ 
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer
+    cursor: pointer;
+    border: 1px solid;
 }
 
 .theircircle {
@@ -76,7 +77,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer
+    cursor: pointer;
+    border: 1px solid;
    
 }
 
@@ -93,12 +95,25 @@
     height: 100%;
     color: white;
     /* background-color: transparent; */
-    width: 30%;
+    width: 100%;
     margin-left: 10px;
     cursor: pointer;
     border: 1px solid #fff;
     border-radius: 0.5rem;
-    height: 3rem
+    height: 4rem
+}
+
+.gotoIp {
+    height: 100%;
+    color: white;
+    /* background-color: transparent; */
+    width: 100%;
+    margin-left: 10px;
+    cursor: pointer;
+    border: 1px solid #fff;
+    border-radius: 0.5rem;
+    height: 4rem;
+    margin-bottom: 20px
 }
 
 .startingTitle {
@@ -114,4 +129,19 @@
 }
 .subsituteTitle {
     color: aliceblue;
+    margin : 10px 10px;
+}
+
+.subsitutePlayers {
+    display: flex;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.canvasButton{
+    height: 19vh;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;   
 }

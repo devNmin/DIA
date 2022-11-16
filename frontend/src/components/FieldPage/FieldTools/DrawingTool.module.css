@@ -2,6 +2,9 @@
   display: flex;
   margin-left: 1rem;
 }
+.toolbox div {
+  color: #b3dc3c;
+}
 
 .wrapper {
   display: inline-block;

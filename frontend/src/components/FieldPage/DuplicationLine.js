@@ -44,7 +44,7 @@ function DuplicationLine() {
     // // 화살표 그리기
     for (let i = 0; i < 12; i++) {
       let dLength = fieldCtx.dupleLineCoords[i].length;
-      if (dLength < 11) {
+      if (dLength < 6) {
         continue;
       }
       let offset = 10;
@@ -94,7 +94,7 @@ function DuplicationLine() {
         setIsStart(false);
       } else {
         // 터치중
-
+        // 선 색 후보 '#B3DC3C'
         fieldCtx.setDupleLineCoords((prev) => {
           let now = prev;
           now[fieldCtx.nowD].push([
@@ -104,8 +104,8 @@ function DuplicationLine() {
           return now;
         });
         ctx.lineTo(clientX, clientY);
-        ctx.strokeStyle = '#B3DC3C';
-        ctx.lineWidth = 5;
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 3;
         ctx.stroke();
       }
     }

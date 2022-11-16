@@ -1,8 +1,11 @@
 .time_range {
+  position: relative;
+  top: -3%;
   width: 100vw;
   display: flex;
   justify-content: center;
 }
+
 .slider_box {
   width: 98%;
 }

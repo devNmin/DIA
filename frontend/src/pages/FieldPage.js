@@ -337,11 +337,11 @@ function FieldPage() {
       <TimeRange />
 
       <div className={styles.field_tools}>
-        <DrawingTool />
         <PlayInputGroup />
+        <DrawingTool />
         {/* <BookMark /> */}
-        <Heartbeat />
       </div>
+      <Heartbeat />
     </div>
   );
 }

@@ -4,7 +4,7 @@ import styles from '../../pages/TeamRegister.module.css'
 import UserContext from '../../context/UserContext'
 
 export default function TeamMatchField() {    
-    const {ourColor, theirColor, firstCoord, ourTeamCoord, setOurTeamCoord} =  useContext(UserContext)
+    const {ourColor, theirColor, firstCoord, currentNum, setCurrentNum, matchTeam} =  useContext(UserContext)
     const [height, setHeight] = useState(0)
     const [weight, setWeight] = useState(0)
     // const [ourTeamCoord, setOurTeamCoord] = useState([])
@@ -24,8 +24,10 @@ export default function TeamMatchField() {
     // const basicX = 107.73 
     // const basicY = 10
   const playerClick = (usernum) => {
-    console.log(usernum);
-  }     
+    setCurrentNum(usernum)   
+  }
+  
+  
 
   return (
     <div className= {styles.myContainer}>    
@@ -33,19 +35,28 @@ export default function TeamMatchField() {
       {
         Object.keys(firstCoord).map((usernum) => {
             if (parseInt(usernum) < 6) {
-                return (                
-                <div onClick={() => {playerClick(usernum)}} key={usernum} className= {styles.circle} style ={{ 'width' : circleSize, 'height' : circleSize, 'backgroundColor' : ourColor,
-                 'top' : 107.73 + (height-20)*firstCoord[usernum][1]-0.5*(circleSize) ,                 
-                 'left' :  (weight)*firstCoord[usernum][0]}}>
-                  <p style={{ 'fontSize' : circleSize*0.16}}>HOME  {usernum}</p>                     
-                </div>
+                return (
+                  <div key={usernum} style={{ 'position' : 'absolute' , 'top' : 107.73 + (height-20)*firstCoord[usernum][1]-0.5*(circleSize) ,                 
+                  'left' :  (weight)*firstCoord[usernum][0]}}>
+                    <div onClick={() => {playerClick(usernum)}}  className= {styles.circle} style ={{ 'width' : circleSize, 'height' : circleSize, 'backgroundColor' : ourColor,
+                    'borderColor' : currentNum === usernum ? '#b3dc45' : null,
+                    'border' : currentNum === usernum ? '0.5rem outset #b3dc45' : null,
+                    }}>
+                    </div>
+                    <p style={{'fontSize' : circleSize*0.16, 'color' : 'white'}}>
+                      {
+                        matchTeam[parseInt(usernum)] ? matchTeam[parseInt(usernum)].userName : usernum
+                      }
+                      </p>                     
+                  </div>                
                 )
             }else {
                 return (
                     <div key={usernum} className= {styles.theircircle} style ={{ 'width' : circleSize, 'height' : circleSize, 'backgroundColor' : theirColor,
                     'top' : 107.73 + (height-20)*firstCoord[usernum][1]-0.5*(circleSize) ,                 
-                    'left' : (weight)*firstCoord[usernum][0]}}>
-                         <p style={{ 'fontSize' : circleSize*0.16}}>AWAY {usernum}</p>  
+                    'left' : (weight)*firstCoord[usernum][0],
+                     }}>
+                         <p style={{ 'fontSize' : circleSize*0.16}}>{usernum}</p>  
                     </div>
 
                 )

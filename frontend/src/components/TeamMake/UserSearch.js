@@ -174,7 +174,7 @@ export default function UserSearch() {
               <div className='squadBench' style={{ 'display' : 'flex', 'overflowX' : 'auto'}}>              
                 {currentTeam.length?  currentTeam.map((playerInfo) => (
                   <div key = {playerInfo.userId}>
-                    <CurrentTeamComp  putPositions = {putPlayertoPosition} removeCurrentTeam = {removeCurrentTeam} setCurrentTeam = {setCurrentTeam} player = {playerInfo}></CurrentTeamComp>                    
+                    <CurrentTeamComp delete = {true} putPositions = {putPlayertoPosition} removeCurrentTeam = {removeCurrentTeam} setCurrentTeam = {setCurrentTeam} player = {playerInfo}></CurrentTeamComp>                    
                   </div>
                 )                
                 ) : null

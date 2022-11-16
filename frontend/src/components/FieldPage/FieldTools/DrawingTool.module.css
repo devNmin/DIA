@@ -1,15 +1,27 @@
 .toolbox {
   display: flex;
-  margin-left: 1rem;
+  margin-right: 2rem;
 }
-
+.toolbox div {
+  color: white;
+}
+.icon_box {
+  background-color: rgba(115, 145, 6, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 2rem;
+  margin-right: 1rem;
+}
 .wrapper {
   display: inline-block;
   position: relative;
 }
-
 .color_icon {
-  width: 2rem;
+  position: relative;
+  top: 0.15rem;
 }
 .color_input {
   opacity: 0;
@@ -22,7 +34,6 @@
 .sizebox {
   position: relative;
   display: block;
-  margin-left: 1rem;
 }
 .size_input {
   position: absolute;
@@ -33,9 +44,10 @@
   display: block;
 }
 .size_icon {
-  width: 2rem;
+  position: relative;
+  top: 0.12rem;
 }
 
 .bin_icon {
-  margin-left: 1rem;
+  color: white;
 }

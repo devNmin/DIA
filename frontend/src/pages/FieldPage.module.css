@@ -20,9 +20,15 @@
 }
 
 .field_tools {
+  position: relative;
   display: flex;
   justify-content: space-between;
   height: 3rem;
+  top: -2%;
+}
+.field_tools * {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 /* !!Z-INDEX 정리!!*/

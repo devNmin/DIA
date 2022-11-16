@@ -5,17 +5,30 @@ import styles from './TeamRegister.module.css'
 import { useHistory } from 'react-router-dom';
 import TeamMatchField from '../components/TeamMake/TeamMatchField';
 import SearchedUser from '../components/TeamMake/SearchedUser';
+import CurrentTeamComp from '../components/TeamMake/CurrentTeamComp';
 
 export default function TeamRegister() {
-  const {ourColor, setOurColor, theirColor, setTheirColor, ipV4, portinput, firstCoord, pivot, ala, fixo, goalkeeper, currentTeam} = useContext(UserContext) 
+  const {ourColor, setOurColor, theirColor, setTheirColor, pivot, ala, fixo, goalkeeper, currentTeam, registerPlayer, matchTeam} = useContext(UserContext) 
   // let test = document.body.clientWidth 
   // let test = document.querySelector('#leftux').clientWidth 
   // console.log(test);
   // let result = document.querySelector('.result')
   // console.log(test.style.width);
   const history = useHistory();
-  const goToCanvas = () => {
+  const goToCanvas = async() => {
+    for (let index = 0; index < matchTeam.length; index++) {
+      const element = matchTeam[index];
+      if (element === '') {
+        alert('유저가 등록되지 않은 위치가 있습니다!')
+        return
+      }
+      
+    }
     history.push('/canvasTest')
+    
+  }
+  const goToIp = () => {
+    history.push('/ipInsert')
   }
    return (
     <div>
@@ -55,7 +68,7 @@ export default function TeamRegister() {
               {
                 pivot.map((fwplayer) => {
                   return (
-                    <div key={fwplayer.userId} onClick = {() => console.log(fwplayer)}>
+                    <div key={fwplayer.userId} onClick = {() => registerPlayer(fwplayer)}>
                       <SearchedUser color = 'red' className='searchresult' user = {fwplayer}></SearchedUser>
                       <br />              
                     </div>  
@@ -65,7 +78,7 @@ export default function TeamRegister() {
               {
                 ala.map((mfplayer) => {
                   return (
-                    <div key={mfplayer.userId} onClick = {() => console.log(mfplayer)}>
+                    <div key={mfplayer.userId} onClick = {() => registerPlayer(mfplayer)}>
                       <SearchedUser color = 'green' className='searchresult' user = {mfplayer}></SearchedUser>
                       <br />              
                     </div> 
@@ -75,7 +88,7 @@ export default function TeamRegister() {
               {
                 fixo.map(dfplayer => {
                   return (
-                    <div key={dfplayer.userId} onClick = {() => console.log(dfplayer)}>
+                    <div key={dfplayer.userId} onClick = {() => registerPlayer(dfplayer)}>
                       <SearchedUser color = 'blue' className='searchresult' user = {dfplayer}></SearchedUser>
                       <br />              
                     </div> 
@@ -85,7 +98,7 @@ export default function TeamRegister() {
               {
                 goalkeeper.map(goal => {
                   return (
-                    <div key={goal.userId} onClick = {() => console.log(goal)}>
+                    <div key={goal.userId} onClick = {() => registerPlayer(goal)}>
                       <SearchedUser color = 'yellow' className='searchresult' user = {goal}></SearchedUser>
                       <br />              
                     </div> 
@@ -101,9 +114,21 @@ export default function TeamRegister() {
               <div className= {styles.subsituteTitle}>
                 SUBSITUTE MEMBERS
               </div>
+              <div className= {styles.subsitutePlayers}>
+                {
+                  currentTeam.map((playerinfo) => {
+                    return (
+                      <CurrentTeamComp  key={playerinfo.userId} player = {playerinfo} delete = {false} ></CurrentTeamComp>
+                    )
+                  })
+                }
+              </div>
             </div>
+            <div className= {styles.canvasButton}>
+              <button className= {styles.gotoIp} onClick={() => {goToIp()}}>RECONNECT SERVER</button>  
+              <button className= {styles.gotoCanvas} onClick={() => {goToCanvas()}}>Go to Canvas</button>  
 
-            <button className= {styles.gotoCanvas} onClick={() => {goToCanvas()}}>Go to Canvas</button>  
+            </div>
         </div>
         
     </div>

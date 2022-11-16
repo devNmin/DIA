@@ -40,6 +40,7 @@ public class GameService {
                         .gameMonth((int)param.get("gameMonth"))
                         .gameDay((int)param.get("gameDay"))
                         .gameTime((int)param.get("gameTime"))
+                        .gameScore(param.get("gameScore").toString())
                         .build();
                 gameRepository.save(game);
             }else{
@@ -50,6 +51,7 @@ public class GameService {
                         .gameTime((int)param.get("gameTime"))
 //                        .gameVideo(param.get("gameVideo") == null ? null: (String)param.get("gameVideo"))
                         .gameXY(param.get("gameXY").toString())
+                        .gameScore(param.get("gameScore").toString())
                         .build();
                 gameRepository.save(game);
 

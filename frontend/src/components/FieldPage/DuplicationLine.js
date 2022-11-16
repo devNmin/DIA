@@ -44,7 +44,7 @@ function DuplicationLine() {
     // // 화살표 그리기
     for (let i = 0; i < 12; i++) {
       let dLength = fieldCtx.dupleLineCoords[i].length;
-      if (dLength < 6) {
+      if (dLength < 10) {
         continue;
       }
       let offset = 10;

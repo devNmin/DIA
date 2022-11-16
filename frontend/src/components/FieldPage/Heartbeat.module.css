@@ -1,0 +1,8 @@
+.heart_container {
+  color: white;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  position: absolute;
+  bottom: 0;
+}

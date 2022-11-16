@@ -8,7 +8,7 @@ import SoccerField from '../components/FieldPage/SoccerField';
 import CoordsSet from '../components/FieldPage/CoordsSet';
 import DuplicationPlayer from '../components/FieldPage/DuplicationPlayer';
 import TimeRange from '../components/FieldPage/FieldTools/TimeRange';
-import PlayInputGroup from '../components/FieldPage/PlayInputGroup';
+import PlayInputGroup from '../components/FieldPage/FieldTools/PlayInputGroup';
 import DuplicationLine from '../components/FieldPage/DuplicationLine';
 import DrawingTool from '../components/FieldPage/FieldTools/DrawingTool';
 import BookMark from '../components/FieldPage/FieldTools/BookMark';
@@ -264,6 +264,7 @@ function FieldPage() {
             },
           ],
           gameXY: fieldCtx.allCoords,
+          gameScore: `${fieldCtx.score1}:${fieldCtx.score2}`,
         };
         console.log(data);
         axios({

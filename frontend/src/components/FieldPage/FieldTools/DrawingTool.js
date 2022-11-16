@@ -19,44 +19,52 @@ function DrawingTool() {
   useEffect(() => {}, []);
   return (
     <section className={styles.toolbox}>
-      <div className={styles.wrapper}>
+      <div className={styles.icon_box}>
         <div className={styles.wrapper}>
-          <PaletteOutlinedIcon fontSize="large" className={styles.color_icon} />
+          <div className={styles.wrapper}>
+            <PaletteOutlinedIcon
+              fontSize="large"
+              className={styles.color_icon}
+            />
+          </div>
+          <input
+            className={styles.color_input}
+            type="color"
+            id="brushColor"
+            value={fieldCtx.brushColor}
+            onChange={(e) => {
+              brushColorHandler(e);
+            }}
+          />
         </div>
-        <input
-          className={styles.color_input}
-          type="color"
-          id="brushColor"
-          value={fieldCtx.brushColor}
-          onChange={(e) => {
-            brushColorHandler(e);
-          }}
-        />
       </div>
-
-      <div className={styles.sizebox}>
-        <HorizontalRuleRoundedIcon
+      <div className={styles.icon_box}>
+        <div className={styles.sizebox}>
+          <HorizontalRuleRoundedIcon
+            fontSize="large"
+            className={styles.size_icon}
+          />
+          <input
+            className={styles.size_input}
+            type="range"
+            min="1"
+            max="21"
+            step="4"
+            value={fieldCtx.brushSize}
+            id="brushSize"
+            onChange={(e) => {
+              brushSizeHandler(e);
+            }}
+          />
+        </div>
+      </div>
+      <div className={styles.icon_box}>
+        <DeleteOutlineOutlinedIcon
           fontSize="large"
-          className={styles.size_icon}
-        />
-        <input
-          className={styles.size_input}
-          type="range"
-          min="1"
-          max="21"
-          step="4"
-          value={fieldCtx.brushSize}
-          id="brushSize"
-          onChange={(e) => {
-            brushSizeHandler(e);
-          }}
+          className={styles.bin_icon}
+          onClick={canvasClear}
         />
       </div>
-      <DeleteOutlineOutlinedIcon
-        fontSize="large"
-        className={styles.bin_icon}
-        onClick={canvasClear}
-      />
     </section>
   );
 }

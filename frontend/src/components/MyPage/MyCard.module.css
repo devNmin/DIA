@@ -38,9 +38,9 @@
 	-o-transition: 200ms ease-in;
 	transition: 200ms ease-in;
 	position: absolute;
-	top: 40%;
-	left: 100%;
-	transform: translate(-160%, -30%);
+	top: 10%;
+	/* left: 100%; */
+	/* transform: translate(-160%, -30%); */
 }
 
 .fut_player_card .player_card_top {

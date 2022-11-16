@@ -53,7 +53,7 @@ public class UserGameController {
     }
 
     // todo  5경기 평균 점수 구하기 - 백분율 점수 변경 필요
-    @PostMapping("/test")
+    @PostMapping("/mygame/stat")
     public ResponseEntity<?> test(
             HttpServletRequest request,
             @RequestBody PagenationDto pagenationDto
@@ -68,23 +68,23 @@ public class UserGameController {
         double avgSpeed = 0;
         double avgPhysical = userInfoRepository.findUserInfoByUser_UserId(user.getUserId()).getUserPhysical();
 
-        for (int index = 0; index < userGameList.size(); index++){
-            if (userGameList.get(index).getUserAttack() != 0){
-                avgAttack = ((double) (avgAttack + userGameList.get(index).getUserAttack())) /2;
-            }
-            if (userGameList.get(index).getUserDistance() != 0){
-                avgDistance = ((double) (avgDistance + userGameList.get(index).getUserDistance())) /2;
-            }
-            if (userGameList.get(index).getUserDefence() != 0){
-                avgDefence = ((double) (avgDefence + userGameList.get(index).getUserDefence())) /2;
-            }
-            if (userGameList.get(index).getUserStamina() != 0){
-                avgStamina = ((double) (avgStamina + userGameList.get(index).getUserStamina())) /2;
-            }
-            if (userGameList.get(index).getUserSpeed() != 0){
-                avgSpeed = ((double) (avgSpeed + userGameList.get(index).getUserSpeed())) /2;
-            }
+        int length = userGameList.size();
+        for (int index = 0; index < length; index++){
+            avgAttack = ((double) (avgAttack + userGameList.get(index).getUserAttack()));
+
+            avgDistance = ((double) (avgDistance + userGameList.get(index).getUserDistance()));
+
+            avgDefence = ((double) (avgDefence + userGameList.get(index).getUserDefence()));
+
+            avgStamina = ((double) (avgStamina + userGameList.get(index).getUserStamina()));
+
+            avgSpeed = ((double) (avgSpeed + userGameList.get(index).getUserSpeed()));
         }
+        avgAttack = avgAttack/length;
+        avgDistance = avgDistance/length;
+        avgDefence = avgDefence/length;
+        avgStamina = avgStamina/length;
+        avgSpeed = avgSpeed/length;
 
         JSONObject tmp = new JSONObject();
         //todo 점수화 필요

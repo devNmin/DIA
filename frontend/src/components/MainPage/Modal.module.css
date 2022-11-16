@@ -9,10 +9,11 @@
   z-index: 1000;
   overflow: auto;
   outline: 0;
+  color: aliceblue;
 }
 
 .modal_inner {
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(0, 0, 0, 0.8);
   box-sizing: border-box;
   position: relative;
   height: 97%;

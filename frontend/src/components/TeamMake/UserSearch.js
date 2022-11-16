@@ -139,7 +139,7 @@ export default function UserSearch() {
               <div className='searchresults'>
                 {searchedUserList.map((userInfo) => (
                 <div key={userInfo.userId} onClick = {() => addPlayerToTeam(userInfo)}>
-                  <SearchedUser  className='searchresult' user = {userInfo}></SearchedUser>
+                  <SearchedUser color = '#b3dc45' className='searchresult' user = {userInfo}></SearchedUser>
                   <br />              
                 </div>        
                 ))
@@ -174,7 +174,7 @@ export default function UserSearch() {
               <div className='squadBench' style={{ 'display' : 'flex', 'overflowX' : 'auto'}}>              
                 {currentTeam.length?  currentTeam.map((playerInfo) => (
                   <div key = {playerInfo.userId}>
-                    <CurrentTeamComp  putPositions = {putPlayertoPosition} removeCurrentTeam = {removeCurrentTeam} setCurrentTeam = {setCurrentTeam} player = {playerInfo}></CurrentTeamComp>                    
+                    <CurrentTeamComp delete = {true} putPositions = {putPlayertoPosition} removeCurrentTeam = {removeCurrentTeam} setCurrentTeam = {setCurrentTeam} player = {playerInfo}></CurrentTeamComp>                    
                   </div>
                 )                
                 ) : null

@@ -18,7 +18,6 @@ export default function IpInsertPage() {
     // await setIpV4(ipAddress.current.value.replace(/ /g, ''))
     // // console.log(portsubmit);
     // await setPort(port.current.value)
-
     if (ipV4) {
       if (portinput) {
           console.log(ipV4);
@@ -26,16 +25,16 @@ export default function IpInsertPage() {
           setIsLoading(true)
           console.log('connecting....');
           if (ws === undefined) {
-            ws = new WebSocket('ws://' + ipV4 + ':' + portinput + '/ws');
+            ws = new WebSocket('ws://' + ipV4 + ':' + portinput); 
             let flag = true
             ws.onopen = () => {
               console.log('connected!!');
             ws.onmessage = async (message) => {
-              console.log(message);              
+              // console.log(message);              
               if (flag) {
                 flag = false
                 console.log('hi');
-                setFirstCoord(message.data)     
+                setFirstCoord(JSON.parse(message.data))     
                 history.push('/teamregister')    
               }
             };

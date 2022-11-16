@@ -10,7 +10,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 400px;
+  width: 35vw;
   padding: 40px;
   transform: translate(-50%, -50%);
   background: rgba(0, 0, 0, 0.5);
@@ -19,11 +19,27 @@
   border-radius: 10px;
 }
 
+.login_box img {
+  height: 10vh;
+}
+
 .login_box h2 {
   margin: 0 0 30px;
   padding: 0;
-  color: #fff;
+  color: #B3DC3C;
   text-align: center;
+}
+
+.login_box h3 {
+  margin-top: 0.5rem;
+  padding: 0;
+  color: aliceblue;
+  text-align: center;
+}
+
+.dia {
+  display: flex;
+  justify-content: center;
 }
 
 .login_box .user_box {

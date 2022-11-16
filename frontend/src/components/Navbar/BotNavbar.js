@@ -1,5 +1,5 @@
 // import React, { useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 // import AuthContext from '../../context/AuthContext';
 import styles from './BotNavbar.module.css'
 
@@ -14,9 +14,9 @@ function BotNavbar(props) {
     <div className={styles.wrapper}>
       <div>
         <button className={styles.navButton} onClick={handleHistory}>back</button>
-        <Link to='/main'>
+        {/* <Link to='/main'>
           <button className={styles.navButton}>home</button>
-        </Link>
+        </Link> */}
       </div>
         <div>
           <button className={styles.navButton}>

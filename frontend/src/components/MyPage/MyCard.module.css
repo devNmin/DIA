@@ -6,6 +6,7 @@
 }
 
 .body {
+	/* height: 30%; */
 	font-family: 'Saira Semi Condensed', sans-serif;
 	font-weight: 400;
 	position: relative;
@@ -25,8 +26,8 @@
 }
 
 .fut_player_card {
-	width: 300px;
-	height: 485px;
+	width: 180px;
+	height: 300px;
 	background-image: url('../../assets/빈카드.png');
 	background-position: center center;
 	background-size: 100% 100%;
@@ -37,9 +38,9 @@
 	-o-transition: 200ms ease-in;
 	transition: 200ms ease-in;
 	position: absolute;
-	top: 40%;
-	left: 100%;
-	transform: translate(-160%, -30%);
+	top: 10%;
+	/* left: 100%; */
+	/* transform: translate(-160%, -30%); */
 }
 
 .fut_player_card .player_card_top {
@@ -48,30 +49,30 @@
 	display: -ms-flexbox;
 	display: flex;
 	color: #e9cc74;
-	padding: 0 1.5rem;
+	padding: 0 1.0rem;
 }
 
 .fut_player_card .player_card_top .player_master_info {
 	position: absolute;
-	line-height: 2.2rem;
+	line-height: 1.2rem;
 	font-weight: 300;
-	padding: 1.5rem 0;
+	padding: 0.5rem 0;
 	text-transform: uppercase;
 }
 
 .fut_player_card .player_card_top .player_master_info .player_rating {
-	font-size: 2rem;
+	font-size: 0.7rem;
 }
 
 .fut_player_card .player_card_top .player_master_info .player_position {
-	font-size: 1.4rem;
+	font-size: 0.7rem;
 }
 
 .fut_player_card .player_card_top .player_master_info .player_nation {
 	display: block;
 	width: 2rem;
-	height: 25px;
-	margin: 0.3rem 0;
+	/* height: 25px */
+	/* margin: 0.3rem 0; */
 }
 
 .fut_player_card .player_card_top .player_master_info .player_nation img {
@@ -84,7 +85,7 @@
 .fut_player_card .player_card_top .player_master_info .player_club {
 	display: block;
 	width: 2.1rem;
-	height: 40px;
+	/* height: 40px; */
 }
 
 .fut_player_card .player_card_top .player_master_info .player_club img {
@@ -95,8 +96,8 @@
 }
 
 .fut_player_card .player_card_top .player_picture {
-	width: 200px;
-	height: 200px;
+	width: 100px;
+	height: 100px;
 	margin: 0 auto;
 	overflow: hidden;
 }
@@ -114,9 +115,9 @@
 .fut_player_card .player_card_top .player_picture .player_extra {
 	position: absolute;
 	right: 0;
-	bottom: -0.5rem;
+	/* bottom: -0.5rem; */
 	overflow: hidden;
-	font-size: 1rem;
+	font-size: 0.7rem;
 	font-weight: 700;
 	text-transform: uppercase;
 	width: 100%;
@@ -150,7 +151,7 @@
 	width: 100%;
 	display: block;
 	text-align: center;
-	font-size: 1.6rem;
+	font-size: 1.0rem;
 	text-transform: uppercase;
 	border-bottom: 2px solid rgba(233, 204, 116, 0.1);
 	padding-bottom: 0.3rem;
@@ -174,14 +175,14 @@
 
 .fut_player_card .player_card_bottom .player_info .player_features .player_features_col {
 	border-right: 2px solid rgba(233, 204, 116, 0.1);
-	padding: 0 2.3rem;
+	padding: 0 1rem;
 }
 
 .fut_player_card .player_card_bottom .player_info .player_features .player_features_col span {
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
-	font-size: 1.2rem;
+	font-size: 0.8rem;
 	text-transform: uppercase;
 }
 

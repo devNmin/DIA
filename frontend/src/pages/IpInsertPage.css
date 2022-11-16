@@ -3,6 +3,7 @@
     font-size: 40px;
     background-color: transparent;
     color: #b3dc45 ;
+    border-radius: 1.5rem;
 }
 
 .Port {
@@ -12,6 +13,7 @@
     width: 120px;
     background-color: transparent;
     color: #b3dc45 ;
+    border-radius: 1.5rem;
 }
 
 .ipButton {
@@ -23,6 +25,8 @@
     cursor: pointer;
     border: 1px solid #fff;
     border-radius: 4px;
+    padding-bottom: 10px;
+    padding-top: 10px;
   
 }
 .ipInsertCon {
@@ -37,6 +41,7 @@
 
 .ipInsertTitle{
     color: aliceblue;
+    margin-bottom: 10px;
 }
 .ipfont {
     color: aliceblue;

@@ -8,9 +8,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -21,7 +23,7 @@ import java.util.Arrays;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig {
 
     private final TokenProvider tokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
@@ -62,10 +64,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     // 인증, 인가 서비스가 필요하지 않은 endpoint에 사용
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web
-                .ignoring()
+    @Bean
+    public WebSecurityCustomizer configure(){
+        return (web) -> web.ignoring()
                 .antMatchers(
                         "/favicon.ico",
                         "/v2/api-docs",
@@ -77,12 +78,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 );
     }
 
-    // http 요청으로 들어온 정보 security
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable(); // 사이트간 위조 방지
-
-        http
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+                .csrf().disable()
                 .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
 
                 .exceptionHandling()
@@ -110,13 +109,73 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/v1/check/code/*",
                         "/api/v1/health/*",
                         "/api/v1/health/heart/*",
-                        "/ws/**",
-                        "/**"
+                        "/ws/**"
                 ).permitAll()
 
                 .anyRequest().authenticated()
 
                 .and()
-                .apply(new JwtSecurityConfig(tokenProvider, customUserDetailsService));
+                .apply(new JwtSecurityConfig(tokenProvider, customUserDetailsService))
+                .and()
+                .build();
     }
+
+    // 인증, 인가 서비스가 필요하지 않은 endpoint에 사용
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        web
+//                .ignoring()
+//                .antMatchers(
+//                        "/favicon.ico",
+//                        "/v2/api-docs",
+//                        "/configuration/ui",
+//                        "/swagger-resources/**",
+//                        "/configuration/security",
+//                        "/swagger-ui.html",
+//                        "/webjars/**"
+//                );
+//    }
+
+    // http 요청으로 들어온 정보 security
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.csrf().disable(); // 사이트간 위조 방지
+//
+//        http
+//                .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
+//
+//                .exceptionHandling()
+//                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+//                .accessDeniedHandler(jwtAccessDeniedHandler)
+//
+//                // 세션을 사용하지 않기 때문에 STATELESS로 설정
+//                .and()
+//                .sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//
+//                .and()
+//                .headers()
+//                .frameOptions()
+//                .sameOrigin()
+//
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers(
+//                        "/api/v1/login",
+//                        "/api/v1/signup",
+////                        "/api/v1/test",
+//                        "/api/v1/mailsend",
+//                        "/api/v1/email/check/*",
+//                        "/api/v1/check/code/*",
+//                        "/api/v1/health/*",
+//                        "/api/v1/health/heart/*",
+//                        "/ws/**",
+//                        "/**"
+//                ).permitAll()
+//
+//                .anyRequest().authenticated()
+//
+//                .and()
+//                .apply(new JwtSecurityConfig(tokenProvider, customUserDetailsService));
+//    }
 }

@@ -36,14 +36,14 @@ const DataGraph = () => {
 	]
 	return (
 		// 챠트를 감싸는 div에 style을 지정해주지 않으면 출력이 되지 않는다.
-		<div style={{ width: '60%', height: '60%', margin: '200', position: 'absolute', top: '40%', left: '100%', transform: 'translate(-100%, -30%)' }}>
+		<div style={{ width: '90%', height: '70%', position: 'absolute', top: '35%', transform: 'translate(0%, 0%)' }}>
 			{/* <MyCard /> */}
 			<ResponsiveRadar
 				data={data}
 				keys={['현재', '한 달전']}
 				indexBy="status"
 				valueFormat=">-.2f"
-				margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+				margin={{ top: 180,  bottom: 140, right:70,left:70}}
 				borderColor={{ from: 'color' }}
 				gridLabelOffset={36}
 				dotSize={10}
@@ -59,23 +59,24 @@ const DataGraph = () => {
 						translateX: -50,
 						translateY: -40,
 						itemWidth: 80,
-						itemHeight: 20,
+						itemHeight: 25,
 						itemTextColor: '#999',
-						symbolSize: 12,
+						symbolSize: 15,
 						symbolShape: 'circle',
 						effects: [
 							{
 								on: 'hover',
 								style: {
-									itemTextColor: '#000'
+									itemTextColor: '#000',
+								
 								}
 							}
-						]
+						],
 					}
 				]}
 				theme={{
           textColor: '#ffffff' ,
-          fontSize: 11,
+          fontSize: 15,
           axis: {
             domain: {
               line: {

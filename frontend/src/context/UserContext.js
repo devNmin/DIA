@@ -4,10 +4,9 @@ import { createContext, useState } from 'react';
 const UserContext = createContext();
 
 export default UserContext;
-
 export const UserProvider = ({ children }) => {
-  let [ipV4, setIpV4] = useState('192.168.0.37');
-  let [portinput, setPort] = useState('9999');
+  let [ipV4, setIpV4] = useState(null);
+  let [portinput, setPort] = useState(null);
   let [currentTeam, setCurrentTeam] = useState([]);
   let [formation, setFormation] = useState('0000');
   const [goalkeeper, setGoalkeeper] = useState(
@@ -20,6 +19,31 @@ export const UserProvider = ({ children }) => {
   const [ourColor, setOurColor] = useState('#18A0FB');
   const [theirColor, setTheirColor] = useState('#D93636');
   const [firstCoord, setFirstCoord] = useState([]);
+  const [ourTeamCoord, setOurTeamCoord] = useState([]);
+  // const testheight = document.bod.clientHeight
+  // const testwidth = document.querySelector('#leftux').clientWidth
+  const [currentNum, setCurrentNum] = useState(null);
+  const [matchTeam, setMatchTeam] = useState(['', '', '', '', '', '']);
+  const [matchTeamNum, setMatchTeamNum] = useState(['', '', '', '', '', '']);
+  const registerPlayer = async (playerInfo) => {
+    if (currentNum) {
+      // 중복검사
+      if (matchTeamNum.includes(playerInfo.userId)) {
+        let pastNum = matchTeamNum.indexOf(playerInfo.userId);
+        matchTeam[pastNum] = '';
+        matchTeamNum[pastNum] = '';
+      }
+      matchTeam[parseInt(currentNum)] = playerInfo;
+      matchTeamNum[parseInt(currentNum)] = playerInfo.userId;
+
+      setMatchTeam(() => {
+        return [...matchTeam];
+      });
+      console.log(matchTeam);
+    } else {
+      alert('필드에서 플레이어 위치를 선택해주세요!');
+    }
+  };
 
   let contextData = {
     // user: user,
@@ -46,6 +70,14 @@ export const UserProvider = ({ children }) => {
     setTheirColor: setTheirColor,
     setFirstCoord: setFirstCoord,
     firstCoord: firstCoord,
+    ourTeamCoord: ourTeamCoord,
+    setOurTeamCoord: setOurTeamCoord,
+    // testheight : testheight,
+    currentNum: currentNum,
+    setCurrentNum: setCurrentNum,
+    matchTeam: matchTeam,
+    setMatchTeam: setMatchTeam,
+    registerPlayer: registerPlayer,
   };
   return (
     <UserContext.Provider value={contextData}>{children}</UserContext.Provider>

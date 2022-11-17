@@ -1,8 +1,66 @@
+/* 기본 틀 */
 .hb_box {
+  margin-left: 0.6rem;
 }
+/* 사용자 정보 전체 감싸는 div*/
+.info_box {
+  margin-left: o.5rem;
+  /* margin-right: 1rem; */
+  margin-bottom: 1rem;
+}
+/* 심박수와 하트를 감싸는 div */
 .hb {
-  display: flex;
-}
-.user_num {
+  display: inline-block;
+  width: 6rem;
   color: white;
+  border-radius: 13px;
+  border: 1px solid transparent;
+  border-image-slice: 1;
+  border-width: 3px;
+
+  /* border-image-source: linear-gradient(to left, #739106, #b3dc3c); */
+  /* background-image: linear-gradient(to left, #739106, #b3dc3c); */
+  background-image: linear-gradient(#000f24, #000f24),
+    linear-gradient(to left, #739106 0%, #b3dc3c 100%);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
 }
+
+.hb_rate {
+  float: right;
+  margin-right: 0.7rem;
+}
+
+/* 선수 이름 표시 부 */
+
+.user_num {
+  /* color: #b3dc3c; */
+  background: -webkit-linear-gradient(#739106 0%, #b3dc3c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  float: right;
+  margin-right: 0.5rem;
+}
+/* 
+codepen : https://codepen.io/mk3mk/pen/GRgjoMv
+#div2 {
+  position: relative;
+  width: 200px;
+  height: 60px;
+  margin: 30px;
+  border-radius: 30px;
+  background: #fff;
+  text-align: center;
+}
+
+#div2::before {
+  content: "";
+  position: absolute;
+  top: -16px;
+  bottom: -16px;
+  left: -16px;
+  right: -16px;
+  background: linear-gradient(35deg, red, green);
+  border-radius: 54px 54px 54px 54px;
+  z-index: -1;
+} */

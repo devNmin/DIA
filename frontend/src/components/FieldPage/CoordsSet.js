@@ -1,10 +1,12 @@
 import styles from './CoordsSet.module.css';
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import filedContext from '../../context/FieldContext';
+import userContext from '../../context/UserContext';
 import BufferComponent from './FieldTools/BufferComponent';
 
 function CoordsSet() {
   const fieldCtx = useContext(filedContext);
+  const userCtx = useContext(userContext);
   const canvasRef2 = useRef(null);
 
   const canvasWidth = window.innerWidth;
@@ -62,7 +64,12 @@ function CoordsSet() {
         context2.moveTo(x, y);
         context2.beginPath();
         context2.arc(x, y, 15, 0, Math.PI * 2, true);
-        context2.fillStyle = colors[i];
+        {
+          i < 6
+            ? (context2.fillStyle = userCtx.ourColor)
+            : (context2.fillStyle = userCtx.theirColor);
+        }
+        // context2.fillStyle = colors[i];
         context2.fill();
         context2.stroke();
 
@@ -112,12 +119,7 @@ function CoordsSet() {
 
   useEffect(() => {
     setPromise();
-  }, [
-    fieldCtx.isSocket,
-    fieldCtx.isPause,
-    fieldCtx.playIndex,
-    fieldCtx.isBuffered,
-  ]);
+  }, [fieldCtx.isPause, fieldCtx.playIndex, fieldCtx.isBuffered]);
 
   return (
     <div>

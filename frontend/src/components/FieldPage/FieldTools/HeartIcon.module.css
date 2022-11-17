@@ -1,6 +1,13 @@
+.dark_heart {
+  color: rgb(97, 99, 101);
+  float: left;
+  margin-left: 0.5rem;
+}
 .heart_icon {
   color: red;
   animation: heartbeat 1s infinite;
+  float: left;
+  margin-left: 0.5rem;
 }
 @keyframes heartbeat {
   0% {

@@ -2,27 +2,29 @@ import styles from './CoordsSet.module.css';
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import filedContext from '../../context/FieldContext';
 import BufferComponent from './FieldTools/BufferComponent';
+import UserContext from '../../context/UserContext';
 
 function CoordsSet() {
   const fieldCtx = useContext(filedContext);
+  const {ourColor, theirColor, matchTeam} = useContext(UserContext)
   const canvasRef2 = useRef(null);
 
   const canvasWidth = window.innerWidth;
   const canvasHeigth = window.innerHeight * 0.8;
 
   const colors = [
-    'red',
-    'red',
-    'red',
-    'red',
-    'red',
-    'red',
-    'pink',
-    'pink',
-    'pink',
-    'pink',
-    'pink',
-    'pink',
+    ourColor,
+    ourColor,
+    ourColor,
+    ourColor,
+    ourColor,
+    ourColor,
+    theirColor,
+    theirColor,
+    theirColor,
+    theirColor,
+    theirColor,
+    theirColor,
   ];
   const textColor = [
     'white',
@@ -71,7 +73,7 @@ function CoordsSet() {
         context2.textAlign = 'center';
         context2.textBaseline = 'hanging';
 
-        context2.fillText(i, x, y - 7);
+        context2.fillText(matchTeam[i]?matchTeam[i].userName : i, x, y - 7);
       }
     }
   };

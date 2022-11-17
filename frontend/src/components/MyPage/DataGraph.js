@@ -3,12 +3,45 @@ import axios from "../../utils/axios";
 import React, { useEffect, useState } from "react";
 
 const DataGraph = () => {
+  const [count, setCount] = useState(0)
   // const [fiveGameInfo, setFiveGameInfo] = useState({});
   // const [oneGameInfo, setOneGameInfo] = useState({});
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([
+    {
+      "status": "체력",
+      "최근 1경기": '',
+      "최근 5경기": '',
+    },
+    {
+      "status": "스피드",
+      "최근 1경기": '',
+      "최근 5경기": '',
+    },
+    {
+      "status": "피지컬",
+      "최근 1경기": '',
+      "최근 5경기": '',
+    },
+    {
+      "status": "이동거리",
+      "최근 1경기": '',
+      "최근 5경기": '',
+    },
+    {
+      "status": "공격력",
+      "최근 1경기": '',
+      "최근 5경기": '',
+    },
+    {
+      "status": "수비력",
+      "최근 1경기": '',
+      "최근 5경기": '',
+    }
+  ])
+
   const [isLoading, setIsLoading] = useState(false);
 
-  const getGameInfo = async () => {
+  const getGameInfoOne = async () => {
     await axios
       .post(`http://k7b307.p.ssafy.io/api/v1/usergame/mygame/stat`, {
         start: 0,
@@ -17,206 +50,117 @@ const DataGraph = () => {
       .then((res) => {
         if (res.status === 200) {
           console.log(res.data);
-					setData([
-						{
-							"status": "체력",
-							"최근 1경기": res.data.avgStamina,
-							"최근 5경기": res.data.avgStamina,
-						},
-						{
-							"status": "스피드",
-							"최근 1경기": res.data.avgSpeed,
-							"최근 5경기": res.data.avgStamina,
-						},
-						{
-							"status": "피지컬",
-							"최근 1경기": res.data.avgPhysical,
-							"최근 5경기": res.data.avgStamina,
-						},
-						{
-							"status": "이동거리",
-							"최근 1경기": res.data.avgDistance,
-							"최근 5경기": res.data.avgStamina,
-						},
-						{
-							"status": "공격력",
-							"최근 1경기": res.data.avgAttack,
-							"최근 5경기": res.data.avgStamina,
-						},
-						{
-							"status": "수비력",
-							"최근 1경기": res.data.avgDefence,
-							"최근 5경기": res.data.avgStamina,
-						}
-					])
+
+          setData([
+            {
+              "status": "체력",
+              "최근 1경기": res.data.avgStamina,
+              "최근 5경기": res.data.avgStamina,
+            },
+            {
+              "status": "스피드",
+              "최근 1경기": res.data.avgSpeed,
+              "최근 5경기": res.data.avgStamina,
+            },
+            {
+              "status": "피지컬",
+              "최근 1경기": res.data.avgPhysical,
+              "최근 5경기": res.data.avgStamina,
+            },
+            {
+              "status": "이동거리",
+              "최근 1경기": res.data.avgDistance,
+              "최근 5경기": res.data.avgStamina,
+            },
+            {
+              "status": "공격력",
+              "최근 1경기": res.data.avgAttack,
+              "최근 5경기": res.data.avgStamina,
+            },
+            {
+              "status": "수비력",
+              "최근 1경기": res.data.avgDefence,
+              "최근 5경기": res.data.avgStamina,
+            }
+          ])
+          setCount(count + 1)
         }
       });
-
-	// 		await axios
-    //   .post(`http://k7b307.p.ssafy.io/api/v1/usergame/mygame/stat`, {
-    //     start: 0,
-    //     end: 5,
-    //   })
-    //   .then((res) => {
-    //     if (res.status === 200) {
-    //       console.log(res.data);
-	// 				if (res.data.avgDistance !== data[4].value) {
-	// 					return
-	// 					setData([
-	// 						{
-	// 							"status": "체력",
-	// 							"최근 1경기": res.data.avgStamina,
-	// 							"최근 5경기": res.data.avgStamina,
-	// 						},
-	// 						{
-	// 							"status": "스피드",
-	// 							"최근 1경기": res.data.avgSpeed,
-	// 							"최근 5경기": res.data.avgStamina,
-	// 						},
-	// 						{
-	// 							"status": "피지컬",
-	// 							"최근 1경기": res.data.avgPhysical,
-	// 							"최근 5경기": res.data.avgStamina,
-	// 						},
-	// 						{
-	// 							"status": "이동거리",
-	// 							"최근 1경기": res.data.avgDistance,
-	// 							"최근 5경기": res.data.avgStamina,
-	// 						},
-	// 						{
-	// 							"status": "공격력",
-	// 							"최근 1경기": res.data.avgAttack,
-	// 							"최근 5경기": res.data.avgStamina,
-	// 						},
-	// 						{
-	// 							"status": "수비력",
-	// 							"최근 1경기": res.data.avgDefence,
-	// 							"최근 5경기": res.data.avgStamina,
-	// 						}
-	// 					])
-	// 				}
-    //     }
-    //   });
   };
+  const getGameInfoFive = async () => {
+    await axios
+      .post(`http://k7b307.p.ssafy.io/api/v1/usergame/mygame/stat`, {
+        start: 0,
+        end: 5
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          const qqqq = [res.data.avgStamina, res.data.avgSpeed, res.data.avgPhysical, res.data.avgDistance, res.data.avgAttack, res.data.avgDefence]
+          const arr = ["체력", "스피드", "피지컬", "이동거리", "공격력", "수비력"]
+          console.log(res.data);
+          let newkeywords = data.map((k) => {
+            if ("체력" === k["status"]) {
+              return {
+                ...k,
+                "최근 5경기": res.data.avgStamina,
+              };
+            }
+            else if ("스피드" === k["status"]) {
+              return {
+                ...k,
+                "최근 5경기": res.data.avgSpeed,
+              };
+            }
+            else if ("피지컬" === k["status"]) {
+              return {
+                ...k,
+                "최근 5경기": res.data.avgPhysical,
+              };
+            }
+            else if ("이동거리" === k["status"]) {
+              return {
+                ...k,
+                "최근 5경기": res.data.avgDistance,
+              };
+            }
+            else if ("공격력" === k["status"]) {
+              return {
+                ...k,
+                "최근 5경기": res.data.avgAttack,
+              };
+            }
+            else if ("수비력" === k["status"]) {
+              return {
+                ...k,
+                "최근 5경기": res.data.avgDefence,
+              };
+            }
+            else {
+              return {
+                k
+              }
+            }
+          });
+          // console.log('newkeywords', newkeywords);
 
-	
-  // 	  .then((res) => {
-  // 		if (res.status === 200) {
-  // 			console.log("1게임 불러오기 성공");
-  // 			console.log(res);
-  // 			let data = res.data;
-  // 			let gameInfo = {};
-  // 			gameInfo.attack = data.avgAttack;
-  // 			gameInfo.defence = data.avgDefence;
-  // 			gameInfo.distance = data.avgDistance;
-  // 			gameInfo.physical = data.avgPhysical;
-  // 			gameInfo.speed = data.avgSpeed;
-  // 			gameInfo.stamina = data.avgStamina;
-  // 			setOneGameInfo(gameInfo);
-  // 			setIsLoading(false);
-  // 		}
-  // 	  })
-  // 	  .then(async()=>{
-  // 		await axios
-  // 	  .post(`http://k7b307.p.ssafy.io/api/v1/usergame/mygame/stat`, {
-  // 		start: 0,
-  // 		end: 5,
-  // 	  })
-  // 	  .then((res) => {
-  // 			if (res.status === 200) {
-  // 				console.log("5게임 불러오기 성공");
-  // 				console.log(res);
-  // 				let data = res.data;
-  // 				let gameInfo = {};
-  // 				gameInfo.attack = data.avgAttack;
-  // 				gameInfo.defence = data.avgDefence;
-  // 				gameInfo.distance = data.avgDistance;
-  // 				gameInfo.physical = data.avgPhysical;
-  // 				gameInfo.speed = data.avgSpeed;
-  // 				gameInfo.stamina = data.avgStamina;
-  // 				setFiveGameInfo(gameInfo);
-  // 			}
-  // 		})
-  // 		.catch((err) => {
-  // 			console.log("tq")
-  // 			alert(err.data);
-  // 		});
-  // 	  })
-  // 	  .then(async ()=>{
-  // 		console.log(oneGameInfo);
-  // 		console.log(fiveGameInfo);
-  // setData([
-  	// {
-  	// 	"status": "체력",
-  	// 	"최근 1경기": oneGameInfo.stamina,
-  	// 	"최근 5경기": fiveGameInfo.stamina,
-  	// },
-  	// {
-  	// 	"status": "스피드",
-  	// 	"최근 1경기": oneGameInfo.speed,
-  	// 	"최근 5경기": fiveGameInfo.speed,
-  	// },
-  	// {
-  	// 	"status": "피지컬",
-  	// 	"최근 1경기": oneGameInfo.physical,
-  	// 	"최근 5경기": fiveGameInfo.physical,
-  	// },
-  	// {
-  	// 	"status": "이동거리",
-  	// 	"최근 1경기": oneGameInfo.distance,
-  	// 	"최근 5경기": fiveGameInfo.distance,
-  	// },
-  	// {
-  	// 	"status": "공격력",
-  	// 	"최근 1경기": oneGameInfo.attack,
-  	// 	"최근 5경기": fiveGameInfo.attack,
-  	// },
-  	// {
-  	// 	"status": "수비력",
-  	// 	"최근 1경기": oneGameInfo.defence,
-  	// 	"최근 5경기": fiveGameInfo.defence,
-  	// }
-  // ])
-  // })
-  // 	  .then(()=>{
-  // 		console.log(data);
-  // 	  })
-  // 	  .catch((err) => {
-  // 		console.log("tq")
-  // 		alert(err.data);
-  // 	  });
-  //   };
+          setData(newkeywords);
+        }
+      })
+  }
 
-  //   const getFinveInfo = async () => {
-  // 	await axios
-  // 	  .post(`http://k7b307.p.ssafy.io/api/v1/usergame/mygame/stat`, {
-  // 		start: 0,
-  // 		end: 5,
-  // 	  })
-  // 	  .then((res) => {
-  // 		if (res.status === 200) {
-  // 			console.log("5게임 불러오기 성공");
-  // 			console.log(res);
-  // 			let data = res.data;
-  // 			let gameInfo = {};
-  // 			gameInfo.attack = data.avgAttack;
-  // 			gameInfo.defence = data.avgDefence;
-  // 			gameInfo.distance = data.avgDistance;
-  // 			gameInfo.physical = data.avgPhysical;
-  // 			gameInfo.speed = data.avgSpeed;
-  // 			gameInfo.stamina = data.avgStamina;
-  // 			setFiveGameInfo(gameInfo);
-  // 		}
-  // 	  })
-  // 	  .catch((err) => {
-  // 		console.log("tq")
-  // 		alert(err.data);
-  // 	  });
-  //   };
 
   useEffect(() => {
-    getGameInfo();
-  }, []);
+    if (count < 2) {
+      getGameInfoOne();
+      const a = () => {
+        setTimeout(() => getGameInfoFive(), 100);
+      }
+      a()
+      return () => clearTimeout(a)
+    }
+    console.log('zzzz', data)
+    // getGameInfoFive();
+  }, [data]);
 
   if (!data) {
     return <div>로딩중</div>;
@@ -233,7 +177,7 @@ const DataGraph = () => {
             height: "70%",
             position: "absolute",
             top: "35%",
-            transform: "translate(0%, 0%)",
+            transform: "translate(-50%, -5%)",
           }}
         >
           {/* <MyCard /> */}

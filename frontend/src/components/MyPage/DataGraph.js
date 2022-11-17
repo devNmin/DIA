@@ -52,49 +52,51 @@ const DataGraph = () => {
         }
       });
 
-			await axios
-      .post(`http://k7b307.p.ssafy.io/api/v1/usergame/mygame/stat`, {
-        start: 0,
-        end: 5,
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          console.log(res.data);
-					if res.data.avgDistance !== data[0]
-					setData([
-						{
-							"status": "체력",
-							"최근 1경기": res.data.avgStamina,
-							"최근 5경기": res.data.avgStamina,
-						},
-						{
-							"status": "스피드",
-							"최근 1경기": res.data.avgSpeed,
-							"최근 5경기": res.data.avgStamina,
-						},
-						{
-							"status": "피지컬",
-							"최근 1경기": res.data.avgPhysical,
-							"최근 5경기": res.data.avgStamina,
-						},
-						{
-							"status": "이동거리",
-							"최근 1경기": res.data.avgDistance,
-							"최근 5경기": res.data.avgStamina,
-						},
-						{
-							"status": "공격력",
-							"최근 1경기": res.data.avgAttack,
-							"최근 5경기": res.data.avgStamina,
-						},
-						{
-							"status": "수비력",
-							"최근 1경기": res.data.avgDefence,
-							"최근 5경기": res.data.avgStamina,
-						}
-					])
-        }
-      });
+	// 		await axios
+    //   .post(`http://k7b307.p.ssafy.io/api/v1/usergame/mygame/stat`, {
+    //     start: 0,
+    //     end: 5,
+    //   })
+    //   .then((res) => {
+    //     if (res.status === 200) {
+    //       console.log(res.data);
+	// 				if (res.data.avgDistance !== data[4].value) {
+	// 					return
+	// 					setData([
+	// 						{
+	// 							"status": "체력",
+	// 							"최근 1경기": res.data.avgStamina,
+	// 							"최근 5경기": res.data.avgStamina,
+	// 						},
+	// 						{
+	// 							"status": "스피드",
+	// 							"최근 1경기": res.data.avgSpeed,
+	// 							"최근 5경기": res.data.avgStamina,
+	// 						},
+	// 						{
+	// 							"status": "피지컬",
+	// 							"최근 1경기": res.data.avgPhysical,
+	// 							"최근 5경기": res.data.avgStamina,
+	// 						},
+	// 						{
+	// 							"status": "이동거리",
+	// 							"최근 1경기": res.data.avgDistance,
+	// 							"최근 5경기": res.data.avgStamina,
+	// 						},
+	// 						{
+	// 							"status": "공격력",
+	// 							"최근 1경기": res.data.avgAttack,
+	// 							"최근 5경기": res.data.avgStamina,
+	// 						},
+	// 						{
+	// 							"status": "수비력",
+	// 							"최근 1경기": res.data.avgDefence,
+	// 							"최근 5경기": res.data.avgStamina,
+	// 						}
+	// 					])
+	// 				}
+    //     }
+    //   });
   };
 
 	

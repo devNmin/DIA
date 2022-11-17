@@ -2,7 +2,7 @@
 import UserContext from '../context/UserContext';
 import fieldContext from '../context/FieldContext';
 import React, { useEffect, useRef, useState, useContext } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import styles from './FieldPage.module.css';
 import SoccerField from '../components/FieldPage/SoccerField';
 import CoordsSet from '../components/FieldPage/CoordsSet';
@@ -11,15 +11,15 @@ import TimeRange from '../components/FieldPage/FieldTools/TimeRange';
 import PlayInputGroup from '../components/FieldPage/FieldTools/PlayInputGroup';
 import DuplicationLine from '../components/FieldPage/DuplicationLine';
 import DrawingTool from '../components/FieldPage/FieldTools/DrawingTool';
-import BookMark from '../components/FieldPage/FieldTools/BookMark';
+// import BookMark from '../components/FieldPage/FieldTools/BookMark';
 import ScoreBoard from '../components/FieldPage/FieldTools/ScoreBoard';
-import AuthContext from '../context/AuthContext';
+// import AuthContext from '../context/AuthContext';
 import Heartbeat from '../components/FieldPage/Heartbeat';
 
 function FieldPage() {
-  const { ipV4, portinput } = useContext(UserContext);
+  const { ipV4, portinput, setSocketStop, socketStop,  ws} = useContext(UserContext);
   const fieldCtx = useContext(fieldContext);
-  const { authTokens, BASE_URL } = useContext(AuthContext);
+  // const { authTokens, BASE_URL } = useContext(AuthContext);
 
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
@@ -175,124 +175,125 @@ function FieldPage() {
         gameTime: gameTime,
       });
     }
-    socketStart();
+    // socketStart();
   }, [fieldCtx.isPause]);
 
   // 소켓
   const host = ipV4;
   const port = portinput;
-  let ws = undefined;
+  // let ws = undefined;
 
-  let disX = 0;
-  let disY = 0; //x,y의 거리 값
-  let fixelX = 40 / 1180; // 실제 거리 변환을 위한 값 -> 미터 단위
-  let fixelY = 20 / 656;
-  let nowDistance = 0;
-  let totalDistance = Array.from({ length: 6 }, () => 0);
-  let fpsTime = 0.04; //프레임 컴퓨터에서 계산하는 속도? 5ms -> 나중엔 받아서 변경
-  let userXInfo = Array.from({ length: 6 }, () => 0);
-  let userYInfo = Array.from({ length: 6 }, () => 0); //이전 유저의 x,y 좌표값
-  let index = -1;
-  const socketStart = () => {
-    console.log('connecting....');
-    if (ws === undefined) {
-      ws = new WebSocket('ws://' + host + ':' + port + '/ws');
-      ws.onopen = () => {
-        console.log('connected!!');
-      };
-      ws.onmessage = (message) => {
-        fieldCtx.setIsSocket(() => true);
-        const coordData = JSON.parse(message.data);
+  // let disX = 0;
+  // let disY = 0; //x,y의 거리 값
+  // let fixelX = 40 / 1180; // 실제 거리 변환을 위한 값 -> 미터 단위
+  // let fixelY = 20 / 656;
+  // let nowDistance = 0;
+  // let totalDistance = Array.from({ length: 6 }, () => 0);
+  // let fpsTime = 0.04; //프레임 컴퓨터에서 계산하는 속도? 5ms -> 나중엔 받아서 변경
+  // let userXInfo = Array.from({ length: 6 }, () => 0);
+  // let userYInfo = Array.from({ length: 6 }, () => 0); //이전 유저의 x,y 좌표값
+  // let index = -1;
+  // const socketStart = () => {
+  //   console.log('connecting....');
+  //   if (ws === undefined) {
+  //     ws = new WebSocket('ws://' + host + ':' + port + '/ws');
+  //     ws.onopen = () => {
+  //       console.log('connected!!');
+  //     };
+  //     ws.onmessage = (message) => {
+  //       fieldCtx.setIsSocket(() => true);
+  //       const coordData = JSON.parse(message.data);
 
-        index++;
-        for (let i = 0; i < 12; i++) {
-          if (i in coordData) {
-            //user x,y
-            const x = (coordData[i][0] * canvasWidth).toFixed(3);
-            const y = (coordData[i][1] * canvasHeigth).toFixed(3);
-            if (fieldCtx.allCoords[i].length === 0) {
-              fieldCtx.allCoords[i].push([x, y]);
-              continue;
-            }
-            //이전 값이 있다면 거리 계산
-            if (userXInfo[i] != null && userYInfo[i] != null) {
-              disX = Math.abs(x * fixelX - userXInfo[i]);
-              disY = Math.abs(y * fixelY - userYInfo[i]);
-              nowDistance = Math.sqrt(disX * disX + disY * disY);
-              if (((nowDistance / fpsTime) * 3600) / 1000 < 44) {
-                //속도가 정상 속도면 거리 합 진행
-                fieldCtx.allCoords[i].push([x, y]);
-                totalDistance[i] += Math.sqrt(disX * disX + disY * disY);
-              } else {
-                fieldCtx.allCoords[i].push([
-                  fieldCtx.allCoords[i].at(-1)[0],
-                  fieldCtx.allCoords[i].at(-1)[1],
-                ]);
-              }
-            } else {
-              fieldCtx.allCoords[i].push([x, y]);
-            }
-            userXInfo[i] = x * fixelX;
-            userYInfo[i] = y * fixelY;
-          } else if (fieldCtx.allCoords[i].length > 0) {
-            // 값이 안들어오면 이전 값 넣어줌
-            fieldCtx.allCoords[i].push([
-              fieldCtx.allCoords[i].at(-1)[0],
-              fieldCtx.allCoords[i].at(-1)[1],
-            ]);
-          } else {
-            // 이전 값도 없으면 [0, 0] 넣어줌
-            fieldCtx.allCoords[i].push([0.001, 0.001]);
-          }
-        }
-        fieldCtx.HandleBuffer();
-        fieldCtx.setMaxIndex((prev) => prev + 1);
-      };
-      ws.onclose = function () {
-        ws = undefined;
-        fieldCtx.setIsBuffered(true);
-        console.log('Server Disconnect..');
-        const data = {
-          gameYear: nowDate.gameYear,
-          gameMonth: nowDate.gameMonth,
-          gameDay: nowDate.gameDay,
-          gameTime: nowDate.gameTime,
-          userData: [
-            {
-              userID: '10',
-              userDistance: `${totalDistance[0]}`,
-            },
-          ],
-          gameXY: fieldCtx.allCoords,
-          gameScore: `${fieldCtx.score1}:${fieldCtx.score2}`,
-        };
-        console.log(data);
-        axios({
-          method: 'post',
-          url: BASE_URL + 'game/newGame/',
-          headers: `Bearer ${authTokens}`,
-          data: data,
-        })
-          .then((response) => console.log(response))
-          .catch((err) => console.log(err));
-      };
-      ws.onerror = function (message) {
-        console.log('error..');
-      };
-    }
+  //       index++;
+  //       for (let i = 0; i < 12; i++) {
+  //         if (i in coordData) {
+  //           //user x,y
+  //           const x = (coordData[i][0] * canvasWidth).toFixed(3);
+  //           const y = (coordData[i][1] * canvasHeigth).toFixed(3);
+  //           if (fieldCtx.allCoords[i].length === 0) {
+  //             fieldCtx.allCoords[i].push([x, y]);
+  //             continue;
+  //           }
+  //           //이전 값이 있다면 거리 계산
+  //           if (userXInfo[i] != null && userYInfo[i] != null) {
+  //             disX = Math.abs(x * fixelX - userXInfo[i]);
+  //             disY = Math.abs(y * fixelY - userYInfo[i]);
+  //             nowDistance = Math.sqrt(disX * disX + disY * disY);
+  //             if (((nowDistance / fpsTime) * 3600) / 1000 < 44) {
+  //               //속도가 정상 속도면 거리 합 진행
+  //               fieldCtx.allCoords[i].push([x, y]);
+  //               totalDistance[i] += Math.sqrt(disX * disX + disY * disY);
+  //             } else {
+  //               fieldCtx.allCoords[i].push([
+  //                 fieldCtx.allCoords[i].at(-1)[0],
+  //                 fieldCtx.allCoords[i].at(-1)[1],
+  //               ]);
+  //             }
+  //           } else {
+  //             fieldCtx.allCoords[i].push([x, y]);
+  //           }
+  //           userXInfo[i] = x * fixelX;
+  //           userYInfo[i] = y * fixelY;
+  //         } else if (fieldCtx.allCoords[i].length > 0) {
+  //           // 값이 안들어오면 이전 값 넣어줌
+  //           fieldCtx.allCoords[i].push([
+  //             fieldCtx.allCoords[i].at(-1)[0],
+  //             fieldCtx.allCoords[i].at(-1)[1],
+  //           ]);
+  //         } else {
+  //           // 이전 값도 없으면 [0, 0] 넣어줌
+  //           fieldCtx.allCoords[i].push([0.001, 0.001]);
+  //         }
+  //       }
+  //       fieldCtx.HandleBuffer();
+  //       fieldCtx.setMaxIndex((prev) => prev + 1);
+  //     };
+  //     ws.onclose = function () {
+  //       ws = undefined;
+  //       fieldCtx.setIsBuffered(true);
+  //       console.log('Server Disconnect..');
+  //       const data = {
+  //         gameYear: nowDate.gameYear,
+  //         gameMonth: nowDate.gameMonth,
+  //         gameDay: nowDate.gameDay,
+  //         gameTime: nowDate.gameTime,
+  //         userData: [
+  //           {
+  //             userID: '10',
+  //             userDistance: `${totalDistance[0]}`,
+  //           },
+  //         ],
+  //         gameXY: fieldCtx.allCoords,
+  //         gameScore: `${fieldCtx.score1}:${fieldCtx.score2}`,
+  //       };
+  //       console.log(data);
+  //       axios({
+  //         method: 'post',
+  //         url: BASE_URL + 'game/newGame/',
+  //         headers: `Bearer ${authTokens}`,
+  //         data: data,
+  //       })
+  //         .then((response) => console.log(response))
+  //         .catch((err) => console.log(err));
+  //     };
+  //     ws.onerror = function (message) {
+  //       console.log('error..');
+  //     };
+  //   }
+  // };
+  // let ws = new WebSocket('ws://' + ipV4 + ':' + portinput + '/ws')
+  const socketStop2 = async () => {
+    // ws.close()
+    // console.log(socketStop);
+    console.log(ws);
+    ws.close()
   };
 
-  const socketStop = () => {
-    if (ws !== undefined) {
-      ws.close();
-    }
-  };
-
-  const socketSend = () => {
-    if (ws !== undefined) {
-      ws.send('hello this is client Message'); //client to server
-    }
-  };
+  // const socketSend = () => {
+  //   if (ws !== undefined) {
+  //     ws.send('hello this is client Message'); //client to server
+  //   }
+  // };
 
   return (
     <div className={styles.size}>
@@ -302,8 +303,8 @@ function FieldPage() {
         <div> PORT : </div>
         <div>{port}</div>
         <div>
-          <button onClick={socketStart}>소켓 시작</button>
-          <button onClick={socketStop}>소켓 종료</button>
+          {/* <button onClick={socketStart}>소켓 시작</button> */}
+          <button onClick={socketStop2}>소켓 종료</button>
           {/* <button onClick={socketSend}>소켓 전송</button> */}
         </div>
       </div>

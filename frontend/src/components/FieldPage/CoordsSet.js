@@ -1,31 +1,16 @@
 import styles from './CoordsSet.module.css';
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import filedContext from '../../context/FieldContext';
+import userContext from '../../context/UserContext';
 import BufferComponent from './FieldTools/BufferComponent';
-import UserContext from '../../context/UserContext';
 
 function CoordsSet() {
   const fieldCtx = useContext(filedContext);
-  const {ourColor, theirColor, matchTeam} = useContext(UserContext)
+  const userCtx = useContext(userContext);
   const canvasRef2 = useRef(null);
 
   const canvasWidth = window.innerWidth;
   const canvasHeigth = window.innerHeight * 0.8;
-
-  const colors = [
-    ourColor,
-    ourColor,
-    ourColor,
-    ourColor,
-    ourColor,
-    ourColor,
-    theirColor,
-    theirColor,
-    theirColor,
-    theirColor,
-    theirColor,
-    theirColor,
-  ];
   const textColor = [
     'white',
     'white',
@@ -64,7 +49,12 @@ function CoordsSet() {
         context2.moveTo(x, y);
         context2.beginPath();
         context2.arc(x, y, 15, 0, Math.PI * 2, true);
-        context2.fillStyle = colors[i];
+        {
+          i < 6
+            ? (context2.fillStyle = userCtx.ourColor)
+            : (context2.fillStyle = userCtx.theirColor);
+        }
+        // context2.fillStyle = colors[i];
         context2.fill();
         context2.stroke();
 
@@ -73,7 +63,11 @@ function CoordsSet() {
         context2.textAlign = 'center';
         context2.textBaseline = 'hanging';
 
-        context2.fillText(matchTeam[i]?matchTeam[i].userName : i, x, y - 7);
+        context2.fillText(
+          userCtx.matchTeam[i] ? userCtx.matchTeam[i].userName : i,
+          x,
+          y - 7
+        );
       }
     }
   };
@@ -114,12 +108,7 @@ function CoordsSet() {
 
   useEffect(() => {
     setPromise();
-  }, [
-    fieldCtx.isSocket,
-    fieldCtx.isPause,
-    fieldCtx.playIndex,
-    fieldCtx.isBuffered,
-  ]);
+  }, [fieldCtx.isPause, fieldCtx.playIndex, fieldCtx.isBuffered]);
 
   return (
     <div>

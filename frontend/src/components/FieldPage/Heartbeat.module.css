@@ -5,4 +5,8 @@
   align-items: flex-end;
   position: absolute;
   bottom: 0;
+  margin-left: 2rem;
+}
+.user_heart {
+  display: flex;
 }

@@ -3,7 +3,8 @@
   height: 100vh;
   position: absolute;
   z-index: -10;
-  background: linear-gradient(#08172c, #0c2241 80%, #000f24);
+  background-color: #000f24;
+  /* background: linear-gradient(#08172c, #0c2241 80%, #000f24); */
 }
 .pitch {
   /* background-color: #000f24; */
@@ -16,8 +17,8 @@
 }
 .field_img {
   position: absolute;
-  width: 90%;
-  height: 90%;
+  width: 100%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.3);
 }
 

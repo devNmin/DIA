@@ -1,11 +1,11 @@
 import styles from './SoccerField.module.css';
-import field1 from '../../assets/field2.jpg';
+import field from '../../assets/field.jpg';
 
 function SoccerField() {
   return (
     <section className={styles.section}>
       <div className={styles.pitch}>
-        <img src={field1} className={styles.field_img} />
+        <img src={field} className={styles.field_img} />
       </div>
     </section>
   );

@@ -44,11 +44,17 @@ const DataGraph = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const getGameInfoOne = async () => {
-    await axios
-      .post(`http://k7b307.p.ssafy.io/api/v1/usergame/mygame/stat`, {
+    await Axios
+      .post(`http://k7b307.p.ssafy.io/api/v1/usergame/mygame/stat`,
+       {
         start: 0,
         end: 1,
-      })
+      },
+      {
+        headers : {
+            Authorization : `Bearer ${authTokens.accessToken}`
+        }
+    })
       .then((res) => {
         if (res.status === 200) {
           console.log(res.data);

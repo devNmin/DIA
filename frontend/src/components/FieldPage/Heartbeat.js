@@ -3,7 +3,6 @@ import * as StompJs from '@stomp/stompjs';
 import HeartbeatView from './HeartbeatView';
 import { HeartContext } from '../../context/HeartContext';
 import styles from './Heartbeat.module.css';
-import HeartIcon from './FieldTools/HeartIcon';
 
 function Heartbeat(props) {
   const $websocket = useRef(null);
@@ -106,8 +105,7 @@ function Heartbeat(props) {
     <>
       <div className={styles.heart_container}>
         {heartBeatCtx.heartBeat.map((heart, index) => (
-          <div>
-            <HeartIcon />
+          <div className={styles.user_heart}>
             <HeartbeatView
               user={heart.userEmail}
               heartB={heart.userHeartBeat}

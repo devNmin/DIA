@@ -1,16 +1,16 @@
 import React from 'react';
-
-function Qwer({ user, heartB }) {
+import styles from './HeartbeatView.module.css';
+import HeartIcon from './FieldTools/HeartIcon';
+function HeartbeatView({ user, heartB }) {
   return (
-    <div style={{ marginLeft: '1rem', marginRight: '1rem' }}>
-      <div>
-        {user}
-      </div>
-      <div>
-        {heartB}
+    <div className={styles.hb_box}>
+      <div className={styles.user_num}>{user}</div>
+      <div className={styles.hb}>
+        <HeartIcon />
+        <div>{heartB}</div>
       </div>
     </div>
   );
 }
 
-export default Qwer;
+export default HeartbeatView;

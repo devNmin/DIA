@@ -6,3 +6,6 @@
   position: absolute;
   bottom: 0;
 }
+.user_heart {
+  display: flex;
+}

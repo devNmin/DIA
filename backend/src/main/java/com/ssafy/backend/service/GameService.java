@@ -59,8 +59,10 @@ public class GameService {
 
                 List<HashMap<String, Object>> userData = (List<HashMap<String, Object>>) param.get("userData");
 
+                //사람 수 만큼 반복
                 for (int index = 0; index < userData.size(); index++){
                     String userId = (String) userData.get(index).get("userID");
+
                     System.out.println(userId);
                     if(userId == null){
                         return false;
@@ -69,9 +71,17 @@ public class GameService {
                     User user = userRepository.findUserByUserId(Long.parseLong(userId));
                     UserInfo userInfo = userInfoRepository.findUserInfoByUser_UserId(user.getUserId());
                     //todo 해당 유저의 정보들 추가적으로 계산하는 로직 필요
-                    System.out.println("user" + user);
-                    System.out.println("game" + game);
-                    System.out.println("udostance" + Float.parseFloat((String) userData.get(index).get("userDistance")));
+//                    System.out.println("user" + user);
+//                    System.out.println("game" + game);
+//                    System.out.println("udostance" + Float.parseFloat((String) userData.get(index).get("userDistance")));
+
+                    int userHeartRate = (Integer)userData.get(index).get("userHeartRate");
+                    double stamina = (double)userV.get(userId).get(4); //원래 계산되던 체력 값
+                    if (userHeartRate != 0) { //워치가 있는 경우 -> 심박수 활용한 스태미나 계산
+                        stamina = stamina/0.79/userHeartRate*100;
+                    }
+//                    System.out.println("stamina: " +stamina);
+
                     UserGame userGame = UserGame.builder()
                             .game(game)
                             .user(user)
@@ -81,7 +91,7 @@ public class GameService {
                             .userSpeed(Float.parseFloat(((Double)userV.get(userId).get(1)).toString()))
                             .userDefence((int)userV.get(userId).get(2))
                             .userAttack((int)userV.get(userId).get(3))
-                            .userStamina((int)userV.get(userId).get(4))
+                            .userStamina((int)stamina)
                             .userDistance(Float.parseFloat((String) userData.get(index).get("userDistance")))
                             .build();
                     UserGameInfo.save(userGame);
@@ -188,7 +198,7 @@ public class GameService {
             }
 //            System.out.println("MaxV: "+maxV);
 //            System.out.println("avg: "+totalV/totalCnt);
-            System.out.println("defCnt: "+defCnt+ ", attCnt: "+attCnt + ", usaine: "+usaine + ", totalCnt: "+totalCnt + ", totalD: "+totalD);
+//            System.out.println("defCnt: "+defCnt+ ", attCnt: "+attCnt + ", usaine: "+usaine + ", totalCnt: "+totalCnt + ", totalD: "+totalD);
 //            System.out.println(defCnt+ ","+attCnt + ","+totalCnt + "," + (int)(((double)defCnt/(double)totalCnt)*93.0) +","+ (int)(((double)attCnt/(double)totalCnt)*87.0));
 
             ArrayList<Object> vData = new ArrayList<>();
@@ -196,7 +206,7 @@ public class GameService {
             vData.add(totalV/totalCnt); //평균 속도가 1 index
             vData.add((int)(((double)defCnt/(double)totalCnt)*93.0)); // 수비는 2
             vData.add((int)(((double)attCnt/(double)totalCnt)*87.0)); // 공격은 3
-            vData.add((int)(((double)totalD/(double)totalCnt)*1000*0.79)); // 스태미나는 4
+            vData.add((((double)totalD/(double)totalCnt)*1000*0.79)); // 스태미나는 4
             returnData.put(userKey,vData);
         }
 

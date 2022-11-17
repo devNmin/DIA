@@ -1,11 +1,13 @@
 import { ResponsiveRadar } from "@nivo/radar";
 import axios from "../../utils/axios";
-import React, { useEffect, useState } from "react";
-
+import React, { useEffect, useState, useContext } from "react";
+import Axios from 'axios';
+import AuthContext from '../../context/AuthContext'
 const DataGraph = () => {
   const [count, setCount] = useState(0)
   // const [fiveGameInfo, setFiveGameInfo] = useState({});
   // const [oneGameInfo, setOneGameInfo] = useState({});
+  const {authTokens} = useContext(AuthContext)
   const [data, setData] = useState([
     {
       "status": "체력",
@@ -55,32 +57,32 @@ const DataGraph = () => {
             {
               "status": "체력",
               "최근 1경기": res.data.avgStamina,
-              "최근 5경기": res.data.avgStamina,
+              "최근 5경기": '',
             },
             {
               "status": "스피드",
               "최근 1경기": res.data.avgSpeed,
-              "최근 5경기": res.data.avgStamina,
+              "최근 5경기": '',
             },
             {
               "status": "피지컬",
               "최근 1경기": res.data.avgPhysical,
-              "최근 5경기": res.data.avgStamina,
+              "최근 5경기": '',
             },
             {
               "status": "이동거리",
               "최근 1경기": res.data.avgDistance,
-              "최근 5경기": res.data.avgStamina,
+              "최근 5경기": '',
             },
             {
               "status": "공격력",
               "최근 1경기": res.data.avgAttack,
-              "최근 5경기": res.data.avgStamina,
+              "최근 5경기": '',
             },
             {
               "status": "수비력",
               "최근 1경기": res.data.avgDefence,
-              "최근 5경기": res.data.avgStamina,
+              "최근 5경기": '',
             }
           ])
           setCount(count + 1)
@@ -88,15 +90,19 @@ const DataGraph = () => {
       });
   };
   const getGameInfoFive = async () => {
-    await axios
-      .post(`http://k7b307.p.ssafy.io/api/v1/usergame/mygame/stat`, {
+    await Axios
+      .post(`http://k7b307.p.ssafy.io/api/v1/usergame/mygame/stat`,
+       {
         start: 0,
-        end: 5
-      })
+        end: 5,
+      },
+      {
+        headers : {
+            Authorization : `Bearer ${authTokens.accessToken}`
+        }
+    })
       .then((res) => {
         if (res.status === 200) {
-          const qqqq = [res.data.avgStamina, res.data.avgSpeed, res.data.avgPhysical, res.data.avgDistance, res.data.avgAttack, res.data.avgDefence]
-          const arr = ["체력", "스피드", "피지컬", "이동거리", "공격력", "수비력"]
           console.log(res.data);
           let newkeywords = data.map((k) => {
             if ("체력" === k["status"]) {
@@ -145,6 +151,13 @@ const DataGraph = () => {
 
           setData(newkeywords);
         }
+        // if (!window.location.hash) { 
+
+        //   window.location.hash = '#reload';
+        
+        //   window.location.href = window.location.href;
+        
+        // }
       })
   }
 
@@ -152,8 +165,10 @@ const DataGraph = () => {
   useEffect(() => {
     if (count < 2) {
       getGameInfoOne();
+      // getGameInfoFive();
       const a = () => {
-        setTimeout(() => getGameInfoFive(), 100);
+        // setTimeout(() => getGameInfoOne(), 100);
+        setTimeout(() => getGameInfoFive(), 500);
       }
       a()
       return () => clearTimeout(a)
@@ -161,8 +176,9 @@ const DataGraph = () => {
     console.log('zzzz', data)
     // getGameInfoFive();
   }, [data]);
+  
 
-  if (!data) {
+  if (!data || !data[0]["최근 1경기"]===''|| !data[0]["최근 5경기"]==='') {
     return <div>로딩중</div>;
   }
   return (

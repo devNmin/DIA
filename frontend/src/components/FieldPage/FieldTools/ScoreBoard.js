@@ -1,9 +1,12 @@
 import styles from './ScoreBoard.module.css';
 import { useEffect, useState, useContext } from 'react';
 import filedContext from '../../../context/FieldContext';
+import userContext from '../../../context/UserContext';
+import { width } from '@mui/system';
 
 function ScoreBoard() {
   const fieldCtx = useContext(filedContext);
+  const userCtx = useContext(userContext);
   const [touchStart, setTouchStart] = useState(null);
 
   const LongTouchHandler = ({ e, team }) => {
@@ -26,6 +29,10 @@ function ScoreBoard() {
     <div className={styles.score_box}>
       <div className={styles.score_inner}>
         <div
+          className={styles.team_color}
+          style={{ backgroundColor: userCtx.ourColor }}
+        ></div>
+        <div
           className={styles.inner_box}
           onTouchStart={(e) => setTouchStart(e)}
           onTouchEnd={(e) => LongTouchHandler({ e: e, team: '1' })}
@@ -40,6 +47,10 @@ function ScoreBoard() {
         >
           <h3 className={styles.score}>{fieldCtx.score2}</h3>
         </div>
+        <div
+          className={styles.team_color}
+          style={{ backgroundColor: userCtx.theirColor }}
+        ></div>
       </div>
     </div>
   );

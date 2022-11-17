@@ -1,18 +1,212 @@
 .body {
-  height: 120vh;
+  height: 100vh;
   /* background: linear-gradient(#141e30, #243b55); */
   user-select: none;
   background-image: url('../assets/background.jpg');
   background-size: cover;
 }
+@media (min-width: 500px) {
+  .body {
+    height: 120vh;
+    /* background: linear-gradient(#141e30, #243b55); */
+    user-select: none;
+    background-image: url('../assets/background.jpg');
+    background-size: cover;
+  }
+  .login_box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 35vw;
+    padding: 40px;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+  }
 
+  .login_box img {
+    height: 10vh;
+  }
+
+  .login_box h2 {
+    margin: 0 0 30px;
+    padding: 0;
+    color: #b3dc3c;
+    text-align: center;
+  }
+
+  .login_box h3 {
+    margin-top: 0.5rem;
+    padding: 0;
+    color: aliceblue;
+    text-align: center;
+  }
+
+  .dia {
+    display: flex;
+    justify-content: center;
+  }
+
+  .login_box .user_box {
+    position: relative;
+  }
+
+  .login_box .user_box input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+  }
+
+  .user_box label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: 0.5s;
+  }
+
+  .user_box input:focus ~ label,
+  .user_box input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #b3dc45;
+    font-size: 12px;
+  }
+
+  .actions {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    overflow: hidden;
+    transition: 0.5s;
+    margin-top: 40px;
+    letter-spacing: 4px;
+  }
+  .actions input {
+    color: #b3dc45;
+    font-size: 16px;
+    letter-spacing: 4px;
+    border-color: transparent;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  .actions:hover input {
+    color: #fff;
+  }
+
+  .actions:hover {
+    background: #b3dc45;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #b3dc45, 0 0 25px #b3dc45, 0 0 50px #b3dc45,
+      0 0 100px #b3dc45;
+  }
+
+  .actions span {
+    position: absolute;
+    display: block;
+  }
+
+  .actions span:nth-child(1) {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #b3dc45);
+    animation: btn-anim1 1s linear infinite;
+  }
+
+  @keyframes btn-anim1 {
+    0% {
+      left: -100%;
+    }
+    50%,
+    100% {
+      left: 100%;
+    }
+  }
+
+  .actions span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, #b3dc45);
+    animation: btn-anim2 1s linear infinite;
+    animation-delay: 0.25s;
+  }
+
+  @keyframes btn-anim2 {
+    0% {
+      top: -100%;
+    }
+    50%,
+    100% {
+      top: 100%;
+    }
+  }
+
+  .actions span:nth-child(3) {
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg, transparent, #b3dc45);
+    animation: btn-anim3 1s linear infinite;
+    animation-delay: 0.5s;
+  }
+
+  @keyframes btn-anim3 {
+    0% {
+      right: -100%;
+    }
+    50%,
+    100% {
+      right: 100%;
+    }
+  }
+
+  .actions span:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent, #b3dc45);
+    animation: btn-anim4 1s linear infinite;
+    animation-delay: 0.75s;
+  }
+
+  @keyframes btn-anim4 {
+    0% {
+      bottom: -100%;
+    }
+    50%,
+    100% {
+      bottom: 100%;
+    }
+  }
+  .signup_link {
+    font-size: small;
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+  }
+}
 .login_box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 35vw;
-  padding: 40px;
-  transform: translate(-50%, -50%);
+  padding-top: 14rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
   background: rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
@@ -26,7 +220,7 @@
 .login_box h2 {
   margin: 0 0 30px;
   padding: 0;
-  color: #B3DC3C;
+  color: #b3dc3c;
   text-align: center;
 }
 
@@ -40,6 +234,7 @@
 .dia {
   display: flex;
   justify-content: center;
+  margin-bottom: 1rem;
 }
 
 .login_box .user_box {
@@ -47,6 +242,7 @@
 }
 
 .login_box .user_box input {
+  margin-top: 1rem;
   width: 100%;
   padding: 10px 0;
   font-size: 16px;

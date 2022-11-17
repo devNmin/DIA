@@ -10,8 +10,16 @@ import axios from 'axios';
 import AuthContext from '../context/AuthContext';
 
 export default function IpInsertPage() {
-  const { setIpV4, setPort, ipV4, portinput, setFirstCoord, socketStop, setWs } = useContext(UserContext);
-  const fieldCtx = useContext(FieldContext);  
+  const {
+    setIpV4,
+    setPort,
+    ipV4,
+    portinput,
+    setFirstCoord,
+    socketStop,
+    setWs,
+  } = useContext(UserContext);
+  const fieldCtx = useContext(FieldContext);
   const { authTokens, BASE_URL } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -19,7 +27,7 @@ export default function IpInsertPage() {
   const history = useHistory();
   const ipAddress = useRef();
   const port = useRef();
-  let ws = undefined;  
+  let ws = undefined;
   const canvasWidth = window.innerWidth;
   const canvasHeigth = window.innerHeight * 0.8;
   let userXInfo = Array.from({ length: 6 }, () => 0);
@@ -33,7 +41,7 @@ export default function IpInsertPage() {
   let fpsTime = 0.04; //프레임 컴퓨터에서 계산하는 속도? 5ms -> 나중엔 받아서 변경
   let index = -1;
 
-  useEffect(() => {    
+  useEffect(() => {
     if (!nowDate) {
       let today = new Date();
       const gameYear = today.getFullYear();
@@ -47,7 +55,6 @@ export default function IpInsertPage() {
         gameTime: gameTime,
       });
     }
-
   }, [fieldCtx.isPause]);
 
   const ipChecker = async () => {
@@ -56,19 +63,19 @@ export default function IpInsertPage() {
     // await setPort(port.current.value)
     if (ipV4) {
       if (portinput) {
-        console.log('ipV4'+ipV4);
+        console.log('ipV4' + ipV4);
         console.log('portinput' + portinput);
         setIsLoading(true);
         console.log('connecting....');
         if (ws === undefined) {
-          ws = new WebSocket('ws://' + ipV4 + ':' + portinput + '/ws'); 
-          setWs(ws)
+          ws = new WebSocket('ws://' + ipV4 + ':' + portinput + '/ws');
+          setWs(ws);
           let flag = true;
           ws.onopen = () => {
-            console.log('connected!!');          
+            console.log('connected!!');
             ws.onmessage = async (message) => {
               console.log(socketStop);
-              fieldCtx.setIsSocket(() => true);              
+              fieldCtx.setIsSocket(() => true);
               const coordData = JSON.parse(message.data);
               console.log(message);
               if (flag) {
@@ -119,7 +126,7 @@ export default function IpInsertPage() {
                 }
               }
               fieldCtx.HandleBuffer();
-              fieldCtx.setMaxIndex((prev) => prev + 1);     
+              fieldCtx.setMaxIndex((prev) => prev + 1);
             };
           };
 
@@ -151,12 +158,12 @@ export default function IpInsertPage() {
               .then((response) => console.log(response))
               .catch((err) => console.log(err));
           };
+
           ws.onerror = () => {
             console.log('error..');
             setIsLoading(false);
             setIsError(true);
-          };          
-          
+          };
         }
         // history.push('/teamregister')
       } else {

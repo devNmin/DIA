@@ -3,6 +3,7 @@ import AuthContext from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 import logo from '../assets/freelogo.png';
 import styles from './LoginPage.module.css';
+import { deviceType } from 'react-device-detect';
 
 function LoginPage() {
   let { loginUser } = useContext(AuthContext);
@@ -42,9 +43,15 @@ function LoginPage() {
             <input type="submit" value="로그인" />
           </div>
         </form>
-        <Link to="/register" className={styles.signup_link}>
-          <p>DIA에 처음오셨나요?</p>
-        </Link>
+        {deviceType === 'mobile' ? (
+          <Link to="/register" className={styles.signup_link}>
+            <p>DIA에 처음오셨나요?</p>
+          </Link>
+        ) : (
+          <Link to="/explain" className={styles.signup_link}>
+            <p>DIA에 처음오셨나요?</p>
+          </Link>
+        )}
       </section>
     </div>
   );

@@ -19,18 +19,13 @@ function Record({ gameId, gameYear, gameMonth, gameDay, gameTime }) {
 
           <div class="backCard invCard2">
             <div class="card-container2">
-              <a
-                class="boxshadow flip-button"
-                href="/newandusedcars.aspx?clearall=1"
-              >
-                View Inventory
-              </a>
+              <Link to={`/detail/${gameId}`}>기록 확인</Link>
             </div>
           </div>
         </div>
       </div>
 
-      <img
+      {/* <img
         src="https://www.phinational.org/wp-content/uploads/2017/07/fb-test-image-470x246.jpg"
         alt={'test'}
         className={styles.record__img}
@@ -45,7 +40,7 @@ function Record({ gameId, gameYear, gameMonth, gameDay, gameTime }) {
             <p>{gameTime}</p>
           </h2>
         </div>
-      </Link>
+      </Link> */}
     </div>
   );
 }

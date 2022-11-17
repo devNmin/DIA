@@ -25,6 +25,8 @@ export const UserProvider = ({ children }) => {
   const [currentNum, setCurrentNum] = useState(null);
   const [matchTeam, setMatchTeam] = useState(['', '', '', '', '', '']);
   const [matchTeamNum, setMatchTeamNum] = useState(['', '', '', '', '', '']);
+  const [socketStop, setSocketStop] = useState(false)
+  const [ws, setWs] = useState(undefined)
   const registerPlayer = async (playerInfo) => {
     if (currentNum) {
       // 중복검사
@@ -35,6 +37,10 @@ export const UserProvider = ({ children }) => {
       }
       matchTeam[parseInt(currentNum)] = playerInfo;
       matchTeamNum[parseInt(currentNum)] = playerInfo.userId;
+
+      setMatchTeamNum(() => {
+        return [...matchTeamNum]
+      })
 
       setMatchTeam(() => {
         return [...matchTeam];
@@ -78,6 +84,10 @@ export const UserProvider = ({ children }) => {
     matchTeam: matchTeam,
     setMatchTeam: setMatchTeam,
     registerPlayer: registerPlayer,
+    socketStop : socketStop,
+    setSocketStop : setSocketStop,
+    ws : ws,
+    setWs, setWs,
   };
   return (
     <UserContext.Provider value={contextData}>{children}</UserContext.Provider>

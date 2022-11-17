@@ -11,21 +11,6 @@ function CoordsSet() {
 
   const canvasWidth = window.innerWidth;
   const canvasHeigth = window.innerHeight * 0.8;
-
-  const colors = [
-    'red',
-    'red',
-    'red',
-    'red',
-    'red',
-    'red',
-    'pink',
-    'pink',
-    'pink',
-    'pink',
-    'pink',
-    'pink',
-  ];
   const textColor = [
     'white',
     'white',
@@ -78,7 +63,11 @@ function CoordsSet() {
         context2.textAlign = 'center';
         context2.textBaseline = 'hanging';
 
-        context2.fillText(i, x, y - 7);
+        context2.fillText(
+          userCtx.matchTeam[i] ? userCtx.matchTeam[i].userName : i,
+          x,
+          y - 7
+        );
       }
     }
   };

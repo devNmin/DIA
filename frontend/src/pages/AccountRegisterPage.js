@@ -414,7 +414,7 @@ export default function AccountRegisterPage() {
                   </button>
 
                   <button
-                    className={styles.EmailCheck}
+                    className={styles.positionBtn}
                     onClick={(e) => {
                       e.preventDefault();
                       setPosition('MF');
@@ -426,7 +426,7 @@ export default function AccountRegisterPage() {
                     MF
                   </button>
                   <button
-                    className={styles.EmailCheck}
+                    className={styles.positionBtn}
                     onClick={(e) => {
                       e.preventDefault();
                       setPosition('DF');

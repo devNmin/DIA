@@ -190,6 +190,7 @@ input[type='password'] {
   background-color: transparent;
   width: 100%;
   /* margin-left: 1rem; */
+  margin-top: 1rem;
   cursor: pointer;
   border: 1px solid #fff;
   border-radius: 4px;

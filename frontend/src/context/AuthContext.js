@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
       : null
   );
 
-  let BASE_URL = 'https://k7b307.p.ssafy.io/api/v1/';
+  let BASE_URL = 'http://k7b307.p.ssafy.io/api/v1/';
   //   let [loading, setLoading] = useState(true);
 
   const history = useHistory();

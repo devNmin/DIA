@@ -6,7 +6,7 @@
   color: white;
 }
 .icon_box {
-  background-color: linear-gradient(180deg, #5c770c 227.33%, #b3dc3c 273.17%);
+  background-color: rgba(115, 145, 6, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;

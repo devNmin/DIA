@@ -1,52 +1,55 @@
+.body {
+  background: linear-gradient(#071d3c, #000f24);
+}
+
 .ipInput {
-    text-align: center;
-    font-size: 40px;
-    background-color: transparent;
-    color: #b3dc45 ;
-    border-radius: 1.5rem;
+  text-align: center;
+  font-size: 40px;
+  background-color: transparent;
+  color: #b3dc45;
+  border-radius: 1.5rem;
 }
 
 .Port {
-    margin-top: 10px;
-    font-size: 30px;
-    text-align: center;
-    width: 120px;
-    background-color: transparent;
-    color: #b3dc45 ;
-    border-radius: 1.5rem;
+  margin-top: 10px;
+  font-size: 30px;
+  text-align: center;
+  width: 120px;
+  background-color: transparent;
+  color: #b3dc45;
+  border-radius: 1.5rem;
 }
 
 .ipButton {
-    margin-top: 40px;
-    color: white;
-    background-color: transparent;
-    width: 10%;  
-    height: 20%;
-    cursor: pointer;
-    border: 1px solid #fff;
-    border-radius: 4px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-  
+  margin-top: 40px;
+  color: white;
+  background-color: transparent;
+  width: 10%;
+  height: 20%;
+  cursor: pointer;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  padding-bottom: 10px;
+  padding-top: 10px;
 }
 .ipInsertCon {
-    background-color: rgba(49, 50, 56, 0.6);
-    padding-top: 40px;
-    padding-bottom: 40px;
-    margin-left: 20px;
-    margin-right: 20px;
-    border-radius: 1.5rem;
-    margin-top: 100px;
+  background-color: rgba(49, 50, 56, 0.6);
+  padding-top: 40px;
+  padding-bottom: 40px;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 1.5rem;
+  margin-top: 100px;
 }
 
-.ipInsertTitle{
-    color: aliceblue;
-    margin-bottom: 10px;
+.ipInsertTitle {
+  color: aliceblue;
+  margin-bottom: 10px;
 }
 .ipfont {
-    color: aliceblue;
-    
-    font-size: 40px;
+  color: aliceblue;
+
+  font-size: 40px;
 }
 
 /* .background {
@@ -58,7 +61,7 @@
 } */
 
 .errorMessage {
-    font-size: 30px;
-    color: #b3dc45;
-    margin-top: 20px;
+  font-size: 30px;
+  color: #b3dc45;
+  margin-top: 20px;
 }

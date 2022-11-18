@@ -5,6 +5,11 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import logo from '../assets/freelogo.png';
+import {
+  TabletView,
+  // MobileView,
+  isMobileOnly,
+} from 'react-device-detect';
 // import swal from "sweetalert2";
 
 export default function AccountRegisterPage() {
@@ -142,7 +147,7 @@ export default function AccountRegisterPage() {
         //   , 'success'
 
         // )
-        history.push('/');
+        history.push('/login');
         window.ReactAlert.showToast('Welcome to DIA!');
       } else {
         // new swal(
@@ -252,47 +257,49 @@ export default function AccountRegisterPage() {
                       onBlur={emailCheckerHandler2}
                     />
                   )}
-                  <button
-                    className={styles.EmailCheckBtn}
-                    onClick={emailcheckHandler}
-                  >
-                    이메일
-                    <br /> 중복확인
-                  </button>
+                  {!isChecked ? (
+                    <button
+                      className={styles.EmailCheckBtn}
+                      onClick={emailcheckHandler}
+                    >
+                      이메일
+                      <br /> 중복확인
+                    </button>
+                  ) : (
+                    <button
+                      className={styles.authChecker}
+                      onClick={emailAuthChecker}
+                    >
+                      인증번호 받기
+                    </button>
+                  )}
                 </div>
                 <p
                   className={styles.emailChecker}
                   dangerouslySetInnerHTML={{ __html: emailChecker }}
                 ></p>
                 {showAuth ? (
-                  <div>
+                  <div className={styles.control}>
                     <h5> Key </h5>
-                    <div>
+                    <div className={styles.Email}>
                       <input
+                        className={styles.keyCheck}
                         type="text"
                         maxLength="10"
                         name="auth_key"
                         ref={keyInput}
                       />
-                    </div>
-                    <button
-                      className={styles.authChecker}
-                      onClick={keyValidChecker}
-                    >
-                      이메일 인증하기
-                    </button>
-                  </div>
-                ) : (
-                  <div>
-                    {isChecked ? (
                       <button
                         className={styles.authChecker}
-                        onClick={emailAuthChecker}
+                        onClick={keyValidChecker}
                       >
-                        인증번호 받기
+                        이메일 <br />
+                        인증하기
                       </button>
-                    ) : null}
+                    </div>
                   </div>
+                ) : (
+                  <div></div>
                 )}
               </div>
               {/* 비밀번호 */}
@@ -445,10 +452,6 @@ export default function AccountRegisterPage() {
 
           {canSignup ? (
             <div className={styles.actions}>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
               <input onClick={submitHandler} type="submit" value="회원가입" />
             </div>
           ) : null}

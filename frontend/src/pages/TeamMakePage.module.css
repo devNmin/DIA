@@ -1,5 +1,6 @@
 .back_gradient {
   background: linear-gradient(#071d3c, #000f24);
+  height: 100vh;
 }
 
 /* .background {

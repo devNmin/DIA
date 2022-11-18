@@ -30,7 +30,7 @@ export default function TeamRegister() {
     history.push('/ipInsert')
   }
    return (
-    <div>
+    <div className= {styles.back}>
         <FootballNavbar currentpage = 'teamregister'></FootballNavbar> 
         {/* <div>{ipV4}</div>
         <div>{portinput}</div>   */}

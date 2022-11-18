@@ -2,6 +2,7 @@ nav {
   font-size: 1.2em;
   display: flex;
   margin-bottom: 1rem;
+  padding-top: 3rem;
 }
 nav ul {
   margin: 0;

@@ -127,6 +127,7 @@ export default function FormationContainer(props) {
                   style={{
                     border: color === 'red' ? 'solid' : null,
                     borderColor: color === 'red' ? 'red' : null,
+                    'color' : 'white'
                   }}
                 >
                   +
@@ -178,6 +179,7 @@ export default function FormationContainer(props) {
                   style={{
                     border: color === 'green' ? 'solid' : null,
                     borderColor: color === 'green' ? 'green' : null,
+                    'color' : 'white'
                   }}
                 >
                   +
@@ -229,6 +231,7 @@ export default function FormationContainer(props) {
                   style={{
                     border: color === 'blue' ? 'solid' : null,
                     borderColor: color === 'blue' ? 'blue' : null,
+                    'color' : 'white'
                   }}
                 >
                   +
@@ -280,6 +283,7 @@ export default function FormationContainer(props) {
                   style={{
                     border: color === 'yellow' ? 'solid' : null,
                     borderColor: color === 'yellow' ? 'yellow' : null,
+                    'color' : 'white'
                   }}
                 >
                   +

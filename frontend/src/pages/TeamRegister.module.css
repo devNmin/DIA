@@ -24,6 +24,8 @@
   width: 30%;
   height: 100%;
   margin-left: 10px;
+  border: 1px solid #b3dc45;
+  border-radius: 0.5rem;
 }
 .leftUx {
   width: 65%;
@@ -31,6 +33,7 @@
   margin-left: 10px;
   background-color: rgba(49, 50, 56, 0.4);
   border-radius: 0.5rem;
+
 }
 
 .colorInput {
@@ -95,19 +98,21 @@
   width: 100%;
   margin-left: 10px;
   cursor: pointer;
-  border: 1px solid #fff;
+  border: 1px solid #b3dc45;
   border-radius: 0.5rem;
   height: 4rem;
+  background-color: transparent;
 }
 
 .gotoIp {
   height: 100%;
   color: white;
+  background-color: transparent;
   /* background-color: transparent; */
   width: 100%;
   margin-left: 10px;
   cursor: pointer;
-  border: 1px solid #fff;
+  border: 1px solid #b3dc45;
   border-radius: 0.5rem;
   height: 4rem;
   margin-bottom: 20px;
@@ -123,6 +128,7 @@
   width: 65%;
   margin-left: 10px;
   border-radius: 0.5rem;
+  border: 1px solid #b3dc45;
 }
 .subsituteTitle {
   color: aliceblue;
@@ -141,8 +147,10 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  
 }
 
-.body {
+.back {
   background: linear-gradient(#071d3c, #000f24);
+  height: 100vh;
 }

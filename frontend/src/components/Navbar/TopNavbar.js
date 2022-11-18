@@ -8,7 +8,7 @@ function TopNavbar(props) {
   // let { user} = useContext(AuthContext)
 
   const handleHistory = () => {
-    history.goBack();
+    history.push("/analysis");
   }
   return (
     <div className={styles.wrapper}>

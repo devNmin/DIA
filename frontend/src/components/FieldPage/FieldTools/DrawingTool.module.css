@@ -6,7 +6,7 @@
   color: white;
 }
 .icon_box {
-  background-color: rgba(115, 145, 6, 0.8);
+  background: linear-gradient(135deg, #739106 20%, #b3dc3c, #739106 80%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,25 +15,7 @@
   border-radius: 2rem;
   margin-right: 1rem;
 }
-/*
-   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 2rem;
-  margin-right: 1rem;
-  border: 1px solid transparent;
-  border-image-slice: 1;
-  border-width: 3px;
 
-  background-image: linear-gradient(#000f24, #000f24),
-    linear-gradient(to left, #739106 0%, #b3dc3c 100%);
-  background-origin: border-box;
-  background-clip: content-box, border-box;
-
-
-*/
 .wrapper {
   display: inline-block;
   position: relative;
@@ -56,8 +38,12 @@
 }
 .size_input {
   position: absolute;
-  top: 2rem;
+  margin-top: 0.4rem;
+  height: 3px;
+  top: 3rem;
+  left: -3rem;
   display: none;
+  accent-color: #739106;
 }
 .sizebox:hover .size_input {
   display: block;

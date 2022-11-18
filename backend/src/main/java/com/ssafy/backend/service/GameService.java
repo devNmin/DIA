@@ -75,7 +75,7 @@ public class GameService {
 //                    System.out.println("game" + game);
 //                    System.out.println("udostance" + Float.parseFloat((String) userData.get(index).get("userDistance")));
 
-                    int userHeartRate = (Integer)userData.get(index).get("userHeartRate");
+                    int userHeartRate = (Integer)userData.get(index).get("userHeartRate") == null ? 0 : (Integer)userData.get(index).get("userHeartRate");
                     double stamina = (double)userV.get(userId).get(4); //원래 계산되던 체력 값
                     if (userHeartRate != 0) { //워치가 있는 경우 -> 심박수 활용한 스태미나 계산
                         stamina = stamina/0.79/userHeartRate*100;

@@ -208,7 +208,7 @@ export default function IpInsertPage() {
   };
 
   return (
-    <div>
+    <div className="body">
       <FootballNavbar currentpage="ipinsert"></FootballNavbar>
       <div className="ipInsertCon">
         {isLoading ? (

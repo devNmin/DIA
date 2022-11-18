@@ -113,8 +113,8 @@ function FieldPage() {
       if (distance < 17) {
         nowI = i;
         fieldCtx.setNowD(() => i);
-        fieldCtx.duplication[i][0] = x;
-        fieldCtx.duplication[i][1] = y;
+        // fieldCtx.duplication[i][0] = x;
+        // fieldCtx.duplication[i][1] = y;
         fieldCtx.setIsMoving(() => true);
         return;
       }
@@ -142,10 +142,6 @@ function FieldPage() {
       nowI = minIdx;
 
       fieldCtx.setNowD(minIdx);
-      fieldCtx.duplication[minIdx][0] =
-        fieldCtx.allCoords[minIdx][fieldCtx.playIndex][0];
-      fieldCtx.duplication[minIdx][0] =
-        fieldCtx.allCoords[minIdx][fieldCtx.playIndex][1];
       fieldCtx.setIsMoving(true);
     }
 
@@ -182,8 +178,7 @@ function FieldPage() {
   }, [fieldCtx.isPause]);
 
   // 소켓
-  const host = ipV4;
-  const port = portinput;
+
   // let ws = undefined;
 
   // let disX = 0;
@@ -340,17 +335,6 @@ function FieldPage() {
 
   return (
     <div className={styles.size}>
-      <div className={styles.socketGroup}>
-        <div> IP : </div>
-        <div>{host}</div>
-        <div> PORT : </div>
-        <div>{port}</div>
-        <div>
-          {/* <button onClick={socketStart}>소켓 시작</button> */}
-          <button onClick={socketStop2}>소켓 종료</button>
-          {/* <button onClick={socketSend}>소켓 전송</button> */}
-        </div>
-      </div>
       <ScoreBoard />
       <div className={styles.canvas_box}>
         <SoccerField />
@@ -387,6 +371,14 @@ function FieldPage() {
         {/* <BookMark /> */}
       </div>
       <Heartbeat />
+      <div className={styles.socketGroup}>
+        <button
+          className={`${styles.custom_btn} ${styles.game_close}`}
+          onClick={socketStop2}
+        >
+          경기 종료
+        </button>
+      </div>
     </div>
   );
 }

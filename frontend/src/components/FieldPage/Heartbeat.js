@@ -67,24 +67,24 @@ function Heartbeat(props) {
     for (let i of topicList) {
       $websocket.current.subscribe(i, ({ body }) => {
         const dd = JSON.parse(body);
-        console.log('받아온 데이터 :', dd);
-        console.log('heartBeatCtx ', heartBeatCtx);
+        // console.log('받아온 데이터 :', dd);
+        // console.log('heartBeatCtx ', heartBeatCtx);
 
         let newkeywords = heartBeatCtx.heartBeat.map((k) => {
           if (k.userEmail === dd.userEmail) {
-            console.log('일치', k);
+            // console.log('일치', k);
             return {
               ...k,
               userHeartBeat: dd.userHeartRate,
             };
           } else {
-            console.log('불일치', k);
+            // console.log('불일치', k);
             return {
               ...k,
             };
           }
         });
-        console.log('newkeywords', newkeywords);
+        // console.log('newkeywords', newkeywords);
 
         heartBeatCtx.changeHeartBeat(newkeywords);
       });
@@ -102,7 +102,7 @@ function Heartbeat(props) {
       topicList[index] = '/topic/api/' + userList[index];
     }
 
-    console.log('heartBeatCtx.heartBeat in UseEffect', heartBeatCtx.heartBeat);
+    // console.log('heartBeatCtx.heartBeat in UseEffect', heartBeatCtx.heartBeat);
 
     const interval = setInterval(() => {}, 2000);
 

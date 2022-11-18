@@ -270,7 +270,9 @@ export default function AccountRegisterPage() {
                       className={styles.authChecker}
                       onClick={emailAuthChecker}
                     >
-                      인증번호<br/>받기
+                      인증번호
+                      <br />
+                      받기
                     </button>
                   )}
                 </div>
@@ -279,11 +281,11 @@ export default function AccountRegisterPage() {
                   dangerouslySetInnerHTML={{ __html: emailChecker }}
                 ></p>
                 {showAuth ? (
-                  <div >
+                  <div>
                     <h5> Key </h5>
-                    <div className={styles.Email} >
+                    <div className={styles.Email}>
                       <input
-                        id = {styles.keyCheck}
+                        id={styles.keyCheck}
                         type="text"
                         maxLength="10"
                         name="auth_key"
@@ -354,7 +356,7 @@ export default function AccountRegisterPage() {
                   <span id="weight" />
                 </p>
                 <input
-                  className="weight-slider"
+                  className={styles.slider}
                   name="realAge"
                   id="myAge"
                   onChange={(e) => {
@@ -373,7 +375,7 @@ export default function AccountRegisterPage() {
                   <span id="height" /> cm
                 </p>
                 <input
-                  className="height-slider"
+                  className={styles.slider}
                   name="realheight"
                   id="myHeight"
                   onChange={(e) => {
@@ -389,10 +391,10 @@ export default function AccountRegisterPage() {
                 <p>
                   몸무게: &nbsp;
                   {weight}kg
-                  <span id="weight" /> 
+                  <span id="weight" />
                 </p>
                 <input
-                  className="weight-slider"
+                  className={styles.slider}
                   name="realweight"
                   id="myWeight"
                   onChange={(e) => {

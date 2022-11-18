@@ -9,7 +9,7 @@ function DataGraphDetail({data}) {
     <div className={styles.body}>
       <ResponsiveLine
         data={data}
-        margin={{ top: 10, right: 100, bottom: 50, left: 60 }}
+        margin={{ top: 10, right: 150, bottom: 50, left: 60 }}
         xScale={{ type: 'point' }}
         yScale={{
             type: 'linear',
@@ -102,7 +102,6 @@ function DataGraphDetail({data}) {
                 background: '#ffffff',
                 color: '#333333',
                 fontSize: 16,
-                alignContent:'start'
               },
             },
           }}

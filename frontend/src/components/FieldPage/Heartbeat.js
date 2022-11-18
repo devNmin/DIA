@@ -10,7 +10,7 @@ function Heartbeat(props) {
   const [startFlag, setStartFlag] = useState(0);
 
   const { matchTeam, matchTeamNum } = useContext(UserContext);
-  console.log('matchTeam', matchTeam);
+  // console.log('matchTeam', matchTeam);
   const heartBeatCtx = useContext(HeartContext);
 
   let topicList = [];
@@ -67,24 +67,24 @@ function Heartbeat(props) {
     for (let i of topicList) {
       $websocket.current.subscribe(i, ({ body }) => {
         const dd = JSON.parse(body);
-        console.log('받아온 데이터 :', dd);
-        console.log('heartBeatCtx ', heartBeatCtx);
+        // console.log('받아온 데이터 :', dd);
+        // console.log('heartBeatCtx ', heartBeatCtx);
 
         let newkeywords = heartBeatCtx.heartBeat.map((k) => {
           if (k.userEmail === dd.userEmail) {
-            console.log('일치', k);
+            // console.log('일치', k);
             return {
               ...k,
               userHeartBeat: dd.userHeartRate,
             };
           } else {
-            console.log('불일치', k);
+            // console.log('불일치', k);
             return {
               ...k,
             };
           }
         });
-        console.log('newkeywords', newkeywords);
+        // console.log('newkeywords', newkeywords);
 
         heartBeatCtx.changeHeartBeat(newkeywords);
       });
@@ -102,7 +102,7 @@ function Heartbeat(props) {
       topicList[index] = '/topic/api/' + userList[index];
     }
 
-    console.log('heartBeatCtx.heartBeat in UseEffect', heartBeatCtx.heartBeat);
+    // console.log('heartBeatCtx.heartBeat in UseEffect', heartBeatCtx.heartBeat);
 
     const interval = setInterval(() => {}, 2000);
 
@@ -114,7 +114,7 @@ function Heartbeat(props) {
   }, [heartBeatCtx.heartBeat]); //
   //   const topicList = ['/topic/template', '/topic/api/user0', '/topic/api/user2', '/topic/api/user3', '/topic/api/user4', '/topic/api/user1']
 
-  console.log('!!!!', heartBeatCtx.heartBeat);
+  // console.log('!!!!', heartBeatCtx.heartBeat);
   return (
     <>
       <div className={styles.heart_container}>

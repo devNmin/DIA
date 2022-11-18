@@ -33,7 +33,9 @@
   .login_box h2 {
     margin: 0 0 30px;
     padding: 0;
-    color: #b3dc3c;
+    background: -webkit-linear-gradient(#b3dc3c, #739106);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     text-align: center;
   }
 

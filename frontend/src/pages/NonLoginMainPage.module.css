@@ -1,43 +1,78 @@
-.body {
+@media (max-width: 500px) {
+  .body {
     background-image: url('../assets/mainpageimage.jpg');
     height: 100vh;
     width: 100vw;
     background-repeat: no-repeat;
     background-size: cover;
-}
-
-.buttonBody {
-    position: absolute;
-    top: 60%;
-    left: 81%;
-    transform: translate(-81%, -60%);
-}
-
-.logintext {
+  }
+  .logintext {
     color: aliceblue;
     font-weight: light;
-}
+  }
 
-.logo {
+  .logo {
+    margin-top: 50%;
     max-width: 10rem;
-    position: absolute;
-    top: 30%;
-    left: 78%;
-    transform: translate(-78%, -30%);
-}
+  }
 
-.Link button {
+  .Link button {
     margin-bottom: 1rem;
     width: 15rem;
     height: 3rem;
     border: #739106 solid;
     border-radius: 30px;
     color: aliceblue;
-    background-color: #739106;
-}
+    background: linear-gradient(135deg, #739106 20%, #a7ce30, #739106 80%);
+  }
 
-.login {
+  .login {
     text-decoration: none;
     font-weight: bold;
     color: aliceblue;
+  }
+}
+@media (min-width: 500px) {
+  .body {
+    background-image: url('../assets/mainpageimage.jpg');
+    height: 100vh;
+    width: 100vw;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .buttonBody {
+    position: absolute;
+    top: 60%;
+    left: 81%;
+    transform: translate(-81%, -60%);
+  }
+
+  .logintext {
+    color: aliceblue;
+    font-weight: light;
+  }
+
+  .logo {
+    max-width: 10rem;
+    position: absolute;
+    top: 30%;
+    left: 78%;
+    transform: translate(-78%, -30%);
+  }
+
+  .Link button {
+    margin-bottom: 1rem;
+    width: 15rem;
+    height: 3rem;
+    border: #739106 solid;
+    border-radius: 30px;
+    color: aliceblue;
+    background: linear-gradient(135deg, #739106 20%, #a7ce30, #739106 80%);
+  }
+
+  .login {
+    text-decoration: none;
+    font-weight: bold;
+    color: aliceblue;
+  }
 }

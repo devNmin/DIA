@@ -36,8 +36,7 @@ export default function UserSearch() {
         }else{
           setSearchedUserList([])
           setNoResult(true)
-        }
-        
+        }        
       }
     )     
     console.log(username);
@@ -161,9 +160,9 @@ export default function UserSearch() {
                 <CurrentFieldComp curform = {formation}></CurrentFieldComp> 
                 <div style={{ 'width' : '50%'  }}>
                   <div style={{ 'display' : 'flex',  'height' : '13%', 'marginBottom' : '10px'}}>
-                      <button className= {styles.EmailCheck} onClick = {()=> setFormation('1202')} style ={{ 'marginLeft' : '20px', 'height' : '100%', 'width' : '33%'}}>1-2-0-2</button>
-                      <button className= {styles.EmailCheck} onClick = {()=> setFormation('1121')} style ={{ 'marginLeft' : '20px', 'height' : '100%' , 'width' : '33%'}}>1-1-2-1</button>
-                      <button className= {styles.EmailCheck} onClick = {()=> setFormation('1112')} style ={{ 'marginLeft' : '20px', 'height' : '100%', 'marginRight': '15px' , 'width' : '33%'}}>1-1-1-2</button>
+                      <button className= 'formationCheck' onClick = {()=> setFormation('1202')} style ={{ 'marginLeft' : '20px', 'height' : '100%', 'width' : '33%'}}>1-2-0-2</button>
+                      <button className= 'formationCheck' onClick = {()=> setFormation('1121')} style ={{ 'marginLeft' : '20px', 'height' : '100%' , 'width' : '33%'}}>1-1-2-1</button>
+                      <button className= 'formationCheck' onClick = {()=> setFormation('1112')} style ={{ 'marginLeft' : '20px', 'height' : '100%', 'marginRight': '15px' , 'width' : '33%'}}>1-1-1-2</button>
                   </div>                   
                   <FormationContainer  setAddColor = {setAddColor} formation = {formation}></FormationContainer>              
                 </div>   

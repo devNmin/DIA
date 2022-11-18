@@ -10,7 +10,7 @@ function Heartbeat(props) {
   const [startFlag, setStartFlag] = useState(0);
 
   const { matchTeam, matchTeamNum } = useContext(UserContext);
-  console.log('matchTeam', matchTeam);
+  // console.log('matchTeam', matchTeam);
   const heartBeatCtx = useContext(HeartContext);
 
   let topicList = [];
@@ -114,7 +114,7 @@ function Heartbeat(props) {
   }, [heartBeatCtx.heartBeat]); //
   //   const topicList = ['/topic/template', '/topic/api/user0', '/topic/api/user2', '/topic/api/user3', '/topic/api/user4', '/topic/api/user1']
 
-  console.log('!!!!', heartBeatCtx.heartBeat);
+  // console.log('!!!!', heartBeatCtx.heartBeat);
   return (
     <>
       <div className={styles.heart_container}>

@@ -75,3 +75,18 @@ hr {
 .userSearchbackground {
     background-image: url(http://orig10.deviantart.net/c37f/f/2016/188/0/d/background_fav___share_by_dreamgraphicss-da93xt5.jpg);
 }
+
+.formationCheck {
+    color: white;
+    background-color: transparent;
+    width: 20%;
+    margin-left: 3.5rem;
+    cursor: pointer;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    height: 3rem
+  }
+  
+  .formationCheck:hover{
+    background-color: #b3dc45;
+  }

@@ -8,7 +8,7 @@ import SearchedUser from '../components/TeamMake/SearchedUser';
 import CurrentTeamComp from '../components/TeamMake/CurrentTeamComp';
 
 export default function TeamRegister() {
-  const {ourColor, setOurColor, theirColor, setTheirColor, pivot, ala, fixo, goalkeeper, currentTeam, registerPlayer, matchTeam} = useContext(UserContext) 
+  const {ourColor, setOurColor, theirColor, setTheirColor, pivot, ala, fixo, goalkeeper, currentTeam, registerPlayer, matchTeam, ws} = useContext(UserContext) 
   // let test = document.body.clientWidth 
   // let test = document.querySelector('#leftux').clientWidth 
   // console.log(test);
@@ -28,6 +28,7 @@ export default function TeamRegister() {
     
   }
   const goToIp = () => {
+    ws.close()
     history.push('/ipInsert')
   }
    return (

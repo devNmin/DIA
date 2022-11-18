@@ -12,6 +12,7 @@ function Heartbeat(props) {
   const { matchTeam, matchTeamNum } = useContext(UserContext);
   console.log('matchTeam', matchTeam);
   const heartBeatCtx = useContext(HeartContext);
+  const [userHeartSum, setUserHeartSum] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 
   let topicList = [];
 
@@ -64,12 +65,12 @@ function Heartbeat(props) {
   };
 
   const subscribe = () => {
+    let heart = userHeartSum
     for (let i of topicList) {
       $websocket.current.subscribe(i, ({ body }) => {
         const dd = JSON.parse(body);
         console.log('받아온 데이터 :', dd);
         console.log('heartBeatCtx ', heartBeatCtx);
-
         let newkeywords = heartBeatCtx.heartBeat.map((k) => {
           if (k.userEmail === dd.userEmail) {
             console.log('일치', k);
@@ -84,11 +85,14 @@ function Heartbeat(props) {
             };
           }
         });
+        heart[topicList.indexOf(i) + 1] += dd.userHeartRate
+        heart[(topicList.indexOf(i) + 1) * 2] ++
         console.log('newkeywords', newkeywords);
 
         heartBeatCtx.changeHeartBeat(newkeywords);
       });
     }
+    setUserHeartSum(heart)
   };
 
   useEffect(() => {
@@ -111,7 +115,7 @@ function Heartbeat(props) {
       disconnect();
       // console.log(heartBeat.userId)
     };
-  }, [heartBeatCtx.heartBeat]); //
+  }, [heartBeatCtx.heartBeat, userHeartSum]); //
   //   const topicList = ['/topic/template', '/topic/api/user0', '/topic/api/user2', '/topic/api/user3', '/topic/api/user4', '/topic/api/user1']
 
   console.log('!!!!', heartBeatCtx.heartBeat);

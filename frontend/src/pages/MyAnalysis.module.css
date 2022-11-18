@@ -1,3 +1,10 @@
+.body {
+  height: max-content;
+  min-height: calc(95vh);
+  margin-bottom: 5vh;
+  background-color: #000F24;
+}
+
 .container {
   height: 100%;
   display: flex;
@@ -7,10 +14,10 @@
 .records {
   display: grid;
   grid-template-columns: repeat(3, minmax(200px, 30%));
-  grid-gap: 5rem;
-  padding: 2rem;
+  grid-gap: 0.7rem;
+  padding: 1rem;
   width: 80%;
-  padding-top: 70px;
+  padding-top: 6rem;
 }
 
 @media screen and (max-width: 1090px) {

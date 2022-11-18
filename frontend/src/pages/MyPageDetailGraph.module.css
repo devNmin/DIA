@@ -1,0 +1,10 @@
+.body {
+    height: max-content;
+    min-height: calc(95vh);
+    overflow-x: scroll;
+    background-color: #000F24;
+}
+
+.data_graph_detail{
+    width: 100%;
+}

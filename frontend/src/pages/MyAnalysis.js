@@ -36,7 +36,7 @@ function MyAnalysis(props) {
         }
       })
       .catch((err) => {
-        alert(err.data);
+        console.log(err)
       });
   };
 

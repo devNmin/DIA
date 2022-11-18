@@ -11,7 +11,7 @@ export default function HeatMapPage({data}) {
   useEffect(() => {
     // console.log("data", data)
     HeatMapHandler();
-  });
+  },[]);
     
   
   const HeatMapHandler = async (e) => {
@@ -24,25 +24,22 @@ export default function HeatMapPage({data}) {
     .then(res => {     
       if (res.status === 200) {
         let points = []
-        let max = 70;
+        let max = 1;
         let heatmapData = res.data['points']
-        let dataLen = 1;
-        // let dataLen = heatmapData.length;
+        let dataLen = heatmapData.length;
         let idx = 0;
-        
-        console.log("res", res)
 
         while (idx++ < dataLen-1) {
             var val = 1;
-            // max = Math.max(max, val);
+            max = Math.max(max, val);
             var point = {
-                x: Math.floor(heatmapData[idx][0]  * 0.5),
-                y: Math.floor(heatmapData[idx][1]  * 0.5),
+                x: Math.floor(heatmapData[idx][0] * 0.34),
+                y: Math.floor(heatmapData[idx][1] * 0.34),
                 value: val
             };
             points.push(point);
         }
-        
+        console.log("points", points)
         var data = { 
             max: max, 
             data: points 

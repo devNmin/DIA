@@ -1,19 +1,20 @@
 import React from 'react';
 import { ResponsiveLine } from '@nivo/line'
+import styles from './DataGraphDetail.module.css';
+import { Hidden } from '@mui/material';
+import { display } from '@mui/system';
 
 function DataGraphDetail({data}) {
   return (
-    <div style={{ width: '95%', height: '60vh', marginLeft : '200', position: 'absolute',
-     top: '35%', left: '100%', transform: 'translate(-100%, 0)'
-      }}>
+    <div className={styles.body}>
       <ResponsiveLine
         data={data}
-        margin={{ top: 50, right: 50, bottom: 50, left: 60 }}
+        margin={{ top: 10, right: 100, bottom: 50, left: 60 }}
         xScale={{ type: 'point' }}
         yScale={{
             type: 'linear',
-            min: 'auto',
-            max: 'auto',
+            min: '0',
+            max: '130',
             stacked: false,
             reverse: false
         }}
@@ -42,14 +43,14 @@ function DataGraphDetail({data}) {
         pointColor={{ theme: 'background' }}
         pointBorderWidth={2}
         pointBorderColor={{ from: 'serieColor' }}
-        pointLabelYOffset={-12}
+        pointLabelYOffset={0}
         useMesh={true}
         legends={[
             {
-                anchor: 'bottom-left',
+                anchor: 'bottom',
                 direction: 'column',
                 justify: false,
-                translateX: 100,
+                translateX: 170,
                 translateY: 0,
                 itemsSpacing: 0,
                 itemDirection: 'left-to-right',
@@ -101,6 +102,7 @@ function DataGraphDetail({data}) {
                 background: '#ffffff',
                 color: '#333333',
                 fontSize: 16,
+                alignContent:'start'
               },
             },
           }}

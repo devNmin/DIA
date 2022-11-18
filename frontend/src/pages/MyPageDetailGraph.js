@@ -40,7 +40,6 @@ function MyPageDetailGraph(props) {
     .then(res => {     
         console.log(res.data)
         setUserGameData(res.data)
-            
     }).catch(err => {
       console.log("eee")
     })
@@ -48,13 +47,9 @@ function MyPageDetailGraph(props) {
 
   const data = [
     {
-      "id": "경기1",
+      "id": "능력치",
       "color": "hsl(342, 70%, 50%)",
       "data": [
-        {
-          "x": ".",
-          "y": 0
-        },
         {
           "x": "sta",
           "y": userGameData.userStamina
@@ -79,10 +74,6 @@ function MyPageDetailGraph(props) {
           "x": "phy",
           "y": userGameData.userPhysical
         },
-        {
-          "x": "'",
-          "y": 130
-        },
       ]
     },
   ]
@@ -90,7 +81,7 @@ function MyPageDetailGraph(props) {
     <>
       <div className={styles.body}>
         <TopNavbar />
-        <DataGraphDetail data={data} />
+        <DataGraphDetail className={styles.data_graph_detail} data={data} />
         <HeatMap data={gameId}/>
         <BotNavbar />     
         </div> 

@@ -41,7 +41,7 @@ nav ul li.left {
   );
 }
 nav ul li:hover {
-  background: #b3eac7;
+  background: #ffffff;
   color: #222;
   text-shadow: 0px 0px 0.1px #222;
 }

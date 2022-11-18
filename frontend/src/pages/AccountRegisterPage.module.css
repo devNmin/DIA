@@ -77,7 +77,9 @@ input[type='password'] {
   color: #fff;
   background-color: transparent;
 }
-
+.slider {
+  accent-color: #b3dc3c;
+}
 .password {
   text-align: left;
   /* margin-left: 2.5rem; */
@@ -230,7 +232,7 @@ input[type='password'] {
 }
 
 .emailChecker {
-  color: red;
+  color: rgb(252, 27, 27);
   display: flex;
   justify-content: flex-start;
   margin-left: 40px;

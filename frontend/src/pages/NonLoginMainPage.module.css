@@ -23,7 +23,7 @@
     border: #739106 solid;
     border-radius: 30px;
     color: aliceblue;
-    background-color: #739106;
+    background: linear-gradient(135deg, #739106 20%, #a7ce30, #739106 80%);
   }
 
   .login {
@@ -67,7 +67,7 @@
     border: #739106 solid;
     border-radius: 30px;
     color: aliceblue;
-    background-color: #739106;
+    background: linear-gradient(135deg, #739106 20%, #a7ce30, #739106 80%);
   }
 
   .login {

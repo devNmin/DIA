@@ -110,8 +110,8 @@ function FieldPage() {
       if (distance < 17) {
         nowI = i;
         fieldCtx.setNowD(() => i);
-        fieldCtx.duplication[i][0] = x;
-        fieldCtx.duplication[i][1] = y;
+        // fieldCtx.duplication[i][0] = x;
+        // fieldCtx.duplication[i][1] = y;
         fieldCtx.setIsMoving(() => true);
         return;
       }
@@ -139,10 +139,6 @@ function FieldPage() {
       nowI = minIdx;
 
       fieldCtx.setNowD(minIdx);
-      fieldCtx.duplication[minIdx][0] =
-        fieldCtx.allCoords[minIdx][fieldCtx.playIndex][0];
-      fieldCtx.duplication[minIdx][0] =
-        fieldCtx.allCoords[minIdx][fieldCtx.playIndex][1];
       fieldCtx.setIsMoving(true);
     }
 
@@ -282,7 +278,6 @@ function FieldPage() {
   // };
   // let ws = new WebSocket('ws://' + ipV4 + ':' + portinput + '/ws')
   const socketStop2 = async () => {
-    console.log(ws);
     ws.close();
 
     fieldCtx.setIsPause(true);

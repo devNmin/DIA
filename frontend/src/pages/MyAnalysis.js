@@ -4,16 +4,18 @@ import styles from './MyAnalysis.module.css';
 import Record from '../components/MyPage/Record';
 import BotNavbar from '../components/Navbar/BotNavbar';
 import axios from '../utils/axios';
+import TopNavbar from '../components/Navbar/TopNavbar';
 
 function MyAnalysis(props) {
   // const [movies, setMovies] = useState([])
   const [games, setGames] = useState([]);
 
+
   const getGames = async () => {
     await axios
       .post(`http://k7b307.p.ssafy.io:8081/api/v1/usergame/myRecentGameInfo`, {
         start: 0,
-        end: 6,
+        end: 1,
       })
       .then((res) => {
         if (res.status === 200) {
@@ -40,22 +42,26 @@ function MyAnalysis(props) {
 
   return (
     <>
-      <Sidebar />
-      <div className={styles.container}>
-        <div className={styles.records}>
-          {games.map((game) => (
-            <Record
-              key={game.gameId}
-              gameId={game.gameId}
-              gameYear={game.gameYear}
-              gameMonth={game.gameMonth}
-              gameDay={game.gameDay}
-              gameTime={game.gameTime}
-            />
-          ))}
+    
+      <TopNavbar />
+      <div className={styles.body}>
+        <div className={styles.container}>
+          <div className={styles.records}>
+            {games.map((game) => (
+              <Record
+                key={game.gameId}
+                gameId={game.gameId}
+                gameYear={game.gameYear}
+                gameMonth={game.gameMonth}
+                gameDay={game.gameDay}
+                gameTime={game.gameTime}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+        </div> 
       <BotNavbar />
+    
     </>
   );
 }

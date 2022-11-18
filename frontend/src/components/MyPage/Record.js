@@ -8,13 +8,13 @@ function Record({ gameId, gameYear, gameMonth, gameDay, gameTime }) {
       <div className={styles.card_flip}>
         <div className={`${styles.frontCard} ${styles.invCard}`}>
           <div className={styles.card_container}>
-            <h2>{gameYear} {gameMonth} {gameDay} {gameTime}</h2>
+            <h4>{gameYear}년 {gameMonth}월 {gameDay}일 {gameTime}시</h4>
           </div>
         </div>
         <div className={`${styles.backCard} ${styles.invCard2}`}>
           <div className={styles.card_container2}>
             <Link to={`/detail/${gameId}`}>
-              <h2>상세 정보 확인</h2>              
+              <h4>상세 정보 확인</h4>              
             </Link>
           </div>
         </div>

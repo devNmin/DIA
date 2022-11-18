@@ -1,7 +1,7 @@
 .body{
-  width: 100vw;
+  width: 95vw;
   height: 50vh;
   position: absolute;
-  top: 40%;
+  top: 45%;
   display:flex;
 }

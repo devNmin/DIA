@@ -46,12 +46,18 @@
 }
 
 .left_arrow {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     font-size: 3rem;
     color: white;
     left: 1px;
 }
 
 .right_arrow {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
     font-size: 3rem;
     color: white;
     right: 1px;

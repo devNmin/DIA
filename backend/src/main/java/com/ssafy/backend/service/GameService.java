@@ -12,9 +12,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class GameService {
@@ -44,13 +42,24 @@ public class GameService {
                         .build();
                 gameRepository.save(game);
             }else{
+                JSONObject paramJson = new JSONObject();
+                for( Map.Entry<String, Object> entry : param.entrySet() ) {
+                    String key = entry.getKey();
+                    Object value = entry.getValue();
+                    paramJson.put(key, value);
+                }
+                JSONObject gameXYParam = new JSONObject();
+                LinkedHashMap gameXYHashMap = ((LinkedHashMap)paramJson.get("gameXY"));
+                for (Object key : gameXYHashMap.keySet()) {
+                    gameXYParam.put(key, gameXYHashMap.get(key));
+                }
                 Game game = Game.builder()
                         .gameYear((int)param.get("gameYear"))
                         .gameMonth((int)param.get("gameMonth"))
                         .gameDay((int)param.get("gameDay"))
                         .gameTime((int)param.get("gameTime"))
 //                        .gameVideo(param.get("gameVideo") == null ? null: (String)param.get("gameVideo"))
-                        .gameXY(param.get("gameXY").toString())
+                        .gameXY(gameXYParam.toJSONString())
                         .gameScore(param.get("gameScore").toString())
                         .build();
                 gameRepository.save(game);
@@ -75,7 +84,7 @@ public class GameService {
 //                    System.out.println("game" + game);
 //                    System.out.println("udostance" + Float.parseFloat((String) userData.get(index).get("userDistance")));
 
-                    int userHeartRate = (Integer)userData.get(index).get("userHeartRate");
+                    int userHeartRate = (Integer)userData.get(index).get("userHeartRate") == null ? 0 : (Integer)userData.get(index).get("userHeartRate");
                     double stamina = (double)userV.get(userId).get(4); //원래 계산되던 체력 값
                     if (userHeartRate != 0) { //워치가 있는 경우 -> 심박수 활용한 스태미나 계산
                         stamina = stamina/0.79/userHeartRate*100;

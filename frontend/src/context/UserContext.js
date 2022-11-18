@@ -27,6 +27,8 @@ export const UserProvider = ({ children }) => {
   const [matchTeamNum, setMatchTeamNum] = useState(['', '', '', '', '', '']);
   const [socketStop, setSocketStop] = useState(false)
   const [ws, setWs] = useState(undefined)
+  const [userData, setUserData] = useState([])
+  const [totalDistance, setTotalDistance] = useState([])
   const registerPlayer = async (playerInfo) => {
     if (currentNum) {
       // 중복검사
@@ -41,7 +43,6 @@ export const UserProvider = ({ children }) => {
       setMatchTeamNum(() => {
         return [...matchTeamNum]
       })
-
       setMatchTeam(() => {
         return [...matchTeam];
       });
@@ -88,6 +89,10 @@ export const UserProvider = ({ children }) => {
     setSocketStop : setSocketStop,
     ws : ws,
     setWs, setWs,
+    userData : userData,
+    setUserData : setUserData,
+    setTotalDistance : setTotalDistance,
+    totalDistance : totalDistance,
   };
   return (
     <UserContext.Provider value={contextData}>{children}</UserContext.Provider>

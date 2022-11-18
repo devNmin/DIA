@@ -17,7 +17,7 @@ import ScoreBoard from '../components/FieldPage/FieldTools/ScoreBoard';
 import Heartbeat from '../components/FieldPage/Heartbeat';
 
 function FieldPage() {
-  const { ipV4, portinput, setSocketStop, socketStop,  ws} = useContext(UserContext);
+  const { ws } = useContext(UserContext);
   const fieldCtx = useContext(fieldContext);
   // const { authTokens, BASE_URL } = useContext(AuthContext);
 
@@ -179,8 +179,7 @@ function FieldPage() {
   }, [fieldCtx.isPause]);
 
   // 소켓
-  const host = ipV4;
-  const port = portinput;
+
   // let ws = undefined;
 
   // let disX = 0;
@@ -283,10 +282,10 @@ function FieldPage() {
   // };
   // let ws = new WebSocket('ws://' + ipV4 + ':' + portinput + '/ws')
   const socketStop2 = async () => {
-    // ws.close()
-    // console.log(socketStop);
     console.log(ws);
-    ws.close()
+    ws.close();
+
+    fieldCtx.setIsPause(true);
   };
 
   // const socketSend = () => {
@@ -297,17 +296,6 @@ function FieldPage() {
 
   return (
     <div className={styles.size}>
-      <div className={styles.socketGroup}>
-        <div> IP : </div>
-        <div>{host}</div>
-        <div> PORT : </div>
-        <div>{port}</div>
-        <div>
-          {/* <button onClick={socketStart}>소켓 시작</button> */}
-          <button onClick={socketStop2}>소켓 종료</button>
-          {/* <button onClick={socketSend}>소켓 전송</button> */}
-        </div>
-      </div>
       <ScoreBoard />
       <div className={styles.canvas_box}>
         <SoccerField />
@@ -344,6 +332,14 @@ function FieldPage() {
         {/* <BookMark /> */}
       </div>
       <Heartbeat />
+      <div className={styles.socketGroup}>
+        <button
+          className={`${styles.custom_btn} ${styles.game_close}`}
+          onClick={socketStop2}
+        >
+          경기 종료
+        </button>
+      </div>
     </div>
   );
 }

@@ -8,21 +8,9 @@ import SearchedUser from '../components/TeamMake/SearchedUser';
 import CurrentTeamComp from '../components/TeamMake/CurrentTeamComp';
 
 export default function TeamRegister() {
-  const {
-    ourColor,
-    setOurColor,
-    theirColor,
-    setTheirColor,
-    pivot,
-    ala,
-    fixo,
-    goalkeeper,
-    currentTeam,
-    registerPlayer,
-    matchTeam,
-  } = useContext(UserContext);
-  // let test = document.body.clientWidth
-  // let test = document.querySelector('#leftux').clientWidth
+  const {ourColor, setOurColor, theirColor, setTheirColor, pivot, ala, fixo, goalkeeper, currentTeam, registerPlayer, matchTeam, ws} = useContext(UserContext) 
+  // let test = document.body.clientWidth 
+  // let test = document.querySelector('#leftux').clientWidth 
   // console.log(test);
   // let result = document.querySelector('.result')
   // console.log(test.style.width);
@@ -38,12 +26,13 @@ export default function TeamRegister() {
     history.push('/canvasTest');
   };
   const goToIp = () => {
-    history.push('/ipInsert');
-  };
-  return (
-    <div className={styles.body}>
-      <FootballNavbar currentpage="teamregister"></FootballNavbar>
-      {/* <div>{ipV4}</div>
+    ws.close()
+    history.push('/ipInsert')
+  }
+   return (
+    <div>
+        <FootballNavbar currentpage = 'teamregister'></FootballNavbar> 
+        {/* <div>{ipV4}</div>
         <div>{portinput}</div>   */}
       {/* <div>{firstCoord}</div> */}
 

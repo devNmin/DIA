@@ -25,7 +25,7 @@ export default function HeatMapPage({data}) {
     .then(res => {     
       if (res.status === 200) {
         let points = []
-        let max = 1;
+        let max =60;
         let heatmapData = res.data['points']
         let dataLen = heatmapData.length;
         let idx = 0;

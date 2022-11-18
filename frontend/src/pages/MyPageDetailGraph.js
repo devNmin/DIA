@@ -1,9 +1,11 @@
 import React, {useEffect, useState, useContext} from 'react';
 import DataGraphDetail from '../components/MyPage/DataGraphDetail';
 import BotNavbar from '../components/Navbar/BotNavbar';
-import axios from '../utils/axios'
+import axios from '../utils/axios';
 import HeatMap from '../components/MyPage/HeatMap';
-import AuthContext from '../context/AuthContext'
+import AuthContext from '../context/AuthContext';
+import styles from './MyPageDetailGraph.module.css';
+import TopNavbar from '../components/Navbar/TopNavbar';
 
 function MyPageDetailGraph(props) {
   const { BASE_URL } = useContext(AuthContext)
@@ -50,45 +52,48 @@ function MyPageDetailGraph(props) {
       "color": "hsl(342, 70%, 50%)",
       "data": [
         {
-          "x": "",
+          "x": ".",
           "y": 0
         },
         {
-          "x": "체력",
+          "x": "sta",
           "y": userGameData.userStamina
         },
         {
-          "x": "스피드",
+          "x": "spe",
           "y": userGameData.userSpeed
         },
         {
-          "x": "공격력",
+          "x": "att",
           "y": userGameData.userAttack
         },
         {
-          "x": "수비력",
+          "x": "def",
           "y": userGameData.userDefence
         },
         {
-          "x": "이동거리",
+          "x": "dis",
           "y": userGameData.userDistance
         },
         {
-          "x": "피지컬",
+          "x": "phy",
           "y": userGameData.userPhysical
         },
         {
           "x": "'",
-          "y": 100
+          "y": 130
         },
       ]
     },
   ]
   return (
     <>
-      <DataGraphDetail data={data} />
-      <HeatMap data={gameId}/>
-      <BotNavbar />
+      <div className={styles.body}>
+        <TopNavbar />
+        <DataGraphDetail data={data} />
+        <HeatMap data={gameId}/>
+        <BotNavbar />     
+        </div> 
     </>
   );
 }

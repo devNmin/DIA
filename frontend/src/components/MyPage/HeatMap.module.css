@@ -1,12 +1,11 @@
 .heatmap_canvas{
-    width: 50vw; 
+    width: 90vw; 
     height: 50vh;
-    position:absolute;
-    /* background-color: white; */
+    /* position:absolute; */
     background-image: url('../../assets/playground.jpeg');
     background-size: 100%;
     background-repeat: no-repeat;
-    top: -40%;
+    top: 5%;
     left: 5%;
-    transform: translate(-5%, 40%);
+    transform: translate(0, 10%);
   }

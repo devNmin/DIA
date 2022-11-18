@@ -3,8 +3,8 @@ import { ResponsiveLine } from '@nivo/line'
 
 function DataGraphDetail({data}) {
   return (
-    <div style={{ width: '52%', height: '52%', marginLeft : '200', position: 'absolute',
-     top: '40%', left: '100%', transform: 'translate(-100%, -40%)'
+    <div style={{ width: '95%', height: '60%', marginLeft : '200', position: 'absolute',
+     top: '35%', left: '100%', transform: 'translate(-100%, 0)'
       }}>
       <ResponsiveLine
         data={data}

@@ -12,6 +12,8 @@ function Heartbeat(props) {
   const { matchTeam, matchTeamNum } = useContext(UserContext);
   console.log('matchTeam', matchTeam);
   const heartBeatCtx = useContext(HeartContext);
+  // user들의 심박수를 계속 더하는 useState, 
+  // 13번까지 있으며, 0번째는 사용하지 않는 인덱스
   const [userHeartSum, setUserHeartSum] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 
   let topicList = [];
@@ -85,6 +87,7 @@ function Heartbeat(props) {
             };
           }
         });
+        // 심박수 계속 더하는 로직
         heart[topicList.indexOf(i) + 1] += dd.userHeartRate
         heart[(topicList.indexOf(i) + 1) * 2] ++
         console.log('newkeywords', newkeywords);

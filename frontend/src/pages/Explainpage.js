@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import MainCarousel from '../components/ExplainPage/MainCarousel';
 import styles from './ExplainPage.module.css'
 import { Link } from 'react-router-dom';
@@ -10,28 +10,10 @@ import exe1 from '../assets/exe1.png'
 import exe2 from '../assets/exe2.png'
 
 function Explainpage(props) {
-	const [userHeartSum, setUserHeartSum] = useState([0, 0, 0])
-	const [number, setNumber] = useState(0);
-  let topicList = ["rod3539@hanmail.net"];
-	const a = () => {
-		let heart = userHeartSum
-		heart[topicList.indexOf("rod3539@hanmail.net") + 1] += 10
-		heart[(topicList.indexOf("rod3539@hanmail.net") + 1) * 2] ++
-		console.log(heart)
-		setUserHeartSum(heart)
-		console.log("zzz")
-	}
-	useEffect (() => {
-		a()
-	}, [number, userHeartSum])
 	return (
 		<div className={styles.body}>
 			<div className={styles.explainCarousel}>
 				<MainCarousel>
-					<div className={styles.explain}>
-					<button onClick={() => setNumber(number + 1)}>{number}</button>
-						{userHeartSum[1]}
-					</div>
 					<div className={styles.explain}>
 						<h1>DIA 완벽 가이드</h1>
 						<p style={{color: 'yellowgreen', marginTop: 15}}>Directing Assistant를 사용하기 위해 필요한 작업들</p>

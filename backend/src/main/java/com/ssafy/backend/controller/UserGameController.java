@@ -134,8 +134,11 @@ public class UserGameController {
         try{
             String userEmail = tokenService.getUserEmailFromToken(request);
             User user = userRepository.findUserByUserEmail(userEmail);
-//        System.out.println(gameService.getGame_gameXYByGameId(user.getUserId(), gameId));
-            return ResponseEntity.ok(gameService.getGame_gameXYByGameId(user.getUserId(), gameId));
+            JSONObject result = gameService.getGame_gameXYByGameId(user.getUserId(), gameId);
+            if( result == null){
+                return ResponseEntity.ok(new ResponseDto(500, "선수의 기록이 없습니다."));
+            }
+            return ResponseEntity.ok(result);
         }catch (Exception e){
             return ResponseEntity.ok(new ResponseDto(500, e.getMessage()));
         }

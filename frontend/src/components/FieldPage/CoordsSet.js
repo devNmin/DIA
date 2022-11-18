@@ -11,20 +11,6 @@ function CoordsSet() {
 
   const canvasWidth = window.innerWidth;
   const canvasHeigth = window.innerHeight * 0.8;
-  const textColor = [
-    'white',
-    'white',
-    'white',
-    'white',
-    'white',
-    'white',
-    'black',
-    'black',
-    'black',
-    'black',
-    'black',
-    'black',
-  ];
 
   const fieldSet = () => {
     const canvas2 = canvasRef2.current;
@@ -59,10 +45,15 @@ function CoordsSet() {
         context2.stroke();
 
         context2.font = '1.2rem Arial';
-        context2.fillStyle = textColor[i];
         context2.textAlign = 'center';
         context2.textBaseline = 'hanging';
-
+        context2.lineWidth = 1;
+        context2.strokeText(
+          userCtx.matchTeam[i] ? userCtx.matchTeam[i].userName : i,
+          x,
+          y - 7
+        );
+        context2.fillStyle = 'white';
         context2.fillText(
           userCtx.matchTeam[i] ? userCtx.matchTeam[i].userName : i,
           x,

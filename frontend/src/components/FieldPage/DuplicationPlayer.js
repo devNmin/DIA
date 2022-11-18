@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import filedContext from '../../context/FieldContext';
 import styles from './DuplicationPlayer.module.css';
+import userContext from '../../context/UserContext';
 
 function DuplicationPlayer() {
   const fieldCtx = useContext(filedContext);
+  const userCtx = useContext(userContext);
   const canvasRef3 = useRef(null);
 
   const canvasWidth = window.innerWidth;
@@ -12,20 +14,6 @@ function DuplicationPlayer() {
   // let lastX = fieldCtx.lastX;
   // let lastY = fieldCtx.lastY;
 
-  const colors = [
-    'red',
-    'red',
-    'red',
-    'red',
-    'red',
-    'red',
-    'blue',
-    'blue',
-    'blue',
-    'blue',
-    'blue',
-    'blue',
-  ];
   function duplicationHandler() {
     const canvas3 = canvasRef3.current;
     canvas3.width = canvasWidth;
@@ -52,17 +40,30 @@ function DuplicationPlayer() {
           context3.arc(x, y, 15, 0, Math.PI * 2, true);
           context3.font = '25px Arial';
           context3.fillText(i, x - 7.5, y - 6);
-          context3.fillStyle = colors[i];
+          {
+            i < 6
+              ? (context3.fillStyle = userCtx.ourColor)
+              : (context3.fillStyle = userCtx.theirColor);
+          }
           context3.globalAlpha = 0.5;
           context3.fill();
           context3.stroke();
         } else if (i === fieldCtx.nowD) {
           fieldCtx.duplication[i] = [clientX, clientY];
+          // 처음 플레이어 누르면 이전 복제 이벤트 끝난 좌표에 원 생성되는거 고쳐야 함!!!
+          // 그리고 또 선 그리기에 가끔 이상하게 선이 이어지는 버그 있음.
+          // if (fieldCtx.ctxEvenet?.type === 'touchstart') {
+          //   continue;
+          // }
           context3.beginPath();
           context3.arc(clientX, clientY, 15, 0, Math.PI * 2, true);
           context3.font = '25px Arial';
           context3.fillText(i, clientX - 7.5, clientY - 7.5);
-          context3.fillStyle = colors[i];
+          {
+            i < 6
+              ? (context3.fillStyle = userCtx.ourColor)
+              : (context3.fillStyle = userCtx.theirColor);
+          }
           context3.globalAlpha = 0.5;
           context3.fill();
           context3.stroke();

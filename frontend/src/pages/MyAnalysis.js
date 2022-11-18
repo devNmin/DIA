@@ -10,30 +10,29 @@ function MyAnalysis(props) {
   // const [movies, setMovies] = useState([])
   const [games, setGames] = useState([]);
   const cur = useRef(0);
+  const flag = useRef(false);
   const myGameList = useRef([]);
+  const myGameListSize = useRef(0);
 
   const SIZE = 9;
-  const getGames = async () => {    
-    console.log(typeof(cur.current))
-    console.log("cur", cur.current + " " + (cur.current+SIZE))
-    console.log("myGameList", myGameList.current )
-    console.log("myGameList leng", myGameList.current.length)
+  const getGames = async () => {   
     await axios
       .post(`http://k7b307.p.ssafy.io:8081/api/v1/usergame/myRecentGameInfo`, {
         start: cur.current,
-        end: (cur.current+SIZE),
+        end: SIZE,
       })
       .then((res) => {
         if (res.status === 200) {
-          console.log("res.data", res.data)
+          if(res.data.length === 0){
+            flag.current = true;
+          }
           for(let i of res.data){
-            console.log("i", i)
             myGameList.current.push(i);
           }
-          setGames(myGameList.current);
-        }
-        else{
-          console.log("시부레")
+          setTimeout(() => {
+            setGames(games.concat(myGameList.current));
+          }, 500);
+          
         }
       })
       .catch((err) => {
@@ -42,9 +41,9 @@ function MyAnalysis(props) {
   };
 
   const onScroll = () => {
-    if (window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight  -5) {
+    if (!flag.current && window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight  -5) {
       getGames();
-      cur.current = cur.current+SIZE;
+      cur.current = cur.current+1;
     }
   }
 
@@ -56,15 +55,12 @@ function MyAnalysis(props) {
         window.removeEventListener('scroll', onScroll);
     };
   
-},  []);
-
+},  [myGameListSize]);
 
   // useEffect(() => {
   //   getGames();
   //   // getMovies()
   // }, []);
-
-
 
   return (
     <>

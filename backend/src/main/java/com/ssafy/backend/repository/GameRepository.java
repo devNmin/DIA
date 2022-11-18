@@ -15,7 +15,8 @@ public interface GameRepository extends JpaRepository<Game, String> {
             "on g.gameId = ug.game.gameId " +
             "left join User u " +
             "on u.userId = ug.user.userId " +
-            "where u.userEmail = :userEmail")
+            "where u.userEmail = :userEmail " +
+            "order by g.gameYear desc , g.gameMonth desc , g.gameDay desc , g.gameTime desc ")
     List<GameMapper> getUserGames(Pageable pageable, @Param(value="userEmail") String userEmail);
 
     @Query(value = "select g.gameXY from Game g where g.gameId = :gameId")

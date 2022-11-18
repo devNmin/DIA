@@ -1,399 +1,3 @@
-@media (min-width: 500px) {
-  @font-face {
-    font-family: 'TmoneyRoundWindExtraBold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/TmoneyRoundWindExtraBold.woff')
-      format('woff');
-    font-weight: normal;
-    font-style: normal;
-  }
-
-  @font-face {
-    font-family: 'HallymGothic-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2204@1.0/HallymGothic-Regular.woff2')
-      format('woff2');
-    font-weight: 400;
-    font-style: normal;
-  }
-  .background {
-    height: 120vh;
-    /* background: linear-gradient(#141e30, #243b55); */
-    user-select: none;
-    background-image: url('../assets/background.jpg');
-    background-size: cover;
-  }
-
-  .auth {
-    /* font-family: 'TmoneyRoundWindExtraBold'; */
-    position: absolute;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, -30%);
-    width: 60vw;
-    max-width: 50rem;
-    border-radius: 6px;
-    background: rgba(0, 0, 0, 0.5);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-    padding: 1rem;
-    margin-top: 2rem;
-    text-align: center;
-    color: #b3dc45;
-    user-select: none;
-  }
-
-  .auth h1 {
-    text-align: center;
-    color: white;
-  }
-
-  .control {
-    margin-bottom: 0.5rem;
-  }
-
-  input[type='text'] {
-    width: 90%;
-    border: none;
-    border-bottom: 2px solid #fff;
-    border-top: 0px;
-    border-radius: 0px;
-    font-weight: bold;
-    outline: 0;
-    margin-bottom: 20px;
-    padding-left: 0px;
-    color: white;
-    background-color: transparent;
-  }
-
-  input[type='password'] {
-    width: 90%;
-    background-color: #f5f5f5;
-    border: none;
-    border-bottom: 2px solid #fff;
-    border-top: 0px;
-    border-radius: 0px;
-    font-weight: bold;
-    outline: 0;
-    padding-left: 0px;
-    margin-bottom: 20px;
-    color: #fff;
-    background-color: transparent;
-  }
-
-  .password {
-    text-align: left;
-    margin-left: 2.5rem;
-    margin-top: 1rem;
-  }
-
-  .control h5 {
-    text-align: left;
-    margin-left: 2.5rem;
-  }
-
-  .control label {
-    margin-left: 2rem;
-    display: block;
-    color: white;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-  }
-
-  .control input:focus {
-    border-color: inherit;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    border-bottom: 2px solid #b3dc45;
-    outline: 0;
-
-    color: white;
-  }
-
-  .actions {
-    display: flex;
-    margin-top: 1.5rem;
-    /* display: flex;
-    flex-direction: column;
-    align-items: center; */
-    text-decoration: none;
-  }
-
-  /* .actions input[type=text], button {
-    cursor: pointer;
-    font: inherit;
-    color: white;
-    background-color: #b3dc45;
-    border: 1px solid #b3dc45;
-    border-radius: 4px;
-    justify-content: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    width: 15rem;
-    text-align: center;
-  
-  }
-  
-  .actions input:hover, button:hover {
-    background-color: #b3dc45;
-    border-color: #b3dc45;
-    text-decoration: none;
-  } */
-
-  .actions h5 {
-    text-align: left;
-    margin-left: 2.5rem;
-  }
-
-  .actions .toggle {
-    margin-top: 1rem;
-    background-color: transparent;
-    color: #9f5ccc;
-    border: none;
-    padding: 0.15rem 1.5rem;
-  }
-
-  .actions .toggle:hover {
-    background-color: transparent;
-    color: #ae82cc;
-  }
-
-  .Email {
-    display: flex;
-  }
-
-  .Email input[type='email'] {
-    width: 60%;
-    background-color: transparent;
-    border: none;
-    border-bottom: 2px solid #fff;
-    border-top: 0px;
-    border-radius: 0px;
-    font-weight: bold;
-    outline: 0;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: 2.5rem;
-    margin-right: 1rem;
-    color: white;
-  }
-
-  .Email input:focus {
-    border-color: inherit;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    border-bottom: 2px solid #b3dc45;
-    outline: 0;
-    background-color: transparent;
-    color: white;
-  }
-
-  .positionBtn {
-    color: white;
-    background-color: transparent;
-    width: 20%;
-    margin-left: 3.5rem;
-    cursor: pointer;
-    border: 1px solid #fff;
-    border-radius: 4px;
-    height: 3rem;
-  }
-
-  .EmailCheckBtn {
-    color: white;
-    background-color: transparent;
-    width: 20%;
-    margin-left: 3.5rem;
-    cursor: pointer;
-    border: 1px solid #fff;
-    border-radius: 4px;
-    height: 3rem;
-  }
-
-  .EmailCheckBtn:hover {
-    background-color: #b3dc45;
-  }
-
-  .linkP {
-    text-decoration: none;
-    color: gray;
-  }
-
-  .actions label {
-    font-family: 'HallymGothic-Regular';
-  }
-
-  .actions input[type='radio'] {
-    margin: 0px;
-  }
-
-  .emailChecker {
-    color: red;
-    display: flex;
-    justify-content: flex-start;
-    margin-left: 40px;
-  }
-
-  .auth img {
-    height: 10vh;
-  }
-
-  .auth h2 {
-    margin: 0 0 30px;
-    padding: 0;
-    color: #b3dc3c;
-    text-align: center;
-  }
-
-  .auth h3 {
-    margin-top: 0.5rem;
-    padding: 0;
-    color: aliceblue;
-    text-align: center;
-  }
-
-  .dia {
-    display: flex;
-    justify-content: center;
-  }
-
-  .authChecker {
-    color: #fff;
-    background-color: #b3dc45;
-    width: 20%;
-    height: 3rem;
-    border-radius: 1rem;
-    cursor: pointer;
-  }
-
-  .actions {
-    position: relative;
-    display: inline-block;
-    padding: 10px 20px;
-    overflow: hidden;
-    transition: 0.5s;
-    margin-top: 40px;
-    letter-spacing: 4px;
-  }
-  .actions input {
-    color: #b3dc45;
-    font-size: 16px;
-    letter-spacing: 4px;
-    border-color: transparent;
-    background-color: transparent;
-    cursor: pointer;
-  }
-
-  .actions:hover input {
-    color: #fff;
-  }
-
-  .actions:hover {
-    background: #b3dc45;
-    border-radius: 5px;
-    box-shadow: 0 0 5px #b3dc45, 0 0 25px #b3dc45, 0 0 50px #b3dc45,
-      0 0 100px #b3dc45;
-  }
-
-  .actions span {
-    position: absolute;
-    display: block;
-  }
-
-  .actions span:nth-child(1) {
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #b3dc45);
-    animation: btn-anim1 1s linear infinite;
-  }
-
-  .age {
-    display: flex;
-    /* flex-direction: column; */
-    margin-left: 40px;
-    width: 90%;
-    margin-bottom: 2rem;
-  }
-
-  .age p {
-    width: 5rem;
-    text-align: start;
-  }
-
-  .age input {
-    margin-left: 2rem;
-    width: 80%;
-  }
-
-  @keyframes btn-anim1 {
-    0% {
-      left: -100%;
-    }
-    50%,
-    100% {
-      left: 100%;
-    }
-  }
-
-  .actions span:nth-child(2) {
-    top: -100%;
-    right: 0;
-    width: 2px;
-    height: 100%;
-    background: linear-gradient(180deg, transparent, #b3dc45);
-    animation: btn-anim2 1s linear infinite;
-    animation-delay: 0.25s;
-  }
-
-  @keyframes btn-anim2 {
-    0% {
-      top: -100%;
-    }
-    50%,
-    100% {
-      top: 100%;
-    }
-  }
-
-  .actions span:nth-child(3) {
-    bottom: 0;
-    right: -100%;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(270deg, transparent, #b3dc45);
-    animation: btn-anim3 1s linear infinite;
-    animation-delay: 0.5s;
-  }
-
-  @keyframes btn-anim3 {
-    0% {
-      right: -100%;
-    }
-    50%,
-    100% {
-      right: 100%;
-    }
-  }
-
-  .actions span:nth-child(4) {
-    bottom: -100%;
-    left: 0;
-    width: 2px;
-    height: 100%;
-    background: linear-gradient(360deg, transparent, #b3dc45);
-    animation: btn-anim4 1s linear infinite;
-    animation-delay: 0.75s;
-  }
-
-  @keyframes btn-anim4 {
-    0% {
-      bottom: -100%;
-    }
-    50%,
-    100% {
-      bottom: 100%;
-    }
-  }
-}
 
 @font-face {
   font-family: 'TmoneyRoundWindExtraBold';
@@ -506,7 +110,7 @@ input[type='password'] {
 
 .actions {
   display: flex;
-  /* margin-top: 0.5rem; */
+  margin-top: 1.5rem;
   /* display: flex;
   flex-direction: column;
   align-items: center; */
@@ -540,7 +144,7 @@ input[type='password'] {
 }
 
 .actions .toggle {
-  /* margin-top: 1rem; */
+  margin-top: 1rem;
   background-color: transparent;
   color: #9f5ccc;
   border: none;
@@ -592,6 +196,10 @@ input[type='password'] {
   border: 1px solid #fff;
   border-radius: 4px;
   height: 3rem;
+}
+
+.positionBtn:hover {
+  background-color: #b3dc45;
 }
 
 .EmailCheckBtn {
@@ -657,9 +265,10 @@ input[type='password'] {
   background-color: #b3dc45;
   width: 40%;
   margin-left: 1rem;
-  height: 3rem;
-  border-radius: 4px;
   cursor: pointer;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  height: 3rem;
 }
 
 .actions {
@@ -668,7 +277,7 @@ input[type='password'] {
   padding: 10px 20px;
   overflow: hidden;
   transition: 0.5s;
-  /* margin-top: 40px; */
+  margin-top: 40px;
   letter-spacing: 4px;
 }
 .actions input {
@@ -709,18 +318,18 @@ input[type='password'] {
   display: flex;
   /* flex-direction: column; */
   /* margin-left: 40px; */
-  width: 90%;
+  width: 100%;
   margin-bottom: 2rem;
 }
 
 .age p {
-  width: 5rem;
+  width: 10rem;
   text-align: start;
 }
 
 .age input {
-  margin-left: 2rem;
-  width: 80%;
+  margin-left: 1rem;
+  width: 90%;
 }
 
 @keyframes btn-anim1 {
@@ -793,8 +402,408 @@ input[type='password'] {
   }
 }
 
-.keyCheck {
-  width: 75%;
+
+@media (min-width: 500px) {
+  @font-face {
+    font-family: 'TmoneyRoundWindExtraBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/TmoneyRoundWindExtraBold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'HallymGothic-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2204@1.0/HallymGothic-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+  }
+  .background {
+    height: 120vh;
+    /* background: linear-gradient(#141e30, #243b55); */
+    user-select: none;
+    background-image: url('../assets/background.jpg');
+    background-size: cover;
+  }
+  
+  .auth {
+    /* font-family: 'TmoneyRoundWindExtraBold'; */
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -30%);
+    width: 60vw;
+    max-width: 50rem;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    margin-top: 2rem;
+    text-align: center;
+    color: #b3dc45;
+    user-select: none;
+  
+  }
+  
+  .auth h1 {
+    text-align: center;
+    color: white;
+  }
+  
+  .control {
+    margin-bottom: 0.5rem;
+  }
+  
+  input[type=text] {
+    width: 90%;
+    border: none;
+    border-bottom: 2px solid #fff;
+    border-top: 0px;
+    border-radius: 0px;
+    font-weight: bold;
+    outline: 0;
+    margin-bottom: 20px;
+    margin-left: 1rem;
+    color: white;
+    background-color: transparent;
+  }
+  
+  input[type=password] {
+    width: 90%;
+    background-color: #F5F5F5;
+    border: none;
+    border-bottom: 2px solid #fff;
+    border-top: 0px;
+    border-radius: 0px;
+    font-weight: bold;
+    outline: 0;
+    margin-left: 1rem;
+    margin-bottom: 20px;
+    color: #fff;  
+    background-color: transparent;
+  }
+  
+  .password {
+    text-align: left;
+    margin-left: 2.5rem;
+    margin-top: 1rem;
+  }
+  
+  .control h5 {
+    text-align: left;
+    margin-left: 2.5rem;
+  }
+  
+  .control label {
+    margin-left: 2rem;
+    display: block;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .control input:focus {
+    border-color: inherit;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-bottom: 2px solid #b3dc45;
+    outline: 0;
+    
+    color: white;
+  }
+  
+  .actions {
+    display: flex;
+    margin-top: 1.5rem;
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+    text-decoration: none;
+  }
+  
+  /* .actions input[type=text], button {
+    cursor: pointer;
+    font: inherit;
+    color: white;
+    background-color: #b3dc45;
+    border: 1px solid #b3dc45;
+    border-radius: 4px;
+    justify-content: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 15rem;
+    text-align: center;
+  
+  }
+  
+  .actions input:hover, button:hover {
+    background-color: #b3dc45;
+    border-color: #b3dc45;
+    text-decoration: none;
+  } */
+  
+  .actions h5 {
+    text-align: left;
+    margin-left: 2.5rem;
+  }
+  
+  .actions .toggle {
+    margin-top: 1rem;
+    background-color: transparent;
+    color: #9f5ccc;
+    border: none;
+    padding: 0.15rem 1.5rem;
+  }
+  
+  .actions .toggle:hover {
+    background-color: transparent;
+    color: #ae82cc;
+  }
+  
+  .Email {
+    display: flex;
+  }
+  
+  
+  .Email input[type=email] {
+    width: 60%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #fff;
+    border-top: 0px;
+    border-radius: 0px;
+    font-weight: bold;
+    outline: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 2.5rem;
+    margin-right: 1rem;
+    color: white;
+  }
+  
+  .Email input:focus {
+    border-color: inherit;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-bottom: 2px solid #b3dc45;
+    outline: 0;
+    background-color: transparent;
+    color: white;
+  }
+
+  .positionBtn{
+    color: white;
+    background-color: transparent;
+    width: 20%;
+    margin-left: 3.5rem;
+    cursor: pointer;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    height: 3rem
+  }
+  .positionBtn:hover{
+    background-color: #b3dc45;
+  }
+  
+  .EmailCheckBtn {
+    color: white;
+    background-color: transparent;
+    width: 23%;
+    cursor: pointer;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    height: 3rem
+  }
+  
+  .EmailCheckBtn:hover{
+    background-color: #b3dc45;
+  }
+  
+  .linkP {
+    text-decoration: none;
+    color: gray;
+  }
+  
+  .actions label {
+    font-family: 'HallymGothic-Regular';
+  }
+  
+  .actions input[type = radio] {
+    margin: 0px;
+  }
+  
+  .emailChecker{
+    color: red;
+    display : flex;
+    justify-content: flex-start;
+    margin-left: 40px;
+  }
+  
+  .auth img {
+    height: 10vh;
+  }
+  
+  .auth h2 {
+    margin: 0 0 30px;
+    padding: 0;
+    color: #B3DC3C;
+    text-align: center;
+  }
+  
+  .auth h3 {
+    margin-top: 0.5rem;
+    padding: 0;
+    color: aliceblue;
+    text-align: center;
+  }
+  
+  .dia {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .authChecker{
+    color: #fff;
+    background-color: #b3dc45;
+    width: 24%;
+    margin-left: 1rem;
+    cursor: pointer;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    height: 3rem;
+  }
+  
+  .actions {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    overflow: hidden;
+    transition: 0.5s;
+    margin-top: 40px;
+    letter-spacing: 4px;
+  }
+  .actions input {
+    color: #b3dc45;
+    font-size: 16px;
+    letter-spacing: 4px;
+    border-color: transparent;
+    background-color: transparent;
+    cursor: pointer;
+  }
+  
+  .actions:hover input {
+    color: #fff;
+  }
+  
+  .actions:hover {
+    background: #b3dc45;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #b3dc45, 0 0 25px #b3dc45, 0 0 50px #b3dc45,
+      0 0 100px #b3dc45;
+  }
+  
+  .actions span {
+    position: absolute;
+    display: block;
+  }
+  
+  .actions span:nth-child(1) {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #b3dc45);
+    animation: btn-anim1 1s linear infinite;
+  }
+  
+  .age {
+    display: flex;
+    /* flex-direction: column; */
+    margin-left: 40px;
+    width: 90%;
+    margin-bottom: 2rem;
+  }
+  
+  .age p {
+    width: 8rem;
+   text-align: start;
+  }
+  
+  .age input {
+    margin-left: 2rem;
+    width: 80%;
+  }
+  
+  @keyframes btn-anim1 {
+    0% {
+      left: -100%;
+    }
+    50%,
+    100% {
+      left: 100%;
+    }
+  }
+  
+  .actions span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, #b3dc45);
+    animation: btn-anim2 1s linear infinite;
+    animation-delay: 0.25s;
+  }
+  
+  @keyframes btn-anim2 {
+    0% {
+      top: -100%;
+    }
+    50%,
+    100% {
+      top: 100%;
+    }
+  }
+  
+  .actions span:nth-child(3) {
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg, transparent, #b3dc45);
+    animation: btn-anim3 1s linear infinite;
+    animation-delay: 0.5s;
+  }
+  
+  @keyframes btn-anim3 {
+    0% {
+      right: -100%;
+    }
+    50%,
+    100% {
+      right: 100%;
+    }
+  }
+  
+  .actions span:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent, #b3dc45);
+    animation: btn-anim4 1s linear infinite;
+    animation-delay: 0.75s;
+  }
+  
+  @keyframes btn-anim4 {
+    0% {
+      bottom: -100%;
+    }
+    50%,
+    100% {
+      bottom: 100%;
+    }
+  }
+#keyCheck{
+  width: 60%;
   background-color: transparent;
   border: none;
   border-bottom: 2px solid #fff;
@@ -804,7 +813,8 @@ input[type='password'] {
   outline: 0;
   margin-top: auto;
   margin-bottom: auto;
-  /* margin-left: 2.5rem; */
-  /* margin-right: 1rem; */
+  margin-left: 2.5rem;
+  margin-right: 1rem;
   color: white;
+}
 }

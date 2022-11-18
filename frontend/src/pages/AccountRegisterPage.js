@@ -270,7 +270,7 @@ export default function AccountRegisterPage() {
                       className={styles.authChecker}
                       onClick={emailAuthChecker}
                     >
-                      인증번호 받기
+                      인증번호<br/>받기
                     </button>
                   )}
                 </div>
@@ -279,11 +279,11 @@ export default function AccountRegisterPage() {
                   dangerouslySetInnerHTML={{ __html: emailChecker }}
                 ></p>
                 {showAuth ? (
-                  <div className={styles.control}>
+                  <div >
                     <h5> Key </h5>
-                    <div className={styles.Email}>
+                    <div className={styles.Email} >
                       <input
-                        className={styles.keyCheck}
+                        id = {styles.keyCheck}
                         type="text"
                         maxLength="10"
                         name="auth_key"
@@ -349,7 +349,7 @@ export default function AccountRegisterPage() {
               <br />
               <div className={styles.age}>
                 <p>
-                  나이: <br></br>
+                  나이: &nbsp;
                   {age}
                   <span id="weight" />
                 </p>
@@ -368,7 +368,7 @@ export default function AccountRegisterPage() {
               </div>
               <div className={styles.age}>
                 <p>
-                  키: <br></br>
+                  키: &nbsp;
                   {height}
                   <span id="height" /> cm
                 </p>
@@ -387,9 +387,9 @@ export default function AccountRegisterPage() {
               </div>
               <div className={styles.age}>
                 <p>
-                  몸무게: <br></br>
-                  {weight}
-                  <span id="weight" /> kg
+                  몸무게: &nbsp;
+                  {weight}kg
+                  <span id="weight" /> 
                 </p>
                 <input
                   className="weight-slider"

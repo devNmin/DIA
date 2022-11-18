@@ -2,7 +2,7 @@
 import UserContext from '../context/UserContext';
 import fieldContext from '../context/FieldContext';
 import React, { useEffect, useRef, useState, useContext } from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 import styles from './FieldPage.module.css';
 import SoccerField from '../components/FieldPage/SoccerField';
 import CoordsSet from '../components/FieldPage/CoordsSet';
@@ -13,13 +13,14 @@ import DuplicationLine from '../components/FieldPage/DuplicationLine';
 import DrawingTool from '../components/FieldPage/FieldTools/DrawingTool';
 // import BookMark from '../components/FieldPage/FieldTools/BookMark';
 import ScoreBoard from '../components/FieldPage/FieldTools/ScoreBoard';
-// import AuthContext from '../context/AuthContext';
+import AuthContext from '../context/AuthContext';
 import Heartbeat from '../components/FieldPage/Heartbeat';
+import { HeartContext } from '../context/HeartContext';
 
 function FieldPage() {
-  const { ws } = useContext(UserContext);
+  const { ipV4, portinput, setSocketStop, socketStop,  ws, matchTeam, totalDistance} = useContext(UserContext);
   const fieldCtx = useContext(fieldContext);
-  // const { authTokens, BASE_URL } = useContext(AuthContext);
+  const { authTokens, BASE_URL } = useContext(AuthContext);
 
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
@@ -28,6 +29,8 @@ function FieldPage() {
   const [nowDate, setNowDate] = useState(null);
   const canvasWidth = window.innerWidth;
   const canvasHeigth = window.innerHeight * 0.8;
+
+  const heartBeatCtx = useContext(HeartContext);
 
   const startDrawing = () => {
     setIsDrawing(() => true);
@@ -110,8 +113,8 @@ function FieldPage() {
       if (distance < 17) {
         nowI = i;
         fieldCtx.setNowD(() => i);
-        fieldCtx.duplication[i][0] = x;
-        fieldCtx.duplication[i][1] = y;
+        // fieldCtx.duplication[i][0] = x;
+        // fieldCtx.duplication[i][1] = y;
         fieldCtx.setIsMoving(() => true);
         return;
       }
@@ -139,10 +142,6 @@ function FieldPage() {
       nowI = minIdx;
 
       fieldCtx.setNowD(minIdx);
-      fieldCtx.duplication[minIdx][0] =
-        fieldCtx.allCoords[minIdx][fieldCtx.playIndex][0];
-      fieldCtx.duplication[minIdx][0] =
-        fieldCtx.allCoords[minIdx][fieldCtx.playIndex][1];
       fieldCtx.setIsMoving(true);
     }
 
@@ -282,10 +281,50 @@ function FieldPage() {
   // };
   // let ws = new WebSocket('ws://' + ipV4 + ':' + portinput + '/ws')
   const socketStop2 = async () => {
-    console.log(ws);
-    ws.close();
-
-    fieldCtx.setIsPause(true);
+    // ws.close()
+    // console.log(socketStop);
+    // console.log(ws);
+    ws.close()
+    let userData = []
+    for (let index = 0; index <matchTeam.length; index++) {
+      console.log(matchTeam);
+      console.log('matchTeam 인덱스'+ matchTeam[index]);
+      // console.log('socket종료시' + JSON.stringify(heartBeatCtx.heartBeat[index].userHeartBeat));
+      const element = { userID : `${parseInt(matchTeam[index].userId)}` , userDistance: `${totalDistance[index]}`,
+       userHeartRate : parseInt(JSON.stringify(heartBeatCtx.heartBeat[index].userHeartBeat))}
+      userData.push(element)             
+      // await setUserData((userData) => {
+      //   console.log(userData);
+      //   return [...userData, element]
+      // })                         
+    }
+    let coordDict = {}
+    for (let index = 0; index < 6; index++) {
+      const element = fieldCtx.allCoords[index];
+      const userPk = matchTeam[index].userId
+      coordDict[`${userPk}`] = element
+    }
+    const data = {
+      gameYear: nowDate.gameYear,
+      gameMonth: nowDate.gameMonth,
+      gameDay: nowDate.gameDay,
+      gameTime: nowDate.gameTime,
+      userData: userData,
+      gameXY: coordDict,
+      gameScore: `${fieldCtx.score1}:${fieldCtx.score2}`,
+    };
+    console.log(data);
+    // console.log(authTokens.accessToken);
+    axios({
+      method: 'post',
+      url: BASE_URL + 'game/newGame/',
+      headers:  {
+        Authorization : `Bearer ${authTokens.accessToken}`
+    },
+      data: data,
+    }).then((response) => console.log(response))
+    .catch((err) => console.log(err));
+    ;
   };
 
   // const socketSend = () => {

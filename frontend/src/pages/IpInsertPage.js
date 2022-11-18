@@ -8,6 +8,7 @@ import LodingText from '../components/Common/LodingText';
 import FieldContext from '../context/FieldContext';
 import axios from 'axios';
 import AuthContext from '../context/AuthContext';
+import { HeartContext } from '../context/HeartContext';
 
 export default function IpInsertPage() {
   const {
@@ -16,14 +17,18 @@ export default function IpInsertPage() {
     ipV4,
     portinput,
     setFirstCoord,
-    socketStop,
+    // userData,
+    // setUserData,
     setWs,
+    matchTeam,
+    setTotalDistance,
   } = useContext(UserContext);
   const fieldCtx = useContext(FieldContext);
-  const { authTokens, BASE_URL } = useContext(AuthContext);
+  // const { authTokens, BASE_URL } = useContext(AuthContext);
+  // const heartBeatCtx = useContext(HeartContext);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [nowDate, setNowDate] = useState(null);
+  const [nowDate, setNowDate] = useState(null); 
   const history = useHistory();
   const ipAddress = useRef();
   const port = useRef();
@@ -40,6 +45,7 @@ export default function IpInsertPage() {
   let totalDistance = Array.from({ length: 6 }, () => 0);
   let fpsTime = 0.04; //프레임 컴퓨터에서 계산하는 속도? 5ms -> 나중엔 받아서 변경
   let index = -1;
+ 
 
   useEffect(() => {
     if (!nowDate) {
@@ -60,7 +66,7 @@ export default function IpInsertPage() {
   const ipChecker = async () => {
     // await setIpV4(ipAddress.current.value.replace(/ /g, ''))
     // // console.log(portsubmit);
-    // await setPort(port.current.value)
+    // await setPort(port.current.value)    
     if (ipV4) {
       if (portinput) {
         console.log('ipV4' + ipV4);
@@ -74,10 +80,10 @@ export default function IpInsertPage() {
           ws.onopen = () => {
             console.log('connected!!');
             ws.onmessage = async (message) => {
-              console.log(socketStop);
+              // console.log(socketStop);
               fieldCtx.setIsSocket(() => true);
               const coordData = JSON.parse(message.data);
-              console.log(message);
+              // console.log(message);
               if (flag) {
                 flag = false;
                 console.log('hi');
@@ -125,40 +131,65 @@ export default function IpInsertPage() {
                   fieldCtx.allCoords[i].push([0.001, 0.001]);
                 }
               }
+              setTotalDistance(totalDistance)
+
+
               fieldCtx.HandleBuffer();
               fieldCtx.setMaxIndex((prev) => prev + 1);
             };
           };
 
-          ws.onclose = function () {
+          ws.onclose = async () => {
+            // console.log('두근두근 내심장' + heartBeatCtx.heartBeat);
+            // const [userDataTest, setUserDataTest] = useState([])
+            // let userDatatest =  []
+            // for (let index = 0; index < 6; index++) {
+            //   console.log(matchTeam);
+            //   console.log('matchTeam 인덱스'+ matchTeam[index]);
+            //   // console.log('socket종료시' + JSON.stringify(heartBeatCtx.heartBeat[index].userHeartBeat));
+            //   const element = { userID : `${parseInt(matchTeam[index].userId)}` , userDistance: `${totalDistance[index]}`, userHeartRate : `${parseInt(JSON.stringify(heartBeatCtx.heartBeat[index].userHeartBeat))}`}
+            //   console.log('element' + JSON.stringify(element));              
+            //   // await setUserData((userData) => {
+            //   //   console.log(userData);
+            //   //   return [...userData, element]
+            //   // })                         
+            // }
             ws = undefined;
             fieldCtx.setIsBuffered(true);
             console.log('Server Disconnect..');
-            const data = {
-              gameYear: nowDate.gameYear,
-              gameMonth: nowDate.gameMonth,
-              gameDay: nowDate.gameDay,
-              gameTime: nowDate.gameTime,
-              userData: [
-                {
-                  userID: '10',
-                  userDistance: `${totalDistance[0]}`,
-                },
-              ],
-              gameXY: fieldCtx.allCoords,
-              gameScore: `${fieldCtx.score1}:${fieldCtx.score2}`,
-            };
-            console.log(data);
-            axios({
-              method: 'post',
-              url: BASE_URL + 'game/newGame/',
-              headers: `Bearer ${authTokens.accessToken}`,
-              data: data,
-            })
-              .then((response) => console.log(response))
-              .catch((err) => console.log(err));
+            // console.log('userData' + userDatatest);
+            // const data = {
+            //   gameYear: nowDate.gameYear,
+            //   gameMonth: nowDate.gameMonth,
+            //   gameDay: nowDate.gameDay,
+            //   gameTime: nowDate.gameTime,
+            //   userData: userDatatest,
+            //   gameXY: fieldCtx.allCoords,
+            //   gameScore: `${fieldCtx.score1}:${fieldCtx.score2}`,
+            // };
+            // console.log(data);
+            // // console.log(authTokens.accessToken);
+            // axios({
+            //   method: 'post',
+            //   url: BASE_URL + 'game/newGame/',
+            //   headers:  {
+            //     Authorization : `Bearer ${authTokens.accessToken}`
+            // },
+            //   data: data,
+            // })
+          //   axios
+          //   .post(`http://k7b307.p.ssafy.io/api/v1/game/newGame/`,
+          //    {
+          //     data: data
+          //    },
+          //   {
+          //     headers : {
+          //         Authorization : `Bearer ${authTokens.accessToken}`
+          //     }
+          // })
+          // .then((response) => console.log(response))
+          // .catch((err) => console.log(err));
           };
-
           ws.onerror = () => {
             console.log('error..');
             setIsLoading(false);
@@ -177,7 +208,7 @@ export default function IpInsertPage() {
   };
 
   return (
-    <div>
+    <div className="body">
       <FootballNavbar currentpage="ipinsert"></FootballNavbar>
       <div className="ipInsertCon">
         {isLoading ? (

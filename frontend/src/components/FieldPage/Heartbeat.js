@@ -10,7 +10,7 @@ function Heartbeat(props) {
   const [startFlag, setStartFlag] = useState(0);
 
   const { matchTeam, matchTeamNum } = useContext(UserContext);
-  console.log('matchTeam', matchTeam);
+  // console.log('matchTeam', matchTeam);
   const heartBeatCtx = useContext(HeartContext);
   // user들의 심박수를 계속 더하는 useState, 
   // 13번까지 있으며, 0번째는 사용하지 않는 인덱스
@@ -71,17 +71,15 @@ function Heartbeat(props) {
     for (let i of topicList) {
       $websocket.current.subscribe(i, ({ body }) => {
         const dd = JSON.parse(body);
-        console.log('받아온 데이터 :', dd);
-        console.log('heartBeatCtx ', heartBeatCtx);
         let newkeywords = heartBeatCtx.heartBeat.map((k) => {
           if (k.userEmail === dd.userEmail) {
-            console.log('일치', k);
+            // console.log('일치', k);
             return {
               ...k,
               userHeartBeat: dd.userHeartRate,
             };
           } else {
-            console.log('불일치', k);
+            // console.log('불일치', k);
             return {
               ...k,
             };
@@ -90,7 +88,6 @@ function Heartbeat(props) {
         // 심박수 계속 더하는 로직
         heart[topicList.indexOf(i) + 1] += dd.userHeartRate
         heart[(topicList.indexOf(i) + 1) * 2] ++
-        console.log('newkeywords', newkeywords);
 
         heartBeatCtx.changeHeartBeat(newkeywords);
       });
@@ -109,7 +106,7 @@ function Heartbeat(props) {
       topicList[index] = '/topic/api/' + userList[index];
     }
 
-    console.log('heartBeatCtx.heartBeat in UseEffect', heartBeatCtx.heartBeat);
+    // console.log('heartBeatCtx.heartBeat in UseEffect', heartBeatCtx.heartBeat);
 
     const interval = setInterval(() => {}, 2000);
 
@@ -121,7 +118,7 @@ function Heartbeat(props) {
   }, [heartBeatCtx.heartBeat, userHeartSum]); //
   //   const topicList = ['/topic/template', '/topic/api/user0', '/topic/api/user2', '/topic/api/user3', '/topic/api/user4', '/topic/api/user1']
 
-  console.log('!!!!', heartBeatCtx.heartBeat);
+  // console.log('!!!!', heartBeatCtx.heartBeat);
   return (
     <>
       <div className={styles.heart_container}>

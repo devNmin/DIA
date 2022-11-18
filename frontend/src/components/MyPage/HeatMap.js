@@ -7,20 +7,21 @@ import AuthContext from '../../context/AuthContext'
 
 export default function HeatMapPage({data}) {
   const { BASE_URL } = useContext(AuthContext)
-
+  const widthRatio = (window.innerWidth * 0.95)/1180 ;
+  const heightRatio = (window.innerWidth * 0.95 * 0.7)/820;
+  console.log("---", widthRatio + " " + heightRatio)
   useEffect(() => {
     // console.log("data", data)
     HeatMapHandler();
   },[]);
     
-  
   const HeatMapHandler = async (e) => {
     var heatmapInstance = h337.create({
         container: document.getElementById("heatmap-canvas"),
     });
     
-    // await axios.get(BASE_URL + `usergame/heatmapPoints/${data}`)
-    await axios.get(`http://k7b307.p.ssafy.io:8081/api/v1/usergame/heatmapPoints/${data}`)
+    await axios.get(BASE_URL + `usergame/heatmapPoints/${data}`)
+    // await axios.get(`http://k7b307.p.ssafy.io:8081/api/v1/usergame/heatmapPoints/${data}`)
     .then(res => {     
       if (res.status === 200) {
         let points = []
@@ -33,8 +34,8 @@ export default function HeatMapPage({data}) {
             var val = 1;
             max = Math.max(max, val);
             var point = {
-                x: Math.floor(heatmapData[idx][0] * 0.34),
-                y: Math.floor(heatmapData[idx][1] * 0.34),
+                x: Math.floor(heatmapData[idx][0] * widthRatio),
+                y: Math.floor(heatmapData[idx][1] * heightRatio),
                 value: val
             };
             points.push(point);

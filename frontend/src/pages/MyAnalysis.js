@@ -49,7 +49,7 @@ function MyAnalysis(props) {
 
 
   useEffect(() => {
-    onScroll();
+    onScroll();    
     window.addEventListener('scroll', onScroll);    
     return() => {
         window.removeEventListener('scroll', onScroll);
@@ -76,6 +76,7 @@ function MyAnalysis(props) {
                 gameMonth={game.gameMonth}
                 gameDay={game.gameDay}
                 gameTime={game.gameTime}
+                gameScore={game.gameScore}
               />
             ))}
           </div>

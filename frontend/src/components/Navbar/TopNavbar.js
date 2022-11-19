@@ -14,7 +14,7 @@ function TopNavbar(props) {
     <div className={styles.wrapper}>
       <div className={styles.wrap}>
         <div>
-          <button className={styles.navButton} onClick={handleHistory}>경기 기록</button>
+          <button className={styles.navButton} onClick={handleHistory}>경기 기록 </button>
         </div>
         <div>
           <Link to='/main'>

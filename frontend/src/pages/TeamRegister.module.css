@@ -33,7 +33,6 @@
   margin-left: 10px;
   background-color: rgba(49, 50, 56, 0.4);
   border-radius: 0.5rem;
-
 }
 
 .colorInput {
@@ -129,6 +128,7 @@
   margin-left: 10px;
   border-radius: 0.5rem;
   border: 1px solid #b3dc45;
+  overflow: scroll;
 }
 .subsituteTitle {
   color: aliceblue;
@@ -142,12 +142,11 @@
 }
 
 .canvasButton {
-  height: 19vh;
+  height: 21vh;
   width: 30%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  
 }
 
 .back {

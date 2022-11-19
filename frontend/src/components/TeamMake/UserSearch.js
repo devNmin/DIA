@@ -171,21 +171,21 @@ export default function UserSearch() {
                 style={{ display: 'flex', height: '13%', marginBottom: '10px' }}
               >
                 <button
-                  className= 'formationBtn'
+                  className="formationBtn"
                   onClick={() => setFormation('1202')}
                   style={{ marginLeft: '20px', height: '100%', width: '33%' }}
                 >
                   1-2-0-2
                 </button>
                 <button
-                  className='formationBtn'
+                  className="formationBtn"
                   onClick={() => setFormation('1121')}
                   style={{ marginLeft: '20px', height: '100%', width: '33%' }}
                 >
                   1-1-2-1
                 </button>
                 <button
-                  className='formationBtn'
+                  className="formationBtn"
                   onClick={() => setFormation('1112')}
                   style={{
                     marginLeft: '20px',
@@ -204,7 +204,7 @@ export default function UserSearch() {
             </div>
           </div>
 
-          <hr />
+          <hr className="hrMargin" />
           <div
             className="squadBench"
             style={{ display: 'flex', overflowX: 'auto' }}

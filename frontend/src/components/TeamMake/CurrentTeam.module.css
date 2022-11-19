@@ -1,22 +1,22 @@
 .playerImg {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 1rem;    
+  width: 4.5rem;
+  height: 4.5rem;
+  object-fit: cover;
+  border-radius: 1rem;
 }
 
-.playerInfoContainer{
-    margin-right: 10px;
+.playerInfoContainer {
+  margin-right: 10px;
 }
 
 .userinfo {
-    margin-top: 5px;
+  margin-top: 5px;
+  color: #739106;
 }
-.deletebtn{
-  color: white;
-  background-color: transparent;
-  width: 100%;  
+.deletebtn {
+  color: #b3dc3c;
   cursor: pointer;
-  border: 1px solid #fff;
-  border-radius: 4px;
+  position: relative;
+  top: -3rem;
+  left: 1.8rem;
 }

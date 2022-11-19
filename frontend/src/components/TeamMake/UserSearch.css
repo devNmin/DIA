@@ -86,3 +86,6 @@ hr {
 .formationBtn:hover {
   background-color: #b3dc45;
 }
+.hrMargin {
+  margin-bottom: 1rem;
+}

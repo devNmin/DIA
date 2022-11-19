@@ -1,5 +1,12 @@
 import React, { useEffect } from 'react';
 import styles from './Modal.module.css'
+import teams from '../../assets/선수팀등록.png'
+import teams2 from '../../assets/유저포메이션등록.png'
+import ip from '../../assets/IP연결학.png'
+import ip2 from '../../assets/연결중입니다.png'
+import make from '../../assets/팀구성매칭.png'
+import make2 from '../../assets/팀구성하기.png'
+
 
 function Modal({ onClose, maskClosable, closable, visible }) {
   const onMaskClick = (e) => {
@@ -54,7 +61,29 @@ function Modal({ onClose, maskClosable, closable, visible }) {
       >
         <div className={styles.modal_inner}>
           <div>
-            <p>실시간 분석을 사용하기 위해서는 반드시 노트북에 있는 IP주소를 입력해야 합니다!!!</p>
+            <h1 style={{marginBottom: 10, color: 'yellowgreen'}}>DIA 사용 설명서</h1>
+            <div className={styles.teams}>
+              <p style={{color: 'yellow'}}>1. 유저 등록하기</p>
+              <p>경기에 뛰는 선수들을 검색 후 해당 선수들을 터치하여 팀 등록을 완료합니다.</p>
+              <img src={teams} alt='#' />
+              <img src={teams2} alt='#' />
+            </div>
+            <div className={styles.teams}>
+              <p style={{color: 'yellow'}}>2. ip연결하기</p>
+              <p>DIA.exe 파일에서 알려준 해당 서버의 IP와 PORT번호를 해당 페이지에 입력합니다.</p>
+              <img src={ip} alt='#' />
+              <img src={ip2} alt='#' />
+            </div>
+            <div className={styles.teams}>
+              <p style={{color: 'yellow'}}>3. 팀 구성하기</p>
+              <p>팀 구성하기 캔버스에 있는 선수들의 위치는 처음 서버와 연결할때의 위치입니다.</p>
+              <p>당시 위치와 선수들을 비교하여 위치에 맞는 선수들로 등록을 합니다.</p>
+              <img src={make2} alt='#' />
+              <img src={make} alt='#' />
+            </div>
+            <div>
+              
+            </div>
           </div>
           <div className={styles.modal_inner2}>
             {closable && (

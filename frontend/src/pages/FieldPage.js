@@ -18,7 +18,15 @@ import Heartbeat from '../components/FieldPage/Heartbeat';
 import { HeartContext } from '../context/HeartContext';
 
 function FieldPage() {
-  const { ipV4, portinput, setSocketStop, socketStop,  ws, matchTeam, totalDistance} = useContext(UserContext);
+  const {
+    ipV4,
+    portinput,
+    setSocketStop,
+    socketStop,
+    ws,
+    matchTeam,
+    totalDistance,
+  } = useContext(UserContext);
   const fieldCtx = useContext(fieldContext);
   const { authTokens, BASE_URL } = useContext(AuthContext);
 
@@ -284,25 +292,32 @@ function FieldPage() {
     // ws.close()
     // console.log(socketStop);
     // console.log(ws);
-    ws.close()
-    let userData = []
-    for (let index = 0; index <matchTeam.length; index++) {
+    ws.close();
+    console.log('소켓끝!');
+    fieldCtx.setIsSocket(() => false);
+    let userData = [];
+    for (let index = 0; index < matchTeam.length; index++) {
       console.log(matchTeam);
-      console.log('matchTeam 인덱스'+ matchTeam[index]);
+      console.log('matchTeam 인덱스' + matchTeam[index]);
       // console.log('socket종료시' + JSON.stringify(heartBeatCtx.heartBeat[index].userHeartBeat));
-      const element = { userID : `${parseInt(matchTeam[index].userId)}` , userDistance: `${totalDistance[index]}`,
-       userHeartRate : parseInt(JSON.stringify(heartBeatCtx.heartBeat[index].userHeartBeat))}
-      userData.push(element)             
+      const element = {
+        userID: `${parseInt(matchTeam[index].userId)}`,
+        userDistance: `${totalDistance[index]}`,
+        userHeartRate: parseInt(
+          JSON.stringify(heartBeatCtx.heartBeat[index].userHeartBeat)
+        ),
+      };
+      userData.push(element);
       // await setUserData((userData) => {
       //   console.log(userData);
       //   return [...userData, element]
-      // })                         
+      // })
     }
-    let coordDict = {}
+    let coordDict = {};
     for (let index = 0; index < 6; index++) {
       const element = fieldCtx.allCoords[index];
-      const userPk = matchTeam[index].userId
-      coordDict[`${userPk}`] = element
+      const userPk = matchTeam[index].userId;
+      coordDict[`${userPk}`] = element;
     }
     const data = {
       gameYear: nowDate.gameYear,
@@ -318,13 +333,13 @@ function FieldPage() {
     axios({
       method: 'post',
       url: BASE_URL + 'game/newGame/',
-      headers:  {
-        Authorization : `Bearer ${authTokens.accessToken}`
-    },
+      headers: {
+        Authorization: `Bearer ${authTokens.accessToken}`,
+      },
       data: data,
-    }).then((response) => console.log(response))
-    .catch((err) => console.log(err));
-    ;
+    })
+      .then((response) => console.log(response))
+      .catch((err) => console.log(err));
   };
 
   // const socketSend = () => {

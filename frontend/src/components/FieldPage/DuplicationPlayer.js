@@ -42,8 +42,6 @@ function DuplicationPlayer() {
 
           context3.beginPath();
           context3.arc(x, y, 15, 0, Math.PI * 2, true);
-          context3.font = '25px Arial';
-          context3.fillText(i, x - 7.5, y - 6);
           {
             i < 6
               ? (context3.fillStyle = userCtx.ourColor)
@@ -52,6 +50,16 @@ function DuplicationPlayer() {
           context3.globalAlpha = 0.5;
           context3.fill();
           context3.stroke();
+          context3.font = '10px Arial';
+          context3.fillStyle = '#323232';
+          context3.globalAlpha = 0.9;
+          context3.textAlign = 'center';
+          context3.textBaseline = 'hanging';
+          context3.fillText(
+            userCtx.matchTeam[i] ? userCtx.matchTeam[i].userName : i,
+            x,
+            y - 7
+          );
         } else if (i === fieldCtx.nowD) {
           fieldCtx.duplication[i] = [clientX, clientY];
           // 처음 플레이어 누르면 이전 복제 이벤트 끝난 좌표에 원 생성되는거 고쳐야 함!!!
@@ -59,8 +67,6 @@ function DuplicationPlayer() {
 
           context3.beginPath();
           context3.arc(clientX, clientY, 15, 0, Math.PI * 2, true);
-          context3.font = '25px Arial';
-          context3.fillText(i, clientX - 7.5, clientY - 7.5);
           {
             i < 6
               ? (context3.fillStyle = userCtx.ourColor)
@@ -69,6 +75,16 @@ function DuplicationPlayer() {
           context3.globalAlpha = 0.5;
           context3.fill();
           context3.stroke();
+          context3.font = '10px Arial';
+          context3.fillStyle = '#323232';
+          context3.globalAlpha = 0.9;
+          context3.textAlign = 'center';
+          context3.textBaseline = 'hanging';
+          context3.fillText(
+            userCtx.matchTeam[i] ? userCtx.matchTeam[i].userName : i,
+            clientX,
+            clientY - 7
+          );
         }
       }
     }

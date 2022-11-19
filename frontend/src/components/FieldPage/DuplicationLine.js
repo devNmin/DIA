@@ -17,14 +17,11 @@ function DuplicationLine() {
     if (!ctx) {
       return;
     }
-
     for (let i = 0; i < 12; i++) {
       let dLength = fieldCtx.dupleLineCoords[i].length;
-
       if (dLength < 2) {
         continue;
       }
-
       let dx = 0; //이전 x
       let dy = 0; //이전 y
       let nx = 0; //현재 x
@@ -40,8 +37,7 @@ function DuplicationLine() {
         ctx.stroke();
       }
     }
-
-    // // 화살표 그리기
+    //// 화살표 그리기
     for (let i = 0; i < 12; i++) {
       let dLength = fieldCtx.dupleLineCoords[i].length;
       if (dLength < 10) {
@@ -89,9 +85,9 @@ function DuplicationLine() {
         ctx.beginPath();
         ctx.moveTo(clientX, clientY);
       } else if (isStart && fieldCtx.ctxEvenet.type === 'touchmove') {
+        setIsStart(false);
         ctx.beginPath();
         ctx.moveTo(clientX, clientY);
-        setIsStart(false);
       } else {
         // 터치중
         // 선 색 후보 '#B3DC3C'

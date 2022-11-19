@@ -1,6 +1,6 @@
 .playerImg {
-  width: 80px;
-  height: 80px;
+  width: 4.5rem;
+  height: 4.5rem;
   object-fit: cover;
   border-radius: 1rem;
 }

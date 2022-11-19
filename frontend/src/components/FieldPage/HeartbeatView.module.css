@@ -34,10 +34,10 @@
 /* 선수 이름 표시 부 */
 
 .user_num {
-  /* color: #b3dc3c; */
-  background: -webkit-linear-gradient(#739106 0%, #b3dc3c 100%);
+  color: #b3dc3c;
+  /* background: -webkit-linear-gradient(#739106, #b3dc3c);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent; */
   float: right;
   margin-right: 0.5rem;
 }

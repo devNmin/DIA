@@ -8,9 +8,22 @@ import SearchedUser from '../components/TeamMake/SearchedUser';
 import CurrentTeamComp from '../components/TeamMake/CurrentTeamComp';
 
 export default function TeamRegister() {
-  const {ourColor, setOurColor, theirColor, setTheirColor, pivot, ala, fixo, goalkeeper, currentTeam, registerPlayer, matchTeam, ws} = useContext(UserContext) 
-  // let test = document.body.clientWidth 
-  // let test = document.querySelector('#leftux').clientWidth 
+  const {
+    ourColor,
+    setOurColor,
+    theirColor,
+    setTheirColor,
+    pivot,
+    ala,
+    fixo,
+    goalkeeper,
+    currentTeam,
+    registerPlayer,
+    matchTeam,
+    ws,
+  } = useContext(UserContext);
+  // let test = document.body.clientWidth
+  // let test = document.querySelector('#leftux').clientWidth
   // console.log(test);
   // let result = document.querySelector('.result')
   // console.log(test.style.width);
@@ -26,13 +39,13 @@ export default function TeamRegister() {
     history.push('/canvasTest');
   };
   const goToIp = () => {
-    ws.close()
-    history.push('/ipInsert')
-  }
-   return (
-    <div className= {styles.back}>
-        <FootballNavbar currentpage = 'teamregister'></FootballNavbar> 
-        {/* <div>{ipV4}</div>
+    ws.close();
+    history.push('/ipInsert');
+  };
+  return (
+    <div className={styles.back}>
+      <FootballNavbar currentpage="teamregister"></FootballNavbar>
+      {/* <div>{ipV4}</div>
         <div>{portinput}</div>   */}
       {/* <div>{firstCoord}</div> */}
 
@@ -43,7 +56,7 @@ export default function TeamRegister() {
         <div className={styles.rightUx}>
           <div className={styles.teamColorCon}>
             <div className={styles.teamText}>
-              <p className={styles.colorTitle}> Home Team Color : </p>
+              <p className={styles.colorTitle}> 홈 팀 색 : </p>
               <input
                 type="color"
                 className={styles.colorInput}
@@ -52,7 +65,7 @@ export default function TeamRegister() {
               />
             </div>
             <div className={styles.teamText}>
-              <p className={styles.colorTitle}> Away Team Color : </p>
+              <p className={styles.colorTitle}> 원정 팀 색 : </p>
               <input
                 type="color"
                 className={styles.colorInput}
@@ -146,7 +159,7 @@ export default function TeamRegister() {
               goToIp();
             }}
           >
-            RECONNECT SERVER
+            서버 다시 연결
           </button>
           <button
             className={styles.gotoCanvas}
@@ -154,7 +167,7 @@ export default function TeamRegister() {
               goToCanvas();
             }}
           >
-            Go to Canvas
+            전술 보드 가기
           </button>
         </div>
       </div>

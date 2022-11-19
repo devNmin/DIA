@@ -26,6 +26,12 @@
   justify-content: flex-end; */
 }
 
+.teams img {
+  margin-left: 5rem;
+  margin-right: 5rem;
+  width: 22%;
+}
+
 .modal_inner2 {
   position: fixed;
   bottom: 0px;
@@ -42,9 +48,10 @@
 }
 
 .closebutton {
+  margin-left: 10px;
   cursor: pointer;
-  width: 15rem;
-  height: 3rem;
+  width: 10rem;
+  height: 2rem;
   border: #739106 solid;
   border-radius: 30px;
   color: aliceblue;

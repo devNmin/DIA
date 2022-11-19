@@ -1,15 +1,24 @@
-import React, {useEffect, useContext} from 'react'
+import React, {useEffect, useContext, useState, useRef} from 'react'
 import h337 from 'heatmapjs'
 import styles from './HeatMap.module.css'
 import axios from '../../utils/axios'
 import AuthContext from '../../context/AuthContext'
+import HeatMapModal from './HeatMapModal'
+import { Link } from 'react-router-dom'
 
 
 export default function HeatMapPage({data}) {
-  const { BASE_URL } = useContext(AuthContext)
+  const { BASE_URL } = useContext(AuthContext)  
+  const [modalOpen, setModalOpen] = useState(false);
+  const coord = useRef();
+
   const widthRatio = (window.innerWidth * 0.95)/1180 ;
   const heightRatio = (window.innerWidth * 0.95 * 0.7)/820;
-  console.log("---", widthRatio + " " + heightRatio)
+
+  const showModal = () => {
+    setModalOpen(true);
+  };
+  
   useEffect(() => {
     // console.log("data", data)
     HeatMapHandler();
@@ -25,11 +34,11 @@ export default function HeatMapPage({data}) {
     .then(res => {     
       if (res.status === 200) {
         let points = []
-        let max =60;
+        let max =1;
         let heatmapData = res.data['points']
         let dataLen = heatmapData.length;
         let idx = 0;
-
+        console.log("heatmapData", heatmapData)
         while (idx++ < dataLen-1) {
             var val = 1;
             max = Math.max(max, val);
@@ -40,12 +49,13 @@ export default function HeatMapPage({data}) {
             };
             points.push(point);
         }
-        console.log("points", points)
+        coord.current = heatmapData
         var data = { 
             max: max, 
             data: points 
         };
         heatmapInstance.setData(data);
+        console.log("coord", coord)
       }else{
       }           
     }).catch(err => {
@@ -55,8 +65,9 @@ export default function HeatMapPage({data}) {
 
   return (
     <>
-      <div id="heatmap-canvas" className={styles.heatmap_canvas}>
+      <div id="heatmap-canvas" className={styles.heatmap_canvas} onClick={showModal}>
       </div>
+      {modalOpen && <HeatMapModal setModalOpen={setModalOpen} coord={coord.current} offset={window.innerWidth * 0.95}/>}
     </>
   )
 }

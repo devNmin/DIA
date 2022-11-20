@@ -147,29 +147,29 @@ function MyCard(props) {
             <div className={styles.player_features}>
               <div className={styles.player_features_col}>
                 <span>
-                  <div className={styles.player_feature_value}>10</div>
+                  <div className={styles.player_feature_value}>52</div>
                   <div className={styles.player_feature_title}>STA</div>
                 </span>
                 <span>
-                  <div className={styles.player_feature_value}>40</div>
+                  <div className={styles.player_feature_value}>61</div>
                   <div className={styles.player_feature_title}>ATT</div>
                 </span>
                 <span>
-                  <div className={styles.player_feature_value}>30</div>
+                  <div className={styles.player_feature_value}>52</div>
                   <div className={styles.player_feature_title}>DEF</div>
                 </span>
               </div>
               <div className={styles.player_features_col}>
                 <span>
-                  <div className={styles.player_feature_value}>30</div>
+                  <div className={styles.player_feature_value}>53</div>
                   <div className={styles.player_feature_title}>SPE</div>
                 </span>
                 <span>
-                  <div className={styles.player_feature_value}>30</div>
+                  <div className={styles.player_feature_value}>68</div>
                   <div className={styles.player_feature_title}>DIS</div>
                 </span>
                 <span>
-                  <div className={styles.player_feature_value}>20</div>
+                  <div className={styles.player_feature_value}>90</div>
                   <div className={styles.player_feature_title}>PHY</div>
                 </span>
               </div>

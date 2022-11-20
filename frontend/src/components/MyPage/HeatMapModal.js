@@ -22,7 +22,7 @@ function ModalBasic({ setModalOpen, coord, offset }) {
             container: document.getElementById("heatmap-canvas-modal"),
         });
         let points = []
-        let max =1;
+        let max =230;
         let heatmapData = coord
         let dataLen = heatmapData.length;
         let idx = 0;

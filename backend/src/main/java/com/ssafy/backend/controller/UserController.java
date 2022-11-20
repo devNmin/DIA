@@ -5,11 +5,14 @@ import com.ssafy.backend.dto.UserLoginDto;
 import com.ssafy.backend.dto.UserWearDto;
 import com.ssafy.backend.entity.User;
 import com.ssafy.backend.entity.UserInfo;
+import com.ssafy.backend.service.TokenService;
 import com.ssafy.backend.service.UserInfoService;
 import com.ssafy.backend.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @RestController
@@ -17,10 +20,12 @@ import javax.validation.Valid;
 public class UserController {
     private final UserService userService;
     private final UserInfoService userInfoService;
+    private final TokenService tokenService;
 
-    public UserController(UserService userService, UserInfoService userInfoService){
+    public UserController(UserService userService, UserInfoService userInfoService, TokenService tokenService){
         this.userService=userService;
         this.userInfoService = userInfoService;
+        this.tokenService = tokenService;
     }
 
     //회원가입 controller
@@ -54,9 +59,13 @@ public class UserController {
         return ResponseEntity.ok(new ResponseDto(409,"이미 가입된 이메일입니다"));
     }
 
-    @GetMapping("/test")
-    public ResponseEntity<?> test(){
-        return ResponseEntity.ok(new ResponseDto(409,"이미 가입된 이메일입니다"));
+    @GetMapping("/user/info")
+    public ResponseEntity<?> test(
+            HttpServletRequest request){
+        String userEmail = tokenService.getUserEmailFromToken(request);
+        User user = userService.findByEmail(userEmail);
+
+        return ResponseEntity.ok(user);
     }
 
     @GetMapping("/check/code/{code}")

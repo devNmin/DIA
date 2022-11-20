@@ -7,7 +7,7 @@ function HeartbeatView({ user, heartB }) {
       <div className={styles.user_num}>{user}</div>
       <div className={styles.info_box}>
         <div className={styles.hb}>
-          <HeartIcon user={user} />
+          <HeartIcon user={user} heartB={heartB} />
           <div className={styles.hb_rate}>{heartB}</div>
         </div>
       </div>

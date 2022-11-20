@@ -298,8 +298,8 @@ function FieldPage() {
     fieldCtx.setIsSocket(() => false);
     let userData = [];
     for (let index = 0; index < matchTeam.length; index++) {
-      console.log(matchTeam);
-      console.log('matchTeam 인덱스' + matchTeam[index]);
+      // console.log(matchTeam);
+      // console.log('matchTeam 인덱스' + matchTeam[index]);
       // console.log('socket종료시' + JSON.stringify(heartBeatCtx.heartBeat[index].userHeartBeat));
       const element = {
         userID: `${parseInt(matchTeam[index].userId)}`,
@@ -329,7 +329,7 @@ function FieldPage() {
       gameXY: coordDict,
       gameScore: `${fieldCtx.score1}:${fieldCtx.score2}`,
     };
-    console.log(data);
+    // console.log(data);
     // console.log(authTokens.accessToken);
     axios({
       method: 'post',

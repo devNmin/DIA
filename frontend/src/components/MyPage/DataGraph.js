@@ -57,8 +57,8 @@ const DataGraph = () => {
     })
       .then((res) => {
         if (res.status === 200) {
-          console.log(res.data);
-
+          // console.log(res.data);
+          // console.log()
           setData([
             {
               "status": "체력",
@@ -109,7 +109,7 @@ const DataGraph = () => {
     })
       .then((res) => {
         if (res.status === 200) {
-          console.log(res.data);
+          // console.log(res.data);
           let newkeywords = data.map((k) => {
             if ("체력" === k["status"]) {
               return {
@@ -179,7 +179,7 @@ const DataGraph = () => {
       a()
       return () => clearTimeout(a)
     }
-    console.log('zzzz', data)
+    // console.log('zzzz', data)
     // getGameInfoFive();
   }, [data]);
   

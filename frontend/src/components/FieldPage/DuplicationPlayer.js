@@ -58,7 +58,7 @@ function DuplicationPlayer() {
             y - 7
           );
         } else if (i === fieldCtx.nowD) {
-          console.log('e', fieldCtx.ctxEvenet);
+          // console.log('e', fieldCtx.ctxEvenet);
           if (
             fieldCtx.dupleLineCoords[i]?.length === 0 ||
             fieldCtx.ctxEvenet.type === 'touchstart'

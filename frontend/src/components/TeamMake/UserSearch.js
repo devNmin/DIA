@@ -159,10 +159,10 @@ export default function UserSearch() {
             <br />
             <br />
           </Scrollbars>
-          {noResult ? <h2>There aren't any users</h2> : null}
+          {noResult ? <h2>검색된 유저가 없습니다.</h2> : null}
         </div>
         <div className="usersquad fadein">
-          <div className="squadtitle">YOUR SQUAD</div>
+          <div className="squadtitle">스쿼드</div>
           <hr />
           <div className="fieldContainer">
             <CurrentFieldComp curform={formation}></CurrentFieldComp>

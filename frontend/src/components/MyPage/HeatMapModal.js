@@ -32,11 +32,11 @@ function ModalBasic({ setModalOpen, coord, offset }) {
                 x: Math.floor(heatmapData[idx][1] * widthRatio * -1 + offset),
                 y: Math.floor(heatmapData[idx][0] * heightRatio ),
             };
-            console.log(idx, heatmapData[idx][1] + " " + heatmapData[idx][1] * -1 + offset)
+            // console.log(idx, heatmapData[idx][1] + " " + heatmapData[idx][1] * -1 + offset)
             points.push(point);
         }
-        console.log("points", points)
-        console.log("widthRatio", widthRatio + " " + heightRatio)
+        // console.log("points", points)
+        // console.log("widthRatio", widthRatio + " " + heightRatio)
         var data = { 
             max: max, 
             data: points 

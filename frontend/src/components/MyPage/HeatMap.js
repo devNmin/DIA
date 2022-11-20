@@ -38,7 +38,7 @@ export default function HeatMapPage({data}) {
         let heatmapData = res.data['points']
         let dataLen = heatmapData.length;
         let idx = 0;
-        console.log("heatmapData", heatmapData)
+        // console.log("heatmapData", heatmapData)
         while (idx++ < dataLen-1) {
             var val = 1;
             max = Math.max(max, val);
@@ -55,7 +55,7 @@ export default function HeatMapPage({data}) {
             data: points 
         };
         heatmapInstance.setData(data);
-        console.log("coord", coord)
+        // console.log("coord", coord)
       }else{
       }           
     }).catch(err => {

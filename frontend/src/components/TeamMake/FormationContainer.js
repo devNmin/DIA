@@ -51,28 +51,28 @@ export default function FormationContainer(props) {
     result.push(0);
     setPivot(result);
     setCurrentTeam((c) => [...c, p]);
-    console.log(result);
+    // console.log(result);
   };
   const removeFromAla = async (p) => {
     const result = ala.filter((info) => info.userId !== p.userId);
     result.push(0);
     setAla(result);
     setCurrentTeam((c) => [...c, p]);
-    console.log(result);
+    // console.log(result);
   };
   const removeFromFixo = async (p) => {
     const result = fixo.filter((info) => info.userId !== p.userId);
     result.push(0);
     setFixo(result);
     setCurrentTeam((c) => [...c, p]);
-    console.log(result);
+    // console.log(result);
   };
   const removeFromGoalkeeper = async (p) => {
     const result = goalkeeper.filter((info) => info.userId !== p.userId);
     result.push(0);
     setGoalkeeper(result);
     setCurrentTeam((c) => [...c, p]);
-    console.log(result);
+    // console.log(result);
   };
 
   // console.log(typeof Goalkeeper);

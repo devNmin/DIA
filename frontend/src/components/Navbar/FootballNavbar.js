@@ -18,7 +18,7 @@ export default function FootballNavbar(props) {
     }
   });
   const goIpInsert = async () => {
-    console.log(totalTeam);
+    // console.log(totalTeam);
     if (totalTeam.length) {
       for (let index = 0; index < totalTeam.length; index++) {
         const element = totalTeam[index];

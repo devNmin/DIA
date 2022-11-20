@@ -197,7 +197,7 @@ export default function AccountRegisterPage() {
         email: emailInput.current.value,
       })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setAuthKey(res.data);
       });
     setShowAuth(true);

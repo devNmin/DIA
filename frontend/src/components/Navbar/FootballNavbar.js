@@ -63,7 +63,7 @@ export default function FootballNavbar(props) {
             style={{ textDecoration: 'none' }}
           >
             <span style={{ color: currentCheck === 2 ? '#B3DC3C' : null }}>
-              IP 연결
+              서버 연결
             </span>
           </div>
         </li>

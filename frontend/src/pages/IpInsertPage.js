@@ -215,7 +215,7 @@ export default function IpInsertPage() {
           <LodingText></LodingText>
         ) : (
           <div>
-            <h1 className="ipInsertTitle">노트북 IP와 포트를 입력해주세요</h1>
+            <h1 className="ipInsertTitle">서버 IP와 포트를 입력해주세요</h1>
             <div>
               <div>
                 <label className="ipfont"> IP : </label>

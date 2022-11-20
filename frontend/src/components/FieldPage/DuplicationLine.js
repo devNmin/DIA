@@ -79,7 +79,7 @@ function DuplicationLine() {
     const { clientX, clientY } = fieldCtx.ctxEvenet.changedTouches[0];
 
     if (ctx) {
-      console.log('fieldCtx.ctxEvenet.type', fieldCtx.ctxEvenet.type);
+      // console.log('fieldCtx.ctxEvenet.type', fieldCtx.ctxEvenet.type);
       if (fieldCtx.ctxEvenet.type === 'touchend') {
         ctx.moveTo(clientX, clientY);
         return;

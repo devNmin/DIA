@@ -47,7 +47,7 @@ export const UserProvider = ({ children }) => {
       setMatchTeam(() => {
         return [...matchTeam];
       });
-      console.log(matchTeam);
+      // console.log(matchTeam);
     } else {
       alert('필드에서 플레이어 위치를 선택해주세요!');
     }

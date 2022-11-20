@@ -38,7 +38,7 @@ function MyPageDetailGraph(props) {
     await axios.get(BASE_URL + `usergame/info/${gameId}`)
     // await axios.get(`http://localhost:8081/api/v1/usergame/info/${gameId}/2`)
     .then(res => {     
-        console.log(res.data)
+        // console.log(res.data)
         setUserGameData(res.data)
     }).catch(err => {
       console.log("eee")

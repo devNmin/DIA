@@ -51,7 +51,7 @@ export default function UserSearch() {
           setNoResult(true);
         }
       });
-    console.log(username);
+    // console.log(username);
     setUsername('');
   };
 

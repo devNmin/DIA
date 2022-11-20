@@ -47,7 +47,7 @@ function MyCard(props) {
       method: 'GET',
     })
       .then((response) => {
-        console.log('여깅', response);
+        // console.log('여깅', response);
         setUserInfo(response.data);
       })
       .catch((err) => console.log(err));

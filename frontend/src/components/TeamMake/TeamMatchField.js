@@ -14,8 +14,8 @@ export default function TeamMatchField() {
         let testwidth = document.querySelector('#leftux').clientWidth   
         setHeight(document.querySelector('#leftux').clientHeight)
         setWeight(document.querySelector('#leftux').clientWidth)
-        console.log(height);
-        console.log(weight);     
+        // console.log(height);
+        // console.log(weight);     
         // console.log(testwidth);
         // console.log(testheight);
         setCircleSize(testwidth * 0.05)         

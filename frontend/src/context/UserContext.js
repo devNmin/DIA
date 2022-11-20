@@ -29,6 +29,7 @@ export const UserProvider = ({ children }) => {
   const [ws, setWs] = useState(undefined)
   const [userData, setUserData] = useState([])
   const [totalDistance, setTotalDistance] = useState([])
+  const [registerHeart, setRegisterHeart] = useState([])
   const registerPlayer = async (playerInfo) => {
     if (currentNum) {
       // 중복검사
@@ -93,6 +94,8 @@ export const UserProvider = ({ children }) => {
     setUserData : setUserData,
     setTotalDistance : setTotalDistance,
     totalDistance : totalDistance,
+    registerHeart : registerHeart,
+    setRegisterHeart : setRegisterHeart
   };
   return (
     <UserContext.Provider value={contextData}>{children}</UserContext.Provider>

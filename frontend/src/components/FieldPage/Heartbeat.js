@@ -9,7 +9,7 @@ function Heartbeat(props) {
   const $websocket = useRef(null);
   const [startFlag, setStartFlag] = useState(0);
 
-  const { matchTeam, matchTeamNum } = useContext(UserContext);
+  const { matchTeam, matchTeamNum, setRegisterHeart } = useContext(UserContext);
   // console.log('matchTeam', matchTeam);
   const heartBeatCtx = useContext(HeartContext);
   // user들의 심박수를 계속 더하는 useState, 
@@ -93,6 +93,7 @@ function Heartbeat(props) {
       });
     }
     setUserHeartSum(heart)
+    setRegisterHeart(heart)
   };
 
   useEffect(() => {

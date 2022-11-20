@@ -32,9 +32,6 @@ function DuplicationPlayer() {
     if (fieldCtx.nowD > -1) {
       context3.clearRect(0, 0, window.innerWidth, window.innerHeight);
       for (let i = 0; i < 12; i++) {
-        if (fieldCtx.dupleLineCoords[i]?.length === 0) {
-          continue;
-        }
         // 이전에 만든 복제 원
         if (i in fieldCtx.duplication && i !== fieldCtx.nowD) {
           const x = fieldCtx.duplication[i][0];
@@ -61,6 +58,13 @@ function DuplicationPlayer() {
             y - 7
           );
         } else if (i === fieldCtx.nowD) {
+          console.log('e', fieldCtx.ctxEvenet);
+          if (
+            fieldCtx.dupleLineCoords[i]?.length === 0 ||
+            fieldCtx.ctxEvenet.type === 'touchstart'
+          ) {
+            continue;
+          }
           fieldCtx.duplication[i] = [clientX, clientY];
           // 처음 플레이어 누르면 이전 복제 이벤트 끝난 좌표에 원 생성되는거 고쳐야 함!!!
           // 그리고 또 선 그리기에 가끔 이상하게 선이 이어지는 버그 있음.

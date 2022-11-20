@@ -1,117 +1,226 @@
-## 2주차 기획 
-
-# Git 규칙
-
-------
-
-# **Git Commit & Branch**
-
-### **Commit 전략**
-
-- **FEAT** : 새로운 기능 추가
-- **FIX** : 버그 수정
-- **DOCS** : 문서 수정 및 추가
-- **STYLE** : 코드 스타일 관련 변경(코드 포매팅, 세미콜론 누락 등)
-- **REFACTOR** : 코드 리팩토링
-- **TEST** : 테스트 코드, 리팩토링 테스트 코드 추가
-- **CHORE** : 빌드 task 수정, 패키지 매니저 수정(.gitignore 수정 같은 경우)
-
-```bash
-git commit -m "[FEAT] create new feature
-
-피처 부가 설명"
-
-# shift enter 2회 치고 부가 설명 작성
-```
-
-------
-
-### **Git FLOW**
-
-- **master** : 기준이 되는 브랜치로 제품을 배포하는 브랜치(배포 할 때 )
-- **develop** : 개발 브랜치로 개발자들이 이 브랜치를 기준으로 각자 작업한 기능들을 Merge (버그가 수정된 커밋들)
-- **feature** : 단위 기능을 개발하는 브랜치로 기능 개발이 완료되면 develop 브랜치에 Merge (기능추가)
-- **release** : 배포를 위해 master 브랜치로 보내기 전에 먼저 QA(품질검사)를 하기위한 브랜치 (QA)
-- **hotfix** : master 브랜치로 배포를 했는데 버그가 생겼을 떄 긴급 수정하는 브랜치
-- feature은 언제나 develop에서 시작되며 기능추가작업이 완료되었다면 develop으로 merge
-- 모든 기능이 merge되면 QA진행 QA는 develop에서 release진행 QA후에는 master와 develop으로 merge
-
-![gitflow.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1473e4f2-6a19-4bf4-a99d-07ca672d0ce6/gitflow.png)
-
-------
-
-## **기본 브랜치**
-
-**master**
-
-**develop**
+<img src="https://user-images.githubusercontent.com/53360337/201550869-95438e85-8d56-4be2-a0db-bd17725201b9.png" width="200" height="200">
 
 
+# DIrecting Assistance (DIA)
+- 서비스명 : DIA
+- 팀 구성원 : 권혁림, 강승훈, 김진산, 윤영훈, 이슬기, 조경민 
+- 개발 기간 : 2022.10.11 ~ 2022.11.21 (6주)
+- 서비스 개요 : 축구 영상 분석 서비스
+- [Notion](https://www.notion.so/DIA-5a85b033e8134ea5a01e6d54be33906e)
 
-feature/back-blabla
+# 목차
+[1. 서비스 소개](#1)
 
-feature/front-blabla
+[2. 시스템 아키텍처](#2)
 
-------
+[3. 기술 스택](#3)
 
-### **기본 설정**
+[4. 프로젝트 산출물](#4)
 
-- git flow init -d
-  - → error 뜰 시, git stash 후에 다시 git flow init -d
-- 각자가 기능을 만들 때
+[5. 데이터 출처](#5)
 
-EX) OAuth2기능을 만들고 싶다.
+<br/>
+<div id = '1'>
 
-```bash
-git flow feature start OAuth2
-git flow feature publish OAuth2
+# 서비스 소개
 
-하게 되면 feature/OAuth2 라는 이름으로 브랜치가 생성됨
+<h2> 실시간 축구 영상 분석 및 전술 보드 서비스 </h2>
 
-그리고 개발을 하다가
-중간 완료가 된다면,
+<br>
 
-git add .
-git commit -m "커밋 메세지"
-git push origin feature/OAuth2
+## 주요 기능
+### 영상 분석
+- 실시간 영상 좌표 처리 및 트래킹
+- 드론 영상 좌표 처리 및 트래킹
 
-위 명령어를 통하여 중간 저장이 가능하며
+<br>
 
-최종본이 완성되면 코드리뷰를 통하여 문제가 없음이 확인된다면
-git flow feature finish OAuth2
+### 전술 보드
+- 영상 2D 표시
+- 버퍼링
+- 시간 이동
+- 전술보드 그리기
+- 선수 이동
+- 실시간 심박수
 
-명령어를 사용하여 만들었던 feature/OAuth2 를 develop 브랜치로 merge 한 후,
+<br>
 
-git add .
-git commit -m "커밋 메세지"
-git push origin develop
-```
+### 심박수 측정
+- 심박수 측정
 
-명령어를 사용하여 merge된 develop 변경사항을 push하여 원격 저장소에 저장
+<br/>
 
-그 후, 기능 개발이 끝난 다음 master에 request merge를 보내고 코드 리뷰로 오류가 없음을 확인 마지막으로 찬이형이 merge 승인 하면 최신 코드인 develop에 있던 코드들이 master로 merge가 됨.
+### 마이페이지
+- 선수 능력치 
+- 선수 기록
+- 경기당 선수 히트맵 및 분석 데이터
 
-------
+<br>
 
-### **추가**
+<div id = '2'>
 
-git branch <branch name> :  해당 이름으로 branch 생성
+<br>
 
-git branch -v : 로컬 branch를 최종 커밋내역과 함께 확인
+# 시스템 아키텍처
+![image](https://user-images.githubusercontent.com/53360337/201556720-4a847a20-e02a-417b-8898-8d9293ee7a18.png)
 
-git branch -r : 리모트 branch를 확인
+<br>
 
-git branch -a  :  모든 branch 확인
+<div id = '3'>
 
-git checkout origin <branch name> : 해당 branch로 이동
+# 기술 스택
+<div align=center></div>
 
-리모트 branch를 가져오고 싶을 때
+<div align=center> 
+  <img src="https://img.shields.io/badge/JAVA-6DB33F?style=for-the-badge&logoColor=white">
+  <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white">
+  <img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=Spring&logoColor=white">
+  <img src="https://img.shields.io/badge/JPA-6DB33F?style=for-the-badge&logoColor=white">
+  <img src="https://img.shields.io/badge/QueryDSL-6DB33F?style=for-the-badge&logoColor=white">
+  <img src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white">
+  <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white">
+  <img src="https://img.shields.io/badge/STOMP-6DB33F?style=for-the-badge&logoColor=white">
+  <img src="https://img.shields.io/badge/JWT-6DB33F?style=for-the-badge&logoColor=white">
+  <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white">
 
-```
-[특정이름 지정시]
-$ git checkout -b work2 origin/work2
-[원격 branch 이름을 그대로 사용할 경우]
-$ git checkout -t origin/work2
-```
+  <br/>
 
-**git branch -m (변경할 branch이름) (변경될 branch이름) : branch 이름 변경**
+  <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white">
+  <img src="https://img.shields.io/badge/YOLO-00FFFF?style=for-the-badge&logo=YOLO&logoColor=white">
+  <img src="https://img.shields.io/badge/SOCKETS-00FFFF?style=for-the-badge&logo=SOCKETS&logoColor=white">
+  <img src="https://img.shields.io/badge/Numpy-013243?style=for-the-badge&logo=Numpy&logoColor=white">
+  <img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white">
+  <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=PyTorch&logoColor=white">
+  <img src="https://img.shields.io/badge/Anaconda-44A833?style=for-the-badge&logo=Anaconda&logoColor=white">
+  
+
+  <br>
+
+  <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white">
+  <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=Axios&logoColor=white">
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white">
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white">
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white">
+  <img src="https://img.shields.io/badge/SOCKJS-FF9900?style=for-the-badge&logo=SOCKJS&logoColor=white">
+
+  <br>
+
+  <img src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=Android&logoColor=white">
+  <img src="https://img.shields.io/badge/Wear OS-4285F4?style=for-the-badge&logo=Wear OS&logoColor=white">
+
+  <br>
+
+  <img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=Redis&logoColor=white">
+  <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white"> 
+  
+
+  <br>
+
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=white"> 
+  <img src="https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=Jenkins&logoColor=white"> 
+  <img src="https://img.shields.io/badge/NGINX-009639?style=for-the-badge&logo=NGINX&logoColor=white">
+  <img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=Amazon EC2&logoColor=white">
+   
+
+  <br>
+
+  <img src="https://img.shields.io/badge/GitLab-FC6D26?style=for-the-badge&logo=GitLab&logoColor=white"> 
+  <img src="https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=Jira&logoColor=white">
+  <img src="https://img.shields.io/badge/Mattermost-0058CC?style=for-the-badge&logo=Amazon EC2&logoColor=white">
+
+  <br>
+</div>
+<br>
+
+## 기술스택 및 버전 상세
+
+| 구분       | 기술스택                    | 상세내용                 | 버전          |
+| -------- | ----------------------- | -------------------- | ----------- |
+| 공통     |                     |                |         |
+|          | 형상관리                    | Gitlab               | \-          |
+|          | 이슈관리                    | Jira                 | \-          |
+|          | 커뮤니케이션                  | Mattermost   | \-          |
+|          | 커뮤니케이션                  | Notion   | \-          |
+| Server   |                       |             |          |
+|          | 서버                      | AWS EC2              | \-          |
+|          | 플랫폼                     | Ubuntu               | 20.04         |
+|          | 배포                      | Docker               | 20.10.20         |
+|          | 배포                      | Docker Compose              |  1.29.2         |
+|          | 배포                      | Jenkins              | 2.361.2        |
+|          | 배포                      | Nginx              | 1.18.0          |
+| BackEnd  |                      |                 |        |
+|         | DB                      | MySQL                | 8.0.30         |
+|          | Cache Storage           | Redis              | 7-alpine         |
+|          | Java                    | Spring boot                 | 2.7.4   |
+|         |Java                      | QueryDSL                    | 5.0.0    |
+|Local         |                     |                  |    |
+|          | Python                    |                  | 3.10   |
+|          | Numpy                    |                  | - |
+|          | Pandas                    |                  |  -  |
+|          | Anaconda                    |                  | -  |
+|          | Pytorch                    |                  |  -  |
+| FrontEnd |                    |                      |          |
+|          | HTML5                   |                      | \-          |
+|          | CSS3                    |                      | \-          |
+|          | JavaScript(ES6)         |                      |\-           |
+|          | React         |                      |  18.2.0       |
+|          | Build                   | Node               | 16.15.0        |
+|          | Android          |                     |             |
+| Wear OS  |                  |                     |               |
+|          | Android          |                     | 7.3.1         |
+|          | Kotlin          |                      | 1.7.20        |
+| IDE          |   Visual Studio Code                   |   |1.70.0          |
+
+<br>
+
+<div id = '4'>
+
+# 프로젝트 산출물
+- 세부 내용 : 노션 참조
+
+<br>
+
+## 시나리오
+
+<img width="2811" alt="시연 시나리오 (2)" src="https://user-images.githubusercontent.com/53360337/202848267-070c204f-a4a5-4730-8b15-c09f53c37782.PNG">
+
+
+<br>
+
+## 기능 명세서
+![image](https://user-images.githubusercontent.com/53360337/201557410-0bcca18c-35cf-485b-aaba-ba1a96d71220.png)
+
+<br>
+
+## ER-Diagram
+![ER-Diagram](https://user-images.githubusercontent.com/53360337/201557265-b3c497e8-62f0-40cc-96eb-558d2cc26bb6.png)
+
+<br>
+
+## API 명세서
+![image](https://user-images.githubusercontent.com/53360337/201559702-f5857677-5e36-445a-bf50-34e131043ce2.png)
+
+
+<br>
+
+## 화면설계서
+[화면설계서 - Figma](https://www.figma.com/file/QA2ab9vGnFSnd6hqNJSwAk/자율~?node-id=0%3A1)
+
+<br>
+
+## EC2 포트
+
+| 구분       | 포트번호                    | 
+| -------- | ----------------------- |
+| Jenkins         |  8080                | 
+| Spring boot         | 8081                    | 
+| React         |  8082               | 
+| MySQL         |     3306             | 
+| Redis         |   6379               | 
+
+<br>
+
+<div id="5">
+
+# 데이터 출처
+- 팀 자체 촬영

@@ -26,6 +26,7 @@ function FieldPage() {
     ws,
     matchTeam,
     totalDistance,
+    registerHeart,
   } = useContext(UserContext);
   const fieldCtx = useContext(fieldContext);
   const { authTokens, BASE_URL } = useContext(AuthContext);
@@ -304,7 +305,7 @@ function FieldPage() {
         userID: `${parseInt(matchTeam[index].userId)}`,
         userDistance: `${totalDistance[index]}`,
         userHeartRate: parseInt(
-          JSON.stringify(heartBeatCtx.heartBeat[index].userHeartBeat)
+          registerHeart[index]/registerHeart[index+6]
         ),
       };
       userData.push(element);

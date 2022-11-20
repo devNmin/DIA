@@ -68,7 +68,7 @@ function CoordsSet() {
   };
 
   const setPromise = () => {
-    console.log('socket?', fieldCtx.isSocket);
+    // console.log('socket?', fieldCtx.isSocket);
     if (fieldCtx.isTimeChanged) {
       fieldCtx.setAccumulate(fieldCtx.maxIndex - fieldCtx.playTime);
       fieldCtx.setIsBuffered(true);

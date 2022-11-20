@@ -1,6 +1,7 @@
 package com.ssafy.backend.controller;
 
 import com.ssafy.backend.dto.ResponseDto;
+import com.ssafy.backend.dto.UserInfoDto;
 import com.ssafy.backend.dto.UserLoginDto;
 import com.ssafy.backend.dto.UserWearDto;
 import com.ssafy.backend.entity.User;
@@ -64,8 +65,14 @@ public class UserController {
             HttpServletRequest request){
         String userEmail = tokenService.getUserEmailFromToken(request);
         User user = userService.findByEmail(userEmail);
+        UserInfo userInfo = userInfoService.findByUserId(user.getUserId());
+        UserInfoDto userInfoDto = UserInfoDto.builder()
+                .userId(user.getUserId())
+                .userEmail(user.getUserEmail())
+                .userName(userInfo.getUserName())
+                .build();
 
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(userInfoDto);
     }
 
     @GetMapping("/check/code/{code}")

@@ -122,8 +122,8 @@ function FieldPage() {
       if (distance < 17) {
         nowI = i;
         fieldCtx.setNowD(() => i);
-        // fieldCtx.duplication[i][0] = x;
-        // fieldCtx.duplication[i][1] = y;
+        fieldCtx.duplication[i][0] = x;
+        fieldCtx.duplication[i][1] = y;
         fieldCtx.setIsMoving(() => true);
         return;
       }

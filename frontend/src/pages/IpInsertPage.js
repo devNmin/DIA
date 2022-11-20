@@ -221,9 +221,9 @@ export default function IpInsertPage() {
                 <label className="ipfont"> IP : </label>
                 <InputMask
                   className="ipInput"
-                  mask="999.999.9.99"
+                  mask="999.999.999.999"
                   maskChar=" "
-                  placeholder="xxx.xxx.x.xx"
+                  placeholder="xxx.xxx.xxx.xxx"
                   ref={ipAddress}
                   onChange={() => {
                     setIpV4(ipAddress.current.value.replace(/ /g, ''));

@@ -155,10 +155,13 @@
 |         |Java                      | QueryDSL                    | 5.0.0    |
 |Local         |                     |                  |    |
 |          | Python                    |                  | 3.10   |
-|          | Numpy                    |                  | - |
-|          | Pandas                    |                  |  -  |
+|          | Numpy                    |                  | 1.23.3 |
+|          | Pandas                    |                  |  1.5.1  |
 |          | Anaconda                    |                  | -  |
-|          | Pytorch                    |                  |  -  |
+|          | Pytorch                    |                  |  1.12.1  |
+|          | Yolo                    |         v7          |  -  |
+|          | StrongSort                    |      ONSnet            |  -  |
+|          | openCV-python                    |                 |   4.6.0.66  |
 | FrontEnd |                    |                      |          |
 |          | HTML5                   |                      | \-          |
 |          | CSS3                    |                      | \-          |

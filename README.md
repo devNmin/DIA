@@ -29,9 +29,20 @@
 <br>
 
 ## 주요 기능
+### 사용법 및 선수 등록
+![태블릿](https://user-images.githubusercontent.com/77014020/202987251-4cf541dd-3c12-40c5-9383-be7678ee2ee1.gif)
+
+
 ### 영상 분석
 - 실시간 영상 좌표 처리 및 트래킹
 - 드론 영상 좌표 처리 및 트래킹
+1.  실시간 트래킹
+
+    ![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/77014020/202988539-99641c66-21ee-4f55-b6ce-d3f2ebbce5ff.gif)
+
+2.  실시간 2D 좌표 변환
+
+    ![ezgif com-gif-maker](https://user-images.githubusercontent.com/77014020/202987916-bcb7f0c6-537a-4d92-af75-3ea2fcb504a6.gif)
 
 <br>
 
@@ -41,12 +52,16 @@
 - 시간 이동
 - 전술보드 그리기
 - 선수 이동
-- 실시간 심박수
+- 선수별 실시간 심박수 확인
+
+  ![2D그림판](https://user-images.githubusercontent.com/77014020/202992408-65700ec2-31bf-459d-913d-31f53b0b4957.gif)
 
 <br>
 
 ### 심박수 측정
-- 심박수 측정
+
+  <br/>
+  <img src="https://user-images.githubusercontent.com/77014020/202990459-d6712e77-1d53-4099-a4b9-8ebd37e54d5a.jpg" width="250" height="500"/>
 
 <br/>
 
@@ -54,6 +69,22 @@
 - 선수 능력치 
 - 선수 기록
 - 경기당 선수 히트맵 및 분석 데이터
+
+<br>
+
+<img src="https://user-images.githubusercontent.com/77014020/202991021-f5724536-b0bd-4315-b310-d8b718501823.jpg" width="250" height="500"/>
+<img src="https://user-images.githubusercontent.com/77014020/202991184-1ab2e0d6-2f1f-4f8b-b918-03f1628cdcc0.jpg" width="250" height="500"/>
+
+
+
+
+<br>
+
+
+
+
+
+
 
 <br>
 

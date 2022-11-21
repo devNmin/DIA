@@ -37,10 +37,12 @@
 - 실시간 영상 좌표 처리 및 트래킹
 - 드론 영상 좌표 처리 및 트래킹
 1.  실시간 트래킹
-![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/77014020/202988539-99641c66-21ee-4f55-b6ce-d3f2ebbce5ff.gif)
+
+    ![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/77014020/202988539-99641c66-21ee-4f55-b6ce-d3f2ebbce5ff.gif)
 
 2.  실시간 2D 좌표 변환
-![ezgif com-gif-maker](https://user-images.githubusercontent.com/77014020/202987916-bcb7f0c6-537a-4d92-af75-3ea2fcb504a6.gif)
+
+    ![ezgif com-gif-maker](https://user-images.githubusercontent.com/77014020/202987916-bcb7f0c6-537a-4d92-af75-3ea2fcb504a6.gif)
 
 <br>
 
@@ -51,7 +53,8 @@
 - 전술보드 그리기
 - 선수 이동
 - 선수별 실시간 심박수 확인
-![2D그림판](https://user-images.githubusercontent.com/77014020/202992408-65700ec2-31bf-459d-913d-31f53b0b4957.gif)
+
+  ![2D그림판](https://user-images.githubusercontent.com/77014020/202992408-65700ec2-31bf-459d-913d-31f53b0b4957.gif)
 
 <br>
 

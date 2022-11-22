@@ -13,7 +13,7 @@ function MyPage(props) {
 		<div className={styles.body}>
 			<TopNavbar />
 			<MyCard />
-			<DataGraph />
+			<DataGraph/>
 			{/* <div className={styles.graphbutton}>
 				<Link to='/detail'>
 				<button className={styles.detailButton}>

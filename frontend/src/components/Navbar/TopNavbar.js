@@ -14,12 +14,12 @@ function TopNavbar(props) {
     <div className={styles.wrapper}>
       <div className={styles.wrap}>
         <div>
-          <button className={styles.navButton} onClick={handleHistory}>경기 기록 </button>
-        </div>
-        <div>
           <Link to='/main'>
             <button className={styles.navButton}>개인 스탯</button>
           </Link>
+        </div>
+        <div>
+          <button className={styles.navButton} onClick={handleHistory}>경기 기록 </button>
         </div>
       </div>
     </div>

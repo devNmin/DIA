@@ -29,13 +29,13 @@ export default function TeamRegister() {
   // console.log(test.style.width);
   const history = useHistory();
   const goToCanvas = async () => {
-    for (let index = 0; index < matchTeam.length; index++) {
-      const element = matchTeam[index];
-      if (element === '') {
-        alert('유저가 등록되지 않은 위치가 있습니다!');
-        return;
-      }
-    }
+    // for (let index = 0; index < matchTeam.length; index++) {
+    //   const element = matchTeam[index];
+    //   if (element === '') {
+    //     alert('유저가 등록되지 않은 위치가 있습니다!');
+    //     return;
+    //   }
+    // }
     history.push('/canvasTest');
   };
   const goToIp = () => {

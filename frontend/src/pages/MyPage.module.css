@@ -3,13 +3,13 @@
     display: flex;
     justify-content: center;
     background-color: #000F24;
+    overflow: hidden;
 }
 
-.graphbutton {
-    display: flex;
-    position: fixed;
-    bottom: 3rem;
-}
+.body * {
+    touch-action: none;
+  }
+  
 
 .detailButton {
     margin: 1rem;

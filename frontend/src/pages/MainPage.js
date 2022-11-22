@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import styles from './MainPage.module.css'
+// import styles from './MainPage.module.css'
 import Modal from '../components/MainPage/Modal'
 // import { useHistory } from 'react-router-dom';
 import './MainPageCustom.scoped.css'
 import {
   TabletView,
   // MobileView,
-  isMobileOnly
+  isMobileOnly,
 } from "react-device-detect"
 import MyPage from './MyPage'
 import TeamMakePage from './TeamMakePage'

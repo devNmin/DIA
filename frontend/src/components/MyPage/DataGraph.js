@@ -228,14 +228,14 @@ const DataGraph = () => {
                 itemTextColor: "#999",
                 symbolSize: 15,
                 symbolShape: "circle",
-                effects: [
-                  {
-                    on: "hover",
-                    style: {
-                      itemTextColor: "#000",
-                    },
-                  },
-                ],
+                // effects: [
+                //   {
+                //     on: "hover",
+                //     style: {
+                //       itemTextColor: "#000",
+                //     },
+                //   },
+                // ],
               },
             ]}
             theme={{

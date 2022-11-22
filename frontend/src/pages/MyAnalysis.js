@@ -4,7 +4,7 @@ import Record from '../components/MyPage/Record';
 import BotNavbar from '../components/Navbar/BotNavbar';
 import axios from '../utils/axios';
 import TopNavbar from '../components/Navbar/TopNavbar';
-import { SignalWifiStatusbarConnectedNoInternet4TwoTone } from '@mui/icons-material';
+// import { SignalWifiStatusbarConnectedNoInternet4TwoTone } from '@mui/icons-material';
 
 function MyAnalysis(props) {
   // const [movies, setMovies] = useState([])

@@ -6,9 +6,9 @@ import { useHistory } from 'react-router-dom';
 import FootballNavbar from '../components/Navbar/FootballNavbar';
 import LodingText from '../components/Common/LodingText';
 import FieldContext from '../context/FieldContext';
-import axios from 'axios';
-import AuthContext from '../context/AuthContext';
-import { HeartContext } from '../context/HeartContext';
+// import axios from 'axios';
+// import AuthContext from '../context/AuthContext';
+// import { HeartContext } from '../context/HeartContext';
 
 export default function IpInsertPage() {
   const {
@@ -20,7 +20,7 @@ export default function IpInsertPage() {
     // userData,
     // setUserData,
     setWs,
-    matchTeam,
+    // matchTeam,
     setTotalDistance,
   } = useContext(UserContext);
   const fieldCtx = useContext(FieldContext);
@@ -44,7 +44,7 @@ export default function IpInsertPage() {
   let nowDistance = 0;
   let totalDistance = Array.from({ length: 6 }, () => 0);
   let fpsTime = 0.04; //프레임 컴퓨터에서 계산하는 속도? 5ms -> 나중엔 받아서 변경
-  let index = -1;
+  // let index = -1;
 
   useEffect(() => {
     if (!nowDate) {
@@ -89,7 +89,7 @@ export default function IpInsertPage() {
                 setFirstCoord(JSON.parse(message.data));
                 history.push('/teamregister');
               }
-              index++;
+              // index++;
               for (let i = 0; i < 12; i++) {
                 if (i in coordData) {
                   //user x,y

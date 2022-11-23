@@ -85,7 +85,7 @@ export const FieldProvider = ({ children }) => {
     11: [],
   });
   const [accumulate, setAccumulate] = useState(0); // 현재 재생하지 않고 있는 데이터 수
-  const [isBuffered, setIsBuffered] = useState(false); // 버퍼링중인가?
+  const [isBuffered, setIsBuffered] = useState(true); // 버퍼링중인가?
   const HandleBuffer = () => {
     setAccumulate((prev) => {
       if (prev + 1 > 30) {

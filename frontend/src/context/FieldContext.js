@@ -88,7 +88,7 @@ export const FieldProvider = ({ children }) => {
   const [isBuffered, setIsBuffered] = useState(false); // 버퍼링중인가?
   const HandleBuffer = () => {
     setAccumulate((prev) => {
-      if (prev + 1 > 60) {
+      if (prev + 1 > 30) {
         setIsBuffered(true);
       }
       return prev + 1;

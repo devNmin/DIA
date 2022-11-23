@@ -85,7 +85,7 @@ function CoordsSet() {
       return;
     }
 
-    sleep(100)
+    sleep(400)
       .then(() => {
         fieldSet();
       })
@@ -93,7 +93,7 @@ function CoordsSet() {
         fieldCtx.setPlayIndex((prev) => prev + 1);
         fieldCtx.setAccumulate((prev) => prev - 1);
         if (fieldCtx.accumulate < 10 && fieldCtx.isSocket) {
-          fieldCtx.setIsBuffered(false);
+          // fieldCtx.setIsBuffered(false);
         }
       });
   };

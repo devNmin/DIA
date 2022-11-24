@@ -85,7 +85,7 @@ function CoordsSet() {
       return;
     }
 
-    sleep(400)
+    sleep(300)
       .then(() => {
         fieldSet();
       })

@@ -24,9 +24,10 @@ export default function HeatMapPage({data}) {
     HeatMapHandler();
   },[]);
     
-  const HeatMapHandler = async (e) => {
+  const HeatMapHandler = async (e) => {    
     var heatmapInstance = h337.create({
         container: document.getElementById("heatmap-canvas"),
+        radius : 20
     });
     
     await axios.get(BASE_URL + `usergame/heatmapPoints/${data}`)
@@ -34,11 +35,10 @@ export default function HeatMapPage({data}) {
     .then(res => {     
       if (res.status === 200) {
         let points = []
-        let max =230;
         let heatmapData = res.data['points']
         let dataLen = heatmapData.length;
+        let max =dataLen/50;
         let idx = 0;
-        // console.log("heatmapData", heatmapData)
         while (idx++ < dataLen-1) {
             var val = 1;
             max = Math.max(max, val);

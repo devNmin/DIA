@@ -20,23 +20,22 @@ function ModalBasic({ setModalOpen, coord, offset }) {
     const HeatMapHandler = async (e) => {
         var heatmapInstance = h337.create({
             container: document.getElementById("heatmap-canvas-modal"),
+            radius : 20
         });
-        let points = []
-        let max =230;
+        let points = []        
         let heatmapData = coord
         let dataLen = heatmapData.length;
+        let max =dataLen/50;
         let idx = 0;
         while (idx++ < dataLen-1) {
             var val = 1;
+            max = Math.max(max, val);
             var point = {
                 x: Math.floor(heatmapData[idx][1] * widthRatio * -1 + offset),
                 y: Math.floor(heatmapData[idx][0] * heightRatio ),
             };
-            // console.log(idx, heatmapData[idx][1] + " " + heatmapData[idx][1] * -1 + offset)
             points.push(point);
         }
-        // console.log("points", points)
-        // console.log("widthRatio", widthRatio + " " + heightRatio)
         var data = { 
             max: max, 
             data: points 
